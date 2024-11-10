@@ -4,7 +4,15 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { type Editor } from '@tiptap/core';
-	import { ArrowLeft, ArrowRight, TextSearch, X, Replace, ReplaceAll } from 'lucide-svelte';
+	import {
+		ArrowLeft,
+		ArrowRight,
+		TextSearch,
+		X,
+		Replace,
+		ReplaceAll,
+		ChevronDown
+	} from 'lucide-svelte';
 
 	let { editor }: { editor: Editor } = $props();
 
@@ -71,7 +79,8 @@
 			>
 				<Popover.Trigger>
 					<Button variant="ghost" size="sm" class="h-8">
-						<TextSearch /> Search & Replace
+						<TextSearch />
+						<ChevronDown class="size-3 text-muted-foreground" />
 					</Button>
 				</Popover.Trigger>
 				<Popover.Content class="bg-popover shadow-lg *:my-2">

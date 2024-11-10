@@ -99,9 +99,6 @@ importers:
         specifier: ^2.0.2
         version: 2.0.3(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/extension-bubble-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/extension-floating-menu@2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)(svelte@5.1.12)
     devDependencies:
-      '@catppuccin/highlightjs':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.3.1(@sveltejs/kit@2.8.0(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.12)(vite@5.4.10))(svelte@5.1.12)(vite@5.4.10))
@@ -196,9 +193,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@catppuccin/highlightjs@1.0.0':
-    resolution: {integrity: sha512-Cq0b5pNkzAxTf7QwXkGcMnfEawOdaJP9wQJNsLO1PCqml+NgMe7mOknH3l/j/0Q3bgjijm+N26B8BAYiv18oQg==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -2175,8 +2169,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
-
-  '@catppuccin/highlightjs@1.0.0': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true

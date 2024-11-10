@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import Icons from '$lib/components/custom/icons/index.js';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import ShadEditor from '$lib/shad-editor/shad-editor.svelte';
 	import { writable } from 'svelte/store';
 
@@ -28,15 +30,30 @@ func main() {
 	});
 </script>
 
-<main class="flex h-screen w-full flex-col items-center justify-around">
-	<ShadEditor class="h-[40rem] max-h-[50rem]  sm:h-[90%] " bind:content={$content} />
-	<div class="text-center">
-		Made with ❤️ by
-		<a
-			href="https://tsuzat.com"
-			class="text-blue-600 underline"
+<div class="flex w-full flex-col items-center justify-around *:my-4">
+	<h1 class="animate-pulse text-4xl font-extrabold">Shad Editor</h1>
+	<p class="text-center text-[1.2rem] font-medium text-muted-foreground">
+		Made with Svelte, Tiptap and Shadcn UI for <span class="text-foreground">developers</span>
+	</p>
+	<p class="w-full text-center sm:w-[35rem]">
+		An editor with rich text features and a beautiful UI, provides full flexibility and customizable
+		components ready to copy and paste, made for developers.
+	</p>
+	<div>
+		<Button class="font-medium" href="/docs">
+			<Icons.document /> View Docs
+		</Button>
+		<Button
+			variant="outline"
+			class="font-medium"
+			href="https://github.com/Tsuzat/ShadEditor"
 			target="_blank"
-			rel="noopener noreferrer">Tsuzat</a
 		>
+			<Icons.github /> Star on Github
+		</Button>
 	</div>
-</main>
+	<div class="h-[calc(90dvh)] max-w-[95%] sm:h-[40rem] sm:w-fit">
+		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
+	</div>
+	<!-- <ShadEditor class="h-[40rem] max-h-[50rem] max-w-[100%] sm:h-[90%]" bind:content={$content} /> -->
+</div>

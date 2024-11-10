@@ -47,8 +47,8 @@
 	<TaskList {editor} />
 	<Image {editor} />
 	<Table {editor} />
-	<!-- <Textcolor {editor} />
-	<Highlighter {editor} /> -->
+	<Textcolor {editor} />
+	<Highlighter {editor} />
 	<Quickcolor {editor} />
 	<SearchReplace {editor} />
 </div>
