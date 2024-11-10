@@ -5,7 +5,7 @@
 
 .tiptap code:not(pre code) {
 	/* Remove the before and after pseudo elements */
-	@apply rounded border bg-transparent p-1 before:content-[''] after:content-[''];
+	@apply rounded border bg-muted/50 p-1 before:content-[''] after:content-[''];
 }
 
 .tiptap blockquote p {

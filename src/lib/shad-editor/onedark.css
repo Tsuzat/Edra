@@ -1,0 +1,87 @@
+/* One Dark and Light Theme for Highlight.js using Tailwind CSS */
+.tiptap pre code {
+	@apply text-[#383a42] dark:text-[#abb2bf];
+}
+
+/* Comment */
+.hljs-comment,
+.hljs-quote {
+	@apply italic text-[#a0a1a7] dark:text-[#5c6370];
+}
+
+/* Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	@apply text-[#e45649] dark:text-[#e06c75];
+}
+
+/* Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	@apply text-[#986801] dark:text-[#d19a66];
+}
+
+/* Yellow */
+.hljs-attribute {
+	@apply text-[#c18401] dark:text-[#e5c07b];
+}
+
+/* Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	@apply text-[#50a14f] dark:text-[#98c379];
+}
+
+/* Blue */
+.hljs-title,
+.hljs-section {
+	@apply text-[#4078f2] dark:text-[#61afef];
+}
+
+/* Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	@apply text-[#a626a4] dark:text-[#c678dd];
+}
+
+/* Cyan */
+.hljs-emphasis {
+	@apply italic text-[#0184bc] dark:text-[#56b6c2];
+}
+
+.hljs-strong {
+	@apply font-bold;
+}
+
+/* Base styles */
+.hljs-doctag,
+.hljs-formula {
+	@apply text-[#a626a4] dark:text-[#c678dd];
+}
+
+.hljs-attr,
+.hljs-subst {
+	@apply text-[#383a42] dark:text-[#abb2bf];
+}
+
+/* Line highlights */
+.hljs-addition {
+	@apply bg-[#e6ffed] dark:bg-[#283428];
+}
+
+.hljs-deletion {
+	@apply bg-[#ffeef0] dark:bg-[#342828];
+}

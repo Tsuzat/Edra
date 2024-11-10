@@ -39,7 +39,6 @@ const dependencies = [
 	'lucide-svelte',
 	'svelte-awesome-color-picker',
 	'svelte-tiptap',
-	'@catppuccin/highlightjs',
 	'@tiptap/extension-code-block-lowlight',
 	'lowlight'
 ];

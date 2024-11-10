@@ -37,7 +37,7 @@
 	// Lowlight
 	import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 	import { all, createLowlight } from 'lowlight';
-	import '@catppuccin/highlightjs/css/catppuccin-mocha.css';
+	import './onedark.css';
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
 
 	const lowlight = createLowlight(all);

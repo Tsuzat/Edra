@@ -29,7 +29,10 @@
 	}
 </script>
 
-<NodeViewWrapper class="code-wrapper group relative rounded bg-muted/20 p-6" draggable>
+<NodeViewWrapper
+	class="code-wrapper group relative rounded bg-muted p-6 dark:bg-muted/20"
+	draggable
+>
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger
 			contenteditable="false"
@@ -46,7 +49,8 @@
 			{#each languages as language}
 				<DropdownMenu.Item
 					contenteditable="false"
-					class="capitalize"
+					data-current={defaultLanguage === language}
+					class="capitalize data-[current=true]:bg-muted"
 					onclick={() => {
 						defaultLanguage = language;
 						updateAttributes({ language: defaultLanguage });
@@ -59,7 +63,7 @@
 	</DropdownMenu.Root>
 	<Button
 		variant="ghost"
-		class="absolute right-2 top-1 size-4 p-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
+		class="absolute right-2 top-2 size-4 p-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
 		onclick={copyCode}
 	>
 		{#if isCopying}
