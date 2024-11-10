@@ -1,6 +1,6 @@
 {
 	"name": "shadeditor",
-	"version": "0.0.3",
+	"version": "0.0.3-test-0.1",
 	"description": "Text editor build for svelte with tiptap and shadcn",
 	"author": {
 		"name": "Tsuzat",
@@ -32,6 +32,7 @@
 	"license": "MIT",
 	"files": [
 		"dist",
+		"src/lib/shad-editor",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
@@ -76,18 +77,23 @@
 		"svelte-tiptap": "^2.0.2"
 	},
 	"devDependencies": {
+		"@fontsource/dm-sans": "^5.1.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.0",
+		"@vercel/analytics": "^1.3.2",
+		"@vercel/speed-insights": "^1.0.14",
 		"autoprefixer": "^10.4.20",
-		"bits-ui": "1.0.0-next.39",
+		"bits-ui": "1.0.0-next.49",
+		"child_process": "^1.0.2",
 		"clsx": "^2.1.1",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
+		"fs-extra": "^11.2.0",
 		"globals": "^15.0.0",
 		"lucide-svelte": "^0.454.0",
 		"prettier": "^3.3.2",
@@ -104,15 +110,5 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
 		"vite": "^5.0.11"
-	},
-	"dependencies": {
-		"@fontsource/dm-sans": "^5.1.0",
-		"@tiptap/extension-code-block-lowlight": "^2.9.1",
-		"@vercel/analytics": "^1.3.2",
-		"@vercel/speed-insights": "^1.0.14",
-		"child_process": "^1.0.2",
-		"fs-extra": "^11.2.0",
-		"lowlight": "^3.1.0",
-		"svelte-tiptap": "^2.0.2"
 	}
 }
