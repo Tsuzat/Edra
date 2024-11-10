@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { exit } from 'process';
 
 // Get the current file's directory
 const __filename = fileURLToPath(import.meta.url);
@@ -90,6 +91,7 @@ async function init() {
 		console.log(`Components copied to ${targetPath}`);
 	} catch (error) {
 		console.error('Error copying components:', error);
+		exit(-1);
 	}
 	// Install dependencies
 	installDependencies();
