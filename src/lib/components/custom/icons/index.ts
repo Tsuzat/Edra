@@ -3,6 +3,7 @@ import Moon from 'lucide-svelte/icons/moon-star';
 import Coffee from 'lucide-svelte/icons/coffee';
 import Check from 'lucide-svelte/icons/check';
 import Document from 'lucide-svelte/icons/file-text';
+import Copy from 'lucide-svelte/icons/copy';
 
 // Custom Icons
 import Github from './github.svelte';
@@ -15,7 +16,8 @@ const Icons = {
 	check: Check,
 	moon: Moon,
 	coffee: Coffee,
-	document: Document
+	document: Document,
+	copy: Copy
 };
 
 export default Icons;

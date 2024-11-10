@@ -4,8 +4,6 @@
 	import Button from '../ui/button/button.svelte';
 	import Icons from './icons/index.js';
 	import ToggleTheme from './ToggleTheme.svelte';
-
-	let currentUrl = $derived($page.url.pathname);
 </script>
 
 <nav class="flex items-center justify-between border-b p-2 sm:p-4">
@@ -15,14 +13,9 @@
 	</a>
 	<div class="flex items-center gap-2">
 		<a
-			href="/docs"
-			data-current={currentUrl === '/docs'}
+			href="https://github.com/Tsuzat/ShadEditor?tab=readme-ov-file"
+			target="_blank"
 			class="text-muted-foreground data-[current=true]:text-foreground">Docs</a
-		>
-		<a
-			href="/docs/extensions"
-			data-current={currentUrl === '/docs/extensions'}
-			class="text-muted-foreground data-[current=true]:text-foreground">Extensions</a
 		>
 		<Button
 			variant="outline"

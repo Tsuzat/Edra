@@ -27,10 +27,10 @@
 	export let editor: Editor;
 </script>
 
-<div class="flex w-full items-center overflow-auto border-b p-0.5 *:mx-1">
+<div class="flex w-full items-center overflow-auto border-b p-1 *:mx-1">
 	<Undo {editor} />
 	<Redo {editor} />
-	<Separator orientation="vertical" class="h-10" />
+	<Separator orientation="vertical" class="h-fit" />
 	<Text {editor} />
 	<Bold {editor} />
 	<Italic {editor} />
