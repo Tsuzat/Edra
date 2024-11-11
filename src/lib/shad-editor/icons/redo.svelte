@@ -20,7 +20,7 @@
 			</Button>
 		</Tooltip.Trigger>
 		<Tooltip.Content>
-			<p>Undo (⌘R)</p>
+			<p>Redo (⌘R)</p>
 		</Tooltip.Content>
 	</Tooltip.Root>
 </Tooltip.Provider>

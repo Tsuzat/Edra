@@ -2,7 +2,7 @@
 	import { type Editor } from '@tiptap/core';
 	import Undo from './icons/undo.svelte';
 	import Redo from './icons/redo.svelte';
-	import { Separator } from '$lib/components/ui/separator/index.js';
+	// import { Separator } from '$lib/components/ui/separator/index.js';
 	import Bold from './icons/bold.svelte';
 	import Italic from './icons/italic.svelte';
 	import Underline from './icons/underline.svelte';
@@ -34,7 +34,7 @@
 <div class="flex w-full items-center overflow-auto border-b p-1 *:mx-1">
 	<Undo {editor} />
 	<Redo {editor} />
-	<Separator orientation="vertical" class="h-fit" />
+	<!-- <Separator orientation="vertical" class="h-fit" /> -->
 	<Text {editor} />
 	<Bold {editor} />
 	<Italic {editor} />
