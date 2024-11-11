@@ -40,7 +40,7 @@
 				variant: 'ghost',
 				size: 'sm',
 				class:
-					'absolute left-2 top-2 h-4 rounded p-1 text-xs capitalize text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100'
+					'absolute left-2 top-2 h-4 rounded px-1 py-2 text-xs capitalize text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100'
 			})}
 			>{defaultLanguage}
 			<ChevronDown class="!size-3" />

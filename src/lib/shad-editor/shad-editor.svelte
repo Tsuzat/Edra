@@ -1,11 +1,7 @@
 <script lang="ts">
-	let className: string = '';
-	export { className as class };
-	export let content: string = '';
-
 	import './editor.css';
 
-	import { Editor } from '@tiptap/core';
+	import { Editor, type Content } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import { onDestroy, onMount } from 'svelte';
 	import EditorToolbar from './editor-toolbar.svelte';
@@ -39,11 +35,18 @@
 	import { all, createLowlight } from 'lowlight';
 	import './onedark.css';
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
+	interface Props {
+		class?: string;
+		content?: Content;
+		showToolbar?: boolean;
+	}
+
+	let { class: className = '', content = $bindable(null), showToolbar = true }: Props = $props();
 
 	const lowlight = createLowlight(all);
 
-	let editor: Editor;
-	let element: HTMLElement;
+	let editor: Editor | undefined = $state();
+	let element: HTMLElement | undefined = $state();
 
 	onMount(() => {
 		editor = new Editor({
@@ -131,7 +134,7 @@
 </script>
 
 <div class={cn('flex flex-col rounded border', className)}>
-	{#if editor}
+	{#if editor && showToolbar}
 		<EditorToolbar {editor} />
 	{/if}
 	<div bind:this={element} spellcheck="false" class="h-full w-full flex-1 overflow-auto"></div>

@@ -24,7 +24,11 @@
 	import Text from './icons/text.svelte';
 	import SearchReplace from './icons/search-replace.svelte';
 
-	export let editor: Editor;
+	interface Props {
+		editor: Editor;
+	}
+
+	let { editor }: Props = $props();
 </script>
 
 <div class="flex w-full items-center overflow-auto border-b p-1 *:mx-1">

@@ -1,0 +1,376 @@
+<script lang="ts">
+	import { onMount, mount } from 'svelte';
+
+	import CopyCode from '$lib/components/custom/CopyCode.svelte';
+
+	import ShadEditor from '$lib/shad-editor/shad-editor.svelte';
+
+	onMount(() => {
+		const preTags = document.querySelectorAll('pre.shiki');
+		preTags.forEach((tag) => {
+			// Tag has code inside
+			let fileName = '';
+			let codeTag = tag.querySelector('code');
+			if (codeTag) {
+				// Code tag has a property "data-file-name" we need to get it
+				fileName = codeTag.dataset.fileName || 'Terminal';
+			}
+
+			// Generate a new div
+			let preTagParent = tag.parentNode;
+			const div = document.createElement('div');
+			div.className = 'valkyrie rounded overflow-hidden';
+
+			const divTopBar = document.createElement('div');
+			divTopBar.className =
+				'flex items-center justify-between px-4 rounded-t-md border-b border-muted-foreground/[10%] bg-muted/[25%] py-1.5 font-mono text-sm text-muted-foreground';
+
+			// Add one div with class "file name" and content as "filename.ext"
+			const fileNameDiv = document.createElement('div');
+			fileNameDiv.textContent = fileName;
+
+			mount(CopyCode, {
+				target: divTopBar
+			});
+
+			divTopBar.prepend(fileNameDiv);
+
+			if (preTagParent) {
+				preTagParent.replaceChild(div, tag);
+				div.prepend(divTopBar);
+				div.appendChild(tag);
+			}
+		});
+
+		// Add ID to all headings
+		const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+		headings.forEach((heading) => {
+			heading.id = heading.textContent.replaceAll(' ', '-');
+		});
+
+		// Custome Block Quote
+		const blockQuotes = document.querySelectorAll('blockquote');
+		blockQuotes.forEach((blockQuote) => {
+			const tagClass = blockQuote.textContent?.split(':')[0] || '';
+			switch (tagClass) {
+				case 'Warning':
+					blockQuote.classList.add(
+						'border-l-orange-500/80',
+						'bg-orange-500/[15%]',
+						'text-orange-500'
+					);
+					break;
+				case 'Error':
+					blockQuote.classList.add('border-l-red-500/80', 'bg-red-500/[15%]', 'text-red-500');
+					break;
+				case 'Info':
+					blockQuote.classList.add(
+						'border-l-green-500/80',
+						'bg-green-500/[15%]',
+						'text-green-500'
+					);
+					break;
+				default:
+					break;
+			}
+		});
+
+	});
+</script>
+
+<div class="h-full p-4 prose dark:prose-invert">
+
+# Introduction
+
+A ready to use text editor build for svelte with tiptap and shadcn ui.
+Creating a tiptap editor from scratch is a pain. This package provides a 
+ready-to-use editor with all the features you need. 
+You can install the package in your project but it will not give you flexibility. 
+The recommended way is to use cli which installs all the dependencies for you and pastes the shadeditor component in your project.
+
+---
+
+# Installation
+The main focus of this project is to provide ready to component in your current project. 
+You need to install the shadcn ui and it's dependencies.
+
+## Pre-Requisites - ⚠️ Important
+
+Since, this project uses shadcn ui, you need to install [shadcn](https://www.shadcn-svelte.com/) in your svelte project. The editor uses [tailwind typography](https://github.com/tailwindlabs/tailwindcss-typography) plugin which is not included in shadcn. So, you need to install it manually.
+
+### 1. Adding shadcn and it's components
+
+For installation of shadcn, please follow thier official [installation guide.](https://next.shadcn-svelte.com/docs/installation)
+
+The editor usages tooltip, dropdown menu, button, separator, input, etc. Add them in your svelte project.
+
+```bash
+# using npm
+npx shadcn-svelte@next add dropdown-menu button tooltip input popover separator
+# using pnpm
+pnpm dlx shadcn-svelte@next add dropdown-menu button tooltip input popover separator
+```
+
+### 2. Adding Tailwind Typography
+
+For installation of tailwind typography, please follow thier official [installation guide.](https://github.com/tailwindlabs/tailwindcss-typography?tab=readme-ov-file#installation)
+
+### 3. Adding Lucide Icons (Optional, CLI will do it for you)
+
+Add lucide icons in your svelte project.
+
+```bash
+# using npm
+npm install lucide-svelte
+# using pnpm
+pnpm install lucide-svelte
+```
+
+### 4. Adding Mode Watcher (Optional, CLI will do it for you)
+
+Mode watcher is used to detect the mode of the editor. Add it in your svelte project.
+
+```bash
+# using npm
+npm install mode-watcher
+# using pnpm
+pnpm install mode-watcher
+```
+### 5. Installation
+
+Recommended way is to use cli which installs all the dependencies for you and pastes the `shad-editor` component in your project. 
+This method gives you full independence and flexibility. You can further customize the editor as per your need.
+
+```bash
+# using npm
+npx shadeditor init
+# using pnpm
+pnpm dlx shadeditor init
+```
+---
+
+# Usage
+
+You can import the `shad-editor` component in any of the file.
+It should work **_just like_** any other svelte component.
+	
+
+```svelte{h[3,22]%f[+page.svelte]}
+<script lang="ts">
+	import { browser } from '$app/environment';
+	import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
+	import { writable } from 'svelte/store';
+
+	let localStorageContent = '';
+
+	if (browser) {
+		localStorageContent = localStorage.getItem('content') || '';
+	}
+
+	const content = writable(localStorageContent);
+
+	content.subscribe((value) => {
+		console.log('Content Changed');
+		if (!browser) return;
+		localStorage.setItem('content', value);
+	});
+</script>
+
+<main class="my-10 flex h-full w-full flex-col items-center justify-center">
+	<ShadEditor class="h-[40rem]" content={$content} />
+</main>
+```
+---
+# Markdown Support
+The editor has built in support for markdown. You can use `**Bold**`, `_italic_`, `~~strikethrough~~`, `>Quotes`, 
+`# Heading 1`, `## Heading 2`, `### Heading 3`, `- Unordered List`, `1. Ordered List`, `[] Task List` and more.
+
+[try it out in the editor.](/)
+
+---
+
+# Code Block Extended
+
+ShadEditor utilizes [lowlight](https://github.com/wooorm/lowlight) for syntax highlighting. For the code syntax highlighting,
+`one-light` and `one-dark` themes are added with respect to the theme of website. It usage tailwind css light and dark mode.
+
+> Info: By Default, the tiptap code block extension does not support `code copy` and `language selection`.
+
+If you see the code, there has beed added an extended code block component in `shad-editor/custom/code-extended.svelte`. 
+
+In shad-editor.svelte, the code block extension is added with `lowlight` option in `extensions` array.
+
+```svelte{ga[4-8]%f[+shad-editor.svelte]}
+CodeBlockLowlight.configure({
+	lowlight
+})
+.extend({
+	addNodeView() {
+		return SvelteNodeViewRenderer(CodeExtended);
+	}
+}),
+```
+This extension provides a dropdown menu to select the language of the code block with a copy button.
+
+[try it out in the editor.](/)
+
+---
+
+# Image Extended
+
+The image extension is extended with a `resize`, `align`, `caption`, `Duplicate` and `Delete` options.
+The code file for this extension can be found in `shad-editor/custom/Extentions/ImageExtention.ts` and
+component for this extension can be found in `shad-editor/custom/image-extended-component.svelte`.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[1]%f[+shad-editor.svelte]}
+ImageExtension
+```
+
+[try it out in the editor.](/)
+
+[Credit to Shadcn Editor](https://tiptap.niazmorshed.dev/docs/extensions/image)
+
+---
+
+# Table
+
+Table extension is default tiptap extension. 
+You can `edit`, `add`, `delete`, `merge` and `split` rows, cells and columns.
+
+[try it out in the editor.](/)
+
+---
+
+# Search And Replace
+
+Search and Replace provides an advanced search and replace functionality. This is a custom
+extension which is not a part of tiptap. You can `find` and `replace` the text in the editor.
+You can utilize `find next`, `find previous`, `replace` and `replace all` functionality. One can
+find the extenstion file in `shad-editor/custom/Extentions/SearchAndReplace.ts`.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[1]%f[+shad-editor.svelte]}
+SearchAndReplace
+```
+
+[try it out in the editor.](/)
+
+[Credit to sereneinserenade](https://github.com/sereneinserenade/tiptap-search-and-replace)
+
+---
+
+# Links
+
+Links extension is default tiptap extension. You can `add` and `remove` links with ease.
+By Default, the links do not open on click. You can make them open on click by adding `openOnClick` option.
+
+You can edit the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[2]%gd[3]%f[+shad-editor.svelte]}
+Link.configure({
+	openOnClick: true,
+	openOnClick: false,
+	autolink: true,
+	defaultProtocol: 'https',
+	HTMLAttributes: {
+		target: '_blank',
+		rel: 'noopener noreferrer'
+	}
+})
+```
+
+[try it out in the editor.](/)
+
+---
+
+# HTML Content
+
+The editor output can be stored as HTML. You can bind the `content` props 
+of the editor component with a string variable. The content will be updated on each `transaction`. 
+A simple example is shown below.
+
+```svelte{h[5-12,15-16,22]%f[+page.svelte]}
+<script lang="ts">
+	import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
+	import { writable } from 'svelte/store';
+
+	// Initialize the content with empty string
+	const content = writable("");
+
+	content.subscribe(async (value) => {
+		console.log('Content Changed');
+		// Save the content to your storage
+		await saveData(value);
+	});
+
+	omMount(async() => {
+		let rawData: string = await loadData();
+		content.set(rawData);
+	});
+
+</script>
+
+<main class="my-10 flex h-full w-full flex-col items-center justify-center">
+	<ShadEditor class="h-[40rem]" content={$content} />
+</main>
+```
+
+> Info: Under the hood, the content is being set to HTML in `shad-editor.svelte` file. You can find this on `onTransaction` function.
+
+```svelte{h[1-4]%f[+shad-editor.svelte]}
+onTransaction: (transaction) => {
+	editor = transaction.editor;
+	content = editor.getHTML();
+}
+```
+
+---
+
+# JSON Content
+
+The editor output can be stored as JSON. You can bind the `content` props 
+of the editor component with a string variable. The content will be updated on each `transaction`. 
+A simple example is shown below.
+
+```svelte{h[6-13,16-17,23]%f[+page.svelte]}
+<script lang="ts">
+	import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
+	import { writable } from 'svelte/store';
+	import { type JSONContent } from '@tiptap/core';
+
+	// Initialize the content with empty string
+	const content = writable<JSONContent[]>();
+
+	content.subscribe(async (value) => {
+		console.log('Content Changed');
+		// Save the content to your storage
+		await saveData(value);
+	});
+
+	omMount(async() => {
+		let rawData: JSONContent[] = await loadData();
+		content.set(rawData);
+	});
+
+</script>
+
+<main class="my-10 flex h-full w-full flex-col items-center justify-center">
+	<ShadEditor class="h-[40rem]" content={$content} />
+</main>
+```
+
+> Info: Under the hood, the content can be set to JSON in `shad-editor.svelte` file. You can edit this on `onTransaction` function.
+
+```svelte{ga[3]%f[+shad-editor.svelte]}
+onTransaction: (transaction) => {
+	editor = transaction.editor;
+	content = editor.getJSON();
+}
+```
+
+
+</div>
+

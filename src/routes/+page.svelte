@@ -37,7 +37,7 @@ function main(){
 		components ready to copy and paste, made for developers.
 	</p>
 	<div>
-		<Button class="font-medium" href="https://github.com/Tsuzat/ShadEditor?tab=readme-ov-file">
+		<Button class="font-medium" href="/docs">
 			<Icons.document /> View Docs
 		</Button>
 		<Button

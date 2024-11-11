@@ -12,11 +12,7 @@
 		<span class="hidden text-lg font-bold sm:block">Shad Editor</span>
 	</a>
 	<div class="flex items-center gap-2">
-		<a
-			href="https://github.com/Tsuzat/ShadEditor?tab=readme-ov-file"
-			target="_blank"
-			class="text-muted-foreground data-[current=true]:text-foreground">Docs</a
-		>
+		<a href="/docs" class="text-muted-foreground data-[current=true]:text-foreground">Docs</a>
 		<Button
 			variant="outline"
 			size="icon"
