@@ -35,18 +35,16 @@
 	import { all, createLowlight } from 'lowlight';
 	import './onedark.css';
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
-	interface Props {
-		class?: string;
-		content?: Content;
-		showToolbar?: boolean;
-	}
-
-	let { class: className = '', content = $bindable(null), showToolbar = true }: Props = $props();
 
 	const lowlight = createLowlight(all);
 
-	let editor: Editor | undefined = $state();
-	let element: HTMLElement | undefined = $state();
+	let className: string = '';
+	export { className as class };
+	export let content: Content = '';
+	export let showToolbar: boolean = true;
+
+	let editor: Editor;
+	let element: HTMLElement;
 
 	onMount(() => {
 		editor = new Editor({
