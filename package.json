@@ -69,12 +69,13 @@
 		"@tiptap/extension-text-style": "^2.9.1",
 		"@tiptap/extension-typography": "^2.9.1",
 		"@tiptap/extension-underline": "^2.9.1",
+		"svelte-awesome-color-picker": "^3.1.4",
 		"@tiptap/pm": "^2.9.1",
 		"@tiptap/starter-kit": "^2.9.1",
 		"lowlight": "^3.1.0",
 		"mode-watcher": "^0.4.1",
-		"svelte": "^5.0.0",
-		"svelte-tiptap": "^2.0.2"
+		"svelte": "^5.1.16",
+		"svelte-tiptap": "^2.0.3"
 	},
 	"devDependencies": {
 		"@fontsource/dm-sans": "^5.1.0",
@@ -100,8 +101,6 @@
 		"prettier-plugin-tailwindcss": "^0.6.5",
 		"publint": "^0.2.0",
 		"shiki": "^1.22.2",
-		"svelte": "^5.0.0",
-		"svelte-awesome-color-picker": "^3.1.4",
 		"svelte-check": "^4.0.0",
 		"tailwind-merge": "^2.5.4",
 		"tailwind-variants": "^0.2.1",
@@ -109,13 +108,12 @@
 		"tailwindcss-animate": "^1.0.7",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
-		"vite": "^5.0.11"
+		"vite": "^5.0.11",
+		"rehype-slug": "^6.0.0"
 	},
 	"dependencies": {
 		"@vercel/analytics": "^1.3.2",
 		"@vercel/speed-insights": "^1.0.14",
-		"child_process": "^1.0.2",
-		"fs-extra": "^11.2.0",
-		"rehype-slug": "^6.0.0"
+		"child_process": "^1.0.2"
 	}
 }

@@ -49,7 +49,7 @@ function main(){
 			<Icons.github /> Star on Github
 		</Button>
 	</div>
-	<div class="h-[calc(90dvh)] max-w-[95%] sm:h-[40rem] sm:w-fit">
+	<div class="h-[calc(90dvh)] w-[95%] sm:h-[40rem]">
 		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
 	</div>
 	<!-- <ShadEditor class="h-[40rem] max-h-[50rem] max-w-[100%] sm:h-[90%]" bind:content={$content} /> -->
