@@ -86,12 +86,12 @@ A ready to use text editor build for svelte with tiptap and shadcn ui.
 Creating a tiptap editor from scratch is a pain. This package provides a 
 ready-to-use editor with all the features you need. 
 You can install the package in your project but it will not give you flexibility. 
-The recommended way is to use cli which installs all the dependencies for you and pastes the shadeditor component in your project.
+The recommended way is to use cli which installs all the dependencies for you and pastes the `shad-editor` component in your project.
 
 ---
 
 # Installation
-The main focus of this project is to provide ready to component in your current project. 
+The main focus of this project is to provide ready to use component in your current project. 
 You need to install the shadcn ui and it's dependencies.
 
 ## Pre-Requisites - ⚠️ Important
@@ -196,11 +196,11 @@ ShadEditor utilizes [lowlight](https://github.com/wooorm/lowlight) for syntax hi
 
 > Info: By Default, the tiptap code block extension does not support `code copy` and `language selection`.
 
-If you see the code, there has beed added an extended code block component in `shad-editor/custom/code-extended.svelte`. 
+If you see the code, there has been added an extended code block component in `shad-editor/custom/code-extended.svelte`. 
 
 In shad-editor.svelte, the code block extension is added with `lowlight` option in `extensions` array.
 
-```svelte{ga[4-8]%f[+shad-editor.svelte]}
+```svelte{ga[4-8]%f[shad-editor.svelte]}
 CodeBlockLowlight.configure({
 	lowlight
 })
@@ -252,7 +252,7 @@ find the extenstion file in `shad-editor/custom/Extentions/SearchAndReplace.ts`.
 
 You can find the implementation in `shad-editor.svelte` file in `extensions` array.
 
-```svelte{ga[1]%f[+shad-editor.svelte]}
+```svelte{ga[1]%f[shad-editor.svelte]}
 SearchAndReplace
 ```
 
@@ -269,7 +269,7 @@ By Default, the links do not open on click. You can make them open on click by a
 
 You can edit the implementation in `shad-editor.svelte` file in `extensions` array.
 
-```svelte{ga[2]%gd[3]%f[+shad-editor.svelte]}
+```svelte{ga[2]%gd[3]%f[shad-editor.svelte]}
 Link.configure({
 	openOnClick: true,
 	openOnClick: false,
@@ -320,7 +320,7 @@ A simple example is shown below.
 
 > Info: Under the hood, the content is being set to HTML in `shad-editor.svelte` file. You can find this on `onTransaction` function.
 
-```svelte{h[1-4]%f[+shad-editor.svelte]}
+```svelte{h[1-4]%f[shad-editor.svelte]}
 onTransaction: (transaction) => {
 	editor = transaction.editor;
 	content = editor.getHTML();
@@ -364,9 +364,10 @@ A simple example is shown below.
 
 > Info: Under the hood, the content can be set to JSON in `shad-editor.svelte` file. You can edit this on `onTransaction` function.
 
-```svelte{ga[3]%f[+shad-editor.svelte]}
+```svelte{ga[4]%gd[3]%f[shad-editor.svelte]}
 onTransaction: (transaction) => {
 	editor = transaction.editor;
+	content = editor.getHTML();
 	content = editor.getJSON();
 }
 ```
