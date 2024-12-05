@@ -16,37 +16,46 @@
 	@apply text-blue-600 underline;
 }
 
-ul[data-type='taskList'] {
+.tiptap ul,
+.tiptap ol {
+	padding: 0 1rem;
+	margin: 1.25rem 1rem 1.25rem 0.4rem;
+}
+
+.tiptap ul li p,
+.tiptap ol li p {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+
+.tiptap ul[data-type='taskList'] {
 	list-style: none;
-	margin: 0;
+	margin-left: 0;
 	padding: 0;
 }
 
-ul[data-type='taskList'] li {
+.tiptap ul[data-type='taskList'] li {
+	align-items: flex-start;
 	display: flex;
-	align-items: center;
 }
 
-ul li,
-ol li {
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-}
-
-ul[data-type='taskList'] li label {
+.tiptap ul[data-type='taskList'] li > label {
 	flex: 0 0 auto;
 	margin-right: 0.5rem;
+	margin-top: 0.25rem;
 	user-select: none;
 }
 
-ul[data-type='taskList'] li div {
+.tiptap ul[data-type='taskList'] li > div {
 	flex: 1 1 auto;
 }
 
-ul[data-type='taskList'] li label {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+	cursor: pointer;
+}
+
+.tiptap ul[data-type='taskList'] ul[data-type='taskList'] {
+	margin: 0;
 }
 
 ul[data-type='taskList'] li[data-checked='true'] div {
@@ -54,11 +63,7 @@ ul[data-type='taskList'] li[data-checked='true'] div {
 }
 
 input[type='checkbox'] {
-	@apply size-4 cursor-pointer rounded !important;
-}
-
-ul[data-type='taskList'] ul[data-type='taskList'] {
-	margin: 0;
+	@apply size-4 cursor-pointer !important;
 }
 
 /* Color swatches */
