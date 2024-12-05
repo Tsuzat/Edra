@@ -1,6 +1,6 @@
 {
 	"name": "shadeditor",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Text editor build for svelte with tiptap and shadcn",
 	"author": {
 		"name": "Tsuzat",
@@ -21,10 +21,9 @@
 		"shadeditor": "./bin/cli.js"
 	},
 	"engines": {
-		"pnpm": ">=9",
-		"node": "20.x"
+		"pnpm": ">=9"
 	},
-	"packageManager": "pnpm@9.7.1",
+	"packageManager": "pnpm@9.14.4",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Tsuzat/ShadEditor.git"
