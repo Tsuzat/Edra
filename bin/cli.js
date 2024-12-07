@@ -4,6 +4,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { exit } from 'process';
+import { detect } from 'package-manager-detector';
 
 // Get the current file's directory
 const __filename = fileURLToPath(import.meta.url);
@@ -44,22 +45,22 @@ const dependencies = [
 	'lowlight'
 ];
 
-// Detect the package manager based on lock files
-function detectPackageManager() {
-	if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
-	if (fs.existsSync('yarn.lock')) return 'yarn';
-	if (fs.existsSync('package-lock.json')) return 'npm';
-	if (fs.existsSync('bun.lockb')) return 'bun';
-	return 'npm'; // Default to npm if no lock file is found
-}
-
 // Install dependencies with the detected package manager
-function installDependencies() {
-	const packageManager = detectPackageManager();
+async function installDependencies() {
+	const packageManager = await detect();
 	let installCommand;
 
+	if (!packageManager) {
+		console.log('No package manager detected. Do not worry just install following packages');
+		console.log(dependencies.join(' '));
+		return;
+	}
+
 	// Construct the install command based on the package manager
-	switch (packageManager) {
+	switch (packageManager.name) {
+		case 'npm':
+			installCommand = `npm install ${dependencies.join(' ')} --save-dev`;
+			break;
 		case 'pnpm':
 			installCommand = `pnpm add ${dependencies.join(' ')} --save-dev`;
 			break;
@@ -69,13 +70,18 @@ function installDependencies() {
 		case 'bun':
 			installCommand = `bun add ${dependencies.join(' ')} --dev`;
 			break;
-		default: // npm as fallback
-			installCommand = `npm install ${dependencies.join(' ')} --save-dev`;
+		case 'deno':
+			installCommand = `deno install --save-dev ${dependencies.join(' npm:')}`;
+			break;
+		default: // This would not happen but just in case
+			console.log('No package manager detected. Do not worry just install following packages');
+			console.log(dependencies.join(' '));
 			break;
 	}
 
 	try {
-		console.log(`Installing dependencies using ${packageManager}...`);
+		console.log(`Installing dependencies using ${packageManager.name}...`);
+		console.log(installCommand);
 		execSync(installCommand, { stdio: 'inherit' });
 		console.log('Dependencies installed successfully.');
 	} catch (error) {
