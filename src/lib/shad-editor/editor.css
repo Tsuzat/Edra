@@ -16,12 +16,6 @@
 	@apply text-blue-600 underline;
 }
 
-.tiptap ul,
-.tiptap ol {
-	padding: 0 1rem;
-	margin: 1.25rem 1rem 1.25rem 0.4rem;
-}
-
 .tiptap ul li p,
 .tiptap ol li p {
 	margin-top: 0.25em;
@@ -30,7 +24,7 @@
 
 .tiptap ul[data-type='taskList'] {
 	list-style: none;
-	margin-left: 0;
+	margin: 0;
 	padding: 0;
 }
 
