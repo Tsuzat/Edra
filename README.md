@@ -7,13 +7,17 @@ Creating a tiptap editor from scratch is a pain. This package provides a ready-t
 ## Table of Contents
 
 - [ShadEditor](#shadeditor)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Pre-Requisites (Important)](#pre-requisites-important) - [Adding shadcn and it's components](#adding-shadcn-and-its-components) - [Adding Tailwind Typography](#adding-tailwind-typography) - [Adding Lucide Icons (Optional, CLI will do it for you)](#adding-lucide-icons-optional-cli-will-do-it-for-you) - [Adding Mode Watcher (Optional, CLI will do it for you)](#adding-mode-watcher-optional-cli-will-do-it-for-you)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Credits](#credits)
-  - [License](#license)
+	- [Table of Contents](#table-of-contents)
+	- [Features](#features)
+	- [Pre-Requisites (Important)](#pre-requisites-important)
+			- [Adding shadcn and it's components](#adding-shadcn-and-its-components)
+			- [Adding Tailwind Typography](#adding-tailwind-typography)
+			- [Adding Lucide Icons (Optional, CLI will do it for you)](#adding-lucide-icons-optional-cli-will-do-it-for-you)
+			- [Adding Mode Watcher (Optional, CLI will do it for you)](#adding-mode-watcher-optional-cli-will-do-it-for-you)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Credits](#credits)
+	- [License](#license)
 
 ## Features
 
@@ -123,3 +127,6 @@ This project had many inspirations and was built with the help of the following 
 ## License
 
 [MIT](LICENSE)
+
+
+<a href="https://www.buymeacoffee.com/tsuzat" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
