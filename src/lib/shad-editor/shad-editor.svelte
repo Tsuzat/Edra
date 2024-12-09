@@ -35,6 +35,7 @@
 	import { all, createLowlight } from 'lowlight';
 	import './onedark.css';
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
+	import { ImagePlaceholder } from './custom/Extentions/ImagePlaceHolder.js';
 
 	const lowlight = createLowlight(all);
 
@@ -119,7 +120,8 @@
 				TableRow,
 				TableHeader,
 				TableCell,
-				ImageExtension
+				ImageExtension,
+				ImagePlaceholder
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
