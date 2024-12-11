@@ -181,6 +181,33 @@ It should work **_just like_** any other svelte component.
 </main>
 ```
 ---
+# Placeholder
+The editor has built in placeholder which let you show a text on new line. This is an official tiptap extension.
+
+You can find default implementation in shad-editor.svelte
+
+
+```svelte{f[shad-editor.svelte]}
+Placeholder.configure({
+	emptyEditorClass: 'is-empty',
+	placeholder: 'Write something …'
+})
+```
+You can also show node specific placeholder e.g. for headings.
+
+```svelte{h[3-8]%f[shad-editor.svelte]}
+Placeholder.configure({
+	emptyEditorClass: 'is-empty',
+	placeholder: ({ node }) => {
+		if (node.type.name === 'heading') {
+			return 'What’s the title?';
+		}
+		return 'Write something or use toolbar to insert something ...';
+	}
+})
+```
+
+---
 # Markdown Support
 The editor has built in support for markdown. You can use `**Bold**`, `_italic_`, `~~strikethrough~~`, `>Quotes`, 
 `# Heading 1`, `## Heading 2`, `### Heading 3`, `- Unordered List`, `1. Ordered List`, `[] Task List` and more.

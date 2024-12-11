@@ -12,6 +12,7 @@
 		{ name: 'Usage', isHeading: false },
 
 		{ name: 'Features', isHeading: true },
+		{ name: 'Placeholder', isHeading: false },
 		{ name: 'Markdown Support', isHeading: false },
 		{ name: 'Code Block Extended', isHeading: false },
 		{ name: 'Image Extended', isHeading: false },
