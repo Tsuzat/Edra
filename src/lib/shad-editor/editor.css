@@ -3,6 +3,11 @@
 	margin-bottom: 0 !important;
 }
 
+.tiptap .is-empty::before {
+	@apply pointer-events-none float-left h-0 text-muted-foreground;
+	content: attr(data-placeholder);
+}
+
 .tiptap code:not(pre code) {
 	/* Remove the before and after pseudo elements */
 	@apply rounded border bg-muted/50 p-1 before:content-[''] after:content-[''];

@@ -36,6 +36,7 @@
 	import './onedark.css';
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
 	import { ImagePlaceholder } from './custom/Extentions/ImagePlaceHolder.js';
+	import Placeholder from '@tiptap/extension-placeholder';
 
 	const lowlight = createLowlight(all);
 
@@ -78,6 +79,20 @@
 							class: 'tiptap-heading'
 						}
 					}
+				}),
+				Placeholder.configure({
+					emptyEditorClass: 'is-empty',
+					// Use a placeholder:
+					placeholder: 'Write something …'
+					// Use different placeholders depending on the node type:
+					// placeholder: ({ node }) => {
+					// 	if (node.type.name === 'heading') {
+					// 		return 'What’s the title?';
+					// 	} else if (node.type.name === 'paragraph') {
+					// 		return 'Write something or use toolbar to insert something ...';
+					// 	}
+					// 	return '';
+					// }
 				}),
 				Typography,
 				Text,

@@ -35,6 +35,7 @@ const dependencies = [
 	'@tiptap/extension-table-header',
 	'@tiptap/extension-table-row',
 	'@tiptap/extension-image',
+	'@tiptap/extension-placeholder',
 	'@tiptap/pm',
 	'@tiptap/starter-kit',
 	'mode-watcher',
