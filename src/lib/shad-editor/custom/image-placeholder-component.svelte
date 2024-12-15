@@ -13,11 +13,13 @@
 		<Popover.Trigger
 			class={buttonVariants({
 				variant: 'outline',
-				class: 'w-full items-center justify-start bg-muted/50 py-6'
+				class: 'h-fit w-full bg-muted/50 p-0'
 			})}
 		>
-			<ImageIcon />
-			<span>Add an Image</span>
+			<div contenteditable="false" class="flex w-full items-center justify-start p-4">
+				<ImageIcon class="mr-2" />
+				<span>Add an Image</span>
+			</div>
 		</Popover.Trigger>
 		<Popover.Content class="bg-popover shadow-lg *:my-2">
 			<div class="flex items-center justify-between">
