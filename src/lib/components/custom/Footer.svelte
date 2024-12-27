@@ -3,7 +3,7 @@
 	import Icons from './icons/index.js';
 </script>
 
-<footer class="flex items-center justify-center gap-2 p-2 sm:p-4">
+<footer class="flex items-center sm:flex-row flex-col justify-center gap-2 p-2 sm:p-4">
 	<span>
 		Made with ❤️ by <a
 			href="https://tsuzat.com"
