@@ -1,4 +1,5 @@
 # ShadEditor
+<img src="https://waka-api.dev-tsuzat.workers.dev/ShadEditor" />
 
 A ready to use text editor build for svelte with tiptap and shadcn ui.
 
