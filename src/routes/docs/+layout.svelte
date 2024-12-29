@@ -19,6 +19,7 @@
 		{ name: 'Table', isHeading: false },
 		{ name: 'Search And Replace', isHeading: false },
 		{ name: 'Links', isHeading: false },
+		{ name: 'Drag Handle', isHeading: false },
 
 		{ name: 'Content Output', isHeading: true },
 		{ name: 'HTML Content', isHeading: false },

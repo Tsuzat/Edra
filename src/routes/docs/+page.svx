@@ -313,6 +313,16 @@ Link.configure({
 
 ---
 
+# Drag Handle
+
+The editor has built in support for drag handle. You can drag the block to move it up and down.
+The nodes can be **auto joined** on drag. You can find the `⠿` looking handle on the left side of each block.
+You can grab it and move the block to any position. The document will **auto scroll** on drag.
+
+[try it out in the editor.](/)
+
+---
+
 # HTML Content
 
 The editor output can be stored as HTML. You can bind the `content` props 
