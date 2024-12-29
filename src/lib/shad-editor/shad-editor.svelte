@@ -37,6 +37,8 @@
 	import SearchAndReplace from './custom/Extentions/SearchAndReplace.js';
 	import { ImagePlaceholder } from './custom/Extentions/ImagePlaceHolder.js';
 	import Placeholder from '@tiptap/extension-placeholder';
+	import AutoJoiner from 'tiptap-extension-auto-joiner';
+	import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 
 	const lowlight = createLowlight(all);
 
@@ -58,7 +60,7 @@
 			editorProps: {
 				attributes: {
 					class:
-						'm-auto p-2 focus:outline-none flex-1 prose text-foreground min-w-full max-h-full overflow-auto dark:prose-invert *:my-2'
+						'm-auto p-2 px-6 focus:outline-none flex-1 prose text-foreground min-w-full max-h-full overflow-auto dark:prose-invert *:my-2'
 				}
 			},
 			extensions: [
@@ -94,6 +96,8 @@
 					// 	return '';
 					// }
 				}),
+				AutoJoiner,
+				GlobalDragHandle,
 				Typography,
 				Text,
 				TextStyle,
@@ -140,15 +144,8 @@
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
-				/**
-				 * Weird behavior of editor.
-				 * If we do not make it undefined, then it looses it's reactivity
-				 * this is because assigning editor directly to `transaction.editor`
-				 * the original object is not mutated.
-				 */
 				editor = undefined;
 				editor = transaction.editor;
-				console.log(editor.isActive('bold'));
 				content = editor.getHTML();
 			}
 		});
