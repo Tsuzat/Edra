@@ -22,18 +22,19 @@ Creating a tiptap editor from scratch is a pain. This package provides a ready-t
 
 ## Features
 
-- Rich Text Editing with markdown shortcuts
-- Rich text formatting like bold, italic, underline, strikethrough, superscript, subscript, textcolor, highlight, quickcolor, etc.
+- **Rich Text** Editing with markdown shortcuts
+- **Rich text** formatting like bold, italic, underline, strikethrough, superscript, subscript, textcolor, highlight, quickcolor, etc.
 - **Highlighter** and **Text Color** Picker (Pick any color from the color visualizer)
 - **Quickcolor** (Quickly pick a color from the color visualizer)
 - **Table** (Create tables with ease and add, delete, merge, split rows, cells and columns)
 - **Images** (Add images with url or pick from your device) with features like resize, align and caption
 - **Code Block** (Syntax highlight with lowlight) which supports multiple languages, dark and light mode and copy button
-- Blockquotes
-- Tiptap Typography with emojis, color visualizer and special characters
+- **Blockquotes** (Add blockquotes with ease)
+- **Tiptap Typography** (with emojis, color visualizer and special characters)
 - **Links** (Add and remove links with ease)
 - **Lists** (Unordered, ordered, task list)
 - **Search and Replace** (Find and replace text in the editor)
+- **Drag and Drop** (Drag and drop nodes in the editor)
 
 ## Pre-Requisites (Important)
 
