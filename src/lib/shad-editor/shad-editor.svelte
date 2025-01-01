@@ -80,7 +80,9 @@
 						HTMLAttributes: {
 							class: 'tiptap-heading'
 						}
-					}
+					},
+					codeBlock: false,
+					text: false
 				}),
 				Placeholder.configure({
 					emptyEditorClass: 'is-empty',
