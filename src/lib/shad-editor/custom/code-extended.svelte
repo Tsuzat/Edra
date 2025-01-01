@@ -16,10 +16,6 @@
 
 	let defaultLanguage = $state(node.attrs.language);
 
-	onMount(() => {
-		console.log(node);
-	});
-
 	function copyCode() {
 		isCopying = true;
 		navigator.clipboard.writeText(preRef.innerText);
@@ -40,7 +36,7 @@
 				variant: 'ghost',
 				size: 'sm',
 				class:
-					'absolute left-2 top-2 h-4 rounded px-1 py-2 text-xs capitalize text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100'
+					'absolute left-2 top-2 h-4 rounded px-1 py-2 text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100'
 			})}
 			>{defaultLanguage}
 			<ChevronDown class="!size-3" />
@@ -50,13 +46,16 @@
 				<DropdownMenu.Item
 					contenteditable="false"
 					data-current={defaultLanguage === language}
-					class="capitalize data-[current=true]:bg-muted"
+					class="data-[current=true]:bg-muted"
 					onclick={() => {
 						defaultLanguage = language;
 						updateAttributes({ language: defaultLanguage });
 					}}
 				>
 					<span>{language}</span>
+					{#if defaultLanguage === language}
+						<Check class="ml-auto" />
+					{/if}
 				</DropdownMenu.Item>
 			{/each}
 		</DropdownMenu.Content>
