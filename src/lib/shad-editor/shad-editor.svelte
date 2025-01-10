@@ -99,7 +99,9 @@
 					// }
 				}),
 				AutoJoiner,
-				GlobalDragHandle,
+				GlobalDragHandle.configure({
+					excludedTags: ['pre', 'code']
+				}),
 				Typography,
 				Text,
 				TextStyle,
