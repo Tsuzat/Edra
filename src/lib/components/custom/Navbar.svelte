@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import logo from '$lib/static/logo.png';
 	import Button from '../ui/button/button.svelte';
 	import Icons from './icons/index.js';

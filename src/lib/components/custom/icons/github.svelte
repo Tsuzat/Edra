@@ -1,12 +1,9 @@
 <script lang="ts">
-	import type { SVGAttributes } from 'svelte/elements';
 	interface Props {
 		[key: string]: any;
 	}
 
 	let { ...rest }: Props = $props();
-
-	type $$Props = SVGAttributes<SVGElement>;
 </script>
 
 <svg role="img" viewBox="0 0 24 24" {...rest}

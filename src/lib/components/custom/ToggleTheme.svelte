@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { resetMode, setMode, mode, theme } from 'mode-watcher';
+	import { resetMode, setMode } from 'mode-watcher';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import Icons from './icons/index.js';
 	interface Props {
 		variant?: 'link' | 'ghost';
