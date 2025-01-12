@@ -39,7 +39,7 @@
 						<ChevronDown class="!size-3 text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
-				<DropdownMenu.Content class="w-56">
+				<DropdownMenu.Content class="w-40">
 					<DropdownMenu.Item
 						onclick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
 						closeOnSelect={false}
