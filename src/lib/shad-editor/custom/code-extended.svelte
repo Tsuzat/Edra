@@ -2,7 +2,6 @@
 	import { NodeViewWrapper, NodeViewContent } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import { onMount } from 'svelte';
 	const { node, editor, selected, deleteNode, updateAttributes, extension }: NodeViewProps =
 		$props();
 	import { Copy, Check, ChevronDown } from 'lucide-svelte';
@@ -12,7 +11,7 @@
 
 	let isCopying = $state(false);
 
-	const languages = extension.options.lowlight.listLanguages().sort();
+	const languages: string[] = extension.options.lowlight.listLanguages().sort();
 
 	let defaultLanguage = $state(node.attrs.language);
 
@@ -41,12 +40,13 @@
 			>{defaultLanguage}
 			<ChevronDown class="!size-3" />
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content class="h-60 w-40 overflow-auto" contenteditable="false">
+		<DropdownMenu.Content class="h-96 w-40 overflow-auto" contenteditable="false">
 			{#each languages as language}
 				<DropdownMenu.Item
 					contenteditable="false"
 					data-current={defaultLanguage === language}
 					class="data-[current=true]:bg-muted"
+					textValue={language}
 					onclick={() => {
 						defaultLanguage = language;
 						updateAttributes({ language: defaultLanguage });
