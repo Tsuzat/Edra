@@ -72,7 +72,7 @@ async function installDependencies() {
 			installCommand = `bun add ${dependencies.join(' ')} --dev`;
 			break;
 		case 'deno':
-			installCommand = `deno install --save-dev ${dependencies.join(' npm:')}`;
+			installCommand = `deno install --dev npm:${dependencies.join(' npm:')}`;
 			break;
 		default: // This would not happen but just in case
 			console.log('No package manager detected. Do not worry just install following packages');
