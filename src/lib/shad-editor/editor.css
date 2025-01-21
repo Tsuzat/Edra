@@ -164,3 +164,11 @@ input[type='checkbox'] {
 	@apply text-muted-foreground;
 	content: '⠿';
 }
+
+.katex {
+	@apply hover:bg-muted;
+}
+
+.katex.result {
+	@apply border-b border-green-500 bg-green-500/25;
+}

@@ -19,6 +19,9 @@
 	import Text from '@tiptap/extension-text';
 	import Typography from '@tiptap/extension-typography';
 	import TextAlign from '@tiptap/extension-text-align';
+	import { MathExtension } from '@aarkue/tiptap-math-extension';
+
+	import 'katex/dist/katex.min.css';
 
 	import { SmilieReplacer } from './custom/Extentions/SmilieReplacer.js';
 	import { ColorHighlighter } from './custom/Extentions/ColorHighlighter.js';
@@ -144,7 +147,8 @@
 				TableHeader,
 				TableCell,
 				ImageExtension,
-				ImagePlaceholder
+				ImagePlaceholder,
+				MathExtension.configure({ evaluation: true })
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
