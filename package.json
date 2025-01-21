@@ -1,6 +1,6 @@
 {
 	"name": "shadeditor",
-	"version": "0.0.99",
+	"version": "0.1.0",
 	"description": "Text editor build for svelte with tiptap and shadcn",
 	"author": {
 		"name": "Tsuzat",
