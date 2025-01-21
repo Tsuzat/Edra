@@ -424,6 +424,14 @@ onTransaction: (transaction) => {
 }
 ```
 
+---
+# Export Data
+
+You can export the data from your editor as `html`, `json`, `markdown` and `plain text`.
+The exported data will be downloaded as a file named `data`. You can customise the export 
+functionalities from `/shad-editor/icons/export.svelte` file. 
+
+[try it out in the editor.](/)
 
 </div>
 

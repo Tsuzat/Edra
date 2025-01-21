@@ -25,7 +25,8 @@
 
 		{ name: 'Content Output', isHeading: true },
 		{ name: 'HTML Content', isHeading: false },
-		{ name: 'JSON Content', isHeading: false }
+		{ name: 'JSON Content', isHeading: false },
+		{ name: 'Export Data', isHeading: false }
 	];
 </script>
 
