@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import { isHttpError } from '@sveltejs/kit';
 	import './docs.css';
 
 	let { children } = $props();
@@ -20,6 +21,7 @@
 		{ name: 'Search And Replace', isHeading: false },
 		{ name: 'Links', isHeading: false },
 		{ name: 'Drag Handle', isHeading: false },
+		{ name: 'LaTeX Support', isHeading: false },
 
 		{ name: 'Content Output', isHeading: true },
 		{ name: 'HTML Content', isHeading: false },

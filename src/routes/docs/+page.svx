@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount, mount } from 'svelte';
-
 	import CopyCode from '$lib/components/custom/CopyCode.svelte';
-
 	import ShadEditor from '$lib/shad-editor/shad-editor.svelte';
 
 	onMount(() => {
@@ -320,6 +318,23 @@ The nodes can be **auto joined** on drag. You can find the `⠿` looking handle 
 You can grab it and move the block to any position. The document will **auto scroll** on drag.
 
 [try it out in the editor.](/)
+
+---
+
+# LaTeX Support
+
+The editor supports the LaTeX rendering. You can write the latex supported by [katex](https://katex.org/docs/supported).
+The editor can also evaluate the latex expressions. You can click on any latex expression to evaluate it. 
+Please note that the evaluation is done on `latex` expression so, you need to use proper syntax.
+
+> Demo Video for LaTeX Support
+<video controls={false} autoplay>
+	<source src="https://res.cloudinary.com/dkcwivtsa/video/upload/v1737445881/math_demo_gq3yxu.mp4" type="video/mp4">
+</video>
+
+[try it out in the editor.](/)
+
+[Credit to tiptap-math-extension](https://github.com/aarkue/tiptap-math-extension)
 
 ---
 
