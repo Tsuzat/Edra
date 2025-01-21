@@ -41,3 +41,20 @@ export const duplicateContent = (editor: Editor) => {
 		.focus(selection.to)
 		.run();
 };
+
+/**
+ * Function to download the content as a file
+ * @param data string - data to be downloaded
+ * @param fileName string - name of the file to be downloaded
+ */
+export const downloadFile = (data: string, fileName: string, type: string = 'text/plain') => {
+	const blob = new Blob([data], { type });
+	const url = window.URL.createObjectURL(blob);
+	const link = document.createElement('a');
+	link.href = url;
+	link.download = fileName;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	window.URL.revokeObjectURL(url);
+};
