@@ -20,6 +20,7 @@
 	import Typography from '@tiptap/extension-typography';
 	import TextAlign from '@tiptap/extension-text-align';
 	import { MathExtension } from '@aarkue/tiptap-math-extension';
+	import { Markdown } from 'tiptap-markdown';
 
 	import 'katex/dist/katex.min.css';
 
@@ -148,7 +149,8 @@
 				TableCell,
 				ImageExtension,
 				ImagePlaceholder,
-				MathExtension.configure({ evaluation: true })
+				MathExtension.configure({ evaluation: true }),
+				Markdown
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
