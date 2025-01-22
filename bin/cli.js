@@ -43,7 +43,9 @@ const dependencies = [
 	'svelte-awesome-color-picker',
 	'svelte-tiptap',
 	'@tiptap/extension-code-block-lowlight',
-	'lowlight'
+	'lowlight',
+	'@aarkue/tiptap-math-extension',
+	'tiptap-markdown'
 ];
 
 // Install dependencies with the detected package manager
