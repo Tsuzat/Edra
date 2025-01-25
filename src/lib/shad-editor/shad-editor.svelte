@@ -19,6 +19,7 @@
 	import Text from '@tiptap/extension-text';
 	import Typography from '@tiptap/extension-typography';
 	import TextAlign from '@tiptap/extension-text-align';
+	import Gapcursor from '@tiptap/extension-gapcursor';
 	import { MathExtension } from '@aarkue/tiptap-math-extension';
 	import { Markdown } from 'tiptap-markdown';
 
@@ -154,7 +155,8 @@
 				MathExtension.configure({ evaluation: true }),
 				Markdown,
 				VideoExtention,
-				VideoPlaceholder
+				VideoPlaceholder,
+				Gapcursor
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
