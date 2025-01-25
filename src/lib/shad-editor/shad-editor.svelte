@@ -43,6 +43,8 @@
 	import Placeholder from '@tiptap/extension-placeholder';
 	import AutoJoiner from 'tiptap-extension-auto-joiner';
 	import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
+	import { VideoExtention } from './custom/Extentions/VideoExtended.js';
+	import { VideoPlaceholder } from './custom/Extentions/VideoPlaceHolder.js';
 
 	const lowlight = createLowlight(all);
 
@@ -150,7 +152,9 @@
 				ImageExtension,
 				ImagePlaceholder,
 				MathExtension.configure({ evaluation: true }),
-				Markdown
+				Markdown,
+				VideoExtention,
+				VideoPlaceholder
 			],
 			autofocus: true,
 			onTransaction: (transaction) => {
