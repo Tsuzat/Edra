@@ -24,6 +24,7 @@
 	import Text from './icons/text.svelte';
 	import SearchReplace from './icons/search-replace.svelte';
 	import Export from './icons/export.svelte';
+	import Video from './icons/video.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -51,6 +52,7 @@
 	<OrderedList {editor} />
 	<TaskList {editor} />
 	<Image {editor} />
+	<Video {editor} />
 	<Table {editor} />
 	<Textcolor {editor} />
 	<Highlighter {editor} />
