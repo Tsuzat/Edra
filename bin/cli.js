@@ -45,7 +45,10 @@ const dependencies = [
 	'@tiptap/extension-code-block-lowlight',
 	'lowlight',
 	'@aarkue/tiptap-math-extension',
-	'tiptap-markdown'
+	'tiptap-markdown',
+	'@tiptap/extension-gapcursor',
+	'tiptap-extension-auto-joiner',
+	'tiptap-extension-global-drag-handle'
 ];
 
 // Install dependencies with the detected package manager
