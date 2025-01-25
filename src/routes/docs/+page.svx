@@ -257,6 +257,25 @@ ImageExtension
 
 [Credit to Shadcn Editor](https://tiptap.niazmorshed.dev/docs/extensions/image)
 
+
+---
+
+# Video Extended
+
+The image extension is extended with a `resize`, `align`, `caption`, `Duplicate` and `Delete` options.
+The code file for this extension can be found in `shad-editor/custom/Extentions/VideoExtention.ts` and
+component for this extension can be found in `shad-editor/custom/video-extended-component.svelte`.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[1]%f[+shad-editor.svelte]}
+VideoExtension
+```
+
+[try it out in the editor.](/)
+
+[Credit to Shadcn Editor](https://tiptap.niazmorshed.dev/docs/extensions/image)
+
 ---
 
 # Table
@@ -329,6 +348,7 @@ Please note that the evaluation is done on `latex` expression so, you need to us
 
 > Demo Video for LaTeX Support
 <video controls={false} autoplay>
+	<track kind="captions" />
 	<source src="https://res.cloudinary.com/dkcwivtsa/video/upload/v1737445881/math_demo_gq3yxu.mp4" type="video/mp4">
 </video>
 

@@ -17,6 +17,7 @@
 		{ name: 'Markdown Support', isHeading: false },
 		{ name: 'Code Block Extended', isHeading: false },
 		{ name: 'Image Extended', isHeading: false },
+		{ name: 'Video Extended', isHeading: false },
 		{ name: 'Table', isHeading: false },
 		{ name: 'Search And Replace', isHeading: false },
 		{ name: 'Links', isHeading: false },
