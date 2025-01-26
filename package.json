@@ -113,6 +113,7 @@
 		"vite": "^5.0.11"
 	},
 	"dependencies": {
+		"@sveltejs/adapter-static": "^3.0.8",
 		"child_process": "^1.0.2",
 		"fs-extra": "^11.2.0",
 		"package-manager-detector": "^0.2.7",
