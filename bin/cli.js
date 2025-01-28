@@ -48,7 +48,8 @@ const dependencies = [
 	'tiptap-markdown',
 	'@tiptap/extension-gapcursor',
 	'tiptap-extension-auto-joiner',
-	'tiptap-extension-global-drag-handle'
+	'tiptap-extension-global-drag-handle',
+	'katex'
 ];
 
 // Install dependencies with the detected package manager
