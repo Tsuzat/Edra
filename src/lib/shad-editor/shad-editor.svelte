@@ -27,10 +27,6 @@
 
 	import { SmilieReplacer } from './custom/Extentions/SmilieReplacer.js';
 	import { ColorHighlighter } from './custom/Extentions/ColorHighlighter.js';
-	import Table from '@tiptap/extension-table';
-	import TableRow from '@tiptap/extension-table-row';
-	import TableHeader from '@tiptap/extension-table-header';
-	import TableCell from '@tiptap/extension-table-cell';
 	import { ImageExtension } from './custom/Extentions/ImageExtention.js';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 	import CodeExtended from './custom/code-extended.svelte';
@@ -47,6 +43,9 @@
 	import { VideoExtention } from './custom/Extentions/VideoExtended.js';
 	import { VideoPlaceholder } from './custom/Extentions/VideoPlaceHolder.js';
 	import LinkBubbleMenu from './menus/link-bubble-menu.svelte';
+	import { Table, TableCell, TableHeader, TableRow } from './custom/Extentions/table/index.js';
+	import TableColumnMenu from './custom/Extentions/table/menu/table-col-menu.svelte';
+	import TableRowMenu from './custom/Extentions/table/menu/table-row-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -144,13 +143,10 @@
 				}),
 				SmilieReplacer,
 				ColorHighlighter,
-				Table.configure({
-					allowTableNodeSelection: true,
-					resizable: true
-				}),
+				Table,
+				TableCell,
 				TableRow,
 				TableHeader,
-				TableCell,
 				ImageExtension,
 				ImagePlaceholder,
 				MathExtension.configure({ evaluation: true }),
@@ -177,6 +173,8 @@
 	{#if editor && showToolbar}
 		<EditorToolbar {editor} />
 		<LinkBubbleMenu {editor} />
+		<TableColumnMenu {editor} />
+		<TableRowMenu {editor} />
 	{/if}
 	<div bind:this={element} spellcheck="false" class="h-full w-full flex-1 overflow-auto"></div>
 </div>
