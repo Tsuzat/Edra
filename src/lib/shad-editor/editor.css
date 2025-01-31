@@ -76,49 +76,6 @@ input[type='checkbox'] {
 	content: ' ';
 }
 
-/* Table-specific styling */
-.tiptap table {
-	border-collapse: collapse;
-	margin: 0;
-	overflow: hidden;
-	table-layout: fixed;
-	width: 100%;
-}
-
-.tiptap table td,
-.tiptap table th {
-	@apply border border-muted;
-	box-sizing: border-box;
-	min-width: 1em;
-	padding: 6px 8px;
-	position: relative;
-	vertical-align: top;
-}
-
-.tiptap table td > *,
-.tiptap table th > * {
-	margin-bottom: 0;
-}
-
-.tiptap table th {
-	@apply bg-muted/50 text-left font-bold;
-}
-
-.tiptap table .selectedCell:after {
-	@apply pointer-events-none absolute bottom-0 left-0 right-0 top-0 border-[2px] border-muted-foreground;
-	content: '';
-	z-index: 2;
-}
-
-.tiptap table .column-resize-handle {
-	@apply pointer-events-none absolute -bottom-[2px] -right-[2px] top-0 w-1 bg-muted;
-}
-
-.tiptap .tableWrapper {
-	margin: 1.5rem 0;
-	overflow-x: auto;
-}
-
 .tiptap.resize-cursor {
 	cursor: ew-resize;
 	cursor: col-resize;
@@ -171,4 +128,124 @@ input[type='checkbox'] {
 
 .katex.result {
 	@apply border-b border-green-500 bg-green-500/25;
+}
+
+.ProseMirror {
+	.tableWrapper {
+		@apply my-12;
+	}
+
+	table {
+		@apply box-border w-full border-collapse rounded border-muted;
+
+		td,
+		th {
+			@apply relative min-w-[100px] border border-muted p-2 text-left align-top;
+
+			&:first-of-type:not(a) {
+				@apply mt-0;
+			}
+
+			p {
+				@apply m-0;
+
+				& + p {
+					@apply mt-3;
+				}
+			}
+		}
+
+		th {
+			@apply font-bold;
+		}
+
+		.column-resize-handle {
+			@apply pointer-events-none absolute -bottom-[2px] -right-1 top-0 flex w-2;
+
+			&::before {
+				@apply ml-2 h-full w-[1px] bg-muted;
+				content: '';
+			}
+		}
+
+		.selectedCell {
+			@apply border-double border-muted bg-muted/50;
+		}
+
+		.grip-column,
+		.grip-row {
+			@apply absolute z-10 flex cursor-pointer items-center justify-center bg-muted/50;
+		}
+
+		.grip-column {
+			@apply -top-3 left-0 -ml-[1px] h-3 w-[calc(100%+1px)] border-l border-muted;
+
+			&:hover,
+			&.selected {
+				&::before {
+					content: '';
+					@apply w-2.5;
+				}
+			}
+
+			&:hover {
+				@apply bg-muted/80;
+
+				&::before {
+					@apply border-b-2 border-dotted border-muted-foreground;
+				}
+			}
+
+			&.first {
+				@apply rounded-tl-sm border-transparent;
+			}
+
+			&.last {
+				@apply rounded-tr-sm;
+			}
+
+			&.selected {
+				@apply border-muted bg-muted shadow-sm;
+
+				&::before {
+					@apply border-b-2 border-dotted;
+				}
+			}
+		}
+
+		.grip-row {
+			@apply -left-3 top-0 -mt-[1px] h-[calc(100%+1px)] w-3 border-t border-muted;
+
+			&:hover,
+			&.selected {
+				&::before {
+					@apply h-2.5;
+					content: '';
+				}
+			}
+			&:hover {
+				@apply bg-muted/80;
+
+				&::before {
+					@apply border-l-2 border-dotted border-muted-foreground;
+				}
+			}
+
+			&.first {
+				@apply rounded-tl-sm border-transparent;
+			}
+
+			&.last {
+				@apply rounded-bl-sm;
+			}
+
+			&.selected {
+				@apply border-muted bg-muted shadow-sm;
+
+				&::before {
+					@apply border-l-2 border-dotted;
+				}
+			}
+		}
+	}
 }
