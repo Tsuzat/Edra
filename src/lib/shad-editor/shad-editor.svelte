@@ -46,6 +46,7 @@
 	import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 	import { VideoExtention } from './custom/Extentions/VideoExtended.js';
 	import { VideoPlaceholder } from './custom/Extentions/VideoPlaceHolder.js';
+	import LinkBubbleMenu from './menus/link-bubble-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -175,6 +176,7 @@
 <div class={cn('flex flex-col rounded border', className)}>
 	{#if editor && showToolbar}
 		<EditorToolbar {editor} />
+		<LinkBubbleMenu {editor} />
 	{/if}
 	<div bind:this={element} spellcheck="false" class="h-full w-full flex-1 overflow-auto"></div>
 </div>
