@@ -1,0 +1,497 @@
+{
+	"type": "doc",
+	"content": [
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 1 },
+			"content": [
+				{
+					"type": "text",
+					"text": "Creating a rich text editor with Tiptap, shadcn and ❤️"
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"attrs": { "textAlign": "left" },
+			"content": [
+				{
+					"type": "text",
+					"text": "This editor supports markdown out of the box. We have "
+				},
+				{
+					"type": "text",
+					"marks": [
+						{ "type": "textStyle", "attrs": { "color": "rgb(245, 5, 5)" } },
+						{ "type": "bold" }
+					],
+					"text": "bold"
+				},
+				{ "type": "text", "text": ", " },
+				{ "type": "text", "marks": [{ "type": "italic" }], "text": "italic" },
+				{ "type": "text", "text": ", " },
+				{ "type": "text", "marks": [{ "type": "strike" }], "text": "strike" },
+				{ "type": "text", "text": ", " },
+				{
+					"type": "text",
+					"marks": [{ "type": "underline" }],
+					"text": "underline"
+				},
+				{ "type": "text", "text": ", " },
+				{
+					"type": "text",
+					"marks": [
+						{
+							"type": "link",
+							"attrs": {
+								"href": "https://github.com",
+								"target": "_blank",
+								"rel": "noopener noreferrer",
+								"class": null
+							}
+						}
+					],
+					"text": "link"
+				},
+				{ "type": "text", "text": ", " },
+				{ "type": "text", "marks": [{ "type": "code" }], "text": "code" },
+				{ "type": "text", "text": ", Superscript A" },
+				{ "type": "text", "marks": [{ "type": "superscript" }], "text": "b" },
+				{ "type": "text", "text": ", subscript A" },
+				{ "type": "text", "marks": [{ "type": "subscript" }], "text": "b" },
+				{ "type": "text", "text": ", " },
+				{
+					"type": "text",
+					"marks": [{ "type": "highlight", "attrs": { "color": "#940080" } }],
+					"text": "highlight1"
+				},
+				{
+					"type": "text",
+					"marks": [{ "type": "highlight", "attrs": { "color": "#1a1600" } }],
+					"text": ","
+				},
+				{ "type": "text", "text": " " },
+				{
+					"type": "text",
+					"marks": [{ "type": "highlight", "attrs": { "color": "#0000FF" } }],
+					"text": "highlight2"
+				},
+				{ "type": "text", "text": "," },
+				{
+					"type": "text",
+					"marks": [{ "type": "textStyle", "attrs": { "color": "rgb(78, 211, 21)" } }],
+					"text": "textcolor1, "
+				},
+				{
+					"type": "text",
+					"marks": [{ "type": "textStyle", "attrs": { "color": "rgb(128, 0, 128)" } }],
+					"text": "textcolor2."
+				}
+			]
+		},
+		{
+			"type": "blockquote",
+			"content": [
+				{
+					"type": "paragraph",
+					"attrs": { "textAlign": "left" },
+					"content": [
+						{
+							"type": "text",
+							"text": "Block Quote and Code highlight with lowlight and colorscheme onelight and onedark"
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [{ "type": "text", "text": "Code Block" }]
+		},
+		{
+			"type": "codeBlock",
+			"attrs": { "language": "typescript" },
+			"content": [
+				{
+					"type": "text",
+					"text": "// Main function\nfunction main(){\n    console.log(\"Hello Developers\");\n}"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [{ "type": "text", "text": "Lists" }]
+		},
+		{
+			"type": "bulletList",
+			"attrs": { "tight": false },
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "Unordered List" }]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "orderedList",
+			"attrs": { "tight": false, "start": 1 },
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "Ordered List" }]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "taskList",
+			"content": [
+				{
+					"type": "taskItem",
+					"attrs": { "checked": false },
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "Task List" }]
+						}
+					]
+				}
+			]
+		},
+		{ "type": "paragraph", "attrs": { "textAlign": "left" } },
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "center", "level": 2 },
+			"content": [{ "type": "text", "text": "Align Center" }]
+		},
+		{
+			"type": "paragraph",
+			"attrs": { "textAlign": "left" },
+			"content": [
+				{ "type": "text", "text": "Smilipicker, type " },
+				{ "type": "text", "marks": [{ "type": "code" }], "text": ":)" },
+				{
+					"type": "text",
+					"text": " and it becoms 🙂 or 😉. Typography support e.g. type "
+				},
+				{ "type": "text", "marks": [{ "type": "code" }], "text": "!=" },
+				{
+					"type": "text",
+					"text": " and it becomes ≠. Similarly (c) becomes ©, -> becomes → and many more like 1×2, ½. We also have color visualizer. #FFF, #000, #FF00FF can be visualized."
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [{ "type": "text", "text": "Table" }]
+		},
+		{
+			"type": "table",
+			"content": [
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						}
+					]
+				},
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"attrs": { "textAlign": "left" },
+									"content": [{ "type": "text", "text": "Hello There" }]
+								}
+							]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"attrs": { "textAlign": "left" },
+									"content": [{ "type": "text", "text": "Hello There" }]
+								}
+							]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"attrs": { "textAlign": "left" },
+									"content": [{ "type": "text", "text": "Hello There" }]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {
+								"colspan": 1,
+								"rowspan": 1,
+								"colwidth": null,
+								"style": null
+							},
+							"content": [{ "type": "paragraph", "attrs": { "textAlign": "left" } }]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [{ "type": "text", "text": "Image Support" }]
+		},
+		{
+			"type": "image",
+			"attrs": {
+				"src": "https://placehold.co/800x400/6A00F5/white",
+				"alt": null,
+				"title": "",
+				"width": 714,
+				"height": "100%",
+				"align": "center"
+			}
+		},
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [
+				{ "type": "text", "text": "Rending Maths and " },
+				{
+					"type": "inlineMath",
+					"attrs": { "latex": "\\LaTeX", "evaluate": "no", "display": "no" }
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"attrs": { "textAlign": "left" },
+			"content": [
+				{ "type": "text", "text": "The editor supports the " },
+				{
+					"type": "inlineMath",
+					"attrs": { "latex": "\\LaTeX", "evaluate": "no", "display": "no" }
+				},
+				{ "type": "text", "text": " rendering. e.g." }
+			]
+		},
+		{
+			"type": "orderedList",
+			"attrs": { "tight": false, "start": 1 },
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [
+								{ "type": "text", "text": "Functions like, " },
+								{
+									"type": "inlineMath",
+									"attrs": {
+										"latex": "sin²\\theta + cos²\\theta=1, a²+b²=c²",
+										"evaluate": "no",
+										"display": "no"
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "Matrix like unit matrix" }]
+						},
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [
+								{
+									"type": "inlineMath",
+									"attrs": {
+										"latex": "\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}",
+										"evaluate": "no",
+										"display": "no"
+									}
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "or more matrices like" }]
+						},
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [
+								{
+									"type": "inlineMath",
+									"attrs": {
+										"latex": "\\begin{pmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ 0 & 0 & \\cdots & 1 \\end{pmatrix}",
+										"evaluate": "no",
+										"display": "no"
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [{ "type": "text", "text": "Integrals and differential" }]
+						},
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [
+								{
+									"type": "inlineMath",
+									"attrs": {
+										"latex": "\\int_{0}^{\\frac{\\pi}{2}} \\sin(x) \\,dx = \\left[-\\cos(x)\\right]_0^{\\frac{\\pi}{2}} = -\\cos\\left(\\frac{\\pi}{2}\\right) + \\cos(0)",
+										"evaluate": "no",
+										"display": "no"
+									}
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": { "textAlign": "left" },
+							"content": [
+								{
+									"type": "inlineMath",
+									"attrs": {
+										"latex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}(\\sin x) = \\cos x",
+										"evaluate": "no",
+										"display": "no"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{ "type": "paragraph", "attrs": { "textAlign": "left" } },
+		{
+			"type": "video",
+			"attrs": {
+				"src": "https://videos.pexels.com/video-files/2491284/2491284-uhd_2732_1440_24fps.mp4",
+				"alt": null,
+				"title": null,
+				"width": 764,
+				"height": null,
+				"align": "center"
+			}
+		},
+		{ "type": "paragraph", "attrs": { "textAlign": "left" } },
+		{
+			"type": "heading",
+			"attrs": { "textAlign": "left", "level": 2 },
+			"content": [{ "type": "text", "text": "Explore More…." }]
+		},
+		{ "type": "paragraph", "attrs": { "textAlign": "left" } }
+	]
+}
