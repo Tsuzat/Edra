@@ -34,7 +34,7 @@
 <div class="flex h-full w-full">
 	<div
 		id="sidebar"
-		class="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full flex-[25] shrink-0 px-8 md:sticky md:block"
+		class="fixed top-0 z-30 -ml-2 hidden max-h-[calc(100vh-4.5rem)] w-full flex-[25] shrink-0 px-8 md:sticky md:block"
 	>
 		{#each docsHeadings as heading}
 			<div class="flex flex-col gap-y-2 p-2">
