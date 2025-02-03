@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Shad Editor</title>
+	<title>Shad Editor - A beautiful editor for svelte developers</title>
 </svelte:head>
 
 <ModeWatcher />
