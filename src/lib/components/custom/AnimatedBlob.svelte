@@ -10,7 +10,7 @@
 
 <div
 	class={cn(
-		'animate-blob absolute size-72 rounded-full opacity-50 mix-blend-multiply blur-3xl',
+		'absolute size-36 animate-blob  rounded-full opacity-50 mix-blend-multiply blur-2xl sm:size-72 sm:blur-3xl',
 		className
 	)}
 ></div>

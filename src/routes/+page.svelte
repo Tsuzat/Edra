@@ -37,10 +37,10 @@
 	<div class="blobs relative -z-20 w-full">
 		<AnimatedBlob class="left-1/2 top-0 bg-yellow-300 dark:bg-yellow-900" />
 		<AnimatedBlob
-			class="animation-delay-2000 left-[calc(50%-20rem)] top-0 bg-pink-300 dark:bg-pink-900"
+			class="animation-delay-2000 left-[calc(50%-10rem)] top-0 bg-pink-300 dark:bg-pink-900 sm:left-[calc(50%-20rem)]"
 		/>
 		<AnimatedBlob
-			class="animation-delay-4000 -bottom-40 left-[calc(50%-10rem)] top-10 bg-purple-300 dark:bg-purple-900"
+			class="animation-delay-4000 -bottom-40 left-[calc(50%-5rem)] top-10 bg-purple-300 dark:bg-purple-900 sm:left-[calc(50%-10rem)]"
 		/>
 	</div>
 
@@ -65,8 +65,8 @@
 			<Icons.github /> Star on Github
 		</Button>
 	</div>
-	<div class="relative z-30 h-[calc(90dvh)] w-[85%] sm:h-[40rem]">
-		<BorderBeam size={100} duration={15} class="rounded" />
+	<div class="relative z-30 h-[calc(90dvh)] w-[95%] sm:h-[40rem] sm:w-[85%]">
+		<BorderBeam size={100} class="rounded" />
 		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
 	</div>
 </div>
