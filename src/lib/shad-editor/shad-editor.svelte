@@ -156,10 +156,12 @@
 				Gapcursor
 			],
 			autofocus: true,
+			onUpdate: (transaction) => {
+				content = transaction.editor.getJSON();
+			},
 			onTransaction: (transaction) => {
 				editor = undefined;
 				editor = transaction.editor;
-				content = editor.getHTML();
 			}
 		});
 	});
