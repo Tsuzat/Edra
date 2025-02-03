@@ -7,6 +7,7 @@
 	import defaultContent from '$lib/static/default_data.json' assert { type: 'json' };
 	import type { Content } from '@tiptap/core';
 	import BorderBeam from '$lib/components/custom/BorderBeam.svelte';
+	import AnimatedBlob from '$lib/components/custom/AnimatedBlob.svelte';
 
 	let jsonContent: Content = {};
 	if (browser) {
@@ -32,7 +33,17 @@
 	});
 </script>
 
-<div class="flex w-full flex-col items-center justify-around *:my-4">
+<div class="relative flex w-full flex-col items-center justify-around *:my-4">
+	<div class="blobs relative -z-20 w-full">
+		<AnimatedBlob class="left-1/2 top-0 bg-yellow-300 dark:bg-yellow-900" />
+		<AnimatedBlob
+			class="animation-delay-2000 left-[calc(50%-20rem)] top-0 bg-pink-300 dark:bg-pink-900"
+		/>
+		<AnimatedBlob
+			class="animation-delay-4000 -bottom-40 left-[calc(50%-10rem)] top-10 bg-purple-300 dark:bg-purple-900"
+		/>
+	</div>
+
 	<h1 class="animate-pulse text-4xl font-extrabold">Shad Editor</h1>
 	<p class="text-center text-[1.2rem] font-medium text-muted-foreground">
 		Made with Svelte, Tiptap and Shadcn UI for <span class="text-foreground">developers</span>
@@ -54,7 +65,7 @@
 			<Icons.github /> Star on Github
 		</Button>
 	</div>
-	<div class="relative z-30 h-[calc(90dvh)] max-w-[90%] sm:h-[40rem]">
+	<div class="relative z-30 h-[calc(90dvh)] w-[90%] sm:h-[40rem]">
 		<BorderBeam size={150} duration={15} class="rounded" />
 		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
 	</div>
