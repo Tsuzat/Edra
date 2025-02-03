@@ -90,4 +90,12 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	::-webkit-scrollbar {
+		@apply size-2;
+	}
+
+	::-webkit-scrollbar-thumb {
+		@apply size-2 rounded-full bg-muted-foreground dark:bg-muted;
+	}
 }
