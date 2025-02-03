@@ -6,6 +6,7 @@
 	import { writable, type Writable } from 'svelte/store';
 	import defaultContent from '$lib/static/default_data.json' assert { type: 'json' };
 	import type { Content } from '@tiptap/core';
+	import BorderBeam from '$lib/components/custom/BorderBeam.svelte';
 
 	let jsonContent: Content = {};
 	if (browser) {
@@ -53,7 +54,8 @@
 			<Icons.github /> Star on Github
 		</Button>
 	</div>
-	<div class="h-[calc(90dvh)] w-[95%] sm:h-[40rem]">
+	<div class="relative z-30 h-[calc(90dvh)] max-w-[90%] sm:h-[40rem]">
+		<BorderBeam size={150} duration={15} class="rounded" />
 		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
 	</div>
 </div>
