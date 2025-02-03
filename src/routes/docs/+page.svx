@@ -410,21 +410,17 @@ A simple example is shown below.
 ```svelte{h[6-13,16-17,23]%f[+page.svelte]}
 <script lang="ts">
 	import ShadEditor from '$lib/components/shad-editor/shad-editor.svelte';
-	import { writable } from 'svelte/store';
-	import { type JSONContent } from '@tiptap/core';
+	import { writable, type Writable } from 'svelte/store';
+	import type { Content } from '@tiptap/core';
+	import {loadData, saveData} from 'mybackend';
 
-	// Initialize the content with empty string
-	const content = writable<JSONContent[]>();
+	// load the data from you data source of type Content
+	const content: Writable<Content> = writable(loadData());
 
 	content.subscribe(async (value) => {
 		console.log('Content Changed');
 		// Save the content to your storage
 		await saveData(value);
-	});
-
-	omMount(async() => {
-		let rawData: JSONContent[] = await loadData();
-		content.set(rawData);
 	});
 
 </script>
@@ -436,10 +432,9 @@ A simple example is shown below.
 
 > Info: Under the hood, the content can be set to JSON in `shad-editor.svelte` file. You can edit this on `onTransaction` function.
 
-```svelte{ga[4]%gd[3]%f[shad-editor.svelte]}
+```svelte{h[3]%f[shad-editor.svelte]}
 onTransaction: (transaction) => {
 	editor = transaction.editor;
-	content = editor.getHTML();
 	content = editor.getJSON();
 }
 ```
