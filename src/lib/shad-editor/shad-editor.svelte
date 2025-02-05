@@ -46,8 +46,7 @@
 	import { Table, TableCell, TableHeader, TableRow } from './custom/Extentions/table/index.js';
 	import TableColumnMenu from './custom/Extentions/table/menu/table-col-menu.svelte';
 	import TableRowMenu from './custom/Extentions/table/menu/table-row-menu.svelte';
-	import {Image as TipTapImage} from "@tiptap/extension-image";
-	import { getHandlePaste } from './custom/Extentions/GetHandlePaste.js';
+	import { getHandlePaste } from './custom/utils.js';
 
 	const lowlight = createLowlight(all);
 
@@ -92,9 +91,6 @@
 					},
 					codeBlock: false,
 					text: false
-				}),
-				TipTapImage.configure({
-					allowBase64: true,
 				}),
 				Placeholder.configure({
 					emptyEditorClass: 'is-empty',
@@ -152,7 +148,9 @@
 				TableCell,
 				TableRow,
 				TableHeader,
-				ImageExtension,
+				ImageExtension.configure({
+					allowBase64: true
+				}),
 				ImagePlaceholder,
 				MathExtension.configure({ evaluation: true }),
 				Markdown,
@@ -173,9 +171,8 @@
 		editor.setOptions({
 			editorProps: {
 				handlePaste: getHandlePaste(editor)
-			},
-		})			
-
+			}
+		});
 	});
 
 	onDestroy(() => {
