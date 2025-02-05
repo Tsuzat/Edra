@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core';
-import { Node } from '@tiptap/pm/model';
-import { Decoration, DecorationSet } from '@tiptap/pm/view';
+import { Node, Slice } from '@tiptap/pm/model';
+import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 
 export default function (doc: Node): DecorationSet {
 	const hexColor = /(#[0-9a-f]{3,6})\b/gi;
@@ -58,3 +58,35 @@ export const downloadFile = (data: string, fileName: string, type: string = 'tex
 	document.body.removeChild(link);
 	window.URL.revokeObjectURL(url);
 };
+
+/**
+ * Function to handle paste event of an image
+ * @param editor Editor - editor instance
+ * @param maxSize number - max size of the image to be pasted in MB, default is 2MB
+ */
+export function getHandlePaste(editor: Editor, maxSize: number = 2) {
+	return (view: EditorView, event: ClipboardEvent, slice: Slice) => {
+		const item = event.clipboardData?.items[0];
+
+		if (item?.type.indexOf('image') !== 0) {
+			return;
+		}
+
+		const file = item.getAsFile();
+		if (file === null || file.size === undefined) return;
+		let filesize = (file?.size / 1024 / 1024).toFixed(4);
+
+		if (filesize && Number(filesize) > maxSize) {
+			window.alert(`too large image! filesize: ${filesize} mb`);
+			return;
+		}
+
+		let reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = (e) => {
+			if (e.target?.result) {
+				editor.commands.setImage({ src: e.target.result as string });
+			}
+		};
+	};
+}
