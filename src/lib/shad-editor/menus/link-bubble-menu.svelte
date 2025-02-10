@@ -21,14 +21,6 @@
 	}}
 	class="flex h-fit w-fit items-center gap-1 rounded border bg-background p-1 shadow-lg"
 >
-	<!-- <a
-		href={link}
-		class="h-8 w-40 overflow-hidden text-ellipsis underline"
-		aria-label="link"
-		target="_blank"
-		title={'Open link: ' + link}
-		rel="noopener noreferrer">{link}</a
-	> -->
 	<Button variant="link" href={link} class="max-w-80 p-1" target="_blank">
 		<span class="w-full overflow-hidden text-ellipsis">
 			{link}
