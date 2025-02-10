@@ -28,14 +28,14 @@ export default function (doc: Node): DecorationSet {
 	return DecorationSet.create(doc, decorations);
 }
 
-export const duplicateContent = (editor: Editor) => {
+export const duplicateContent = (editor: Editor, node: Node) => {
 	const { view } = editor;
 	const { state } = view;
 	const { selection } = state;
 
 	editor
 		.chain()
-		.insertContentAt(selection.to, selection.content().content.firstChild?.toJSON(), {
+		.insertContentAt(selection.to, node.toJSON(), {
 			updateSelection: true
 		})
 		.focus(selection.to)
