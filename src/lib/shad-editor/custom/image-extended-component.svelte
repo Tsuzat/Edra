@@ -221,7 +221,7 @@
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
-								duplicateContent(editor);
+								duplicateContent(editor, node);
 							}}
 						>
 							<CopyIcon class="mr-1 size-4" /> Duplicate
