@@ -132,7 +132,7 @@ input[type='checkbox'] {
 
 .ProseMirror {
 	.tableWrapper {
-		@apply my-12;
+		@apply my-12 overflow-auto;
 	}
 
 	table {
@@ -223,6 +223,7 @@ input[type='checkbox'] {
 					content: '';
 				}
 			}
+
 			&:hover {
 				@apply bg-muted/80;
 
