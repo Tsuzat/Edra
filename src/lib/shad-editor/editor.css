@@ -151,11 +151,11 @@ input[type='checkbox'] {
 
 .ProseMirror {
 	.tableWrapper {
-		@apply my-12 overflow-auto;
+		@apply m-0 overflow-auto p-4;
 	}
 
 	table {
-		@apply box-border w-full border-collapse rounded border-muted;
+		@apply my-4 box-border w-full border-collapse rounded border-muted;
 
 		td,
 		th {
