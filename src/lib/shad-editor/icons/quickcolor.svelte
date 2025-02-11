@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import { cn } from '$lib/utils';
 	import { type Editor } from '@tiptap/core';
-	import { Check, ChevronDown } from 'lucide-svelte';
+	import { ChevronDown } from 'lucide-svelte';
 
 	let { editor }: { editor: Editor } = $props();
 
@@ -20,76 +21,89 @@
 		{ label: 'Yellow', value: '#FFFF00' }
 	];
 
-	const currentColor = $derived(editor.getAttributes('textStyle').color);
+	const currentColor = $derived.by(() => editor.getAttributes('textStyle').color);
+	const currentHighlight = $derived.by(() => editor.getAttributes('highlight').color);
 </script>
 
-<Tooltip.Provider>
-	<Tooltip.Root>
-		<Tooltip.Trigger>
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger>
-					<Button variant="ghost" size="sm" class="h-8" style={`color: ${currentColor}`}>
+<DropdownMenu.Root>
+	<DropdownMenu.Trigger>
+		<Tooltip.Provider delayDuration={100}>
+			<Tooltip.Root>
+				<Tooltip.Trigger>
+					<Button
+						variant="ghost"
+						size="sm"
+						class="h-8 w-fit gap-1 px-2"
+						style={`color: ${currentColor}; background-color: ${currentHighlight}30;`}
+					>
 						A
-						<ChevronDown class="!size-3" />
+						<ChevronDown class="!size-2" />
 					</Button>
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Content class="max-h-[25rem] w-40 overflow-auto">
-					<DropdownMenu.Group>
-						<span class="text-[0.75rem] font-medium text-muted-foreground">Text Color</span>
-						{#each colors as color}
-							<DropdownMenu.Item
-								class="flex items-center"
-								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
-										editor.chain().focus().unsetColor().run();
-									else
-										editor
-											.chain()
-											.focus()
-											.setColor(currentColor === color.value ? '' : color.value)
-											.run();
-								}}
-								closeOnSelect={false}
-							>
-								<span class="rounded border px-1 py-px font-medium" style={`color: ${color.value}`}
-									>A</span
-								>
-								<span>{color.label}</span>
-								{#if editor.isActive('textStyle', { color: color.value })}
-									<Check class="absolute right-2 !size-3 text-muted-foreground" />
-								{/if}
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
-					<DropdownMenu.Separator />
-					<DropdownMenu.Group>
-						<span class="text-[0.75rem] font-medium text-muted-foreground">Background Colors</span>
-						{#each colors as color}
-							<DropdownMenu.Item
-								class="flex items-center"
-								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
-										editor.chain().focus().unsetHighlight().run();
-									else editor.chain().focus().toggleHighlight({ color: color.value }).run();
-								}}
-								closeOnSelect={false}
-							>
-								<span
-									class="rounded px-1 py-px font-medium"
-									style={`background-color: ${color.value};`}>A</span
-								>
-								<span>{color.label}</span>
-								{#if editor.isActive('highlight', { color: color.value })}
-									<Check class="absolute right-2 !size-3 text-muted-foreground" />
-								{/if}
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
-		</Tooltip.Trigger>
-		<Tooltip.Content>
-			<p>Quick Colors</p>
-		</Tooltip.Content>
-	</Tooltip.Root>
-</Tooltip.Provider>
+				</Tooltip.Trigger>
+				<Tooltip.Content
+					avoidCollisions
+					class="border bg-background p-2 font-medium text-foreground"
+				>
+					<p>Quick Colors</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
+		</Tooltip.Provider>
+	</DropdownMenu.Trigger>
+	<DropdownMenu.Content
+		class="h-fit max-h-60 w-fit max-w-60 overflow-auto"
+		portalProps={{ disabled: true, to: undefined }}
+	>
+		<span class="text-[0.75rem] font-medium text-muted-foreground">Text Color</span>
+		<DropdownMenu.Group class="grid grid-cols-5 gap-2">
+			{#each colors as color}
+				<DropdownMenu.Item
+					onclick={() => {
+						if (color.value === '' || color.label === 'Default')
+							editor.chain().focus().unsetColor().run();
+						else
+							editor
+								.chain()
+								.focus()
+								.setColor(currentColor === color.value ? '' : color.value)
+								.run();
+					}}
+					closeOnSelect={false}
+					title={color.label}
+					class={buttonVariants({
+						variant: 'ghost',
+						class: cn(
+							'size-8 cursor-pointer bg-muted/50 p-1',
+							editor.isActive('textStyle', { color: color.value }) && 'border-2 font-semibold'
+						)
+					})}
+					style={`color: ${color.value}; background-color: ${color.value}30; border-color: ${color.value};`}
+				>
+					A
+				</DropdownMenu.Item>
+			{/each}
+		</DropdownMenu.Group>
+		<DropdownMenu.Separator />
+		<span class="text-[0.75rem] font-medium text-muted-foreground">Background Colors</span>
+		<DropdownMenu.Group class="grid grid-cols-5 gap-2">
+			{#each colors as color}
+				<DropdownMenu.Item
+					class={buttonVariants({
+						variant: 'ghost',
+						class: cn(
+							'size-8 cursor-pointer bg-muted/50 p-1',
+							editor.isActive('highlight', { color: color.value }) && 'border-2 font-semibold'
+						)
+					})}
+					style={`background-color: ${color.value}80; border-color: ${color.value};`}
+					onclick={() => {
+						if (color.value === '' || color.label === 'Default')
+							editor.chain().focus().unsetHighlight().run();
+						else editor.chain().focus().toggleHighlight({ color: color.value }).run();
+					}}
+					closeOnSelect={false}
+					title={color.label}
+				></DropdownMenu.Item>
+			{/each}
+		</DropdownMenu.Group>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>

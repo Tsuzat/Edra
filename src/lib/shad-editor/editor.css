@@ -39,10 +39,7 @@
 }
 
 .tiptap ul[data-type='taskList'] li > label {
-	flex: 0 0 auto;
-	margin-right: 0.5rem;
-	margin-top: 0.25rem;
-	user-select: none;
+	@apply mr-2 flex select-none items-center justify-center;
 }
 
 .tiptap ul[data-type='taskList'] li > div {
@@ -62,7 +59,29 @@ ul[data-type='taskList'] li[data-checked='true'] div {
 }
 
 input[type='checkbox'] {
-	@apply size-4 cursor-pointer !important;
+	-webkit-appearance: none;
+	@apply relative top-1 m-0 grid size-5 cursor-pointer appearance-none place-content-center rounded border-2 bg-transparent !important;
+
+	&:hover {
+		@apply bg-muted/50;
+	}
+
+	&:active {
+		@apply bg-muted;
+	}
+
+	&::before {
+		@apply h-3 w-3 scale-0 p-1 content-[''];
+		transform: scale(0);
+		transition: 120ms transform ease-in-out;
+		box-shadow: inset 1em 1em;
+		transform-origin: center;
+		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+	}
+
+	&:checked::before {
+		transform: scale(1);
+	}
 }
 
 /* Color swatches */
