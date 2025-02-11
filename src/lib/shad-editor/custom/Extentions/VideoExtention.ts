@@ -68,7 +68,7 @@ export const Video = Node.create<VideoOptions>({
 				(src: string) =>
 				({ commands }) =>
 					commands.insertContent(
-						`<video controls="true" style="width: fit-content" src="${src}" />`
+						`<video controls="true" style="width: fit-content" src="${src}"  autoplay="false"/>`
 					),
 
 			toggleVideo:
