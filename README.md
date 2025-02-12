@@ -38,6 +38,8 @@ Creating a tiptap editor from scratch is a pain. This package provides a ready-t
 - **Lists** (Unordered, ordered, task list)
 - **Search and Replace** (Find and replace text in the editor)
 - **Drag and Drop** (Drag and drop nodes in the editor with auto joiner feature)
+- **Slash Command** (Add headings, tables, images, videos, code blocks etc with ease)
+- **Font Size** (Change the font size of the text)
 
 ## Pre-Requisites (Important)
 
