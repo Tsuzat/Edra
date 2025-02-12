@@ -49,7 +49,9 @@ const dependencies = [
 	'@tiptap/extension-gapcursor',
 	'tiptap-extension-auto-joiner',
 	'tiptap-extension-global-drag-handle',
-	'katex'
+	'katex',
+	'tippy.js',
+	'@tiptap/suggestion'
 ];
 
 // Install dependencies with the detected package manager
