@@ -28,10 +28,10 @@
 					<Button
 						variant="ghost"
 						size="sm"
-						class={cn('h-8', editor.isActive('link') && 'bg-muted')}
+						class={cn('h-8 gap-1 p-1', editor.isActive('link') && 'bg-muted')}
 					>
 						<Link />
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="!size-2 text-muted-foreground" />
 					</Button>
 				</Popover.Trigger>
 				<Popover.Content class="bg-popover shadow-lg *:my-2">

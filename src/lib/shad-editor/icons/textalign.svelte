@@ -20,7 +20,7 @@
 		<Tooltip.Trigger>
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
-					<Button variant="ghost" size="sm" class="h-8">
+					<Button variant="ghost" size="sm" class="h-8 gap-1 p-1">
 						{#if editor.isActive({ textAlign: 'left' })}
 							<AlignLeft />
 						{:else if editor.isActive({ textAlign: 'center' })}
@@ -32,7 +32,7 @@
 						{:else}
 							<AlignLeft />
 						{/if}
-						<ChevronDown class="!size-3 text-muted-foreground" />
+						<ChevronDown class="!size-2 text-muted-foreground" />
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-56">

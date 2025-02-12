@@ -33,11 +33,11 @@
 					<Button
 						variant="ghost"
 						size="sm"
-						class="h-8 w-fit gap-1 px-2"
+						class="h-8 w-fit gap-1 p-1"
 						style={`color: ${currentColor}; background-color: ${currentHighlight}30;`}
 					>
 						A
-						<ChevronDown class="!size-2" />
+						<ChevronDown class="!size-2 text-muted-foreground" />
 					</Button>
 				</Tooltip.Trigger>
 				<Tooltip.Content

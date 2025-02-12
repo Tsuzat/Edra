@@ -25,6 +25,7 @@
 	import SearchReplace from './icons/search-replace.svelte';
 	import Export from './icons/export.svelte';
 	import Video from './icons/video.svelte';
+	import FontSize from './icons/font-size.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -37,6 +38,7 @@
 	<Undo {editor} />
 	<Redo {editor} />
 	<Separator orientation="vertical" class="h-fit" />
+	<FontSize {editor} />
 	<Text {editor} />
 	<Bold {editor} />
 	<Italic {editor} />

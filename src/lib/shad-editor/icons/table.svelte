@@ -22,9 +22,13 @@
 		<Tooltip.Provider>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
-					<Button variant="ghost" size="sm" class={cn('h-8', isTableActive && 'bg-muted')}>
+					<Button
+						variant="ghost"
+						size="sm"
+						class={cn('h-8 gap-1 p-1', isTableActive && 'bg-muted')}
+					>
 						<Table />
-						<ChevronDown class="!size-3" />
+						<ChevronDown class="!size-2 text-muted-foreground" />
 					</Button>
 				</Tooltip.Trigger>
 				<Tooltip.Content>
