@@ -47,6 +47,7 @@
 	import TableColumnMenu from './custom/Extentions/table/menu/table-col-menu.svelte';
 	import TableRowMenu from './custom/Extentions/table/menu/table-row-menu.svelte';
 	import { getHandlePaste } from './custom/utils.js';
+	import SlashCommand from './custom/Extentions/slash-command/slashcommand.js';
 
 	const lowlight = createLowlight(all);
 
@@ -100,7 +101,7 @@
 						if (node.type.name === 'heading') {
 							return 'What’s the title?';
 						} else if (node.type.name === 'paragraph') {
-							return 'Write something or use toolbar to insert something ...';
+							return 'Press / or write something ...';
 						}
 						return '';
 					}
@@ -155,7 +156,8 @@
 				Markdown,
 				VideoExtention,
 				VideoPlaceholder,
-				Gapcursor
+				Gapcursor,
+				SlashCommand
 			],
 			autofocus: true,
 			onUpdate: (transaction) => {
