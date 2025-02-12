@@ -179,6 +179,32 @@ It should work **_just like_** any other svelte component.
 </main>
 ```
 ---
+# Slash Command
+
+The editor has built in slash command which let you add headings, tables, images, videos, code blocks etc with ease.
+Find the implementation in `shad-editor/custom/Extentions/slash-command` folder. You can change the groups and commands as per your need.
+You can add or remove groups and commands as per your need.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[1]%f[shad-editor.svelte]}
+SlashCommand
+```
+---
+
+# Font Size
+
+The editor has built in font size which let you change the font size of the text.
+Find the implementation in `shad-editor/custom/Extentions/FontSize.ts` file.
+You can change the behavior of the font size as per your need in `shad-editor/icons/font-size.svelte` file.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.	
+
+```svelte{ga[1]%f[shad-editor.svelte]}
+FontSize
+```
+
+
 # Placeholder
 The editor has built in placeholder which let you show a text on new line. This is an official tiptap extension.
 

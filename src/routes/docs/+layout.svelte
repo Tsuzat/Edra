@@ -13,6 +13,8 @@
 		{ name: 'Usage', isHeading: false },
 
 		{ name: 'Features', isHeading: true },
+		{ name: 'Slash Command', isHeading: false },
+		{ name: 'Font Size', isHeading: false },
 		{ name: 'Placeholder', isHeading: false },
 		{ name: 'Markdown Support', isHeading: false },
 		{ name: 'Code Block Extended', isHeading: false },
