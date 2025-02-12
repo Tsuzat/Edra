@@ -48,6 +48,7 @@
 	import TableRowMenu from './custom/Extentions/table/menu/table-row-menu.svelte';
 	import { getHandlePaste } from './custom/utils.js';
 	import SlashCommand from './custom/Extentions/slash-command/slashcommand.js';
+	import FontSize from './custom/Extentions/FontSize.js';
 
 	const lowlight = createLowlight(all);
 
@@ -157,7 +158,8 @@
 				VideoExtention,
 				VideoPlaceholder,
 				Gapcursor,
-				SlashCommand
+				SlashCommand,
+				FontSize
 			],
 			autofocus: true,
 			onUpdate: (transaction) => {
