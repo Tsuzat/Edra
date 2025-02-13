@@ -2,7 +2,7 @@ import { Editor, Node, mergeAttributes, type CommandProps } from '@tiptap/core';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 import VideoPlaceholderComponent from '../video-placeholder-component.svelte';
 
-export interface ImagePlaceholderOptions {
+export interface VideoPlaceholderOptions {
 	HTMLAttributes: Record<string, object>;
 	onDrop: (files: File[], editor: Editor) => void;
 	onDropRejected?: (files: File[], editor: Editor) => void;
@@ -23,7 +23,7 @@ declare module '@tiptap/core' {
 	}
 }
 
-export const VideoPlaceholder = Node.create<ImagePlaceholderOptions>({
+export const VideoPlaceholder = Node.create<VideoPlaceholderOptions>({
 	name: 'video-placeholder',
 	addOptions() {
 		return {
