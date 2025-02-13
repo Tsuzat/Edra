@@ -112,6 +112,16 @@ export const GROUPS: Group[] = [
 			},
 
 			{
+				name: 'audio-placeholder',
+				label: 'Insert Audio',
+				iconName: 'AudioLines',
+				description: 'Insert an audio',
+				action: (editor) => {
+					editor.chain().focus().insertAudioPlaceholder().run();
+				}
+			},
+
+			{
 				name: 'table',
 				label: 'Insert Table',
 				iconName: 'Table',
