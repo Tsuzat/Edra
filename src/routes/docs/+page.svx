@@ -76,7 +76,7 @@
 	});
 </script>
 
-<div class="h-full p-4 prose dark:prose-invert">
+<div class="h-full p-4 prose m-auto dark:prose-invert">
 
 # Introduction
 
@@ -288,7 +288,7 @@ ImageExtension
 
 # Video Extended
 
-The image extension is extended with a `resize`, `align`, `caption`, `Duplicate` and `Delete` options.
+The video extension is extended with a `resize`, `align`, `caption`, `Duplicate` and `Delete` options.
 The code file for this extension can be found in `shad-editor/custom/Extentions/VideoExtention.ts` and
 component for this extension can be found in `shad-editor/custom/video-extended-component.svelte`.
 
@@ -296,6 +296,24 @@ You can find the implementation in `shad-editor.svelte` file in `extensions` arr
 
 ```svelte{ga[1]%f[+shad-editor.svelte]}
 VideoExtension
+```
+
+[try it out in the editor.](/)
+
+[Credit](https://tiptap.niazmorshed.dev/docs/extensions/image)
+
+---
+
+# Audio Extended
+
+The audio extension is extended with a `resize`, `align`, `caption`, `Duplicate` and `Delete` options.
+The code file for this extension can be found in `shad-editor/custom/Extentions/AudioExtention.ts` and
+component for this extension can be found in `shad-editor/custom/audio-extended-component.svelte`.
+
+You can find the implementation in `shad-editor.svelte` file in `extensions` array.
+
+```svelte{ga[1]%f[+shad-editor.svelte]}
+AudioExtension
 ```
 
 [try it out in the editor.](/)

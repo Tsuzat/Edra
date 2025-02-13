@@ -20,6 +20,7 @@
 		{ name: 'Code Block Extended', isHeading: false },
 		{ name: 'Image Extended', isHeading: false },
 		{ name: 'Video Extended', isHeading: false },
+		{ name: 'Audio Extended', isHeading: false },
 		{ name: 'Table', isHeading: false },
 		{ name: 'Search And Replace', isHeading: false },
 		{ name: 'Links', isHeading: false },
@@ -36,7 +37,7 @@
 <div class="flex h-full w-full">
 	<div
 		id="sidebar"
-		class="fixed top-0 z-30 -ml-2 hidden max-h-[calc(100vh-4.5rem)] w-full flex-[25] shrink-0 px-8 md:sticky md:block"
+		class="fixed top-0 z-30 -ml-2 max-h-[calc(100vh)] w-full flex-[15] shrink-0 overflow-auto px-8 md:sticky md:block"
 	>
 		{#each docsHeadings as heading}
 			<div class="flex flex-col gap-y-2 p-2">
@@ -55,7 +56,7 @@
 			</div>
 		{/each}
 	</div>
-	<div class="relative h-full w-full flex-[75]">
+	<div class="p-auto h-full w-full flex-[80]">
 		{@render children()}
 	</div>
 </div>
