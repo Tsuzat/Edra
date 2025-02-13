@@ -49,6 +49,8 @@
 	import { getHandlePaste } from './custom/utils.js';
 	import SlashCommand from './custom/Extentions/slash-command/slashcommand.js';
 	import FontSize from './custom/Extentions/FontSize.js';
+	import { AudioPlaceholder } from './custom/Extentions/AudioPlaceHolder.js';
+	import { AudioExtention } from './custom/Extentions/AudioExtended.js';
 
 	const lowlight = createLowlight(all);
 
@@ -159,7 +161,9 @@
 				VideoPlaceholder,
 				Gapcursor,
 				SlashCommand,
-				FontSize
+				FontSize,
+				AudioPlaceholder,
+				AudioExtention
 			],
 			autofocus: true,
 			onUpdate: (transaction) => {
