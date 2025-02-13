@@ -26,7 +26,7 @@
 	import Export from './icons/export.svelte';
 	import Video from './icons/video.svelte';
 	import FontSize from './icons/font-size.svelte';
-
+	import Audio from './icons/audio.svelte';
 	interface Props {
 		editor: Editor;
 	}
@@ -55,6 +55,7 @@
 	<TaskList {editor} />
 	<Image {editor} />
 	<Video {editor} />
+	<Audio {editor} />
 	<Table {editor} />
 	<Textcolor {editor} />
 	<Highlighter {editor} />
