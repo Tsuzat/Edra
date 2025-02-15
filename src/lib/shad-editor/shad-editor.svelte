@@ -159,7 +159,6 @@
 				Markdown,
 				VideoExtention,
 				VideoPlaceholder,
-				Gapcursor,
 				SlashCommand,
 				FontSize,
 				AudioPlaceholder,

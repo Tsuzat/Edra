@@ -46,7 +46,6 @@ const dependencies = [
 	'lowlight',
 	'@aarkue/tiptap-math-extension',
 	'tiptap-markdown',
-	'@tiptap/extension-gapcursor',
 	'tiptap-extension-auto-joiner',
 	'tiptap-extension-global-drag-handle',
 	'katex',
