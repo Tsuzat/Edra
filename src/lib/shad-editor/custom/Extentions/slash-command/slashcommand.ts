@@ -4,8 +4,8 @@ import { PluginKey } from '@tiptap/pm/state';
 
 import { GROUPS } from './groups.js';
 import MenuList from './menu-list.svelte';
-import SvelteRenderer from '$lib/shad-editor/svelte-renderer.js';
 import tippy from 'tippy.js';
+import SvelteRenderer from '../../../svelte-renderer.js';
 
 const extensionName = 'slashCommand';
 
