@@ -188,7 +188,9 @@
 
 <div class={cn('flex flex-col rounded border', className)}>
 	{#if editor && showToolbar}
-		<EditorToolbar {editor} />
+		{#if showToolbar}
+			<EditorToolbar {editor} />
+		{/if}
 		<LinkBubbleMenu {editor} />
 		<TableColumnMenu {editor} />
 		<TableRowMenu {editor} />
