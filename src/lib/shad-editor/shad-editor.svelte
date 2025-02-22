@@ -111,7 +111,7 @@
 				}),
 				AutoJoiner,
 				GlobalDragHandle.configure({
-					excludedTags: ['pre', 'code']
+					excludedTags: ['pre', 'code', 'table p']
 				}),
 				Typography,
 				Text,
