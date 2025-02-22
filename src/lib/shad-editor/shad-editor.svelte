@@ -19,7 +19,6 @@
 	import Text from '@tiptap/extension-text';
 	import Typography from '@tiptap/extension-typography';
 	import TextAlign from '@tiptap/extension-text-align';
-	import Gapcursor from '@tiptap/extension-gapcursor';
 	import { MathExtension } from '@aarkue/tiptap-math-extension';
 	import { Markdown } from 'tiptap-markdown';
 
@@ -51,6 +50,7 @@
 	import FontSize from './custom/Extentions/FontSize.js';
 	import { AudioPlaceholder } from './custom/Extentions/AudioPlaceHolder.js';
 	import { AudioExtention } from './custom/Extentions/AudioExtended.js';
+	import BubbleMenu from './menus/bubble-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -192,6 +192,7 @@
 			<EditorToolbar {editor} />
 		{/if}
 		<LinkBubbleMenu {editor} />
+		<BubbleMenu {editor} />
 		<TableColumnMenu {editor} />
 		<TableRowMenu {editor} />
 	{/if}
