@@ -2,11 +2,11 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { cn } from '$lib/utils';
-	import { type Editor } from '@tiptap/core';
+	import { cn } from '$lib/utils.js';
 	import { ChevronDown } from 'lucide-svelte';
+	import type { ToolBarIconProps } from './types.js';
 
-	let { editor }: { editor: Editor } = $props();
+	let { editor, toolTipProps = { delayDuration: 0, disabled: false } }: ToolBarIconProps = $props();
 
 	const colors = [
 		{ label: 'Default', value: '' },
@@ -27,7 +27,7 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger>
-		<Tooltip.Provider delayDuration={100}>
+		<Tooltip.Provider {...toolTipProps}>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
 					<Button

@@ -18,11 +18,11 @@
 	let { editor, color = $bindable('') }: Props = $props();
 </script>
 
-<Tooltip.Provider>
-	<Tooltip.Root>
-		<Tooltip.Trigger>
-			<Popover.Root>
-				<Popover.Trigger>
+<Popover.Root>
+	<Popover.Trigger>
+		<Tooltip.Provider>
+			<Tooltip.Root>
+				<Tooltip.Trigger>
 					<Button
 						variant="ghost"
 						size="sm"
@@ -32,44 +32,44 @@
 						<Baseline />
 						<ChevronDown class="!size-2 text-muted-foreground" />
 					</Button>
-				</Popover.Trigger>
-				<Popover.Content class="bg-popover shadow-lg *:my-2">
-					<div class="flex items-center justify-between">
-						<h1 class="text-[1.2rem] font-bold">Pick a text color</h1>
-						<Popover.Close>
-							<X class="size-4 text-muted-foreground" />
-						</Popover.Close>
-					</div>
-					<div class:dark={$mode === 'dark'}>
-						<ColorPicker
-							bind:hex={color}
-							sliderDirection="vertical"
-							isTextInput={false}
-							isAlpha
-							on:input={(event) => {
-								if (event.detail.hex === undefined) return;
-								color = event.detail.hex;
-								editor.chain().focus().setColor(color).run();
-							}}
-							isDialog={false}
-							--picker-indicator-size="1rem"
-							--input-size="1rem"
-						/>
-					</div>
-					<div class="flex items-center justify-end gap-2">
-						<Button
-							variant="outline"
-							size="sm"
-							class="border-destructive text-destructive hover:bg-destructive hover:text-foreground"
-							onclick={() => editor.chain().focus().unsetColor().run()}
-							>Remove Color
-						</Button>
-					</div>
-				</Popover.Content>
-			</Popover.Root>
-		</Tooltip.Trigger>
-		<Tooltip.Content>
-			<p>Text Color</p>
-		</Tooltip.Content>
-	</Tooltip.Root>
-</Tooltip.Provider>
+				</Tooltip.Trigger>
+				<Tooltip.Content>
+					<p>Text Color</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
+		</Tooltip.Provider>
+	</Popover.Trigger>
+	<Popover.Content class="bg-popover shadow-lg *:my-2">
+		<div class="flex items-center justify-between">
+			<h1 class="text-[1.2rem] font-bold">Pick a text color</h1>
+			<Popover.Close>
+				<X class="size-4 text-muted-foreground" />
+			</Popover.Close>
+		</div>
+		<div class:dark={$mode === 'dark'}>
+			<ColorPicker
+				bind:hex={color}
+				sliderDirection="vertical"
+				isTextInput={false}
+				isAlpha
+				on:input={(event) => {
+					if (event.detail.hex === undefined) return;
+					color = event.detail.hex;
+					editor.chain().focus().setColor(color).run();
+				}}
+				isDialog={false}
+				--picker-indicator-size="1rem"
+				--input-size="1rem"
+			/>
+		</div>
+		<div class="flex items-center justify-end gap-2">
+			<Button
+				variant="outline"
+				size="sm"
+				class="border-destructive text-destructive hover:bg-destructive hover:text-foreground"
+				onclick={() => editor.chain().focus().unsetColor().run()}
+				>Remove Color
+			</Button>
+		</div>
+	</Popover.Content>
+</Popover.Root>

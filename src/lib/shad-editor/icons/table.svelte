@@ -3,10 +3,10 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { cn } from '$lib/utils.js';
-	import { type Editor } from '@tiptap/core';
 	import { Table, ChevronDown } from 'lucide-svelte';
+	import type { ToolBarIconProps } from './types.js';
 
-	let { editor }: { editor: Editor } = $props();
+	let { editor, toolTipProps = { delayDuration: 0, disabled: false } }: ToolBarIconProps = $props();
 
 	const isTableActive = $derived.by(() => editor.isActive('table'));
 
@@ -19,7 +19,7 @@
 
 <DropdownMenu.Root bind:open>
 	<DropdownMenu.Trigger>
-		<Tooltip.Provider>
+		<Tooltip.Provider {...toolTipProps}>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
 					<Button

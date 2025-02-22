@@ -8,18 +8,18 @@
 		FileJson,
 		FileText
 	} from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { downloadFile } from '../custom/utils.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import type { ToolBarIconProps } from './types.js';
 
-	let { editor }: { editor: Editor } = $props();
+	let { editor, toolTipProps = { delayDuration: 0, disabled: false } }: ToolBarIconProps = $props();
 </script>
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger>
-		<Tooltip.Provider>
+		<Tooltip.Provider {...toolTipProps}>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
 					<Button variant="ghost" size="sm" class="h-8">

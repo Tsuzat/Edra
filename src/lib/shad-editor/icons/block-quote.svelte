@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { Quote } from 'lucide-svelte';
-	import { type Editor } from '@tiptap/core';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
+	import type { ToolBarIconProps } from './types.js';
 
-	let { editor }: { editor: Editor } = $props();
+	let { editor, toolTipProps = { delayDuration: 0, disabled: false } }: ToolBarIconProps = $props();
 </script>
 
-<Tooltip.Provider>
+<Tooltip.Provider {...toolTipProps}>
 	<Tooltip.Root>
 		<Tooltip.Trigger>
 			<Button

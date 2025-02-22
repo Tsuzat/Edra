@@ -2,21 +2,18 @@
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import type { Editor } from '@tiptap/core';
 	import { ChevronDown } from 'lucide-svelte';
+	import type { ToolBarIconProps } from './types.js';
 
-	interface Props {
-		editor: Editor;
-	}
-
-	let { editor }: Props = $props();
+	let { editor, toolTipProps = { delayDuration: 0, disabled: false } }: ToolBarIconProps = $props();
 
 	const FONT_SIZE = [
-		{ label: 'Smaller', value: '12px' },
-		{ label: 'Small', value: '14px' },
+		{ label: 'Tiny', value: '0.7rem' },
+		{ label: 'Smaller', value: '0.75rem' },
+		{ label: 'Small', value: '0.9rem' },
 		{ label: 'Medium', value: '' },
-		{ label: 'Large', value: '18px' },
-		{ label: 'Extra Large', value: '24px' }
+		{ label: 'Large', value: '1.25rem' },
+		{ label: 'Extra Large', value: '1.5rem' }
 	];
 
 	let currentSize = $derived.by(() => editor.getAttributes('textStyle').fontSize || '');
@@ -30,7 +27,7 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger>
-		<Tooltip.Provider delayDuration={100}>
+		<Tooltip.Provider {...toolTipProps}>
 			<Tooltip.Root>
 				<Tooltip.Trigger class={buttonVariants({ variant: 'ghost', class: 'h-8 w-fit gap-1 p-1' })}>
 					<span>{currentLabel}</span>
