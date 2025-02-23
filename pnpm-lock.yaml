@@ -9,22 +9,22 @@ importers:
   .:
     devDependencies:
       '@eslint/compat':
-        specifier: ^1.2.5
+        specifier: ^1.2.7
         version: 1.2.7(eslint@9.21.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.18.0
+        specifier: ^9.21.0
         version: 9.21.0
       '@sveltejs/adapter-static':
         specifier: ^3.0.8
         version: 3.0.8(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0)))
       '@sveltejs/kit':
-        specifier: ^2.16.0
+        specifier: ^2.17.2
         version: 2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
       '@sveltejs/package':
-        specifier: ^2.0.0
+        specifier: ^2.3.10
         version: 2.3.10(svelte@5.20.2)(typescript@5.7.3)
       '@sveltejs/vite-plugin-svelte':
-        specifier: ^5.0.0
+        specifier: ^5.0.3
         version: 5.0.3(svelte@5.20.2)(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
       '@tailwindcss/typography':
         specifier: ^0.5.16
@@ -36,7 +36,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       eslint:
-        specifier: ^9.18.0
+        specifier: ^9.21.0
         version: 9.21.0(jiti@2.4.2)
       eslint-config-prettier:
         specifier: ^10.0.1
@@ -45,28 +45,28 @@ importers:
         specifier: ^2.46.1
         version: 2.46.1(eslint@9.21.0(jiti@2.4.2))(svelte@5.20.2)
       globals:
-        specifier: ^15.14.0
+        specifier: ^15.15.0
         version: 15.15.0
       mdsvex:
         specifier: ^0.12.3
         version: 0.12.3(svelte@5.20.2)
       prettier:
-        specifier: ^3.4.2
+        specifier: ^3.5.2
         version: 3.5.2
       prettier-plugin-svelte:
         specifier: ^3.3.3
         version: 3.3.3(prettier@3.5.2)(svelte@5.20.2)
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.10
+        specifier: ^0.6.11
         version: 0.6.11(prettier-plugin-svelte@3.3.3(prettier@3.5.2)(svelte@5.20.2))(prettier@3.5.2)
       publint:
-        specifier: ^0.3.2
+        specifier: ^0.3.6
         version: 0.3.6
       svelte:
-        specifier: ^5.0.0
+        specifier: ^5.20.2
         version: 5.20.2
       svelte-check:
-        specifier: ^4.0.0
+        specifier: ^4.1.4
         version: 4.1.4(svelte@5.20.2)(typescript@5.7.3)
       tailwind-merge:
         specifier: ^3.0.2
@@ -81,16 +81,16 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       typescript:
-        specifier: ^5.0.0
+        specifier: ^5.7.3
         version: 5.7.3
       typescript-eslint:
-        specifier: ^8.20.0
+        specifier: ^8.24.1
         version: 8.24.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.7.3)
       vite:
-        specifier: ^6.0.0
+        specifier: ^6.1.1
         version: 6.1.1(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0)
       vitest:
-        specifier: ^3.0.0
+        specifier: ^3.0.6
         version: 3.0.6(jiti@2.4.2)(jsdom@25.0.1)(lightningcss@1.29.1)(yaml@2.7.0)
 
 packages:
@@ -106,19 +106,19 @@ packages:
   '@asamuzakjp/css-color@2.8.3':
     resolution: {integrity: sha512-GIc76d9UI1hCvOATjZPyHFmE5qhRccp3/zGfMPapK3jBi+yocEzp6BBB0UnfRYP9NP4FANqUZYb0hnfs3TM3hw==}
 
-  '@csstools/color-helpers@5.0.1':
-    resolution: {integrity: sha512-MKtmkA0BX87PKaO1NFRTFH+UnkgnmySQOvNxJubsadusqPEC2aJ9MOQiMceZJJ6oitUl/i0L6u0M1IrmAOmgBA==}
+  '@csstools/color-helpers@5.0.2':
+    resolution: {integrity: sha512-JqWH1vsgdGcw2RR6VliXXdA0/59LttzlU8UlRT/iUUsEeWfYq8I+K0yhihEUTTHLRm1EXvpsCx3083EU15ecsA==}
     engines: {node: '>=18'}
 
-  '@csstools/css-calc@2.1.1':
-    resolution: {integrity: sha512-rL7kaUnTkL9K+Cvo2pnCieqNpTKgQzy5f+N+5Iuko9HAoasP+xgprVh7KN/MaJVvVL1l0EzQq2MoqBHKSrDrag==}
+  '@csstools/css-calc@2.1.2':
+    resolution: {integrity: sha512-TklMyb3uBB28b5uQdxjReG4L80NxAqgrECqLZFQbyLekwwlcDDS8r3f07DKqeo8C4926Br0gf/ZDe17Zv4wIuw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@csstools/css-parser-algorithms': ^3.0.4
       '@csstools/css-tokenizer': ^3.0.3
 
-  '@csstools/css-color-parser@3.0.7':
-    resolution: {integrity: sha512-nkMp2mTICw32uE5NN+EsJ4f5N+IGFeCFu4bGpiKgb2Pq/7J/MpyLBeQ5ry4KKtRFZaYs6sTmcMYrSRIyj5DFKA==}
+  '@csstools/css-color-parser@3.0.8':
+    resolution: {integrity: sha512-pdwotQjCCnRPuNi06jFuP68cykU1f3ZWExLe/8MQ1LOs8Xq+fTkYgd+2V8mWUWMrOn9iS2HftPVaMZDaXzGbhQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@csstools/css-parser-algorithms': ^3.0.4
@@ -2041,26 +2041,26 @@ snapshots:
 
   '@asamuzakjp/css-color@2.8.3':
     dependencies:
-      '@csstools/css-calc': 2.1.1(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
-      '@csstools/css-color-parser': 3.0.7(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
+      '@csstools/css-calc': 2.1.2(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
+      '@csstools/css-color-parser': 3.0.8(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-parser-algorithms': 3.0.4(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-tokenizer': 3.0.3
       lru-cache: 10.4.3
     optional: true
 
-  '@csstools/color-helpers@5.0.1':
+  '@csstools/color-helpers@5.0.2':
     optional: true
 
-  '@csstools/css-calc@2.1.1(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)':
+  '@csstools/css-calc@2.1.2(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)':
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.4(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-tokenizer': 3.0.3
     optional: true
 
-  '@csstools/css-color-parser@3.0.7(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)':
+  '@csstools/css-color-parser@3.0.8(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)':
     dependencies:
-      '@csstools/color-helpers': 5.0.1
-      '@csstools/css-calc': 2.1.1(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
+      '@csstools/color-helpers': 5.0.2
+      '@csstools/css-calc': 2.1.2(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-parser-algorithms': 3.0.4(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-tokenizer': 3.0.3
     optional: true
