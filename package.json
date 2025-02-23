@@ -68,5 +68,9 @@
 		"ignoredBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"lucide-svelte": "^0.475.0",
+		"mode-watcher": "^0.5.1"
 	}
 }
