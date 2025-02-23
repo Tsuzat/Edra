@@ -1,0 +1,24 @@
+name: 'Testing with Vitest'
+on: [push, pull_request]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js and Install PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run SvelteKit Sync
+        run: pnpm prepare
+
+      - name: Run Tests
+        run: pnpm test
