@@ -4,7 +4,7 @@
 
 	import EdraToolbar from './edra-toolbar.svelte';
 	import { initiateEditor } from '../editor.js';
-	import '../editor.css';
+	import './editor.css';
 	import './style.css';
 
 	interface Props {
