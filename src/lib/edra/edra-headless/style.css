@@ -1,0 +1,28 @@
+.edra {
+	display: flex;
+	flex-direction: column;
+}
+
+.edra-toolbar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.edra-command-button {
+	background-color: transparent;
+	border: 1px solid;
+	padding: auto;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.edra-command-button:hover {
+	background-color: grey;
+}
+
+.edra-command-button.active {
+	background-color: grey;
+}
