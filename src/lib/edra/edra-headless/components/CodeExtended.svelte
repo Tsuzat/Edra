@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { NodeViewWrapper, NodeViewContent } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
-	import { slide } from 'svelte/transition';
 	const { node, editor, selected, deleteNode, updateAttributes, extension }: NodeViewProps =
 		$props();
 
@@ -12,6 +11,10 @@
 	const languages: string[] = extension.options.lowlight.listLanguages().sort();
 
 	let defaultLanguage = $state(node.attrs.language);
+
+	$effect(() => {
+		updateAttributes({ language: defaultLanguage });
+	});
 
 	function copyCode() {
 		if (isCopying) return;
