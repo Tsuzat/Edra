@@ -39,19 +39,29 @@ export const initiateEditor = (
 					HTMLAttributes: {
 						class: 'tiptap-heading'
 					}
-				}
-				// codeBlock: false,
-				// text: false
+				},
+				codeBlock: false,
+				text: false
 			}),
 			Superscript,
 			Subscript,
 			Underline,
-			Link,
+			Link.configure({
+				openOnClick: false,
+				autolink: true,
+				defaultProtocol: 'https',
+				HTMLAttributes: {
+					target: '_blank',
+					rel: 'noopener noreferrer'
+				}
+			}),
 			TaskList,
-			TaskItem,
+			TaskItem.configure({
+				nested: true
+			}),
 			TextStyle,
 			Color,
-			Highlight,
+			Highlight.configure({ multicolor: true }),
 			Text,
 			Typography,
 			TextAlign.configure({
