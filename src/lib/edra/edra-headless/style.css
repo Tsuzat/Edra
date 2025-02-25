@@ -1,6 +1,16 @@
 .edra {
 	display: flex;
 	flex-direction: column;
+	gap: 0.5rem;
+	border: 1px solid grey;
+	border-radius: 0.5rem;
+	overflow: auto;
+}
+
+.edra-editor {
+	padding: 0.5rem;
+	flex-grow: 1;
+	overflow: auto;
 }
 
 .edra-toolbar {
@@ -8,6 +18,8 @@
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
+	border-bottom: 1px solid grey;
+	padding: 0.5rem;
 }
 
 .edra-command-button {
@@ -17,6 +29,9 @@
 	border-radius: 0.25rem;
 	cursor: pointer;
 	transition: background-color 0.2s ease-in-out;
+	padding: 0.25rem;
+	width: 2rem;
+	height: 2rem;
 }
 
 .edra-command-button:hover {
@@ -25,4 +40,13 @@
 
 .edra-command-button.active {
 	background-color: grey;
+}
+
+.edra-toolbar-icon {
+	height: 1rem;
+	width: 1rem;
+}
+
+.separator {
+	width: 0.125rem;
 }
