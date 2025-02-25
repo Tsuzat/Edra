@@ -86,7 +86,9 @@
 		"@tiptap/extension-underline": "^2.11.5",
 		"@tiptap/pm": "^2.11.5",
 		"@tiptap/starter-kit": "^2.11.5",
+		"lowlight": "^3.3.0",
 		"lucide-svelte": "^0.475.0",
-		"mode-watcher": "^0.5.1"
+		"mode-watcher": "^0.5.1",
+		"svelte-tiptap": "^2.1.0"
 	}
 }
