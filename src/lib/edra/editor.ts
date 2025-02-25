@@ -16,9 +16,9 @@ import { SmilieReplacer } from './extensions/SmilieReplacer.js';
 import { ColorHighlighter } from './extensions/ColorHighLighter.js';
 
 export const initiateEditor = (
-	extensions: Extensions,
 	element?: HTMLElement,
 	content?: Content,
+	extensions?: Extensions,
 	options?: Partial<EditorOptions>
 ): Editor => {
 	return new Editor({
@@ -71,7 +71,7 @@ export const initiateEditor = (
 			TextAlign.configure({
 				types: ['heading', 'paragraph']
 			}),
-			...extensions
+			...(extensions ?? [])
 		],
 		autofocus: true,
 		...options
