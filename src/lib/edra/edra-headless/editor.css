@@ -126,3 +126,21 @@ input[type='checkbox'] {
 	width: 1rem;
 	cursor: pointer;
 }
+
+/* Color swatches */
+.color {
+	white-space: nowrap;
+}
+
+.color::before {
+	margin-bottom: 0.15rem;
+	margin-right: 0.1rem;
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 0.25rem;
+	border: 1px solid var(--color);
+	vertical-align: middle;
+	background-color: var(--color);
+	content: ' ';
+}

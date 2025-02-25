@@ -12,6 +12,8 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Text from '@tiptap/extension-text';
+import { SmilieReplacer } from './extensions/SmilieReplacer.js';
+import { ColorHighlighter } from './extensions/ColorHighLighter.js';
 
 export const initiateEditor = (
 	extensions: Extensions,
@@ -43,6 +45,8 @@ export const initiateEditor = (
 				codeBlock: false,
 				text: false
 			}),
+			SmilieReplacer,
+			ColorHighlighter,
 			Superscript,
 			Subscript,
 			Underline,
