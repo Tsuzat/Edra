@@ -54,7 +54,9 @@ export const initiateEditor = (
 			Highlight,
 			Text,
 			Typography,
-			TextAlign,
+			TextAlign.configure({
+				types: ['heading', 'paragraph']
+			}),
 			...extensions
 		],
 		autofocus: true,
