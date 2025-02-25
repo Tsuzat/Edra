@@ -1,4 +1,4 @@
-name: 'Code Formatting with Prettier'
+name: 'Code Formatting and Linting'
 on: [push, pull_request]
 
 jobs:
