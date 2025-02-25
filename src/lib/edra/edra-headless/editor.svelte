@@ -7,27 +7,50 @@
 	import './editor.css';
 	import './style.css';
 
+	// Lowlight
+	import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
+	import { all, createLowlight } from 'lowlight';
+	import '../onedark.css';
+	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
+	import CodeExtended from './components/CodeExtended.svelte';
+
+	const lowlight = createLowlight(all);
+
 	interface Props {
 		class?: string;
 		content?: Content;
 		extensions?: Extensions;
 	}
 
-	let { class: className = '', content = $bindable(), extensions = [] }: Props = $props();
+	let { class: className = '', content = $bindable(), extensions }: Props = $props();
 
 	let editor = $state<Editor>();
 	let element = $state<HTMLElement>();
 
 	onMount(() => {
-		editor = initiateEditor(extensions, element, content, {
-			onUpdate: (props) => {
-				content = props.editor.getJSON();
-			},
-			onTransaction: (props) => {
-				editor = undefined;
-				editor = props.editor;
+		editor = initiateEditor(
+			element,
+			content,
+			[
+				CodeBlockLowlight.configure({
+					lowlight
+				}).extend({
+					addNodeView() {
+						return SvelteNodeViewRenderer(CodeExtended);
+					}
+				}),
+				...(extensions ?? [])
+			],
+			{
+				onUpdate: (props) => {
+					content = props.editor.getJSON();
+				},
+				onTransaction: (props) => {
+					editor = undefined;
+					editor = props.editor;
+				}
 			}
-		});
+		);
 	});
 
 	onDestroy(() => {
