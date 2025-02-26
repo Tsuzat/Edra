@@ -74,3 +74,33 @@
 	width: var(--edra-separator-width);
 	background-color: var(--edra-separator-color);
 }
+
+.edra-media-placeholder-wrapper {
+	width: 100%;
+	height: fit-content;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.5rem 0;
+}
+
+.edra-media-placeholder-content {
+	height: 100%;
+	width: 100%;
+	padding: 1rem;
+	padding-right: 0;
+	background-color: var(--edra-button-bg-color);
+	border-radius: var(--edra-button-border-radius);
+	border: 1px solid var(--edra-border-color);
+	display: inline-flex;
+	align-items: center;
+	justify-content: start;
+	gap: 1rem;
+	cursor: pointer;
+}
+
+.edra-media-placeholder-icon {
+	height: var(--edra-icon-size);
+	width: var(--edra-icon-size);
+	color: var(--edra-icon-color);
+}
