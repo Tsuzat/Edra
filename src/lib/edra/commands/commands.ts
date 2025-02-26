@@ -34,33 +34,31 @@ export const commands: Record<string, EdraCommandGroup> = {
 				iconName: 'Heading1',
 				name: 'heading1',
 				label: 'Heading 1',
+				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Alt+1`],
 				action: (editor) => {
 					editor.chain().focus().toggleHeading({ level: 1 }).run();
-				}
+				},
+				isActive: (editor) => editor.isActive('heading', { level: 1 })
 			},
 			{
 				iconName: 'Heading2',
 				name: 'heading2',
 				label: 'Heading 2',
+				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Alt+2`],
 				action: (editor) => {
 					editor.chain().focus().toggleHeading({ level: 2 }).run();
-				}
+				},
+				isActive: (editor) => editor.isActive('heading', { level: 2 })
 			},
 			{
 				iconName: 'Heading3',
 				name: 'heading3',
 				label: 'Heading 3',
+				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Alt+3`],
 				action: (editor) => {
 					editor.chain().focus().toggleHeading({ level: 3 }).run();
-				}
-			},
-			{
-				iconName: 'Heading4',
-				name: 'heading4',
-				label: 'Heading 4',
-				action: (editor) => {
-					editor.chain().focus().toggleHeading({ level: 4 }).run();
-				}
+				},
+				isActive: (editor) => editor.isActive('heading', { level: 3 })
 			}
 		]
 	},
@@ -172,7 +170,8 @@ export const commands: Record<string, EdraCommandGroup> = {
 				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+L`],
 				action: (editor) => {
 					editor.chain().focus().setTextAlign('left').run();
-				}
+				},
+				isActive: (editor) => editor.isActive({ textAlign: 'left' })
 			},
 			{
 				iconName: 'AlignCenter',
@@ -181,7 +180,8 @@ export const commands: Record<string, EdraCommandGroup> = {
 				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+E`],
 				action: (editor) => {
 					editor.chain().focus().setTextAlign('center').run();
-				}
+				},
+				isActive: (editor) => editor.isActive({ textAlign: 'center' })
 			},
 			{
 				iconName: 'AlignRight',
@@ -190,7 +190,8 @@ export const commands: Record<string, EdraCommandGroup> = {
 				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+R`],
 				action: (editor) => {
 					editor.chain().focus().setTextAlign('right').run();
-				}
+				},
+				isActive: (editor) => editor.isActive({ textAlign: 'right' })
 			},
 			{
 				iconName: 'AlignJustify',
@@ -199,7 +200,8 @@ export const commands: Record<string, EdraCommandGroup> = {
 				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+J`],
 				action: (editor) => {
 					editor.chain().focus().setTextAlign('justify').run();
-				}
+				},
+				isActive: (editor) => editor.isActive({ textAlign: 'justify' })
 			}
 		]
 	},
