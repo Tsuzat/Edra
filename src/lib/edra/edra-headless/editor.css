@@ -42,30 +42,28 @@
 	}
 
 	blockquote {
-		border-left: 3px solid var(--gray-3);
-		margin: 1.5rem 0;
+		border-left: 0.25rem solid grey;
+		margin: 1rem 0;
+		padding: 0.25rem 0;
 		padding-left: 1rem;
+	}
+
+	blockquote p {
+		margin: 0;
 	}
 
 	hr {
 		border: none;
-		border-top: 1px solid var(--gray-2);
-		margin: 2rem 0;
+		border-top: 1px solid grey;
+		margin: 1rem 0;
 	}
 }
 
 .tiptap code:not(pre code) {
-	border-radius: 0.125rem;
-	border: 1px solid darkgray;
-	background-color: grey;
+	border-radius: 0.25rem;
+	background-color: #80808050;
+	border: 0.5px solid #80808075;
 	padding: 0.125rem;
-
-	&::after {
-		content: '';
-	}
-	&::before {
-		content: '';
-	}
 }
 
 .tiptap ul li p,
