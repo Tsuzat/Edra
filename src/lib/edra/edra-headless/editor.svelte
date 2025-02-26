@@ -17,6 +17,8 @@
 	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
 	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
 	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
+	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
+	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -45,6 +47,7 @@
 				}),
 				AudioPlaceHolder(AudioPlaceHolderComponent),
 				ImagePlaceHolder(ImagePlaceHolderComponent),
+				VideoPlaceHolder(VideoPlaceHolderComponent),
 				...(extensions ?? [])
 			],
 			{
