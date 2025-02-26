@@ -238,6 +238,28 @@ export const commands: Record<string, EdraCommandGroup> = {
 			}
 		]
 	},
+	media: {
+		name: 'Media',
+		label: 'Media',
+		commands: [
+			{
+				iconName: 'AudioLines',
+				name: 'audio-placeholder',
+				label: 'Audio',
+				action: (editor) => {
+					editor.chain().focus().insertAudioPlaceholder().run();
+				}
+			},
+			{
+				iconName: 'Image',
+				name: 'image-placeholder',
+				label: 'Image',
+				action: (editor) => {
+					editor.chain().focus().insertImagePlaceholder().run();
+				}
+			}
+		]
+	},
 	colors: {
 		name: 'Colors',
 		label: 'Colors and Highlights',
