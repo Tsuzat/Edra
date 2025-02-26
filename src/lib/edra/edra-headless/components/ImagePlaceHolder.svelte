@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { NodeViewProps } from '@tiptap/core';
+	// import type { NodeViewProps } from '@tiptap/core';
 	import Image from 'lucide-svelte/icons/image';
 	import { NodeViewWrapper } from 'svelte-tiptap';
-	const {}: NodeViewProps = $props();
+	// const {}: NodeViewProps = $props();
 </script>
 
 <NodeViewWrapper class="edra-media-placeholder-wrapper" contenteditable="false">
