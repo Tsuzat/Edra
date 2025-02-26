@@ -13,6 +13,10 @@
 	import '../onedark.css';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 	import CodeExtended from './components/CodeExtended.svelte';
+	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
+	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
+	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
+	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -39,6 +43,8 @@
 						return SvelteNodeViewRenderer(CodeExtended);
 					}
 				}),
+				AudioPlaceHolder(AudioPlaceHolderComponent),
+				ImagePlaceHolder(ImagePlaceHolderComponent),
 				...(extensions ?? [])
 			],
 			{
