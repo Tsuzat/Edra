@@ -7,6 +7,7 @@ export interface EdraCommand {
 	label: string;
 	shortCuts?: string[];
 	action: (editor: Editor) => void;
+	isActive?: (editor: Editor) => boolean;
 }
 
 export interface EdraCommandShortCuts {
