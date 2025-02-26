@@ -138,7 +138,6 @@ input[type='checkbox'] {
 	display: flex;
 	height: fit-content;
 	overflow: auto;
-	border-radius: 0 !important;
 	background-color: transparent;
 	padding: 0;
 }
@@ -157,6 +156,7 @@ input[type='checkbox'] {
 	position: relative;
 	padding: 1.5rem 1rem;
 	margin: 0.5rem 0;
+	border-radius: 0.25rem;
 }
 
 .code-wrapper-tile {

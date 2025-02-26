@@ -8,14 +8,14 @@
 	--edra-separator-color: currentColor; /* Default, can be customized */
 
 	/* Size and Spacing Variables */
-	--edra-gap: 0.5rem;
+	--edra-gap: 0.25rem;
 	--edra-border-radius: 0.5rem;
 	--edra-button-border-radius: 0.5rem;
 	--edra-padding: 0.5rem;
 	--edra-button-padding: 0.25rem;
 	--edra-button-size: 2rem;
 	--edra-icon-size: 1rem;
-	--edra-separator-width: 0.125rem;
+	--edra-separator-width: 0.5rem;
 }
 
 .edra {
