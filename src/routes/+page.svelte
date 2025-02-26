@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import { Edra } from '$lib/edra/index.js';
 	import type { Content } from '@tiptap/core';
-	import { onMount } from 'svelte';
 
 	let content = $state<Content>();
 
@@ -26,7 +25,7 @@
 <style>
 	:global(.edra) {
 		width: 80%;
-		height: 25rem;
+		height: 30rem;
 		overflow: auto;
 	}
 </style>
