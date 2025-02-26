@@ -163,7 +163,12 @@ input[type='checkbox'] {
 	position: absolute;
 	top: 0;
 	right: 0;
-	display: flex;
+	display: inline-flex;
+	opacity: 0;
 	align-items: center;
 	gap: 1rem;
+	transition: all 0.2s ease-in-out;
+}
+.code-wrapper:hover .code-wrapper-tile {
+	opacity: 1;
 }
