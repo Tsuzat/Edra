@@ -18,7 +18,7 @@
 			{@const shortcut = group.shortCuts ? ` (${group.shortCuts[0]})` : ''}
 			<button
 				class="edra-command-button"
-				class:active={editor.isActive(group.name)}
+				class:active={editor.isActive(group.name) || group.isActive?.(editor)}
 				onclick={() => group.action(editor)}
 				title={`${group.label}${shortcut}`}
 			>
