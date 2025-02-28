@@ -6,14 +6,12 @@
 	import AlignLeft from 'lucide-svelte/icons/align-left';
 	import AlignCenter from 'lucide-svelte/icons/align-center';
 	import AlignRight from 'lucide-svelte/icons/align-right';
-	import EllipsisVertical from 'lucide-svelte/icons/ellipsis-vertical';
 	import CopyIcon from 'lucide-svelte/icons/copy';
 	import Fullscreen from 'lucide-svelte/icons/fullscreen';
 	import Trash from 'lucide-svelte/icons/trash';
 	import Captions from 'lucide-svelte/icons/captions';
 
 	import { duplicateContent } from '../../utils.js';
-	import { slide } from 'svelte/transition';
 
 	const { node, editor, selected, deleteNode, updateAttributes }: NodeViewProps = $props();
 
@@ -21,6 +19,12 @@
 
 	let imgRef: HTMLImageElement;
 	let nodeRef: HTMLDivElement;
+
+	let caption: string | null = $state(node.attrs.title);
+	$effect(() => {
+		if (caption?.trim() === '') caption = null;
+		updateAttributes({ title: caption });
+	});
 
 	let resizing = $state(false);
 	let resizingInitialWidth = $state(0);
@@ -118,17 +122,8 @@
 			title={node.attrs.title}
 			class="edra-media-content"
 		/>
-		{#if node.attrs.title !== null && node.attrs.title.trim() !== ''}
-			<input
-				value={node.attrs.title}
-				type="text"
-				class="edra-media-caption"
-				onchange={(e) => {
-					if (e.target === null) return;
-					//@ts-ignore
-					updateAttributes({ title: e.target.value });
-				}}
-			/>
+		{#if caption !== null}
+			<input bind:value={caption} type="text" class="edra-media-caption" />
 		{/if}
 
 		{#if editor?.isEditable}
@@ -187,10 +182,7 @@
 				<button
 					class="edra-toolbar-button"
 					onclick={() => {
-						if (node.attrs.title === null || node.attrs.title.trim() === '')
-							updateAttributes({
-								title: 'Image Caption'
-							});
+						if (caption === null || caption.trim() === '') caption = 'Image Caption';
 					}}
 					title="Caption"
 				>
