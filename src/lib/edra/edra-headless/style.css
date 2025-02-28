@@ -104,3 +104,138 @@
 	width: var(--edra-icon-size);
 	color: var(--edra-icon-color);
 }
+
+.edra-media-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5rem;
+	border: 2px solid transparent;
+	margin: 1rem 0;
+}
+
+.edra-media-container.selected {
+	border-color: #808080;
+}
+
+.edra-media-container.align-left {
+	left: 0;
+	transform: translateX(0);
+}
+
+.edra-media-container.align-center {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.edra-media-container.align-right {
+	left: 100%;
+	transform: translateX(-100%);
+}
+
+.edra-media-group {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5rem;
+}
+
+.edra-media-content {
+	margin: 0;
+	object-fit: cover;
+}
+
+.edra-media-caption {
+	margin: 4px 0;
+	width: 100%;
+	background-color: transparent;
+	text-align: center;
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: #808080;
+	outline: none;
+	border: none;
+}
+
+.edra-media-resize-handle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 20;
+	display: flex;
+	width: 0.5rem;
+	cursor: col-resize;
+	align-items: center;
+}
+
+.edra-media-resize-handle-left {
+	left: 0;
+	justify-content: flex-start;
+	padding: 0.5rem;
+}
+
+.edra-media-resize-handle-right {
+	right: 0;
+	justify-content: flex-end;
+	padding: 0.5rem;
+}
+
+.edra-media-resize-indicator {
+	z-index: 20;
+	height: 3rem;
+	width: 0.25rem;
+	border-radius: 12px;
+	border: 1px solid #808080;
+	background-color: #808080;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.edra-media-group:hover .edra-media-resize-indicator {
+	opacity: 0.5;
+}
+
+.edra-media-toolbar {
+	position: absolute;
+	right: 16px;
+	top: 8px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	border-radius: 4px;
+	border: 1px solid #808080;
+	background-color: #80808075;
+	padding: 4px;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.edra-media-group:hover .edra-media-toolbar,
+.edra-media-toolbar.visible {
+	opacity: 1;
+}
+
+.edra-toolbar-button {
+	width: 1.5rem;
+	height: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	color: currentColor;
+}
+
+.edra-toolbar-button:hover {
+	background-color: #80808030;
+}
+
+.edra-toolbar-button.active {
+	background-color: #80808080;
+}
+
+.edra-destructive {
+	color: red;
+}
