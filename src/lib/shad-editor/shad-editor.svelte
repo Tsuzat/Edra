@@ -59,16 +59,19 @@
 		content?: Content;
 		showToolbar?: boolean;
 		editable?: boolean;
+		showAllMenus?: boolean;
+		editor?: Editor;
 	}
 
 	let {
 		class: className = '',
 		content = $bindable(''),
 		showToolbar = true,
-		editable = true
+		editable = true,
+		showAllMenus = true,
+		editor = $bindable()
 	}: Props = $props();
 
-	let editor = $state<Editor>();
 	let element = $state<HTMLElement>();
 
 	onMount(() => {
@@ -194,7 +197,7 @@
 </script>
 
 <div class={cn('flex flex-col rounded border', className)}>
-	{#if editor && showToolbar}
+	{#if editor && showAllMenus}
 		{#if showToolbar}
 			<EditorToolbar {editor} />
 		{/if}

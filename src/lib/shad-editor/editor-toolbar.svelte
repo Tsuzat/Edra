@@ -27,14 +27,16 @@
 	import Video from './icons/video.svelte';
 	import FontSize from './icons/font-size.svelte';
 	import Audio from './icons/audio.svelte';
+	import { cn } from '$lib/utils.js';
 	interface Props {
 		editor: Editor;
+		class?: String;
 	}
 
-	let { editor }: Props = $props();
+	let { editor, class: className = '' }: Props = $props();
 </script>
 
-<div class="flex w-full items-center overflow-auto border-b p-1 *:mx-1">
+<div class={cn('flex w-full items-center overflow-auto border-b p-1 *:mx-1', className)}>
 	<Undo {editor} />
 	<Redo {editor} />
 	<Separator orientation="vertical" class="h-fit" />
