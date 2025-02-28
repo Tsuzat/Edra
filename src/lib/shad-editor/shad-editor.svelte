@@ -58,9 +58,15 @@
 		class?: string;
 		content?: Content;
 		showToolbar?: boolean;
+		editable?: boolean;
 	}
 
-	let { class: className = '', content = $bindable(''), showToolbar = true }: Props = $props();
+	let {
+		class: className = '',
+		content = $bindable(''),
+		showToolbar = true,
+		editable = true
+	}: Props = $props();
 
 	let editor = $state<Editor>();
 	let element = $state<HTMLElement>();
@@ -69,6 +75,7 @@
 		editor = new Editor({
 			element,
 			content,
+			editable,
 			editorProps: {
 				attributes: {
 					class:
