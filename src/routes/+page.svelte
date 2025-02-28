@@ -10,16 +10,14 @@
 		content = rawData;
 	}
 
-	$effect(() => {
+	function onUpdate(content: Content) {
 		console.log('Content = ', content);
-		if (content) {
-			localStorage.setItem('edra-content', JSON.stringify(content));
-		}
-	});
+		localStorage.setItem('edra-content', JSON.stringify(content));
+	}
 </script>
 
 <main class="inline-flex size-full items-center justify-center">
-	<Edra bind:content />
+	<Edra bind:content {onUpdate} />
 </main>
 
 <style>
