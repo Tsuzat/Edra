@@ -31,6 +31,7 @@ Creating a tiptap editor from scratch is a pain. This package provides a ready-t
 - **Table** (Create tables with ease and add, delete, merge, split rows, cells and columns)
 - **Images** (Add images with url or pick from your device) with features like resize, align and caption
 - **Videos** (Add videos with url or pick from your device) with features like resize, align and caption
+- **Audio** (Add audio with url or pick from your device) with features like resize, align and caption
 - **Code Block** (Syntax highlight with lowlight) which supports multiple languages, dark and light mode and copy button
 - **Blockquotes** (Add blockquotes with ease)
 - **Tiptap Typography** (with emojis, color visualizer and special characters)
@@ -40,6 +41,7 @@ Creating a tiptap editor from scratch is a pain. This package provides a ready-t
 - **Drag and Drop** (Drag and drop nodes in the editor with auto joiner feature)
 - **Slash Command** (Add headings, tables, images, videos, code blocks etc with ease)
 - **Font Size** (Change the font size of the text)
+- **BubbleMenu** (Add bubble menu with ease for quick editing)
 
 ## Pre-Requisites (Important)
 
