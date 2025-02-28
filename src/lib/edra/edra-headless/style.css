@@ -146,11 +146,11 @@
 }
 
 .edra-media-caption {
-	margin: 4px 0;
+	margin: 0.125rem 0;
 	width: 100%;
 	background-color: transparent;
 	text-align: center;
-	font-size: 0.8rem;
+	font-size: 0.85rem;
 	font-weight: 500;
 	color: #808080;
 	outline: none;
