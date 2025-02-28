@@ -1,3 +1,4 @@
+import type { Editor } from '@tiptap/core';
 import { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 
@@ -29,3 +30,22 @@ export const findColors = (doc: Node) => {
 
 export const isMac =
 	navigator.userAgent.includes('Macintosh') || navigator.userAgent.includes('Mac OS X');
+
+/**
+ * Dupilcate content at the current selection
+ * @param editor Editor instance
+ * @param node Node to be duplicated
+ */
+export const duplicateContent = (editor: Editor, node: Node) => {
+	const { view } = editor;
+	const { state } = view;
+	const { selection } = state;
+
+	editor
+		.chain()
+		.insertContentAt(selection.to, node.toJSON(), {
+			updateSelection: true
+		})
+		.focus(selection.to)
+		.run();
+};
