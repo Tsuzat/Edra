@@ -19,16 +19,31 @@
 	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
 	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
 	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
+	import { Audio } from '../extensions/audio/AudioExtension.js';
+	import { ImageExtended } from '../extensions/image/ImageExtended.js';
+	import ImageExtendedComponent from './components/ImageExtended.svelte';
 
 	const lowlight = createLowlight(all);
 
 	interface Props {
 		class?: string;
 		content?: Content;
+		editable?: boolean;
 		extensions?: Extensions;
+		/**
+		 * Callback function to be called when the content is updated
+		 * @param content
+		 */
+		onUpdate?: (content: Content) => void;
 	}
 
-	let { class: className = '', content = $bindable(), extensions }: Props = $props();
+	const {
+		class: className = '',
+		content = $bindable(),
+		editable = true,
+		extensions,
+		onUpdate
+	}: Props = $props();
 
 	let editor = $state<Editor>();
 	let element = $state<HTMLElement>();
@@ -45,14 +60,17 @@
 						return SvelteNodeViewRenderer(CodeExtended);
 					}
 				}),
-				AudioPlaceHolder(AudioPlaceHolderComponent as unknown as Component<NodeViewProps>),
+				AudioPlaceHolder(AudioPlaceHolderComponent),
 				ImagePlaceHolder(ImagePlaceHolderComponent as unknown as Component<NodeViewProps>),
 				VideoPlaceHolder(VideoPlaceHolderComponent as unknown as Component<NodeViewProps>),
+				Audio,
+				ImageExtended(ImageExtendedComponent),
 				...(extensions ?? [])
 			],
 			{
+				editable,
 				onUpdate: (props) => {
-					content = props.editor.getJSON();
+					onUpdate?.(props.editor.getJSON());
 				},
 				onTransaction: (props) => {
 					editor = undefined;
@@ -63,6 +81,7 @@
 	});
 
 	onDestroy(() => {
+		console.log('Destroying editor');
 		editor?.destroy();
 	});
 </script>
