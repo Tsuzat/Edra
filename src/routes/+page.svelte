@@ -65,7 +65,7 @@
 			<Icons.github /> Star on Github
 		</Button>
 	</div>
-	<div class="relative z-30 h-[calc(90dvh)] w-[95%] sm:h-[40rem] sm:w-[85%]">
+	<div class="relative z-30 h-[calc(90dvh)] w-[95%] sm:h-[40rem] sm:w-[90%]">
 		<BorderBeam size={100} class="rounded" />
 		<ShadEditor class="h-full w-full overflow-auto" bind:content={$content} />
 	</div>
