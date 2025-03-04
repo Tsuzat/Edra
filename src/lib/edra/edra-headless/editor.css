@@ -172,3 +172,37 @@ input[type='checkbox'] {
 .code-wrapper:hover .code-wrapper-tile {
 	opacity: 1;
 }
+
+/* Drag Handle Related CSS*/
+.drag-handle {
+	position: fixed;
+	z-index: 50;
+	width: 1.5rem;
+	height: 1.5rem;
+	cursor: grab;
+	opacity: 100;
+	transition-property: opacity;
+	transition-duration: 200ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.drag-handle:active {
+	cursor: grabbing;
+}
+
+.drag-handle.hide {
+	opacity: 0;
+	pointer-events: none;
+}
+
+@media screen and (max-width: 600px) {
+	.drag-handle {
+		display: none;
+		pointer-events: none;
+	}
+}
+
+.drag-handle::after {
+	color: #808080;
+	content: '⠿';
+}
