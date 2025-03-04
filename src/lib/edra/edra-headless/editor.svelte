@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { type Editor, type Content, type Extensions, type NodeViewProps } from '@tiptap/core';
-	import { onDestroy, onMount, type Component } from 'svelte';
+	import { type Editor, type Content, type Extensions } from '@tiptap/core';
+	import { onDestroy, onMount } from 'svelte';
 
 	import EdraToolbar from './edra-toolbar.svelte';
 	import { initiateEditor } from '../editor.js';

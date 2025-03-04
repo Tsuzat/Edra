@@ -30,6 +30,7 @@
 .edra-editor {
 	padding: var(--edra-padding);
 	flex-grow: 1;
+	padding-left: 2rem;
 	overflow: auto;
 }
 
