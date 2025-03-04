@@ -14,6 +14,8 @@ import Highlight from '@tiptap/extension-highlight';
 import Text from '@tiptap/extension-text';
 import { SmilieReplacer } from './extensions/SmilieReplacer.js';
 import { ColorHighlighter } from './extensions/ColorHighLighter.js';
+import AutoJoiner from 'tiptap-extension-auto-joiner';
+import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -70,6 +72,10 @@ export const initiateEditor = (
 			Typography,
 			TextAlign.configure({
 				types: ['heading', 'paragraph']
+			}),
+			AutoJoiner,
+			GlobalDragHandle.configure({
+				excludedTags: ['pre', 'code', 'table p']
 			}),
 			...(extensions ?? [])
 		],
