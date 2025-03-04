@@ -41,7 +41,7 @@
 			{/if}
 		</button>
 	</div>
-	<pre bind:this={preRef}>
+	<pre bind:this={preRef} spellcheck="false">
 		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />	
 	</pre>
 </NodeViewWrapper>
