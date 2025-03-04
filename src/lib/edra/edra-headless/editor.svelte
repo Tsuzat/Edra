@@ -15,13 +15,16 @@
 	import CodeExtended from './components/CodeExtended.svelte';
 	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
 	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
+	import AudioExtendedComponent from './components/AudioExtended.svelte';
 	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
 	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
 	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
 	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
-	import { Audio } from '../extensions/audio/AudioExtension.js';
 	import { ImageExtended } from '../extensions/image/ImageExtended.js';
 	import ImageExtendedComponent from './components/ImageExtended.svelte';
+	import VideoExtendedComponent from './components/VideoExtended.svelte';
+	import { VideoExtended } from '../extensions/video/VideoExtended.js';
+	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
 
 	const lowlight = createLowlight(all);
 
@@ -61,10 +64,11 @@
 					}
 				}),
 				AudioPlaceHolder(AudioPlaceHolderComponent),
-				ImagePlaceHolder(ImagePlaceHolderComponent as unknown as Component<NodeViewProps>),
-				VideoPlaceHolder(VideoPlaceHolderComponent as unknown as Component<NodeViewProps>),
-				Audio,
+				ImagePlaceHolder(ImagePlaceHolderComponent),
+				VideoPlaceHolder(VideoPlaceHolderComponent),
+				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
+				VideoExtended(VideoExtendedComponent),
 				...(extensions ?? [])
 			],
 			{
