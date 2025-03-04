@@ -210,6 +210,10 @@
 	transition: opacity 0.2s;
 }
 
+.edra-media-toolbar-audio {
+	top: -32px;
+}
+
 .edra-media-group:hover .edra-media-toolbar,
 .edra-media-toolbar.visible {
 	opacity: 1;
