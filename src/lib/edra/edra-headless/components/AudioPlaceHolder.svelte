@@ -6,7 +6,7 @@
 
 	function handleClick(e: MouseEvent) {
 		e.preventDefault();
-		const audioUrl = prompt('Enter the URL of the audio:');
+		const audioUrl = prompt('Enter the URL of an audio:');
 		if (!audioUrl) {
 			return;
 		}
