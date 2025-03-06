@@ -291,5 +291,20 @@ export const commands: Record<string, EdraCommandGroup> = {
 				}
 			}
 		]
+	},
+	table: {
+		name: 'Table',
+		label: 'Table',
+		commands: [
+			{
+				iconName: 'Table',
+				name: 'table',
+				label: 'Table',
+				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+T`],
+				action: (editor) => {
+					editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run();
+				}
+			}
+		]
 	}
 };
