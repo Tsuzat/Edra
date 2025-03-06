@@ -206,3 +206,176 @@ input[type='checkbox'] {
 	color: #808080;
 	content: '⠿';
 }
+
+.katex:hover {
+	background-color: #80808050;
+}
+
+.katex.result {
+	border-bottom: 1px dashed greenyellow;
+	background-color: #00800050;
+}
+
+.ProseMirror .tableWrapper {
+	margin: 0;
+	overflow: auto;
+	padding: 1rem;
+}
+
+.ProseMirror table {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	box-sizing: border-box;
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 0.25rem;
+	border: 1px solid #80808050;
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+	position: relative;
+	min-width: 100px;
+	border: 1px solid #80808050;
+	padding: 0.5rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+.ProseMirror table td:first-of-type:not(a),
+.ProseMirror table th:first-of-type:not(a) {
+	margin-top: 0;
+}
+
+.ProseMirror table td p,
+.ProseMirror table th p {
+	margin: 0;
+}
+
+.ProseMirror table td p + p,
+.ProseMirror table th p + p {
+	margin-top: 0.75rem;
+}
+
+.ProseMirror table th {
+	font-weight: bold;
+}
+
+.ProseMirror table .column-resize-handle {
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	right: -0.25rem;
+	bottom: -2px;
+	display: flex;
+	width: 0.5rem;
+}
+
+.ProseMirror table .column-resize-handle::before {
+	content: '';
+	margin-left: 0.5rem;
+	height: 100%;
+	width: 1px;
+	background-color: #80808050;
+}
+
+.ProseMirror table .selectedCell {
+	border-style: double;
+	border-color: #80808050;
+	background-color: #80808025;
+}
+
+.ProseMirror table .grip-column,
+.ProseMirror table .grip-row {
+	position: absolute;
+	z-index: 10;
+	display: flex;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+	background-color: #80808025;
+}
+
+.ProseMirror table .grip-column {
+	top: -0.75rem;
+	left: 0;
+	margin-left: -1px;
+	height: 0.75rem;
+	width: calc(100% + 1px);
+	border-left: 1px solid #80808050;
+}
+
+.ProseMirror table .grip-column:hover::before,
+.ProseMirror table .grip-column.selected::before {
+	content: '';
+	width: 0.625rem;
+}
+
+.ProseMirror table .grip-column:hover {
+	background-color: #80808050;
+}
+
+.ProseMirror table .grip-column:hover::before {
+	border-bottom: 2px dotted #80808080;
+}
+
+.ProseMirror table .grip-column.first {
+	border-top-left-radius: 0.125rem;
+	border-color: transparent;
+}
+
+.ProseMirror table .grip-column.last {
+	border-top-right-radius: 0.125rem;
+}
+
+.ProseMirror table .grip-column.selected {
+	border-color: #80808050;
+	background-color: #80808050;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.ProseMirror table .grip-column.selected::before {
+	border-bottom: 2px dotted;
+}
+
+.ProseMirror table .grip-row {
+	left: -0.75rem;
+	top: 0;
+	margin-top: -1px;
+	height: calc(100% + 1px);
+	width: 0.75rem;
+	border-top: 1px solid #80808050;
+}
+
+.ProseMirror table .grip-row:hover::before,
+.ProseMirror table .grip-row.selected::before {
+	content: '';
+	height: 0.625rem;
+}
+
+.ProseMirror table .grip-row:hover {
+	background-color: #80808060;
+}
+
+.ProseMirror table .grip-row:hover::before {
+	border-left: 2px dotted #80808080;
+}
+
+.ProseMirror table .grip-row.first {
+	border-top-left-radius: 0.125rem;
+	border-color: transparent;
+}
+
+.ProseMirror table .grip-row.last {
+	border-bottom-left-radius: 0.125rem;
+}
+
+.ProseMirror table .grip-row.selected {
+	border-color: #80808050;
+	background-color: #80808050;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.ProseMirror table .grip-row.selected::before {
+	border-left: 2px dotted;
+}
