@@ -117,31 +117,3 @@
 		</button>
 	{/if}
 </BubbleMenu>
-
-<!-- <style>
-	:global(.bubble-menu-wrapper) {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	:global(.bubble-menu-wrapper input) {
-		width: 100%;
-		padding: 0.5rem;
-		border: none;
-		max-width: 10rem;
-		background: none;
-		margin-right: 0.5rem;
-		width: fit-content;
-	}
-	input.valid {
-		border: 1px solid green;
-	}
-	input:focus {
-		outline: none;
-	}
-
-	input.invalid {
-		border: 1px solid red;
-	}
-</style> -->
