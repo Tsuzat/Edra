@@ -18,6 +18,23 @@
 	--edra-separator-width: 0.5rem;
 }
 
+/** Editor Styles */
+:root {
+	--border-color: rgba(128, 128, 128, 0.3);
+	--border-color-hover: rgba(128, 128, 128, 0.5);
+	--blockquote-border: rgba(128, 128, 128, 0.7);
+	--code-color: currentColor;
+	--code-bg: rgba(128, 128, 128, 0.3);
+	--code-border: rgba(128, 128, 128, 0.4);
+	--table-border: rgba(128, 128, 128, 0.3);
+	--table-bg-selected: rgba(128, 128, 128, 0.1);
+	--table-bg-hover: rgba(128, 128, 128, 0.2);
+	--task-completed-color: rgba(128, 128, 128, 0.7);
+	--code-wrapper-bg: rgba(128, 128, 128, 0.05);
+	--highlight-color: rgba(0, 128, 0, 0.3);
+	--highlight-border: greenyellow;
+}
+
 .edra {
 	display: flex;
 	flex-direction: column;
