@@ -4,13 +4,13 @@
 
 	import EdraToolbar from './edra-toolbar.svelte';
 	import { initiateEditor } from '../editor.js';
-	import './editor.css';
 	import './style.css';
 	import 'katex/dist/katex.min.css';
 
 	// Lowlight
 	import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 	import { all, createLowlight } from 'lowlight';
+	import '../editor.css';
 	import '../onedark.css';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 	import CodeExtended from './components/CodeExtended.svelte';
