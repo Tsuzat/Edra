@@ -117,7 +117,6 @@ input[type='checkbox'] {
 	height: 1rem;
 	width: 1rem;
 	cursor: pointer;
-	accent-color: var(--border-color-hover);
 }
 
 /* Color Swatches */
