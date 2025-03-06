@@ -15,7 +15,7 @@
 	--edra-button-padding: 0.25rem;
 	--edra-button-size: 2rem;
 	--edra-icon-size: 1rem;
-	--edra-separator-width: 0.5rem;
+	--edra-separator-width: 0.25rem;
 }
 
 /** Editor Styles */
@@ -265,11 +265,12 @@
 .bubble-menu-wrapper {
 	z-index: 100;
 	width: fit-content;
-	padding: 0.5rem;
+	padding: 0.25rem;
 	border: 1px solid var(--edra-border-color);
+	border-radius: 0.5rem;
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
+	gap: 0.25rem;
 	backdrop-filter: blur(8px);
 }
 
