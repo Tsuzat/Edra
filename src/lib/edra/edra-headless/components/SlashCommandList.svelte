@@ -36,7 +36,7 @@
 	};
 
 	function handleKeyDown(e: KeyboardEvent) {
-		if (e.key === 'ArrowDown') {
+		if (e.key === 'ArrowDown' || ((e.ctrlKey || e.metaKey) && e.key === 'j') || e.key === 'Tab') {
 			e.preventDefault();
 			if (!props.items.length) {
 				return false;
@@ -57,7 +57,7 @@
 			return true;
 		}
 
-		if (e.key === 'ArrowUp') {
+		if (e.key === 'ArrowUp' || ((e.ctrlKey || e.metaKey) && e.key === 'k')) {
 			e.preventDefault();
 			if (!props.items.length) {
 				return false;
@@ -113,43 +113,3 @@
 		{/each}
 	</div>
 {/if}
-
-<style>
-	.edra-slash-command-list {
-		margin-bottom: 2rem;
-		max-height: min(80vh, 20rem);
-		width: 12rem;
-		overflow: auto;
-		scroll-behavior: smooth;
-		border-radius: 0.25rem;
-		border: 1px solid;
-		padding: 0.5rem;
-		backdrop-filter: blur(8px);
-	}
-
-	.edra-slash-command-list-title {
-		margin: 0.5rem;
-		user-select: none;
-		font-size: 0.875rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.025em;
-	}
-
-	.edra-slash-command-list-item {
-		display: flex;
-		height: fit-content;
-		width: 100%;
-		align-items: center;
-		justify-content: flex-start;
-		gap: 0.5rem;
-		padding: 0.5rem;
-		background: none;
-		border: none;
-		margin: 0.25rem 0;
-		border-radius: 0.25rem;
-	}
-	.edra-slash-command-list-item.active {
-		background-color: #80808050;
-	}
-</style>
