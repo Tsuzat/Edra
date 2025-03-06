@@ -266,11 +266,11 @@
 	z-index: 100;
 	width: fit-content;
 	padding: 0.5rem;
-	background-color: white;
 	border: 1px solid var(--edra-border-color);
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+	backdrop-filter: blur(8px);
 }
 
 .bubble-menu-wrapper input {
@@ -293,6 +293,40 @@ input.invalid {
 	border: 1px solid red;
 }
 
-html.dark .bubble-menu-wrapper {
-	background-color: black;
+.edra-slash-command-list {
+	margin-bottom: 2rem;
+	max-height: min(80vh, 20rem);
+	width: 12rem;
+	overflow: auto;
+	scroll-behavior: smooth;
+	border-radius: 0.5rem;
+	border: 1px solid var(--edra-border-color);
+	padding: 0.5rem;
+	backdrop-filter: blur(8px);
+}
+
+.edra-slash-command-list-title {
+	margin: 0.5rem;
+	user-select: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.edra-slash-command-list-item {
+	display: flex;
+	height: fit-content;
+	width: 100%;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	background: none;
+	border: none;
+	margin: 0.25rem 0;
+	border-radius: 0.25rem;
+}
+.edra-slash-command-list-item.active {
+	background-color: var(--edra-border-color);
 }
