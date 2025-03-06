@@ -1,77 +1,82 @@
-/** Style for Editor */
+/* Base TipTap Editor Styles with Light/Dark Theme Support */
 
-.tiptap {
-	:first-child {
-		margin-top: 0;
-	}
-
-	/* Heading styles */
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		line-height: 1;
-		margin-top: 1rem;
-		text-wrap: pretty;
-	}
-
-	h1,
-	h2 {
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-	}
-
-	h1 {
-		font-size: 2rem;
-	}
-
-	h2 {
-		font-size: 1.5rem;
-	}
-
-	h3 {
-		font-size: 1.25rem;
-	}
-
-	h4,
-	h5,
-	h6 {
-		font-size: 1rem;
-	}
-
-	blockquote {
-		border-left: 0.25rem solid grey;
-		margin: 1rem 0;
-		padding: 0.25rem 0;
-		padding-left: 1rem;
-	}
-
-	blockquote p {
-		margin: 0;
-	}
-
-	hr {
-		border: none;
-		border-top: 1px solid grey;
-		margin: 1rem 0;
-	}
+.tiptap :first-child {
+	margin-top: 0;
 }
 
+/* Heading Styles */
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	line-height: 1.2;
+	margin-top: 1rem;
+	text-wrap: pretty;
+}
+
+.tiptap h1,
+.tiptap h2 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.tiptap h1 {
+	font-size: 2rem;
+}
+
+.tiptap h2 {
+	font-size: 1.5rem;
+}
+
+.tiptap h3 {
+	font-size: 1.25rem;
+}
+
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	font-size: 1rem;
+}
+
+/* Blockquote Styles */
+.tiptap blockquote {
+	border-left: 0.25rem solid var(--blockquote-border);
+	margin: 1rem 0;
+	padding: 0.25rem 0;
+	padding-left: 1rem;
+}
+
+.tiptap blockquote p {
+	margin: 0;
+}
+
+/* Horizontal Rule */
+.tiptap hr {
+	border: none;
+	border-top: 1px solid var(--border-color);
+	margin: 1rem 0;
+}
+
+/* Inline Code */
 .tiptap code:not(pre code) {
 	border-radius: 0.25rem;
-	background-color: #80808050;
-	border: 0.5px solid #80808075;
-	padding: 0.125rem;
+	color: var(--code-color);
+	background-color: var(--code-bg);
+	border: 0.5px solid var(--code-border);
+	padding: 0.125rem 0.25rem;
+	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
 }
 
+/* List Styling */
 .tiptap ul li p,
 .tiptap ol li p {
 	margin-top: 0.25em;
 	margin-bottom: 0.25em;
 }
 
+/* Task List Styling */
 .tiptap ul[data-type='taskList'] {
 	list-style: none;
 	margin: 0;
@@ -104,7 +109,7 @@
 }
 
 ul[data-type='taskList'] li[data-checked='true'] div {
-	color: grey;
+	color: var(--task-completed-color);
 	text-decoration: line-through;
 }
 
@@ -112,9 +117,10 @@ input[type='checkbox'] {
 	height: 1rem;
 	width: 1rem;
 	cursor: pointer;
+	accent-color: var(--border-color-hover);
 }
 
-/* Color swatches */
+/* Color Swatches */
 .color {
 	white-space: nowrap;
 }
@@ -132,7 +138,7 @@ input[type='checkbox'] {
 	content: ' ';
 }
 
-/** Code Wrapper */
+/* Code Block Styling */
 .tiptap pre {
 	margin: 0;
 	display: flex;
@@ -148,32 +154,34 @@ input[type='checkbox'] {
 	background-color: transparent;
 	padding: 0;
 	color: inherit;
-	font-family: 'JetBrains Mono', monospace;
+	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
 }
 
 .code-wrapper {
-	background-color: #80808010;
+	background-color: var(--code-wrapper-bg);
 	position: relative;
 	padding: 1.5rem 1rem;
 	margin: 0.5rem 0;
 	border-radius: 0.25rem;
+	border: 1px solid var(--border-color);
 }
 
 .code-wrapper-tile {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 0.5rem;
+	right: 0.5rem;
 	display: inline-flex;
 	opacity: 0;
 	align-items: center;
 	gap: 1rem;
 	transition: all 0.2s ease-in-out;
 }
+
 .code-wrapper:hover .code-wrapper-tile {
 	opacity: 1;
 }
 
-/* Drag Handle Related CSS*/
+/* Drag Handle Styling */
 .drag-handle {
 	position: fixed;
 	z-index: 50;
@@ -184,6 +192,7 @@ input[type='checkbox'] {
 	transition-property: opacity;
 	transition-duration: 200ms;
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+	color: var(--border-color-hover);
 }
 
 .drag-handle:active {
@@ -203,19 +212,20 @@ input[type='checkbox'] {
 }
 
 .drag-handle::after {
-	color: #808080;
 	content: '⠿';
 }
 
+/* Math Equations (KaTeX) */
 .katex:hover {
-	background-color: #80808050;
+	background-color: var(--code-bg);
 }
 
 .katex.result {
-	border-bottom: 1px dashed greenyellow;
-	background-color: #00800050;
+	border-bottom: 1px dashed var(--highlight-border);
+	background-color: var(--highlight-color);
 }
 
+/* Table Styling */
 .ProseMirror .tableWrapper {
 	margin: 0;
 	overflow: auto;
@@ -229,14 +239,14 @@ input[type='checkbox'] {
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 0.25rem;
-	border: 1px solid #80808050;
+	border: 1px solid var(--table-border);
 }
 
 .ProseMirror table td,
 .ProseMirror table th {
 	position: relative;
 	min-width: 100px;
-	border: 1px solid #80808050;
+	border: 1px solid var(--table-border);
 	padding: 0.5rem;
 	text-align: left;
 	vertical-align: top;
@@ -276,13 +286,13 @@ input[type='checkbox'] {
 	margin-left: 0.5rem;
 	height: 100%;
 	width: 1px;
-	background-color: #80808050;
+	background-color: var(--table-border);
 }
 
 .ProseMirror table .selectedCell {
 	border-style: double;
-	border-color: #80808050;
-	background-color: #80808025;
+	border-color: var(--table-border);
+	background-color: var(--table-bg-selected);
 }
 
 .ProseMirror table .grip-column,
@@ -293,7 +303,7 @@ input[type='checkbox'] {
 	cursor: pointer;
 	align-items: center;
 	justify-content: center;
-	background-color: #80808025;
+	background-color: var(--table-bg-selected);
 }
 
 .ProseMirror table .grip-column {
@@ -302,7 +312,7 @@ input[type='checkbox'] {
 	margin-left: -1px;
 	height: 0.75rem;
 	width: calc(100% + 1px);
-	border-left: 1px solid #80808050;
+	border-left: 1px solid var(--table-border);
 }
 
 .ProseMirror table .grip-column:hover::before,
@@ -312,11 +322,11 @@ input[type='checkbox'] {
 }
 
 .ProseMirror table .grip-column:hover {
-	background-color: #80808050;
+	background-color: var(--table-bg-hover);
 }
 
 .ProseMirror table .grip-column:hover::before {
-	border-bottom: 2px dotted #80808080;
+	border-bottom: 2px dotted var(--border-color-hover);
 }
 
 .ProseMirror table .grip-column.first {
@@ -329,13 +339,13 @@ input[type='checkbox'] {
 }
 
 .ProseMirror table .grip-column.selected {
-	border-color: #80808050;
-	background-color: #80808050;
+	border-color: var(--table-border);
+	background-color: var(--table-bg-hover);
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .ProseMirror table .grip-column.selected::before {
-	border-bottom: 2px dotted;
+	border-bottom: 2px dotted var(--border-color-hover);
 }
 
 .ProseMirror table .grip-row {
@@ -344,7 +354,7 @@ input[type='checkbox'] {
 	margin-top: -1px;
 	height: calc(100% + 1px);
 	width: 0.75rem;
-	border-top: 1px solid #80808050;
+	border-top: 1px solid var(--table-border);
 }
 
 .ProseMirror table .grip-row:hover::before,
@@ -354,11 +364,11 @@ input[type='checkbox'] {
 }
 
 .ProseMirror table .grip-row:hover {
-	background-color: #80808060;
+	background-color: var(--table-bg-hover);
 }
 
 .ProseMirror table .grip-row:hover::before {
-	border-left: 2px dotted #80808080;
+	border-left: 2px dotted var(--border-color-hover);
 }
 
 .ProseMirror table .grip-row.first {
@@ -371,11 +381,11 @@ input[type='checkbox'] {
 }
 
 .ProseMirror table .grip-row.selected {
-	border-color: #80808050;
-	background-color: #80808050;
+	border-color: var(--table-border);
+	background-color: var(--table-bg-hover);
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .ProseMirror table .grip-row.selected::before {
-	border-left: 2px dotted;
+	border-left: 2px dotted var(--border-color-hover);
 }
