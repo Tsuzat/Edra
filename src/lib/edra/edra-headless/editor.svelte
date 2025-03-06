@@ -25,6 +25,7 @@
 	import VideoExtendedComponent from './components/VideoExtended.svelte';
 	import { VideoExtended } from '../extensions/video/VideoExtended.js';
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
+	import LinkMenu from './menus/link-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -93,6 +94,7 @@
 <div class={`edra ${className}`}>
 	{#if editor}
 		<EdraToolbar {editor} />
+		<LinkMenu {editor} />
 	{/if}
 	<div bind:this={element} class="edra-editor"></div>
 </div>
