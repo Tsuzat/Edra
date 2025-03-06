@@ -306,5 +306,31 @@ export const commands: Record<string, EdraCommandGroup> = {
 				}
 			}
 		]
+	},
+	fonts: {
+		name: 'fonts',
+		label: 'Fonts',
+		commands: [
+			{
+				iconName: 'Plus',
+				name: 'font increment',
+				label: 'Increase Font Size',
+				action: (editor) => {
+					let currentFontSize = parseInt(editor.getAttributes('textStyle').fontSize ?? '16px');
+					currentFontSize++;
+					editor.chain().focus().setFontSize(`${currentFontSize}px`).run();
+				}
+			},
+			{
+				iconName: 'Minus',
+				name: 'font decrement',
+				label: 'Decrease Font Size',
+				action: (editor) => {
+					let currentFontSize = parseInt(editor.getAttributes('textStyle').fontSize ?? '16px');
+					currentFontSize--;
+					editor.chain().focus().setFontSize(`${currentFontSize}px`).run();
+				}
+			}
+		]
 	}
 };
