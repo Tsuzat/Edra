@@ -75,24 +75,11 @@ export default (menuList: Component<any, any, ''>): Extension =>
 					items: ({ query }: { query: string }) => {
 						const withFilteredCommands = GROUPS.map((group) => ({
 							...group,
-							commands: group.commands
-								.filter((item) => {
-									const labelNormalized = item.label.toLowerCase().trim();
-									const queryNormalized = query.toLowerCase().trim();
-
-									if (item.aliases) {
-										const aliases = item.aliases.map((alias) => alias.toLowerCase().trim());
-
-										return (
-											labelNormalized.includes(queryNormalized) || aliases.includes(queryNormalized)
-										);
-									}
-
-									return labelNormalized.includes(queryNormalized);
-								})
-								.filter((command) =>
-									command.shouldBeHidden ? !command.shouldBeHidden(this.editor) : true
-								)
+							commands: group.commands.filter((item) => {
+								const labelNormalized = item.label.toLowerCase().trim();
+								const queryNormalized = query.toLowerCase().trim();
+								return labelNormalized.includes(queryNormalized);
+							})
 						}));
 
 						const withoutEmptyGroups = withFilteredCommands.filter((group) => {
