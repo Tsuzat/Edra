@@ -6,6 +6,7 @@
 	import { initiateEditor } from '../editor.js';
 	import './editor.css';
 	import './style.css';
+	import 'katex/dist/katex.min.css';
 
 	// Lowlight
 	import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
@@ -26,6 +27,8 @@
 	import { VideoExtended } from '../extensions/video/VideoExtended.js';
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
 	import LinkMenu from './menus/link-menu.svelte';
+	import TableRowMenu from './menus/table/table-row-menu.svelte';
+	import TableColMenu from './menus/table/table-col-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -95,6 +98,8 @@
 	{#if editor}
 		<EdraToolbar {editor} />
 		<LinkMenu {editor} />
+		<TableRowMenu {editor} />
+		<TableColMenu {editor} />
 	{/if}
 	<div bind:this={element} class="edra-editor"></div>
 </div>
