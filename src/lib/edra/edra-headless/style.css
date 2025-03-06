@@ -244,3 +244,17 @@
 .edra-destructive {
 	color: red;
 }
+
+.bubble-menu-wrapper {
+	z-index: 100;
+	width: fit-content;
+	padding: 0.5rem;
+	background-color: white;
+	border: 1px solid var(--edra-border-color);
+}
+
+@media (prefers-color-scheme: dark) {
+	.bubble-menu-wrapper {
+		background-color: black;
+	}
+}
