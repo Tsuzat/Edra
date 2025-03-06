@@ -2,6 +2,7 @@
 	import { icons } from 'lucide-svelte';
 
 	interface Props {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		props: Record<string, any>;
 	}
 
