@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Editor } from '@tiptap/core';
 	import { commands } from '../commands/commands.js';
-	import { icons } from 'lucide-svelte';
-	import type { EdraCommand } from '../commands/types.js';
+	import EditorToolIconRenderer from './components/EditorToolIconRenderer.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -14,42 +13,26 @@
 	const fontCommands = commands.fonts.commands;
 </script>
 
-{#snippet EditorTool(group: EdraCommand, style?: string, onclick?: () => void)}
-	{@const Icon = icons[group.iconName]}
-	{@const shortcut = group.shortCuts ? ` (${group.shortCuts[0]})` : ''}
-	<button
-		class="edra-command-button"
-		class:active={editor.isActive(group.name) || group.isActive?.(editor)}
-		onclick={() => {
-			if (onclick !== undefined) onclick();
-			else group.action(editor);
-		}}
-		title={`${group.label}${shortcut}`}
-		{style}
-	>
-		<Icon class="edra-toolbar-icon" />
-	</button>
-{/snippet}
-
 <div class="edra-toolbar">
 	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
 		{@const groups = commands[keys].commands}
-		{#each groups as group}
-			{@render EditorTool(group)}
+		{#each groups as command}
+			<EditorToolIconRenderer {command} {editor} />
 		{/each}
 		<span class="separator"></span>
 	{/each}
 
-	{@render EditorTool(fontCommands[0])}
+	<EditorToolIconRenderer command={fontCommands[0]} {editor} />
 	<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
-	{@render EditorTool(fontCommands[1])}
+	<EditorToolIconRenderer command={fontCommands[1]} {editor} />
 
 	<span class="separator"></span>
 
-	{@render EditorTool(
-		colorCommands[0],
-		`color: ${editor.getAttributes('textStyle').color};`,
-		() => {
+	<EditorToolIconRenderer
+		command={colorCommands[0]}
+		{editor}
+		style={`color: ${editor.getAttributes('textStyle').color};`}
+		onclick={() => {
 			const color = editor.getAttributes('textStyle').color;
 			const hasColor = editor.isActive('textStyle', { color });
 			if (hasColor) {
@@ -60,12 +43,13 @@
 					editor.chain().focus().setColor(color).run();
 				}
 			}
-		}
-	)}
-	{@render EditorTool(
-		colorCommands[1],
-		`background-color: ${editor.getAttributes('highlight').color};`,
-		() => {
+		}}
+	/>
+	<EditorToolIconRenderer
+		command={colorCommands[1]}
+		{editor}
+		style={`background-color: ${editor.getAttributes('highlight').color};`}
+		onclick={() => {
 			const hasHightlight = editor.isActive('highlight');
 			if (hasHightlight) {
 				editor.chain().focus().unsetHighlight().run();
@@ -75,6 +59,6 @@
 					editor.chain().focus().setHighlight({ color }).run();
 				}
 			}
-		}
-	)}
+		}}
+	/>
 </div>
