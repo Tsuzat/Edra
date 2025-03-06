@@ -29,6 +29,8 @@
 	import LinkMenu from './menus/link-menu.svelte';
 	import TableRowMenu from './menus/table/table-row-menu.svelte';
 	import TableColMenu from './menus/table/table-col-menu.svelte';
+	import slashcommand from '../extensions/slash-command/slashcommand.js';
+	import SlashCommandList from './components/SlashCommandList.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -73,6 +75,7 @@
 				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
+				slashcommand(SlashCommandList),
 				...(extensions ?? [])
 			],
 			{
