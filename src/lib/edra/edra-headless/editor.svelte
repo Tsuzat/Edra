@@ -31,6 +31,7 @@
 	import TableColMenu from './menus/table/table-col-menu.svelte';
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
+	import BubbleMenu from './menus/bubble-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -103,6 +104,7 @@
 		<LinkMenu {editor} />
 		<TableRowMenu {editor} />
 		<TableColMenu {editor} />
+		<BubbleMenu {editor} />
 	{/if}
 	<div bind:this={element} class="edra-editor"></div>
 </div>
