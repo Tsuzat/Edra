@@ -272,15 +272,15 @@ export const commands: Record<string, EdraCommandGroup> = {
 		name: 'Colors',
 		label: 'Colors and Highlights',
 		commands: [
-			// {
-			// 	iconName: 'ColorSwatch',
-			// 	name: 'color',
-			// 	label: 'Color',
-			// 	shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+C`],
-			// 	action: (editor) => {
-			// 		editor.chain().focus().toggleColor().run();
-			// 	}
-			// },
+			{
+				iconName: 'PenLine',
+				name: 'color',
+				label: 'Color',
+				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+C`],
+				action: (editor) => {
+					editor.chain().focus().unsetColor().run();
+				}
+			},
 			{
 				iconName: 'Highlighter',
 				name: 'highlight',
