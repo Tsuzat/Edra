@@ -11,6 +11,7 @@
 	let { editor }: Props = $props();
 
 	const colorCommands = commands.colors.commands;
+	const fontCommands = commands.fonts.commands;
 </script>
 
 {#snippet EditorTool(group: EdraCommand, style?: string, onclick?: () => void)}
@@ -31,13 +32,19 @@
 {/snippet}
 
 <div class="edra-toolbar">
-	{#each Object.keys(commands).filter((key) => key !== 'colors') as keys}
+	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
 		{@const groups = commands[keys].commands}
 		{#each groups as group}
 			{@render EditorTool(group)}
 		{/each}
 		<span class="separator"></span>
 	{/each}
+
+	{@render EditorTool(fontCommands[0])}
+	<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
+	{@render EditorTool(fontCommands[1])}
+
+	<span class="separator"></span>
 
 	{@render EditorTool(
 		colorCommands[0],
