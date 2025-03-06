@@ -16,6 +16,8 @@ import { SmilieReplacer } from './extensions/SmilieReplacer.js';
 import { ColorHighlighter } from './extensions/ColorHighLighter.js';
 import AutoJoiner from 'tiptap-extension-auto-joiner';
 import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
+import { MathExtension } from '@aarkue/tiptap-math-extension';
+import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -77,6 +79,11 @@ export const initiateEditor = (
 			GlobalDragHandle.configure({
 				excludedTags: ['pre', 'code', 'table p']
 			}),
+			MathExtension.configure({ evaluation: true }),
+			Table,
+			TableHeader,
+			TableRow,
+			TableCell,
 			...(extensions ?? [])
 		],
 		autofocus: true,
