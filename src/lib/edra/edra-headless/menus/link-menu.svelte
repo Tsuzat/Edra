@@ -2,13 +2,18 @@
 	import { type Editor } from '@tiptap/core';
 	import { BubbleMenu } from 'svelte-tiptap';
 	import type { ShouldShowProps } from './types.js';
+	import Copy from 'lucide-svelte/icons/copy';
+	import Trash from 'lucide-svelte/icons/trash';
+	import Edit from 'lucide-svelte/icons/pen';
+	import Check from 'lucide-svelte/icons/check';
+
 	interface Props {
 		editor: Editor;
 	}
 
 	let { editor }: Props = $props();
 
-	let link = $derived.by(() => editor.getAttributes('link').href);
+	const link = $derived.by(() => editor.getAttributes('link').href);
 
 	let isEditing = $state(false);
 
@@ -56,5 +61,87 @@
 	}}
 	class="bubble-menu-wrapper"
 >
-	<a href={link} target="_blank">{link}</a>
+	{#if isEditing}
+		<input
+			type="text"
+			bind:value={linkInput}
+			placeholder="Enter the URL"
+			disabled={!isEditing}
+			class:valid={isLinkValid}
+			class:invalid={!isLinkValid}
+		/>
+	{:else}
+		<a href={link} target="_blank">{link}</a>
+	{/if}
+
+	{#if !isEditing}
+		<button
+			class="edra-command-button"
+			onclick={() => {
+				linkInput = link;
+				isEditing = true;
+			}}
+			title="Edit the URL"
+		>
+			<Edit class="edra-toolbar-icon" />
+		</button>
+		<button
+			class="edra-command-button"
+			onclick={() => {
+				navigator.clipboard.writeText(link);
+			}}
+			title="Copy the URL to the clipboard"
+		>
+			<Copy class="edra-toolbar-icon" />
+		</button>
+		<button
+			class="edra-command-button"
+			onclick={() => {
+				editor.chain().focus().extendMarkRange('link').unsetLink().run();
+			}}
+			title="Remove the link"
+		>
+			<Trash class="edra-toolbar-icon" />
+		</button>
+	{:else}
+		<button
+			class="edra-command-button"
+			onclick={() => {
+				isEditing = false;
+				editor.commands.focus();
+				setLink(linkInput);
+			}}
+			disabled={!isLinkValid}
+		>
+			<Check class="edra-toolbar-icon" />
+		</button>
+	{/if}
 </BubbleMenu>
+
+<!-- <style>
+	:global(.bubble-menu-wrapper) {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	:global(.bubble-menu-wrapper input) {
+		width: 100%;
+		padding: 0.5rem;
+		border: none;
+		max-width: 10rem;
+		background: none;
+		margin-right: 0.5rem;
+		width: fit-content;
+	}
+	input.valid {
+		border: 1px solid green;
+	}
+	input:focus {
+		outline: none;
+	}
+
+	input.invalid {
+		border: 1px solid red;
+	}
+</style> -->
