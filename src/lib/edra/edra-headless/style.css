@@ -23,7 +23,7 @@
 	--border-color: rgba(128, 128, 128, 0.3);
 	--border-color-hover: rgba(128, 128, 128, 0.5);
 	--blockquote-border: rgba(128, 128, 128, 0.7);
-	--code-color: currentColor;
+	--code-color: rgb(255, 68, 0);
 	--code-bg: rgba(128, 128, 128, 0.3);
 	--code-border: rgba(128, 128, 128, 0.4);
 	--table-border: rgba(128, 128, 128, 0.3);
