@@ -18,6 +18,7 @@ import AutoJoiner from 'tiptap-extension-auto-joiner';
 import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 import { MathExtension } from '@aarkue/tiptap-math-extension';
 import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';
+import FontSize from './extensions/FontSize.js';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -84,6 +85,7 @@ export const initiateEditor = (
 			TableHeader,
 			TableRow,
 			TableCell,
+			FontSize,
 			...(extensions ?? [])
 		],
 		autofocus: true,
