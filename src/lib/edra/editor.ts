@@ -19,6 +19,7 @@ import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 import { MathExtension } from '@aarkue/tiptap-math-extension';
 import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';
 import FontSize from './extensions/FontSize.js';
+import Placeholder from '@tiptap/extension-placeholder';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -86,6 +87,20 @@ export const initiateEditor = (
 			TableRow,
 			TableCell,
 			FontSize,
+			Placeholder.configure({
+				emptyEditorClass: 'is-empty',
+				// Use a placeholder:
+				// Use different placeholders depending on the node type:
+				placeholder: ({ node }) => {
+					if (node.type.name === 'heading') {
+						return 'What’s the title?';
+					} else if (node.type.name === 'paragraph') {
+						return 'Press / or write something ...';
+					}
+					return '';
+				}
+			}),
+
 			...(extensions ?? [])
 		],
 		autofocus: true,

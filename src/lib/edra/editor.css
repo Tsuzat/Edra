@@ -4,6 +4,15 @@
 	margin-top: 0;
 }
 
+/* For Placeholder */
+.tiptap .is-empty::before {
+	pointer-events: none;
+	float: left;
+	height: 0;
+	color: var(--border-color-hover);
+	content: attr(data-placeholder);
+}
+
 /* Heading Styles */
 .tiptap h1,
 .tiptap h2,
@@ -64,7 +73,7 @@
 	border-radius: 0.25rem;
 	color: var(--code-color);
 	background-color: var(--code-bg);
-	border: 0.5px solid var(--code-border);
+	border: 0.5px solid var(--code-border) !important;
 	padding: 0.125rem 0.25rem;
 	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
 }
@@ -114,9 +123,15 @@ ul[data-type='taskList'] li[data-checked='true'] div {
 }
 
 input[type='checkbox'] {
-	height: 1rem;
-	width: 1rem;
+	position: relative;
+	top: 0.25rem;
+	margin: 0;
+	display: grid;
+	place-content: center;
 	cursor: pointer;
+	width: 1.125rem;
+	height: 1.125rem;
+	border-radius: 0.25rem;
 }
 
 /* Color Swatches */
@@ -131,7 +146,7 @@ input[type='checkbox'] {
 	width: 1rem;
 	height: 1rem;
 	border-radius: 0.25rem;
-	border: 1px solid var(--color);
+	border: 1px solid var(--border-color);
 	vertical-align: middle;
 	background-color: var(--color);
 	content: ' ';
@@ -154,30 +169,6 @@ input[type='checkbox'] {
 	padding: 0;
 	color: inherit;
 	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
-}
-
-.code-wrapper {
-	background-color: var(--code-wrapper-bg);
-	position: relative;
-	padding: 1.5rem 1rem;
-	margin: 0.5rem 0;
-	border-radius: 0.25rem;
-	border: 1px solid var(--border-color);
-}
-
-.code-wrapper-tile {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-	display: inline-flex;
-	opacity: 0;
-	align-items: center;
-	gap: 1rem;
-	transition: all 0.2s ease-in-out;
-}
-
-.code-wrapper:hover .code-wrapper-tile {
-	opacity: 1;
 }
 
 /* Drag Handle Styling */
