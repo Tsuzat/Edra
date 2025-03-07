@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { Content } from '@tiptap/core';
+	import type { Content, Editor } from '@tiptap/core';
 	import Edra from '$lib/edra/edra-headless/editor.svelte';
+	import type { Transaction } from '@tiptap/pm/state';
 
 	let content = $state<Content>();
 
@@ -10,9 +11,8 @@
 		content = rawData;
 	}
 
-	function onUpdate(content: Content) {
-		console.log('Content = ', content);
-		localStorage.setItem('edra-content', JSON.stringify(content));
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		localStorage.setItem('edra-content', JSON.stringify(props.editor.getJSON()));
 	}
 </script>
 
