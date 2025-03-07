@@ -90,7 +90,7 @@
 }
 
 /* Dark Theme (All dark styles consolidated in one media query) */
-@media (prefers-color-scheme: dark) {
+html.dark {
 	.tiptap pre code {
 		color: #abb2bf;
 	}
