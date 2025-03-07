@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Editor, type Content, type Extensions } from '@tiptap/core';
+	import { type Editor, type Content } from '@tiptap/core';
 	import { onDestroy, onMount } from 'svelte';
 
 	import Toolbar from './toolbar.svelte';

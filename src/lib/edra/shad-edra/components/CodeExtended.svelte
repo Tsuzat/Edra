@@ -2,8 +2,7 @@
 	import { NodeViewWrapper, NodeViewContent } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	const { node, editor, selected, deleteNode, updateAttributes, extension }: NodeViewProps =
-		$props();
+	const { node, updateAttributes, extension }: NodeViewProps = $props();
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import ChevronDown from 'lucide-svelte/icons/chevron-down';
 	import Check from 'lucide-svelte/icons/check';

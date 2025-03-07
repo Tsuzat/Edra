@@ -2,7 +2,6 @@
 	import type { Editor } from '@tiptap/core';
 	import { commands } from '../commands/commands.js';
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
-	import { Separator } from '$lib/components/ui/separator/index.js';
 
 	interface Props {
 		editor: Editor;

@@ -44,16 +44,14 @@
 				accept="audio/*"
 				multiple={false}
 				onchange={(e: Event) => {
-					//@ts-ignore
-					if (e.target && e.target.files) {
-						//@ts-ignore
-						const files = Array.from(e.target.files || []);
+					const target = e.target as HTMLInputElement;
+					if (target && target.files) {
+						const files = Array.from(target.files || []);
 						files.map((file) => {
 							const reader = new FileReader();
 							reader.onload = () => {
 								src = reader.result as string;
 							};
-							//@ts-ignore
 							reader.readAsDataURL(file);
 						});
 					}

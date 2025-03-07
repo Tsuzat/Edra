@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Content, Editor, Extensions } from '@tiptap/core';
+	import type { Content, Editor } from '@tiptap/core';
 	import { onMount } from 'svelte';
 	import { initiateEditor } from '../editor.js';
 	import { Transaction } from '@tiptap/pm/state';
