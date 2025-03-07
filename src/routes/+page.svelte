@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { Edra } from '$lib/edra/index.js';
 	import type { Content } from '@tiptap/core';
+	import Edra from '$lib/edra/edra-headless/editor.svelte';
 
 	let content = $state<Content>();
 
