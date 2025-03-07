@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Content, Editor } from '@tiptap/core';
-	import Edra from '$lib/edra/edra-headless/editor.svelte';
+	import Edra from '$lib/edra/shad-edra/editor.svelte';
 	import type { Transaction } from '@tiptap/pm/state';
 
 	let content = $state<Content>();
@@ -16,14 +16,12 @@
 	}
 </script>
 
-<main class="inline-flex size-full items-center justify-center">
-	<Edra bind:content {onUpdate} />
+<main class="inline-flex w-full items-center justify-center">
+	<Edra class="h-[30rem] w-[80%] rounded border" bind:content {onUpdate} />
 </main>
 
 <style>
-	:global(.edra) {
-		width: 80%;
-		height: 30rem;
-		overflow: auto;
+	:global(.edra-toolbar) {
+		@apply w-full border-b p-1;
 	}
 </style>

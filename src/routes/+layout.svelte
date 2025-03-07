@@ -2,7 +2,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import '@fontsource/poppins';
 	import Navbar from '$lib/components/custom/navbar.svelte';
-	// import '../app.css';
+	import '../app.css';
 	let { children } = $props();
 </script>
 
