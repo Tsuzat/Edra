@@ -32,6 +32,7 @@
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
+	import { Transaction } from '@tiptap/pm/state';
 
 	const lowlight = createLowlight(all);
 
@@ -40,12 +41,11 @@
 		content?: Content;
 		editable?: boolean;
 		editor?: Editor;
-		extensions?: Extensions;
 		/**
 		 * Callback function to be called when the content is updated
 		 * @param content
 		 */
-		onUpdate?: (content: Content) => void;
+		onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
 	}
 
 	let {
@@ -53,7 +53,6 @@
 		content = $bindable(),
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
-		extensions,
 		onUpdate
 	}: Props = $props();
 
@@ -77,14 +76,11 @@
 				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
-				slashcommand(SlashCommandList),
-				...(extensions ?? [])
+				slashcommand(SlashCommandList)
 			],
 			{
 				editable,
-				onUpdate: (props) => {
-					onUpdate?.(props.editor.getJSON());
-				},
+				onUpdate,
 				onTransaction: (props) => {
 					editor = undefined;
 					editor = props.editor;
