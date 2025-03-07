@@ -14,6 +14,12 @@
 	import CodeExtended from './components/CodeExtended.svelte';
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
+	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
+	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
+	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
+	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
+	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
+	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
 	const lowlight = createLowlight(all);
 
 	interface Props {
@@ -49,7 +55,10 @@
 					addNodeView() {
 						return SvelteNodeViewRenderer(CodeExtended);
 					}
-				})
+				}),
+				AudioPlaceHolder(AudioPlaceHolderComponent),
+				ImagePlaceHolder(ImagePlaceHolderComponent),
+				VideoPlaceHolder(VideoPlaceHolderComponent)
 			],
 			{
 				editable,
