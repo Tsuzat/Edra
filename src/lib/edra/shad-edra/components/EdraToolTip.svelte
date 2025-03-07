@@ -16,8 +16,10 @@
 		<Tooltip.Trigger class="size-fit">
 			{@render children()}
 		</Tooltip.Trigger>
-		<Tooltip.Content class="flex items-center gap-1 text-sm">
-			<p class="font-medium">{content}</p>
+		<Tooltip.Content
+			class="flex items-center gap-1 rounded border bg-background text-xs font-medium text-foreground"
+		>
+			<p>{content}</p>
 			<p class="text-muted-foreground">{shortCut}</p>
 		</Tooltip.Content>
 	</Tooltip.Root>
