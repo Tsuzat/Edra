@@ -6,11 +6,11 @@
 	--code-color: rgb(255, 68, 0);
 	--code-bg: hsl(var(--muted) / 0.5);
 	--code-border: hsl(var(--muted-foreground) / 0.25);
-	--table-border: hsl(var(--muted));
-	--table-bg-selected: hsl(var(--muted) / 0.35);
-	--table-bg-hover: hsl(var(--muted) / 0.25);
+	--table-border: hsl(var(--muted-foreground) / 0.25);
+	--table-bg-selected: hsl(var(--muted-foreground) / 0.2);
+	--table-bg-hover: hsl(var(--muted));
 	--task-completed-color: hsl(var(--muted-foreground));
-	--highlight-color: rgba(0, 128, 0, 0.3);
+	--highlight-color: rgba(171, 207, 171, 0.3);
 	--highlight-border: greenyellow;
 }
 
