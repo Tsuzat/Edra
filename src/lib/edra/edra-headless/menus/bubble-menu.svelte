@@ -2,7 +2,7 @@
 	import { BubbleMenu } from 'svelte-tiptap';
 	import { isTextSelection, type Editor } from '@tiptap/core';
 	import { commands } from '../../commands/commands.js';
-	import EditorToolIconRenderer from '../components/EditorToolIconRenderer.svelte';
+	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
 	import type { ShouldShowProps } from './types.js';
 
 	interface Props {
@@ -96,14 +96,14 @@
 	}}
 >
 	{#each bubbleMenuCommands as command}
-		<EditorToolIconRenderer {command} {editor} />
+		<EdraToolBarIcon {command} {editor} />
 	{/each}
 
-	<EditorToolIconRenderer command={fontCommands[0]} {editor} />
+	<EdraToolBarIcon command={fontCommands[0]} {editor} />
 	<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
-	<EditorToolIconRenderer command={fontCommands[1]} {editor} />
+	<EdraToolBarIcon command={fontCommands[1]} {editor} />
 
-	<EditorToolIconRenderer
+	<EdraToolBarIcon
 		command={colorCommands[0]}
 		{editor}
 		style={`color: ${editor.getAttributes('textStyle').color};`}
@@ -120,7 +120,7 @@
 			}
 		}}
 	/>
-	<EditorToolIconRenderer
+	<EdraToolBarIcon
 		command={colorCommands[1]}
 		{editor}
 		style={`background-color: ${editor.getAttributes('highlight').color};`}
