@@ -1,0 +1,33 @@
+:root {
+	/* Convert Tailwind HSL variables to proper CSS colors using hsl() function */
+	--border-color: hsl(var(--muted));
+	--border-color-hover: hsl(var(--muted-foreground));
+	--blockquote-border: hsl(var(--muted));
+	--code-color: rgb(255, 68, 0);
+	--code-bg: hsl(var(--muted) / 0.5);
+	--code-border: hsl(var(--muted-foreground) / 0.25);
+	--table-border: hsl(var(--muted));
+	--table-bg-selected: hsl(var(--muted) / 0.35);
+	--table-bg-hover: hsl(var(--muted) / 0.25);
+	--task-completed-color: hsl(var(--muted-foreground));
+	--highlight-color: rgba(0, 128, 0, 0.3);
+	--highlight-border: greenyellow;
+}
+
+.tiptap code::after,
+.tiptap code::before {
+	content: '';
+}
+
+.tiptap a {
+	color: blue;
+}
+
+.tiptap blockquote p::after,
+.tiptap blockquote p::before {
+	content: '';
+}
+
+.tiptap blockquote {
+	font-style: normal;
+}
