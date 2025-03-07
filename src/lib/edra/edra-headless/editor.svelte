@@ -2,7 +2,7 @@
 	import { type Editor, type Content, type Extensions } from '@tiptap/core';
 	import { onDestroy, onMount } from 'svelte';
 
-	import EdraToolbar from './edra-toolbar.svelte';
+	import Toolbar from './toolbar.svelte';
 	import { initiateEditor } from '../editor.js';
 	import './style.css';
 	import 'katex/dist/katex.min.css';
@@ -39,6 +39,7 @@
 		class?: string;
 		content?: Content;
 		editable?: boolean;
+		editor?: Editor;
 		extensions?: Extensions;
 		/**
 		 * Callback function to be called when the content is updated
@@ -47,15 +48,15 @@
 		onUpdate?: (content: Content) => void;
 	}
 
-	const {
+	let {
 		class: className = '',
 		content = $bindable(),
 		editable = true,
+		editor = $bindable<Editor | undefined>(),
 		extensions,
 		onUpdate
 	}: Props = $props();
 
-	let editor = $state<Editor>();
 	let element = $state<HTMLElement>();
 
 	onMount(() => {
@@ -100,7 +101,7 @@
 
 <div class={`edra ${className}`}>
 	{#if editor}
-		<EdraToolbar {editor} />
+		<Toolbar {editor} />
 		<LinkMenu {editor} />
 		<TableRowMenu {editor} />
 		<TableColMenu {editor} />
