@@ -17,11 +17,13 @@
 </script>
 
 <main class="inline-flex w-full items-center justify-center">
-	<Edra class="h-[40rem] w-[80%] rounded border" bind:content {onUpdate} />
+	<Edra class="h-[35rem] w-[95%] rounded border sm:w-[80%]" bind:content {onUpdate} />
 </main>
 
 <style>
 	:global(.edra-toolbar) {
-		@apply w-full border-b p-1;
+		width: 100%;
+		border-bottom-width: 1px;
+		padding: 0.25rem;
 	}
 </style>

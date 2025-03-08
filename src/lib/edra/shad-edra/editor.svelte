@@ -90,6 +90,6 @@
 	{/if}
 	<div
 		bind:this={element}
-		class="edra-editor prose size-full min-w-full flex-grow overflow-auto px-8 dark:prose-invert *:outline-none"
+		class="edra-editor prose size-full min-w-full flex-grow overflow-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
 	></div>
 </div>
