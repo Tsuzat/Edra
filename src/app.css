@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+	width: 0.4rem;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	@apply rounded-full bg-muted-foreground dark:bg-muted;
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
