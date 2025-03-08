@@ -20,6 +20,13 @@
 	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
 	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
 	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
+	import { ImageExtended } from '../extensions/image/ImageExtended.js';
+	import { VideoExtended } from '../extensions/video/VideoExtended.js';
+	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
+	import ImageExtendedComponent from './components/ImageExtended.svelte';
+	import VideoExtendedComponent from './components/VideoExtended.svelte';
+	import AudioExtendedComponent from './components/AudioExtended.svelte';
+
 	const lowlight = createLowlight(all);
 
 	interface Props {
@@ -58,7 +65,10 @@
 				}),
 				AudioPlaceHolder(AudioPlaceHolderComponent),
 				ImagePlaceHolder(ImagePlaceHolderComponent),
-				VideoPlaceHolder(VideoPlaceHolderComponent)
+				VideoPlaceHolder(VideoPlaceHolderComponent),
+				ImageExtended(ImageExtendedComponent),
+				VideoExtended(VideoExtendedComponent),
+				AudioExtended(AudioExtendedComponent)
 			],
 			{
 				editable,
@@ -72,12 +82,14 @@
 	});
 </script>
 
-<div class={`edra ${className} overflow-auto`}>
+<div class={`edra ${className} flex flex-col`}>
 	{#if editor}
-		<Toolbar {editor} />
+		<div>
+			<Toolbar {editor} />
+		</div>
 	{/if}
 	<div
 		bind:this={element}
-		class="edra-editor prose mx-8 my-4 max-w-full dark:prose-invert *:outline-none"
+		class="edra-editor prose size-full min-w-full flex-grow overflow-auto px-8 dark:prose-invert *:outline-none"
 	></div>
 </div>
