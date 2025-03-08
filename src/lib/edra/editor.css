@@ -51,9 +51,11 @@
 
 /* Blockquote Styles */
 .tiptap blockquote {
-	border-left: 0.25rem solid var(--blockquote-border);
+	border-left: 0.5rem solid var(--blockquote-border);
+	border-radius: 0.5rem;
+	background-color: var(--code-bg);
 	margin: 1rem 0;
-	padding: 0.25rem 0;
+	padding: 0.5rem 0;
 	padding-left: 1rem;
 }
 
@@ -74,7 +76,7 @@
 	color: var(--code-color);
 	background-color: var(--code-bg);
 	border: 0.5px solid var(--code-border) !important;
-	padding: 0.125rem 0.25rem;
+	padding: 0.25rem;
 	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
 }
 
