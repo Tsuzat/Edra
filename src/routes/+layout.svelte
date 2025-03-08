@@ -10,5 +10,7 @@
 
 <svelte:head></svelte:head>
 
-<Navbar />
-{@render children()}
+<div class="flex h-screen w-screen flex-col">
+	<Navbar />
+	{@render children()}
+</div>
