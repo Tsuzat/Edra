@@ -5,7 +5,7 @@
 	import ArrowDownFromLine from 'lucide-svelte/icons/arrow-down-from-line';
 	import ArrowUpFromLine from 'lucide-svelte/icons/arrow-up-from-line';
 	import Trash from 'lucide-svelte/icons/trash';
-	import { isRowGripSelected } from './utils.js';
+	import { isRowGripSelected } from '../../../extensions/table/utils.js';
 	interface Props {
 		editor: Editor;
 	}
