@@ -79,7 +79,7 @@ export const initiateEditor = (
 			}),
 			AutoJoiner,
 			GlobalDragHandle.configure({
-				excludedTags: ['pre', 'code', 'table p']
+				excludedTags: ['pre', 'code']
 			}),
 			MathExtension.configure({ evaluation: true }),
 			Table,
