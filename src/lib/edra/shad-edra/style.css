@@ -7,11 +7,11 @@
 	--code-bg: hsl(var(--muted-foreground) / 0.1);
 	--code-border: hsl(var(--muted-foreground) / 0.15);
 	--table-border: hsl(var(--muted-foreground) / 0.25);
-	--table-bg-selected: hsl(var(--muted-foreground) / 0.2);
+	--table-bg-selected: hsl(var(--muted-foreground) / 0.1);
 	--table-bg-hover: hsl(var(--muted));
 	--task-completed-color: hsl(var(--muted-foreground));
-	--highlight-color: rgba(171, 207, 171, 0.3);
-	--highlight-border: greenyellow;
+	--highlight-color: rgba(0, 255, 0, 0.1);
+	--highlight-border: green;
 }
 
 .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
