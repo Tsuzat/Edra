@@ -58,7 +58,7 @@
 				}}
 			/>
 			{#if src.trim() !== ''}
-				<audio {src} controls class="h-fit w-fit"> </audio>
+				<audio {src} controls class="h-12 w-full"> </audio>
 				<Button onclick={() => editor.chain().focus().setAudio(src).run()}>Add Audio</Button>
 			{/if}
 		</Popover.Content>
