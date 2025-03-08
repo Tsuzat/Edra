@@ -46,7 +46,7 @@
 		class="size-fit bg-popover shadow-lg"
 		portalProps={{ disabled: true, to: undefined }}
 	>
-		<div class="mb-2 text-muted-foreground">Text Colors</div>
+		<div class="my-2 text-xs text-muted-foreground">Text Colors</div>
 		<div class="grid grid-cols-5 gap-2">
 			{#each colors as color}
 				<Button
@@ -74,24 +74,24 @@
 			{/each}
 		</div>
 
-		<div class="mb-2 text-muted-foreground">Highlight Colors</div>
+		<div class="my-2 text-xs text-muted-foreground">Highlight Colors</div>
 		<div class="grid grid-cols-5 gap-2">
 			{#each colors as color}
 				<Button
 					variant="ghost"
 					class={cn(
 						`size-8 border-0 p-0 font-normal`,
-						editor.isActive('highlight', { color: color.value }) && 'border-2 font-extrabold',
+						editor.isActive('highlight', { color: color.value }) && 'border-2',
 						color.value === '' && 'border'
 					)}
-					style={`color: ${color.value}; background-color: ${color.value}50; border-color: ${color.value};`}
+					style={`background-color: ${color.value}50; border-color: ${color.value};`}
 					title={color.label}
 					onclick={() => {
 						if (color.value === '' || color.label === 'Default')
 							editor.chain().focus().unsetHighlight().run();
 						else editor.chain().focus().toggleHighlight({ color: color.value }).run();
-					}}
-				></Button>
+					}}>A</Button
+				>
 			{/each}
 		</div>
 	</Popover.Content>
