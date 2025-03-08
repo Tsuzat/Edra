@@ -17,7 +17,7 @@
 </script>
 
 <main class="inline-flex w-full items-center justify-center">
-	<Edra class="h-[30rem] w-[80%] rounded border" bind:content {onUpdate} />
+	<Edra class="h-[40rem] w-[80%] rounded border" bind:content {onUpdate} />
 </main>
 
 <style>
