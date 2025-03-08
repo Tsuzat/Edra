@@ -1,7 +1,9 @@
-import { findParentNode } from '@tiptap/core';
-import { Selection, Transaction } from '@tiptap/pm/state';
+import { Editor, findParentNode } from '@tiptap/core';
+import { EditorState, Selection, Transaction } from '@tiptap/pm/state';
 import { CellSelection, type Rect, TableMap } from '@tiptap/pm/tables';
 import { Node, ResolvedPos } from '@tiptap/pm/model';
+import type { EditorView } from '@tiptap/pm/view';
+import Table from './table.js';
 
 export const isRectSelected = (rect: Rect) => (selection: CellSelection) => {
 	const map = TableMap.get(selection.$anchorCell.node(-1));
@@ -255,4 +257,66 @@ export const selectTable = (tr: Transaction) => {
 	}
 
 	return tr;
+};
+
+export const isColumnGripSelected = ({
+	editor,
+	view,
+	state,
+	from
+}: {
+	editor: Editor;
+	view: EditorView;
+	state: EditorState;
+	from: number;
+}) => {
+	const domAtPos = view.domAtPos(from).node as HTMLElement;
+	const nodeDOM = view.nodeDOM(from) as HTMLElement;
+	const node = nodeDOM || domAtPos;
+
+	if (!editor.isActive(Table.name) || !node || isTableSelected(state.selection)) {
+		return false;
+	}
+
+	let container = node;
+
+	while (container && !['TD', 'TH'].includes(container.tagName)) {
+		container = container.parentElement!;
+	}
+
+	const gripColumn =
+		container && container.querySelector && container.querySelector('a.grip-column.selected');
+
+	return !!gripColumn;
+};
+
+export const isRowGripSelected = ({
+	editor,
+	view,
+	state,
+	from
+}: {
+	editor: Editor;
+	view: EditorView;
+	state: EditorState;
+	from: number;
+}) => {
+	const domAtPos = view.domAtPos(from).node as HTMLElement;
+	const nodeDOM = view.nodeDOM(from) as HTMLElement;
+	const node = nodeDOM || domAtPos;
+
+	if (!editor.isActive(Table.name) || !node || isTableSelected(state.selection)) {
+		return false;
+	}
+
+	let container = node;
+
+	while (container && !['TD', 'TH'].includes(container.tagName)) {
+		container = container.parentElement!;
+	}
+
+	const gripRow =
+		container && container.querySelector && container.querySelector('a.grip-row.selected');
+
+	return !!gripRow;
 };
