@@ -30,7 +30,8 @@ export const GROUPS: Group[] = [
 				action: (editor: Editor) => {
 					editor.chain().focus().setCodeBlock().run();
 				}
-			}
+			},
+			...commands.lists.commands
 		]
 	},
 	{
