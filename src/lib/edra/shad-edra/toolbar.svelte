@@ -3,6 +3,7 @@
 	import { commands } from '../commands/commands.js';
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
 	import QuickColor from './components/QuickColor.svelte';
+	import FontSize from './components/FontSize.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -18,5 +19,6 @@
 			<EdraToolBarIcon {command} {editor} />
 		{/each}
 	{/each}
+	<FontSize {editor} />
 	<QuickColor {editor} />
 </div>
