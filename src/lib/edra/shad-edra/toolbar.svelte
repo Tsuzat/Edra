@@ -10,7 +10,7 @@
 	const { editor }: Props = $props();
 </script>
 
-<div class="edra-toolbar flex h-fit w-fit items-center gap-1 overflow-auto">
+<div class="edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden">
 	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
 		{@const groups = commands[keys].commands}
 		{#each groups as command}
