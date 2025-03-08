@@ -5,7 +5,6 @@
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import { cn } from '$lib/utils.js';
 
 	let content = $state<Content>();
 
