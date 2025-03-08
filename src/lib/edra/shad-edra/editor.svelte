@@ -26,6 +26,11 @@
 	import ImageExtendedComponent from './components/ImageExtended.svelte';
 	import VideoExtendedComponent from './components/VideoExtended.svelte';
 	import AudioExtendedComponent from './components/AudioExtended.svelte';
+	import LinkMenu from './menus/link-menu.svelte';
+	import TableColMenu from './menus/table-col-menu.svelte';
+	import TableRowMenu from './menus/table-row-menu.svelte';
+	import slashcommand from '../extensions/slash-command/slashcommand.js';
+	import SlashCommandList from './components/SlashCommandList.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -68,7 +73,8 @@
 				VideoPlaceHolder(VideoPlaceHolderComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
-				AudioExtended(AudioExtendedComponent)
+				AudioExtended(AudioExtendedComponent),
+				slashcommand(SlashCommandList)
 			],
 			{
 				editable,
@@ -86,6 +92,9 @@
 	{#if editor}
 		<div>
 			<Toolbar {editor} />
+			<LinkMenu {editor} />
+			<TableColMenu {editor} />
+			<TableRowMenu {editor} />
 		</div>
 	{/if}
 	<div
