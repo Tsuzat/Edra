@@ -31,6 +31,7 @@
 	import TableRowMenu from './menus/table-row-menu.svelte';
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
+	import BubbleMenu from './menus/bubble-menu.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -95,6 +96,7 @@
 			<LinkMenu {editor} />
 			<TableColMenu {editor} />
 			<TableRowMenu {editor} />
+			<BubbleMenu {editor} />
 		</div>
 	{/if}
 	<div
