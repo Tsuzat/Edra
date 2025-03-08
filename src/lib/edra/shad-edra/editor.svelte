@@ -32,11 +32,14 @@
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
+	import { slide } from 'svelte/transition';
 
 	const lowlight = createLowlight(all);
 
 	interface Props {
 		class?: string;
+		showToolBar?: boolean;
+		showMenu?: boolean;
 		content?: Content;
 		editable?: boolean;
 		editor?: Editor;
@@ -50,6 +53,8 @@
 	let {
 		class: className = '',
 		content = $bindable(),
+		showToolBar = true,
+		showMenu = true,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
 		onUpdate
@@ -91,13 +96,17 @@
 
 <div class={`edra ${className} flex flex-col`}>
 	{#if editor}
-		<div>
-			<Toolbar {editor} />
+		{#if showToolBar}
+			<div transition:slide>
+				<Toolbar {editor} />
+			</div>
+		{/if}
+		{#if showMenu}
 			<LinkMenu {editor} />
 			<TableColMenu {editor} />
 			<TableRowMenu {editor} />
 			<BubbleMenu {editor} />
-		</div>
+		{/if}
 	{/if}
 	<div
 		bind:this={element}
