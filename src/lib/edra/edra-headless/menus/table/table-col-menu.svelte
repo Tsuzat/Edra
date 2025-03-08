@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ShouldShowProps } from '../types.js';
+	import type { ShouldShowProps } from '../../../utils.js';
 	import { type Editor } from '@tiptap/core';
 	import { BubbleMenu } from 'svelte-tiptap';
 	import ArrowLeftFromLine from 'lucide-svelte/icons/arrow-left-from-line';

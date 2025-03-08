@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Editor } from '@tiptap/core';
 	import { BubbleMenu } from 'svelte-tiptap';
-	import type { ShouldShowProps } from './types.js';
+	import type { ShouldShowProps } from '../../utils.js';
 	import Copy from 'lucide-svelte/icons/copy';
 	import Trash from 'lucide-svelte/icons/trash';
 	import Edit from 'lucide-svelte/icons/pen';

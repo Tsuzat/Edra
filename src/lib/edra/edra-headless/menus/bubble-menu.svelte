@@ -3,7 +3,7 @@
 	import { isTextSelection, type Editor } from '@tiptap/core';
 	import { commands } from '../../commands/commands.js';
 	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
-	import type { ShouldShowProps } from './types.js';
+	import type { ShouldShowProps } from '../../utils.js';
 
 	interface Props {
 		editor: Editor;
