@@ -2,6 +2,7 @@
 	import type { Editor } from '@tiptap/core';
 	import { commands } from '../commands/commands.js';
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
+	import QuickColor from './components/QuickColor.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -17,4 +18,5 @@
 			<EdraToolBarIcon {command} {editor} />
 		{/each}
 	{/each}
+	<QuickColor {editor} />
 </div>
