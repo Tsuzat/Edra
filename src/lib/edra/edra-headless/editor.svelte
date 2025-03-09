@@ -40,6 +40,8 @@
 		class?: string;
 		content?: Content;
 		editable?: boolean;
+		showToolBar?: boolean;
+		showMenu?: boolean;
 		editor?: Editor;
 		/**
 		 * Callback function to be called when the content is updated
@@ -52,6 +54,8 @@
 		class: className = '',
 		content = $bindable(),
 		editable = true,
+		showToolBar = true,
+		showMenu = true,
 		editor = $bindable<Editor | undefined>(),
 		onUpdate
 	}: Props = $props();
@@ -97,11 +101,15 @@
 
 <div class={`edra ${className}`}>
 	{#if editor}
-		<Toolbar {editor} />
-		<LinkMenu {editor} />
-		<TableRowMenu {editor} />
-		<TableColMenu {editor} />
-		<BubbleMenu {editor} />
+		{#if showToolBar}
+			<Toolbar {editor} />
+		{/if}
+		{#if showMenu}
+			<LinkMenu {editor} />
+			<TableRowMenu {editor} />
+			<TableColMenu {editor} />
+			<BubbleMenu {editor} />
+		{/if}
 	{/if}
 	<div bind:this={element} class="edra-editor"></div>
 </div>
