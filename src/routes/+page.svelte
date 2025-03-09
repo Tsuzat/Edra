@@ -25,24 +25,12 @@
 	<h1 class="my-4 animate-pulse text-center text-4xl font-extrabold">E D R A</h1>
 	<div class="flex items-center gap-4">
 		<div class="flex items-center gap-2">
-			<Checkbox id="terms" bind:checked={showToolBar} />
-			<Label
-				id="terms-label"
-				for="terms"
-				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-			>
-				Show Editor Toolbar
-			</Label>
+			<Checkbox id="toolbar" bind:checked={showToolBar} />
+			<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
 		</div>
 		<div class="flex items-center gap-2">
-			<Checkbox id="terms" bind:checked={showMenu} />
-			<Label
-				id="terms-label"
-				for="terms"
-				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-			>
-				Show Editor Menus
-			</Label>
+			<Checkbox id="menus" bind:checked={showMenu} />
+			<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
 		</div>
 	</div>
 	<Edra
