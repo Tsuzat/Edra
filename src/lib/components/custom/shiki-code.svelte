@@ -28,6 +28,6 @@
 	});
 </script>
 
-<div class={cn('relative rounded border border-border/50 p-4', className)}>
+<div class={cn('relative rounded border border-border/50 py-4', className)}>
 	{@html html}
 </div>
