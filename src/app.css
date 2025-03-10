@@ -95,4 +95,52 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	pre.shiki {
+		@apply m-0 rounded-none bg-transparent p-0 py-2 max-sm:max-h-[30rem] !important;
+	}
+
+	html.dark .shiki,
+	html.dark .shiki span {
+		color: var(--shiki-dark) !important;
+		/* Optional, if you also want font styles */
+		font-style: var(--shiki-dark-font-style) !important;
+		font-weight: var(--shiki-dark-font-weight) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
+	}
+
+	pre.shiki code {
+		/* counter-reset: lineNumber; */
+		@apply grid [counter-reset:line] [&>span]:border-l-[3px] [&>span]:border-l-transparent [&>span]:pl-2 [&>span]:pr-3 [&>span]:before:mr-3 [&>span]:before:inline-block [&>span]:before:w-4 [&>span]:before:text-right [&>span]:before:text-muted-foreground [&>span]:before:![content:counter(line)] [&>span]:before:[counter-increment:line];
+	}
+
+	pre.shiki code span.line-highlight {
+		@apply !border-l-blue-700/80 bg-blue-800/[15%];
+	}
+
+	pre.shiki code span.diff-add::before {
+		content: '+' attr(data-line) !important;
+		@apply text-green-400;
+	}
+	pre.shiki code span.diff-add {
+		/* content: '+' + attr(data-line); */
+		@apply !border-l-green-400/80 bg-green-400/[15%];
+	}
+
+	pre.shiki code span.diff-remove::before {
+		content: '-' attr(data-line) !important;
+		@apply text-red-400;
+	}
+	pre.shiki code span.diff-remove {
+		@apply !border-l-red-400/80 bg-red-400/[15%];
+	}
+
+	.valkyrie {
+		box-shadow:
+			1px 1px 1px rgba(0, 0, 0, 0.03),
+			10px 10px 17px -1px rgba(0, 0, 0, 0.03),
+			50px 50px 80px -3px rgba(0, 0, 0, 0.03);
+
+		@apply border border-muted bg-background;
+	}
 }
