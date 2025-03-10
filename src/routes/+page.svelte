@@ -7,6 +7,9 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { cn } from '$lib/utils.js';
 	import GridPattern from '$lib/components/custom/grid-pattern.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import Document from 'lucide-svelte/icons/file-text';
+	import GitHub from 'lucide-svelte/icons/github';
 
 	let content = $state<Content>();
 
@@ -29,7 +32,7 @@
 		height={30}
 		strokeDashArray="4 2"
 		class={cn(
-			'absolute -top-4 h-72 w-full [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]'
+			'absolute -top-4 -z-10 h-80 w-full [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
 		)}
 	/>
 	<h1 class="animate-pulse text-center text-4xl font-extrabold">Edra</h1>
@@ -43,23 +46,33 @@
 		output. Focused on ease of use and copied to your project as an component, with beautiful
 		default UI
 	</span>
-	<div class="flex items-center gap-4">
-		<div class="flex items-center gap-2">
-			<Checkbox id="toolbar" bind:checked={showToolBar} />
-			<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
-		</div>
-		<div class="flex items-center gap-2">
-			<Checkbox id="menus" bind:checked={showMenu} />
-			<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
-		</div>
+	<div class="flex items-center justify-center gap-4">
+		<Button variant="default" href="/docs">
+			<Document /> View Docs
+		</Button>
+		<Button variant="secondary" href="https://github.com/Tsuzat/Edra" target="_blank">
+			<GitHub /> Star on Github
+		</Button>
 	</div>
-	<Edra
-		class="m-auto h-[35rem] w-[95%] rounded border sm:w-[80%]"
-		{showToolBar}
-		{showMenu}
-		bind:content
-		{onUpdate}
-	/>
+	<div class="size-full *:my-2">
+		<div class="flex items-center justify-center gap-4">
+			<div class="flex items-center gap-2">
+				<Checkbox id="toolbar" bind:checked={showToolBar} />
+				<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
+			</div>
+			<div class="flex items-center gap-2">
+				<Checkbox id="menus" bind:checked={showMenu} />
+				<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
+			</div>
+		</div>
+		<Edra
+			class="m-auto h-[35rem] w-[95%] rounded border sm:w-[80%]"
+			{showToolBar}
+			{showMenu}
+			bind:content
+			{onUpdate}
+		/>
+	</div>
 </div>
 
 <style>
