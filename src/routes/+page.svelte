@@ -7,22 +7,30 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { cn } from '$lib/utils.js';
 	import GridPattern from '$lib/components/custom/grid-pattern.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import Document from 'lucide-svelte/icons/file-text';
 	import GitHub from 'lucide-svelte/icons/github';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import FileJson from 'lucide-svelte/icons/file-json';
+	import ShikiCode from '$lib/components/custom/shiki-code.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let content = $state<Content>();
+
+	let contentJSONString = $state('');
 
 	let showToolBar = $state(true);
 	let showMenu = $state(true);
 
 	if (browser) {
-		let rawData: Content = JSON.parse(localStorage.getItem('edra-content') ?? '{}');
+		const rawData: Content = JSON.parse(localStorage.getItem('edra-content') ?? '{}');
 		content = rawData;
+		contentJSONString = JSON.stringify(rawData, null, 2);
 	}
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 		localStorage.setItem('edra-content', JSON.stringify(props.editor.getJSON()));
+		contentJSONString = JSON.stringify(props.editor.getJSON(), null, 2);
 	}
 </script>
 
@@ -55,7 +63,7 @@
 		</Button>
 	</div>
 	<div class="size-full *:my-2">
-		<div class="flex items-center justify-center gap-4">
+		<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
 			<div class="flex items-center gap-2">
 				<Checkbox id="toolbar" bind:checked={showToolBar} />
 				<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
@@ -64,6 +72,26 @@
 				<Checkbox id="menus" bind:checked={showMenu} />
 				<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
 			</div>
+			<Dialog.Root>
+				<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
+					<FileJson /> Show Output
+				</Dialog.Trigger>
+				<Dialog.Content class="h-[95%] w-[95vw] sm:h-[80%] sm:min-w-[50%]">
+					<Dialog.Header>
+						<Dialog.Title>JSON Output</Dialog.Title>
+						<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
+					</Dialog.Header>
+					<ShikiCode class="size-full overflow-auto" code={contentJSONString} lang="json" />
+					<Button
+						variant="outline"
+						class="ml-auto w-fit"
+						onclick={() => {
+							navigator.clipboard.writeText(contentJSONString);
+							toast.success(`Copied to clipboard`);
+						}}>Copy JSON Output</Button
+					>
+				</Dialog.Content>
+			</Dialog.Root>
 		</div>
 		<Edra
 			class="m-auto h-[35rem] w-[95%] rounded border sm:w-[80%]"
