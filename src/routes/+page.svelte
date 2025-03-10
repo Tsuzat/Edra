@@ -5,6 +5,8 @@
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { cn } from '$lib/utils.js';
+	import GridPattern from '$lib/components/custom/grid-pattern.svelte';
 
 	let content = $state<Content>();
 
@@ -21,9 +23,17 @@
 	}
 </script>
 
-<div class="flex flex-col items-center justify-center *:my-4">
+<div class="relative flex flex-col items-center justify-center *:my-4">
+	<GridPattern
+		width={30}
+		height={30}
+		strokeDashArray="4 2"
+		class={cn(
+			'absolute -top-4 h-72 w-full [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]'
+		)}
+	/>
 	<h1 class="animate-pulse text-center text-4xl font-extrabold">Edra</h1>
-	<span class="animate-bounce text-muted-foreground">
+	<span class="animate-bounce text-center text-muted-foreground">
 		Best Rich Text Editor, made for <strong class="text-foreground"> Svelte Developers </strong>
 		with
 		<strong class="text-foreground"> Tiptap </strong>
