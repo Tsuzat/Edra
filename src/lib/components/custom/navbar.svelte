@@ -5,13 +5,15 @@
 	import ThemeToggler from './theme-toggler.svelte';
 </script>
 
-<nav class="inline-flex w-full items-center justify-between gap-4 border-b border-border px-4 py-2">
-	<div class="inline-flex items-center gap-2">
+<nav
+	class="sticky top-0 z-50 inline-flex w-full items-center justify-between gap-4 border-b border-border/75 bg-background/75 p-4 backdrop-blur"
+>
+	<a class="inline-flex items-center gap-2" href="/">
 		<img src="/favicon.png" alt="logo" class="size-8" />
 		<span class="text-xl font-bold">Edra</span>
-	</div>
+	</a>
 	<div>
-		<Button variant="link" href="/docs">Docs</Button>
+		<Button variant="link" class="text-muted-foreground" href="/docs">Docs</Button>
 		<Button variant="outline" size="icon" href="https://buymeacoffee.com/tsuzat" target="_blank">
 			<Coffee />
 		</Button>
