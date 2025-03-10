@@ -5,10 +5,12 @@
 	import Footer from '$lib/components/custom/footer.svelte';
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	let { children } = $props();
 </script>
 
 <ModeWatcher />
+<Toaster richColors />
 
 <svelte:head></svelte:head>
 
