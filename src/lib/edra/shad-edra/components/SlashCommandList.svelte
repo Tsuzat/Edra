@@ -97,7 +97,7 @@
 {#if items.length}
 	<div
 		bind:this={scrollContainer}
-		class="flex max-h-80 flex-col gap-1 overflow-auto rounded border bg-background/80 backdrop-blur-xl"
+		class="flex max-h-80 flex-col gap-1 overflow-auto scroll-smooth rounded border bg-background/80 backdrop-blur-xl"
 	>
 		{#each items as grp, groupIndex}
 			<span class="p-2 text-xs text-muted-foreground">{grp.title}</span>
