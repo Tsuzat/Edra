@@ -4,7 +4,7 @@
 </script>
 
 <footer
-	class="bottom-0 z-50 flex flex-col items-center justify-center gap-2 p-2 sm:flex-row sm:p-4"
+	class="bottom-0 z-50 flex h-fit flex-col items-center justify-center gap-2 p-2 sm:flex-row sm:p-4"
 >
 	<span>
 		Made with ❤️ by <a
