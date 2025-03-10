@@ -21,8 +21,18 @@
 	}
 </script>
 
-<main class="flex size-full flex-grow flex-col items-center justify-center overflow-auto">
-	<h1 class="my-4 animate-pulse text-center text-4xl font-extrabold">E D R A</h1>
+<div class="flex flex-col items-center justify-center *:my-4">
+	<h1 class="animate-pulse text-center text-4xl font-extrabold">Edra</h1>
+	<span class="animate-bounce text-muted-foreground">
+		Best Rich Text Editor, made for <strong class="text-foreground"> Svelte Developers </strong>
+		with
+		<strong class="text-foreground"> Tiptap </strong>
+	</span>
+	<span class="w-full text-center text-muted-foreground sm:w-[35rem]">
+		A Rich Text Editor made with Tiptap for Svelte Developers with extensibility and proper data
+		output. Focused on ease of use and copied to your project as an component, with beautiful
+		default UI
+	</span>
 	<div class="flex items-center gap-4">
 		<div class="flex items-center gap-2">
 			<Checkbox id="toolbar" bind:checked={showToolBar} />
@@ -40,7 +50,7 @@
 		bind:content
 		{onUpdate}
 	/>
-</main>
+</div>
 
 <style>
 	:global(.edra-toolbar) {
