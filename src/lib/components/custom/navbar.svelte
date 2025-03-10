@@ -6,7 +6,7 @@
 </script>
 
 <nav
-	class="sticky top-0 z-50 inline-flex w-full items-center justify-between gap-4 border-b border-border/75 bg-background/75 p-4 backdrop-blur"
+	class="sticky top-0 z-50 inline-flex w-full items-center justify-between gap-4 border-b border-border/75 bg-background/75 px-4 py-2 backdrop-blur"
 >
 	<a class="inline-flex items-center gap-2" href="/">
 		<img src="/favicon.png" alt="logo" class="size-8" />
