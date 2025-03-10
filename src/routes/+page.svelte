@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="relative flex flex-col items-center justify-center *:my-4">
+<div class="animated-load relative flex flex-col items-center justify-center *:my-4">
 	<GridPattern
 		width={30}
 		height={30}
@@ -80,5 +80,35 @@
 		width: 100%;
 		border-bottom-width: 1px;
 		padding: 0.25rem;
+	}
+
+	.animated-load {
+		opacity: 0;
+		transform: translateY(-2rem);
+		filter: blur(8px);
+		animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		will-change: opacity, transform, filter;
+		position: relative;
+		overflow: hidden;
+	}
+
+	@keyframes fadeInUp {
+		0% {
+			opacity: 0;
+			transform: translateY(-2rem);
+			filter: blur(8px);
+		}
+
+		60% {
+			opacity: 0.8;
+			transform: translateY(0.2rem);
+			filter: blur(2px);
+		}
+
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
 	}
 </style>
