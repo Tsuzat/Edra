@@ -1,1 +1,1 @@
-<h1>Docs Page (WIP)</h1>
+<h1 class="size-full text-center">Docs Page (WIP)</h1>
