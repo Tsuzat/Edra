@@ -33,6 +33,7 @@
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
 	import { slide } from 'svelte/transition';
+	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 
 	const lowlight = createLowlight(all);
 
@@ -107,6 +108,11 @@
 			<TableRowMenu {editor} />
 			<BubbleMenu {editor} />
 		{/if}
+	{/if}
+	{#if !editor}
+		<div class="flex size-full items-center justify-center gap-4 text-xl">
+			<LoaderCircle class="animate-spin" /> Loading...
+		</div>
 	{/if}
 	<div
 		bind:this={element}
