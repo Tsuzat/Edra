@@ -33,6 +33,7 @@
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
 	import { Transaction } from '@tiptap/pm/state';
+	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 
 	const lowlight = createLowlight(all);
 
@@ -110,6 +111,11 @@
 			<TableColMenu {editor} />
 			<BubbleMenu {editor} />
 		{/if}
+	{/if}
+	{#if !editor}
+		<div class="edra-loading">
+			<LoaderCircle class="animate-spin" /> Loading...
+		</div>
 	{/if}
 	<div bind:this={element} class="edra-editor"></div>
 </div>
