@@ -7,6 +7,7 @@
 		type StringLiteralUnion
 	} from 'shiki';
 	import { onMount } from 'svelte';
+	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 
 	interface Props {
 		class?: string;
@@ -16,7 +17,7 @@
 
 	const { class: className = '', code, lang }: Props = $props();
 
-	let html = $state('');
+	let html: string | undefined = $state(undefined);
 	onMount(async () => {
 		html = await codeToHtml(code, {
 			lang,
@@ -29,5 +30,11 @@
 </script>
 
 <div class={cn('relative rounded border border-border/50 py-4', className)}>
-	{@html html}
+	{#if html === undefined}
+		<div class="flex size-full items-center justify-center gap-4">
+			<LoaderCircle class="animate-spin" /> <span> Loading... </span>
+		</div>
+	{:else}
+		{@html html}
+	{/if}
 </div>
