@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Content, Editor } from '@tiptap/core';
-	import Edra from '$lib/edra/shad-edra/editor.svelte';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -14,8 +13,11 @@
 	import FileJson from 'lucide-svelte/icons/file-json';
 	import ShikiCode from '$lib/components/custom/shiki-code.svelte';
 	import { toast } from 'svelte-sonner';
+	import { Edra, EdraToolbar } from '$lib/edra/shad-edra/index.js';
+	import { slide } from 'svelte/transition';
 
 	let content = $state<Content>();
+	let editor = $state<Editor>();
 
 	let contentJSONString = $state('');
 
@@ -93,13 +95,14 @@
 				</Dialog.Content>
 			</Dialog.Root>
 		</div>
-		<Edra
-			class="m-auto h-[35rem] w-[95%] rounded border sm:w-[80%]"
-			{showToolBar}
-			{showMenu}
-			bind:content
-			{onUpdate}
-		/>
+		<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
+			{#if editor && showToolBar}
+				<div transition:slide>
+					<EdraToolbar {editor} />
+				</div>
+			{/if}
+			<Edra class="overflow-auto" bind:editor {showMenu} bind:content {onUpdate} />
+		</div>
 	</div>
 </div>
 
