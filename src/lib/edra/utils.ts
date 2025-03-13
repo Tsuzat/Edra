@@ -72,7 +72,6 @@ export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showToolBar?: boolean;
 	showMenu?: boolean;
 	limit?: number;
 	editor?: Editor;
