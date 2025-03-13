@@ -21,6 +21,7 @@ import { Table, TableCell, TableHeader, TableRow } from './extensions/table/inde
 import FontSize from './extensions/FontSize.js';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
+import SearchAndReplace from './extensions/FindAndReplace.js';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -105,6 +106,7 @@ export const initiateEditor = (
 			CharacterCount.configure({
 				limit
 			}),
+			SearchAndReplace,
 
 			...(extensions ?? [])
 		],
