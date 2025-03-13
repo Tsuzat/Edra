@@ -41,7 +41,6 @@
 	let {
 		class: className = '',
 		content = $bindable(),
-		showToolBar = true,
 		showMenu = true,
 		limit = undefined,
 		editable = true,
@@ -85,18 +84,11 @@
 </script>
 
 <div class={`edra ${className} flex flex-col`}>
-	{#if editor}
-		{#if showToolBar}
-			<div transition:slide>
-				<Toolbar {editor} />
-			</div>
-		{/if}
-		{#if showMenu}
-			<LinkMenu {editor} />
-			<TableColMenu {editor} />
-			<TableRowMenu {editor} />
-			<BubbleMenu {editor} />
-		{/if}
+	{#if editor && showMenu}
+		<LinkMenu {editor} />
+		<TableColMenu {editor} />
+		<TableRowMenu {editor} />
+		<BubbleMenu {editor} />
 	{/if}
 	{#if !editor}
 		<div class="flex size-full items-center justify-center gap-4 text-xl">

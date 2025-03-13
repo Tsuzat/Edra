@@ -41,7 +41,6 @@
 		class: className = '',
 		content = $bindable(),
 		editable = true,
-		showToolBar = true,
 		showMenu = true,
 		limit = undefined,
 		editor = $bindable<Editor | undefined>(),
@@ -89,16 +88,11 @@
 </script>
 
 <div class={`edra ${className}`}>
-	{#if editor}
-		{#if showToolBar}
-			<Toolbar {editor} />
-		{/if}
-		{#if showMenu}
-			<LinkMenu {editor} />
-			<TableRowMenu {editor} />
-			<TableColMenu {editor} />
-			<BubbleMenu {editor} />
-		{/if}
+	{#if editor && showMenu}
+		<LinkMenu {editor} />
+		<TableRowMenu {editor} />
+		<TableColMenu {editor} />
+		<BubbleMenu {editor} />
 	{/if}
 	{#if !editor}
 		<div class="edra-loading">
