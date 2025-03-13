@@ -1,9 +1,7 @@
 <script lang="ts">
-	import type { Content, Editor } from '@tiptap/core';
+	import type { Editor } from '@tiptap/core';
 	import { onMount } from 'svelte';
 	import { initiateEditor } from '../editor.js';
-	import { Transaction } from '@tiptap/pm/state';
-	import Toolbar from './toolbar.svelte';
 
 	import '../editor.css';
 	import './style.css';
@@ -32,7 +30,6 @@
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
-	import { slide } from 'svelte/transition';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import type { EdraProps } from '../utils.js';
 

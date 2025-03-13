@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { type Editor, type Content } from '@tiptap/core';
+	import { type Editor } from '@tiptap/core';
 	import { onDestroy, onMount } from 'svelte';
 
-	import Toolbar from './toolbar.svelte';
 	import { initiateEditor } from '../editor.js';
 	import './style.css';
 	import 'katex/dist/katex.min.css';
