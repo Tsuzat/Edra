@@ -32,24 +32,10 @@
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
-	import { Transaction } from '@tiptap/pm/state';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
+	import type { EdraProps } from '../utils.js';
 
 	const lowlight = createLowlight(all);
-
-	interface Props {
-		class?: string;
-		content?: Content;
-		editable?: boolean;
-		showToolBar?: boolean;
-		showMenu?: boolean;
-		editor?: Editor;
-		/**
-		 * Callback function to be called when the content is updated
-		 * @param content
-		 */
-		onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
-	}
 
 	let {
 		class: className = '',
@@ -57,9 +43,10 @@
 		editable = true,
 		showToolBar = true,
 		showMenu = true,
+		limit = undefined,
 		editor = $bindable<Editor | undefined>(),
 		onUpdate
-	}: Props = $props();
+	}: EdraProps = $props();
 
 	let element = $state<HTMLElement>();
 
@@ -67,6 +54,7 @@
 		editor = initiateEditor(
 			element,
 			content,
+			limit,
 			[
 				CodeBlockLowlight.configure({
 					lowlight

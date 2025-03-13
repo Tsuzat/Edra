@@ -34,32 +34,20 @@
 	import BubbleMenu from './menus/bubble-menu.svelte';
 	import { slide } from 'svelte/transition';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
+	import type { EdraProps } from '../utils.js';
 
 	const lowlight = createLowlight(all);
-
-	interface Props {
-		class?: string;
-		showToolBar?: boolean;
-		showMenu?: boolean;
-		content?: Content;
-		editable?: boolean;
-		editor?: Editor;
-		/**
-		 * Callback function to be called when the content is updated
-		 * @param content
-		 */
-		onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
-	}
 
 	let {
 		class: className = '',
 		content = $bindable(),
 		showToolBar = true,
 		showMenu = true,
+		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
 		onUpdate
-	}: Props = $props();
+	}: EdraProps = $props();
 
 	let element = $state<HTMLElement>();
 
@@ -67,6 +55,7 @@
 		editor = initiateEditor(
 			element,
 			content,
+			limit,
 			[
 				CodeBlockLowlight.configure({
 					lowlight
