@@ -20,10 +20,12 @@ import { MathExtension } from '@aarkue/tiptap-math-extension';
 import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';
 import FontSize from './extensions/FontSize.js';
 import Placeholder from '@tiptap/extension-placeholder';
+import CharacterCount from '@tiptap/extension-character-count';
 
 export const initiateEditor = (
 	element?: HTMLElement,
 	content?: Content,
+	limit?: number,
 	extensions?: Extensions,
 	options?: Partial<EditorOptions>
 ): Editor => {
@@ -99,6 +101,9 @@ export const initiateEditor = (
 					}
 					return '';
 				}
+			}),
+			CharacterCount.configure({
+				limit
 			}),
 
 			...(extensions ?? [])
