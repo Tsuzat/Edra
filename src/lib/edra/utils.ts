@@ -1,7 +1,7 @@
-import type { Editor } from '@tiptap/core';
+import type { Content, Editor } from '@tiptap/core';
 import { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
-import type { EditorState } from '@tiptap/pm/state';
+import type { EditorState, Transaction } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 
 export interface ShouldShowProps {
@@ -64,3 +64,21 @@ export const duplicateContent = (editor: Editor, node: Node) => {
 		.focus(selection.to)
 		.run();
 };
+
+/**
+ * Props for Edra's editor component
+ */
+export interface EdraProps {
+	class?: string;
+	content?: Content;
+	editable?: boolean;
+	showToolBar?: boolean;
+	showMenu?: boolean;
+	limit?: number;
+	editor?: Editor;
+	/**
+	 * Callback function to be called when the content is updated
+	 * @param content
+	 */
+	onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
+}
