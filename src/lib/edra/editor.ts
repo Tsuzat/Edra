@@ -15,7 +15,6 @@ import Text from '@tiptap/extension-text';
 import { SmilieReplacer } from './extensions/SmilieReplacer.js';
 import { ColorHighlighter } from './extensions/ColorHighLighter.js';
 import AutoJoiner from 'tiptap-extension-auto-joiner';
-import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 import { MathExtension } from '@aarkue/tiptap-math-extension';
 import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';
 import FontSize from './extensions/FontSize.js';
@@ -81,9 +80,6 @@ export const initiateEditor = (
 				types: ['heading', 'paragraph']
 			}),
 			AutoJoiner,
-			GlobalDragHandle.configure({
-				excludedTags: ['pre', 'code']
-			}),
 			MathExtension.configure({ evaluation: true }),
 			Table,
 			TableHeader,
