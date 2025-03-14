@@ -12,6 +12,8 @@
 	--task-completed-color: hsl(var(--muted-foreground));
 	--highlight-color: rgba(0, 255, 0, 0.1);
 	--highlight-border: green;
+	--search-result-bg: yellow;
+	--search-result-current-bg: orange;
 }
 
 .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {

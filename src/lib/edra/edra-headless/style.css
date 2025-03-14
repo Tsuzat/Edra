@@ -33,6 +33,8 @@
 	--code-wrapper-bg: rgba(128, 128, 128, 0.05);
 	--highlight-color: rgba(0, 128, 0, 0.3);
 	--highlight-border: greenyellow;
+	--search-result-bg: yellow;
+	--search-result-current-bg: orange;
 }
 
 .edra {
