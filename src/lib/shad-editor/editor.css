@@ -136,11 +136,6 @@ input[type='checkbox'] {
 	}
 }
 
-.drag-handle::after {
-	@apply text-muted-foreground;
-	content: '⠿';
-}
-
 .katex {
 	@apply hover:bg-muted;
 }
