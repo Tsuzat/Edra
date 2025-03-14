@@ -179,6 +179,10 @@ input[type='checkbox'] {
 	z-index: 50;
 	width: 1.5rem;
 	height: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	cursor: grab;
 	opacity: 100;
 	transition-property: opacity;
@@ -381,4 +385,14 @@ input[type='checkbox'] {
 
 .ProseMirror table .grip-row.selected::before {
 	border-left: 2px dotted var(--border-color-hover);
+}
+
+.tiptap .search-result {
+	background-color: var(--search-result-bg);
+	color: black;
+}
+
+.tiptap .search-result-current {
+	background-color: var(--search-result-current-bg);
+	color: black;
 }
