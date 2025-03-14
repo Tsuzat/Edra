@@ -45,7 +45,7 @@
 		if (!position) return;
 		editor.commands.setTextSelection(position);
 		const { node } = editor.view.domAtPos(editor.state.selection.anchor);
-		node instanceof HTMLElement && node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		if (node instanceof HTMLElement) node.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	}
 
 	function replace() {
