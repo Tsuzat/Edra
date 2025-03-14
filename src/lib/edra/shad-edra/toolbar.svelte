@@ -4,6 +4,7 @@
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
 	import QuickColor from './components/QuickColor.svelte';
 	import FontSize from './components/FontSize.svelte';
+	import SearchAndReplace from './components/SearchAndReplace.svelte';
 
 	interface Props {
 		editor: Editor;
@@ -21,4 +22,5 @@
 	{/each}
 	<FontSize {editor} />
 	<QuickColor {editor} />
+	<SearchAndReplace {editor} />
 </div>
