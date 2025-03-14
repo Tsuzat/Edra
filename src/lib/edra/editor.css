@@ -203,8 +203,9 @@ input[type='checkbox'] {
 	}
 }
 
-.drag-handle::after {
-	content: '⠿';
+.drag-handle svg {
+	height: 1rem;
+	width: 1rem;
 }
 
 /* Math Equations (KaTeX) */
