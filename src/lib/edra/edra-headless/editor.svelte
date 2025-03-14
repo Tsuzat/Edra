@@ -33,6 +33,7 @@
 	import BubbleMenu from './menus/bubble-menu.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import type { EdraProps } from '../utils.js';
+	import DragHandle from '../drag-handle.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -85,6 +86,10 @@
 		editor?.destroy();
 	});
 </script>
+
+{#if editor}
+	<DragHandle {editor} />
+{/if}
 
 <div class={`edra ${className}`}>
 	{#if editor && showMenu}
