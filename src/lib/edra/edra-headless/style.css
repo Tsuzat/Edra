@@ -41,8 +41,6 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--edra-gap);
-	border: 1px solid var(--edra-border-color);
-	border-radius: var(--edra-border-radius);
 	overflow: auto;
 }
 
@@ -60,6 +58,8 @@
 	gap: var(--edra-gap);
 	border-bottom: 1px solid var(--edra-border-color);
 	padding: var(--edra-padding);
+	width: fit-content;
+	overflow: auto;
 }
 
 .edra-loading {
@@ -94,8 +94,8 @@
 	cursor: pointer;
 	transition: background-color 0.2s ease-in-out;
 	padding: var(--edra-button-padding);
-	width: var(--edra-button-size);
-	height: var(--edra-button-size);
+	min-width: var(--edra-button-size);
+	min-height: var(--edra-button-size);
 }
 
 .edra-command-button:hover {
@@ -359,4 +359,25 @@ input.invalid {
 }
 .edra-slash-command-list-item.active {
 	background-color: var(--edra-border-color);
+}
+
+.edra-search-and-replace {
+	display: flex;
+	align-items: center;
+	gap: var(--edra-gap);
+}
+
+.edra-search-and-replace-content {
+	display: flex;
+	align-items: center;
+	gap: var(--edra-gap);
+}
+
+.edra-search-and-replace-content input {
+	max-width: 10rem;
+	background: none;
+	width: 15rem;
+	border: 1px solid var(--edra-border-color);
+	border-radius: var(--edra-button-border-radius);
+	padding: 0.2rem 0.5rem;
 }
