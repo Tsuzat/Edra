@@ -36,73 +36,75 @@
 	}
 </script>
 
-<div class="animated-load relative flex flex-col items-center justify-center *:my-4">
-	<GridPattern
-		width={30}
-		height={30}
-		strokeDashArray="4 2"
-		class={cn(
-			'absolute -top-4 -z-10 h-80 w-full [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
-		)}
-	/>
-	<h1 class="animate-pulse text-center text-4xl font-extrabold">Edra</h1>
-	<span class="animate-bounce text-center text-muted-foreground">
-		Best Rich Text Editor, made for <strong class="text-foreground"> Svelte Developers </strong>
-		with
-		<strong class="text-foreground"> Tiptap </strong>
-	</span>
-	<span class="w-full text-center text-muted-foreground sm:w-[35rem]">
-		A Rich Text Editor made with Tiptap for Svelte Developers with extensibility and proper data
-		output. Focused on ease of use and copied to your project as an component, with beautiful
-		default UI
-	</span>
-	<div class="flex items-center justify-center gap-4">
-		<Button variant="default" href="/docs">
-			<Document /> View Docs
-		</Button>
-		<Button variant="secondary" href="https://github.com/Tsuzat/Edra" target="_blank">
-			<GitHub /> Star on Github
-		</Button>
-	</div>
-	<div class="size-full *:my-2">
-		<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-			<div class="flex items-center gap-2">
-				<Checkbox id="toolbar" bind:checked={showToolBar} />
-				<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
-			</div>
-			<div class="flex items-center gap-2">
-				<Checkbox id="menus" bind:checked={showMenu} />
-				<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
-			</div>
-			<Dialog.Root>
-				<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
-					<FileJson /> Show Output
-				</Dialog.Trigger>
-				<Dialog.Content class="h-[95%] w-[95vw] sm:h-[80%] sm:min-w-[50%]">
-					<Dialog.Header>
-						<Dialog.Title>JSON Output</Dialog.Title>
-						<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
-					</Dialog.Header>
-					<ShikiCode class="size-full overflow-auto" code={contentJSONString} lang="json" />
-					<Button
-						variant="outline"
-						class="ml-auto w-fit"
-						onclick={() => {
-							navigator.clipboard.writeText(contentJSONString);
-							toast.success(`Copied to clipboard`);
-						}}>Copy JSON Output</Button
-					>
-				</Dialog.Content>
-			</Dialog.Root>
+<div>
+	<div class="animated-load relative flex size-full flex-col items-center justify-center *:my-4">
+		<GridPattern
+			width={30}
+			height={30}
+			strokeDashArray="4 2"
+			class={cn(
+				'absolute -top-4 -z-10 h-80 w-full [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
+			)}
+		/>
+		<h1 class="animate-pulse text-center text-4xl font-extrabold">Edra</h1>
+		<span class="animate-bounce text-center text-muted-foreground">
+			Best Rich Text Editor, made for <strong class="text-foreground"> Svelte Developers </strong>
+			with
+			<strong class="text-foreground"> Tiptap </strong>
+		</span>
+		<span class="w-full text-center text-muted-foreground sm:w-[35rem]">
+			A Rich Text Editor made with Tiptap for Svelte Developers with extensibility and proper data
+			output. Focused on ease of use and copied to your project as an component, with beautiful
+			default UI
+		</span>
+		<div class="flex items-center justify-center gap-4">
+			<Button variant="default" href="/docs">
+				<Document /> View Docs
+			</Button>
+			<Button variant="secondary" href="https://github.com/Tsuzat/Edra" target="_blank">
+				<GitHub /> Star on Github
+			</Button>
 		</div>
-		<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
-			{#if editor && showToolBar}
-				<div transition:slide>
-					<EdraToolbar {editor} />
+		<div class="size-full *:my-2">
+			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<div class="flex items-center gap-2">
+					<Checkbox id="toolbar" bind:checked={showToolBar} />
+					<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
 				</div>
-			{/if}
-			<Edra class="overflow-auto" bind:editor {showMenu} bind:content {onUpdate} />
+				<div class="flex items-center gap-2">
+					<Checkbox id="menus" bind:checked={showMenu} />
+					<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
+				</div>
+				<Dialog.Root>
+					<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
+						<FileJson /> Show Output
+					</Dialog.Trigger>
+					<Dialog.Content class="h-[95%] w-[95vw] sm:h-[80%] sm:min-w-[50%]">
+						<Dialog.Header>
+							<Dialog.Title>JSON Output</Dialog.Title>
+							<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
+						</Dialog.Header>
+						<ShikiCode class="size-full overflow-auto" code={contentJSONString} lang="json" />
+						<Button
+							variant="outline"
+							class="ml-auto w-fit"
+							onclick={() => {
+								navigator.clipboard.writeText(contentJSONString);
+								toast.success(`Copied to clipboard`);
+							}}>Copy JSON Output</Button
+						>
+					</Dialog.Content>
+				</Dialog.Root>
+			</div>
 		</div>
+	</div>
+	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
+		{#if editor && showToolBar}
+			<div transition:slide>
+				<EdraToolbar {editor} />
+			</div>
+		{/if}
+		<Edra class="overflow-auto" bind:editor {showMenu} bind:content {onUpdate} />
 	</div>
 </div>
 
@@ -116,7 +118,7 @@
 	.animated-load {
 		opacity: 0;
 		transform: translateY(-2rem);
-		filter: blur(8px);
+		filter: blur(16px);
 		animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 		will-change: opacity, transform, filter;
 		position: relative;
@@ -127,13 +129,13 @@
 		0% {
 			opacity: 0;
 			transform: translateY(-2rem);
-			filter: blur(8px);
+			filter: blur(16px);
 		}
 
 		60% {
 			opacity: 0.8;
 			transform: translateY(0.2rem);
-			filter: blur(2px);
+			filter: blur(8px);
 		}
 
 		100% {
