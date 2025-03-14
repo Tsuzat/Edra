@@ -38,7 +38,6 @@
 	import { ImagePlaceholder } from './custom/Extentions/ImagePlaceHolder.js';
 	import Placeholder from '@tiptap/extension-placeholder';
 	import AutoJoiner from 'tiptap-extension-auto-joiner';
-	import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 	import { VideoExtention } from './custom/Extentions/VideoExtended.js';
 	import { VideoPlaceholder } from './custom/Extentions/VideoPlaceHolder.js';
 	import LinkBubbleMenu from './menus/link-bubble-menu.svelte';
@@ -51,6 +50,7 @@
 	import { AudioPlaceholder } from './custom/Extentions/AudioPlaceHolder.js';
 	import { AudioExtention } from './custom/Extentions/AudioExtended.js';
 	import BubbleMenu from './menus/bubble-menu.svelte';
+	import DragHandle from './drag-handle.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -120,9 +120,6 @@
 					}
 				}),
 				AutoJoiner,
-				GlobalDragHandle.configure({
-					excludedTags: ['pre', 'code', 'table p']
-				}),
 				Typography,
 				Text,
 				TextStyle,
@@ -181,6 +178,7 @@
 			onTransaction: (transaction) => {
 				editor = undefined;
 				editor = transaction.editor;
+				console.log(editor.view);
 			}
 		});
 
@@ -195,6 +193,10 @@
 		if (editor) editor.destroy();
 	});
 </script>
+
+{#if editor}
+	<DragHandle {editor} />
+{/if}
 
 <div class={cn('flex flex-col rounded border', className)}>
 	{#if editor && showAllMenus}
