@@ -16,11 +16,11 @@
 
 <div class="relative flex min-h-screen flex-col">
 	<Navbar />
-	{#key page.url.href}
+	{#key page.url.pathname}
 		<div
 			in:slide={{ duration: 300, delay: 300, axis: 'x' }}
 			out:slide={{ duration: 300 }}
-			class="animated-load size-full flex-1"
+			class="animated-load size-full flex-1 flex-grow"
 		>
 			{@render children()}
 		</div>
