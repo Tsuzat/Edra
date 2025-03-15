@@ -33,12 +33,13 @@
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import type { EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
+	import { cn } from '$lib/utils.js';
 
 	const lowlight = createLowlight(all);
 
 	let {
 		class: className = '',
-		content = $bindable(),
+		content = undefined,
 		showMenu = true,
 		limit = undefined,
 		editable = true,
@@ -85,7 +86,7 @@
 	<DragHandle {editor} />
 {/if}
 
-<div class={`edra ${className} flex flex-col`}>
+<div class={cn('edra', className)}>
 	{#if editor && showMenu}
 		<LinkMenu {editor} />
 		<TableColMenu {editor} />

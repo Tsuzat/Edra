@@ -39,7 +39,7 @@
 
 	let {
 		class: className = '',
-		content = $bindable(),
+		content = undefined,
 		editable = true,
 		showMenu = true,
 		limit = undefined,
