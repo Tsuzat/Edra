@@ -13,7 +13,7 @@
 	import FileJson from 'lucide-svelte/icons/file-json';
 	import ShikiCode from '$lib/components/custom/shiki-code.svelte';
 	import { toast } from 'svelte-sonner';
-	import { Edra, EdraToolbar } from '$lib/edra/shad-edra/index.js';
+	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
 	import { slide } from 'svelte/transition';
 
 	let content = $state<Content>();
