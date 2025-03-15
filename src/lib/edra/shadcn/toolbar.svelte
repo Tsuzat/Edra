@@ -5,15 +5,22 @@
 	import QuickColor from './components/QuickColor.svelte';
 	import FontSize from './components/FontSize.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
 	}
 
-	const { editor }: Props = $props();
+	const { class: className = '', editor }: Props = $props();
 </script>
 
-<div class="edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden">
+<div
+	class={cn(
+		'edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden',
+		className
+	)}
+>
 	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
 		{@const groups = commands[keys].commands}
 		{#each groups as command}

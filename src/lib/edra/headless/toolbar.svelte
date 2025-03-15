@@ -5,10 +5,11 @@
 	import SearcnAndReplace from './components/SearcnAndReplace.svelte';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
 	}
 
-	const { editor }: Props = $props();
+	const { class: className = '', editor }: Props = $props();
 
 	let showSearchAndReplace = $state(false);
 
@@ -16,7 +17,7 @@
 	const fontCommands = commands.fonts.commands;
 </script>
 
-<div class="edra-toolbar">
+<div class={`edra-toolbar ${className}`}>
 	{#if !showSearchAndReplace}
 		{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
 			{@const groups = commands[keys].commands}
