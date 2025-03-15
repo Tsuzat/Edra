@@ -15,24 +15,32 @@
 	import { toast } from 'svelte-sonner';
 	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
 	import { slide } from 'svelte/transition';
+	import defaultContent from '$lib/default_content.js';
 
 	let content = $state<Content>();
 	let editor = $state<Editor>();
 
-	let contentJSONString = $state('');
+	$effect(() => {
+		console.log('Content', content);
+		localStorage.setItem('edra-content', JSON.stringify(content));
+	});
 
 	let showToolBar = $state(true);
 	let showMenu = $state(true);
 
 	if (browser) {
-		const rawData: Content = JSON.parse(localStorage.getItem('edra-content') ?? '{}');
-		content = rawData;
-		contentJSONString = JSON.stringify(rawData, null, 2);
+		const rawDataString = localStorage.getItem('edra-content');
+
+		if (rawDataString === null) {
+			content = defaultContent;
+		} else {
+			const rawData: Content = JSON.parse(rawDataString);
+			content = rawData;
+		}
 	}
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-		localStorage.setItem('edra-content', JSON.stringify(props.editor.getJSON()));
-		contentJSONString = JSON.stringify(props.editor.getJSON(), null, 2);
+		content = props.editor.getJSON();
 	}
 </script>
 
@@ -84,12 +92,13 @@
 							<Dialog.Title>JSON Output</Dialog.Title>
 							<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
 						</Dialog.Header>
-						<ShikiCode class="size-full overflow-auto" code={contentJSONString} lang="json" />
+						{@const stringContent = JSON.stringify(content, null, 2)}
+						<ShikiCode class="size-full overflow-auto" code={stringContent} lang="json" />
 						<Button
 							variant="outline"
 							class="ml-auto w-fit"
 							onclick={() => {
-								navigator.clipboard.writeText(contentJSONString);
+								navigator.clipboard.writeText(stringContent);
 								toast.success(`Copied to clipboard`);
 							}}>Copy JSON Output</Button
 						>
@@ -104,7 +113,7 @@
 				<EdraToolbar {editor} />
 			</div>
 		{/if}
-		<Edra class="overflow-auto" bind:editor {showMenu} bind:content {onUpdate} />
+		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
 	</div>
 </div>
 
