@@ -4,8 +4,7 @@ Edra is a component based rich text editor built with
 [Tiptap](https://tiptap.dev/) and [Svelte](https://svelte.dev/). It is designed to be highly
 customizable and extensible, allowing developers to create their own custom editors with ease.
 
-The main goal of Edra is to provide a **baseline** with minimum to no pre-configured components, yet
-highly customizable and extensible.
+The main goal of Edra is to provide a **baseline** with minimum to no pre-configured components, yet highly customizable and extensible.
 
 > Info:
 >
@@ -199,3 +198,88 @@ function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 	saveContent(myOutput);
 }
 ```
+
+---
+
+# Slash Command
+
+The `SlashCommand` is a feature that allows you to add custom commands to the editor.
+It is a powerful feature that allows you to add custom commands to the editor,
+which can be used to perform various actions, like inserting `images`, `videos`, `audios`, `tables`, `code blocks`, etc. You can use in by pressing the `/` key and then simply start typing the command name.
+
+> Info:
+>
+> You can use `ArrowDown`, `crtl+j` or `cmd+j`, `Tabs` to navigate down
+> and `ArrowUp`, `ctrl+k` or `cmd+k` to navigate up. Use `enter` to select the command.
+
+Try it out in [demo](/)
+
+---
+
+# Bubble Menu
+
+The `Edra` component comes with `Notion` like bubble menus. There are basically 4 bubble menus in action.
+
+1. Editor Menu: Provides basic editor actions like `EdraToolbar`
+2. Link Menu: Provides link related actions like copy, delete, edit, etc.
+3. Table Row Menu: Provides table row related actions like insert, delete, etc.
+4. Table Col Menu: Provides table column related actions like insert, delete, etc.
+
+> Info:
+>
+> You can disable all of them by passing `false` to the `showMenu` prop.
+
+> Warning:
+>
+> Disabling the `showMenu` prop will disable all of the bubble menus. You may need
+> to change the code as per your requirement, if you want a different behavior.
+
+Try it out in [demo](/)
+
+---
+
+# Font Size
+
+`Edra` component provides a way to change the font size of the editor.
+In `headless` ui, you'll find a decrease and increase button in the editor toolbar.
+In `shadcn` ui, you'll find a dropdown menu in the editor toolbar.
+
+In either case, you can change the font size of any text in the editor.
+
+Try it out in [demo](/)
+
+---
+
+# Placeholder
+
+`Edra` component provides a way to add placeholder text to the editor.
+This is a `ghost` text and can be seen in an empty line. You can change the behavior of the
+placeholder as per your liking in `$lib/components/edra/editor.ts` file in **your project**.
+
+You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/editor.ts).
+
+Try it out in [demo](/)
+
+---
+
+# Code Block Extended
+
+`Edra` component provides a way to extend the `code block` feature. You can add a language selector and copy the code to clipboard. For code highlighting, we're using lowlight with `one-dark` and `one-light` themes, for both `dark` and `light` mode respectively. You can find the file for `onedark.css` in `$lib/components/edra/onedark.css` file in **your project**.
+
+You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/onedark.css).
+
+> Info:
+>
+> By default, tiptap does not provide a way to select the language or to copy the code.
+> We have extended this functionality in `Edra` component to better UX.
+
+> Warning:
+>
+> We use `html .dark` css selector to apply the `dark` mode theme to the code block.
+> If you feel like to change the css selector, you need to change it in `onedark.css` file.
+
+Try it out in [demo](/)
+
+# Image Extended
+
+`Edra` component let's you add an image in different ways.
