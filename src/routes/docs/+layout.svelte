@@ -88,40 +88,34 @@
 	});
 
 	const sideBarContent: SideBarItem[] = [
-		{
-			name: 'Getting Started'
-		},
-		{
-			name: 'Introduction',
-			href: '/docs'
-		},
-		{
-			name: 'Installation',
-			href: '/docs#Installation'
-		},
-		{
-			name: 'Usage',
-			href: '/docs#Usage'
-		},
-		{
-			name: 'Output'
-		},
-		{
-			name: 'JSON Output',
-			href: '/docs#JSON-Output'
-		},
-		{
-			name: 'HTML Output',
-			href: '/docs#HTML-Output'
-		},
-		{
-			name: 'Features'
-		}
+		{ name: 'Getting Started' },
+		{ name: 'Introduction', href: '/docs' },
+		{ name: 'Installation', href: '/docs#Installation' },
+		{ name: 'Usage', href: '/docs#Usage' },
+		{ name: 'Output' },
+		{ name: 'JSON Output', href: '/docs#JSON-Output' },
+		{ name: 'HTML Output', href: '/docs#HTML-Output' },
+		{ name: 'Features' },
+		{ name: 'Slash Command', href: '/docs#Slash-Command' },
+		{ name: 'Bubble Menu', href: '/docs#Bubble-Menu' },
+		{ name: 'Font Size', href: '/docs#Font-Size' },
+		{ name: 'Placeholder', href: '/docs#Placeholder' },
+		{ name: 'Code Block Extended', href: '/docs#Code-Block-Extended' },
+		{ name: 'Image Extended', href: '/docs#Image-Extended' },
+		{ name: 'Video Extended', href: '/docs#Video-Extended' },
+		{ name: 'Audio Extended', href: '/docs#Audio-Extended' },
+		{ name: 'Table', href: '/docs#Table' },
+		{ name: 'Search And Replace', href: '/docs#Search-And-Replace' },
+		{ name: 'Links', href: '/docs#Links' },
+		{ name: 'Drag Handle', href: '/docs#Drag-Handle' },
+		{ name: 'LaTeX Support', href: '/docs#LaTex-Support' }
 	];
 </script>
 
 <div class="m-auto flex px-2 sm:px-8">
-	<div class="sticky top-14 flex size-full w-80 flex-col gap-4 overflow-auto border-r pt-4 text-sm">
+	<div
+		class="sticky top-14 flex max-h-screen w-80 flex-col gap-2 overflow-auto border-r py-4 text-sm"
+	>
 		{#each sideBarContent as item (item.name)}
 			{#if !item.href}
 				<span class="font-semibold">{item.name}</span>
