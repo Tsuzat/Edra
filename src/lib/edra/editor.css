@@ -180,6 +180,7 @@ input[type='checkbox'] {
 	width: 1.5rem;
 	height: 1.5rem;
 	display: flex;
+	padding-right: 0.5rem;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
