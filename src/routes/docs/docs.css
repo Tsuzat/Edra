@@ -1,0 +1,30 @@
+hr {
+	@apply my-6 border-muted !important;
+}
+
+.prose a {
+	@apply text-blue-600 no-underline transition-all hover:underline !important;
+}
+
+blockquote p::after,
+blockquote p::before {
+	content: '' !important;
+}
+
+blockquote {
+	@apply rounded-md border-muted bg-muted/20 p-2;
+}
+
+blockquote p {
+	margin: 0 !important;
+	font-style: normal !important;
+}
+
+code:not(pre code) {
+	@apply rounded-sm border bg-muted/50 p-1 !important;
+}
+
+code::after,
+code::before {
+	content: '' !important;
+}
