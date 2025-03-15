@@ -1,0 +1,201 @@
+# Introduction
+
+Edra is a component based rich text editor built with
+[Tiptap](https://tiptap.dev/) and [Svelte](https://svelte.dev/). It is designed to be highly
+customizable and extensible, allowing developers to create their own custom editors with ease.
+
+The main goal of Edra is to provide a **baseline** with minimum to no pre-configured components, yet
+highly customizable and extensible.
+
+> Info:
+>
+> **Why is edra a component based library?**
+>
+> The main reason for this library is to provide the full control over the editor, allowing developers
+> to create their own custom editors with ease. This is achieved by using the powerful
+> [Tiptap](https://tiptap.dev/) library, which provides a rich set of features and customization options.
+> This way the developers have the full control over the code and they can achieve anything with it.
+
+---
+
+# Installation
+
+Edra comes with two ui floavors, `headless` and `shadcn`. The `headless` ui usage pure css with classes and the `shadcn` ui usage the [svelte-shadcn](https://next.shadcn-svelte.com/).
+
+Choose which one you want to use.
+
+1. [Installation with headless ui](/docs#Installation-with-headless-ui)
+2. [Installation with shadcn ui](/docs#Installation-with-shadcn-ui)
+
+---
+
+## Installation with headless ui
+
+For installation with headless ui, you can use the following command:
+
+```sh
+# For NPM
+npx edra init headless
+# For PNPM
+pnpm dlx edra init headless
+```
+
+The above command will copy the `edra` component as folder in `src/lib/components/edra` and install the required dependencies.
+
+---
+
+## Installation with shadcn ui
+
+> Warning:
+>
+> The **shadcn** ui flavor have some prerequisites, so please read the following instructions carefully.
+
+### Prerequisites
+
+The `shacn` ui based components usages the [svelte-shadcn](https://next.shadcn-svelte.com/) and [tailwind-typography](https://github.com/tailwindlabs/tailwindcss-typography) packages. You can find their respective installation guides in their documentation.
+
+After installing the `svelte-shadcn` and `tailwind-typography` packages, you need to add the following `svelte-shadcn` components in your project.
+
+```sh
+# For NPM
+npx shadcn-svelte@next add dropdown-menu button tooltip input popover
+# using pnpm
+pnpm dlx shadcn-svelte@next add dropdown-menu button tooltip input popover
+```
+
+After the installation of `svelte-shadcn` components, we can run following
+command to install `edra` component with `shadcn` ui.
+
+```sh
+# For NPM
+npx edra init shadcn
+# For PNPM
+pnpm dlx edra init shadcn
+```
+
+This command will copy the `edra` component as folder in `src/lib/components/edra` and install the required dependencies.
+
+---
+
+# Usage
+
+First of all, let's talk about the component structure. The `edra` will provide two main components, `Edra` and `EdraToolbar`. The `Edra` component is the main component that will render the editor, while the `EdraToolbar` component is used to render the toolbar.
+
+Take a look at the `Edra` component's props interface:
+
+```ts{f[$lib/components/edra/utils.ts]}
+/**
+ * Props for Edra's editor component
+*/
+export interface EdraProps {
+	class?: string;
+	content?: Content;
+	editable?: boolean;
+	showMenu?: boolean;
+	limit?: number;
+	editor?: Editor;
+	/**
+	 * Callback function to be called when the content is updated
+	 * @param content
+	 */
+	onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
+}
+```
+
+> Info:
+>
+> The `class` prop is used to add custom classes to the `Edra` component. The `editor` which is a **bindable** prop is used to pass the editor instance to the `Edra` component. The `showMenu` prop is used to control whether any bubble menu should show or not. The `content` prop is used to pass the initial content to the editor. The `onUpdate` prop is used to update the content of the editor after a transaction is executed, and `limit` prop is used to set the maximum number of characters allowed in the editor.
+
+To use the `edra` component, you can import it in your Svelte component and use it as follows:
+
+```svelte{h[2,4-7,9-11,16,18]%f[my-editor.svelte]}
+<script lang="ts">
+	import { Edra, EdraToolbar } from '$lib/components/edra/shadcn/index.js';
+
+	let editor = $state<Editor>();
+	let content = $state<Content>();
+	let showToolBar = $state(true);
+	let showMenu = $state(true);
+
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		saveContent(props.editor.getJSON());
+	}
+</script>
+
+<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
+	{#if editor && showToolBar}
+		<EdraToolbar class="w-full border-b p-1" {editor} />
+	{/if}
+	<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+</div>
+```
+
+> Warning:
+>
+> You must need to create an editor instance, if you do not want to use `EdraToolbar` component.
+
+You can also use the class names for the `Edra` component to customize the editor's appearance. e.g.
+
+```svelte{ga[17,20,23-32]%gd[16,19]%f[my-editor.svelte]}
+<script lang="ts">
+	import { Edra, EdraToolbar } from '$lib/components/edra/shadcn/index.js';
+
+	let editor = $state<Editor>();
+	let content = $state<Content>();
+	let showToolBar = $state(true);
+	let showMenu = $state(true);
+
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		saveContent(props.editor.getJSON());
+	}
+</script>
+
+<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
+	{#if editor && showToolBar}
+		<EdraToolbar class="w-full border-b p-1" {editor} />
+		<EdraToolbar {editor} />
+	{/if}
+	<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+	<Edra bind:editor {showMenu} {content} {onUpdate} />
+</div>
+
+<style>
+	:global(.edra-toolbar) {
+		width: 100%;
+		border-bottom-width: 1px;
+		padding: 0.25rem;
+	}
+	:global(.edra) {
+		overflow: auto;
+	}
+</style>
+```
+
+---
+
+# JSON Output
+
+You can controll the editor output without worrying about the initial `content` format.
+The simplest way to do this is to use the `onUpdate` prop, which is a callback function that is called when the `content` is updated.
+
+For the JSON output, you can use following example code:
+
+```ts
+function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+	const myOutput = props.editor.getJSON());
+	// save the output in your preferred way
+	saveContent(myOutput);
+}
+```
+
+# HTML Output
+
+Similar to JSON output, you can also get the HTML output of the editor in `onUpdate` callback function.
+
+```ts
+function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+	const myOutput = props.editor.getHTML());
+	// save the output in your preferred way
+	saveContent(myOutput);
+}
+```
