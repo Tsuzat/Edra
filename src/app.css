@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	scroll-behavior: smooth;
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -115,7 +119,7 @@
 	}
 
 	pre.shiki code span.line-highlight {
-		@apply !border-l-blue-700/80 bg-blue-800/[15%];
+		@apply border-l-blue-700/80 bg-blue-800/15;
 	}
 
 	pre.shiki code span.diff-add::before {
@@ -124,7 +128,7 @@
 	}
 	pre.shiki code span.diff-add {
 		/* content: '+' + attr(data-line); */
-		@apply !border-l-green-400/80 bg-green-400/[15%];
+		@apply border-l-green-700/80 bg-green-800/15;
 	}
 
 	pre.shiki code span.diff-remove::before {
@@ -132,7 +136,7 @@
 		@apply text-red-400;
 	}
 	pre.shiki code span.diff-remove {
-		@apply !border-l-red-400/80 bg-red-400/[15%];
+		@apply border-l-red-700/80 bg-red-800/15;
 	}
 
 	.valkyrie {
@@ -141,6 +145,6 @@
 			10px 10px 17px -1px rgba(0, 0, 0, 0.03),
 			50px 50px 80px -3px rgba(0, 0, 0, 0.03);
 
-		@apply border border-muted bg-background;
+		@apply border border-muted-foreground/20 bg-background dark:border-muted;
 	}
 }
