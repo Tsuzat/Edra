@@ -302,7 +302,8 @@ export const commands: Record<string, EdraCommandGroup> = {
 				label: 'Table',
 				shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+Shift+T`],
 				action: (editor) => {
-					editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run();
+					if (editor.isActive('table')) editor.chain().focus().deleteTable().run();
+					else editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run();
 				}
 			}
 		]
