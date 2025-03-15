@@ -1,6 +1,11 @@
 {
 	"name": "edra",
 	"version": "0.0.1",
+	"description": "Best Rich Text Editor, made for Svelte Developers with Tiptap",
+	"author": {
+		"name": "Tsuzat",
+		"url": "https://tsuzat.com"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -15,8 +20,17 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run"
 	},
+	"bin": {
+		"edra": "./bin/cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Tsuzat/Edra.git"
+	},
+	"license": "MIT",
 	"files": [
 		"dist",
+		"src/lib/edra",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
@@ -69,7 +83,9 @@
 		"typescript": "^5.7.3",
 		"typescript-eslint": "^8.24.1",
 		"vite": "^6.1.1",
-		"vitest": "^3.0.6"
+		"vitest": "^3.0.6",
+		"fs-extra": "^11.3.0",
+		"package-manager-detector": "^1.0.0"
 	},
 	"pnpm": {
 		"ignoredBuiltDependencies": [
