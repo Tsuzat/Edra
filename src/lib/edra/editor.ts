@@ -21,6 +21,7 @@ import FontSize from './extensions/FontSize.js';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
 import SearchAndReplace from './extensions/FindAndReplace.js';
+import { getHandlePaste } from './utils.js';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -29,7 +30,7 @@ export const initiateEditor = (
 	extensions?: Extensions,
 	options?: Partial<EditorOptions>
 ): Editor => {
-	return new Editor({
+	const editor = new Editor({
 		element: element,
 		content: content,
 		extensions: [
@@ -109,4 +110,11 @@ export const initiateEditor = (
 		autofocus: true,
 		...options
 	});
+
+	editor.setOptions({
+		editorProps: {
+			handlePaste: getHandlePaste(editor)
+		}
+	});
+	return editor;
 };
