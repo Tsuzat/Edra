@@ -6,13 +6,12 @@
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
+	import ScrollToTop from '$lib/components/custom/scroll-to-top.svelte';
 	let { children } = $props();
 </script>
 
 <ModeWatcher />
 <Toaster richColors />
-
-<svelte:head></svelte:head>
 
 <div class="relative flex min-h-screen flex-col">
 	<Navbar />
@@ -26,4 +25,5 @@
 		</div>
 	{/key}
 	<Footer />
+	<ScrollToTop />
 </div>
