@@ -54,7 +54,7 @@
 			// Add ID to all headings
 			const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
 			headings.forEach((heading) => {
-				heading.id = heading.textContent?.replaceAll(' ', '-') ?? '';
+				heading.id = (heading.textContent?.replaceAll(' ', '-') ?? '').toLowerCase();
 				heading.classList.add('scroll-mt-16');
 			});
 
@@ -90,31 +90,31 @@
 	const sideBarContent: SideBarItem[] = [
 		{ name: 'Getting Started' },
 		{ name: 'Introduction', href: '/docs' },
-		{ name: 'Installation', href: '/docs#Installation' },
-		{ name: 'Usage', href: '/docs#Usage' },
+		{ name: 'Installation', href: '/docs#installation' },
+		{ name: 'Usage', href: '/docs#usage' },
 		{ name: 'Output' },
-		{ name: 'JSON Output', href: '/docs#JSON-Output' },
-		{ name: 'HTML Output', href: '/docs#HTML-Output' },
+		{ name: 'JSON Output', href: '/docs#json-output' },
+		{ name: 'HTML Output', href: '/docs#html-output' },
 		{ name: 'Features' },
-		{ name: 'Slash Command', href: '/docs#Slash-Command' },
-		{ name: 'Bubble Menu', href: '/docs#Bubble-Menu' },
-		{ name: 'Font Size', href: '/docs#Font-Size' },
-		{ name: 'Placeholder', href: '/docs#Placeholder' },
-		{ name: 'Code Block Extended', href: '/docs#Code-Block-Extended' },
-		{ name: 'Image Extended', href: '/docs#Image-Extended' },
-		{ name: 'Video Extended', href: '/docs#Video-Extended' },
-		{ name: 'Audio Extended', href: '/docs#Audio-Extended' },
-		{ name: 'Table', href: '/docs#Table' },
-		{ name: 'Search And Replace', href: '/docs#Search-And-Replace' },
+		{ name: 'Slash Command', href: '/docs#slash-command' },
+		{ name: 'Bubble Menu', href: '/docs#bubble-menu' },
+		{ name: 'Font Size', href: '/docs#font-size' },
+		{ name: 'Placeholder', href: '/docs#placeholder' },
+		{ name: 'Code Block Extended', href: '/docs#code-block-extended' },
+		{ name: 'Image Extended', href: '/docs#image-extended' },
+		{ name: 'Video Extended', href: '/docs#video-extended' },
+		{ name: 'Audio Extended', href: '/docs#audio-extended' },
+		{ name: 'Table', href: '/docs#table' },
+		{ name: 'Search And Replace', href: '/docs#search-and-replace' },
 		{ name: 'Links', href: '/docs#Links' },
-		{ name: 'Drag Handle', href: '/docs#Drag-Handle' },
-		{ name: 'LaTeX Support', href: '/docs#LaTex-Support' }
+		{ name: 'Drag Handle', href: '/docs#drag-handle' },
+		{ name: 'LaTeX Support', href: '/docs#latex-support' }
 	];
 </script>
 
 <div class="m-auto flex px-2 sm:px-8">
 	<div
-		class="sticky top-14 flex max-h-screen w-80 flex-col gap-2 overflow-auto border-r py-4 text-sm"
+		class="sticky left-0 top-14 hidden max-h-screen w-[30%] max-w-60 flex-col gap-2 overflow-auto border-r py-4 text-sm sm:flex"
 	>
 		{#each sideBarContent as item (item.name)}
 			{#if !item.href}
