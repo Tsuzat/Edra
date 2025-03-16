@@ -23,8 +23,8 @@ Edra comes with two ui floavors, `headless` and `shadcn`. The `headless` ui usag
 
 Choose which one you want to use.
 
-1. [Installation with headless ui](/docs#Installation-with-headless-ui)
-2. [Installation with shadcn ui](/docs#Installation-with-shadcn-ui)
+1. [Installation with headless ui](/docs#installation-with-headless-ui)
+2. [Installation with shadcn ui](/docs#installation-with-shadcn-ui)
 
 ---
 
@@ -280,6 +280,128 @@ You can also find the same file here in [github](https://github.com/Tsuzat/Edra/
 
 Try it out in [demo](/)
 
+---
+
 # Image Extended
 
-`Edra` component let's you add an image in different ways.
+`Edra` component let's you add an image in different ways. You can add an image link or
+select an image from your local machine and add it to the editor. Moreover, you can also
+add an image from your clipboard. `Edra` provides an `ImagePlaceholder` component which let's you put a placeholder for future references.
+
+`Edra` lets you paste an image of upto 2MB in size. You can change this behavior by changing the `maxSize` value in `getHandlePaste` function in `$lib/components/edra/editor.ts` file in **your project**. You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/editor.ts).
+
+You can specify the image `maxSize` in this manner:
+
+```ts{h[4]%f[$lib/components/edra/editor.ts]}
+editor.setOptions({
+	editorProps: {
+		// maximum 3 MBs
+		handlePaste: getHandlePaste(editor, 3)
+	}
+});
+```
+
+> Info:
+>
+> **What if I want to process the pasted image?**
+> You may want to do some additional processing when user pastes an image.
+> For that you can modify the `getHandlePaste` function in `$lib/components/edra/utils.ts` file in **your project**.
+> You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/utils.ts).
+
+Try it out in [demo](/)
+
+---
+
+# Video Extended
+
+Similar to `ImageExtended`, you can add a video in different ways.
+You can add a **video link or select a video from your local machine** and add it to the editor.
+`Edra` provides a `VideoPlaceholder` component which let's you put a placeholder for future references.
+
+> Warning:
+>
+> You can not paste a video in editor from clipboard. You need to upload the video from your local machine, or provide a link to the video.
+
+Try it out in [demo](/)
+
+---
+
+# Audio Extended
+
+Similar to `ImageExtended` and `VideoExtended`, you can add an audio in different ways.
+You can add an **audio link or select an audio from your local machine** and add it to the editor.
+`Edra` provides an `AudioPlaceholder` component which let's you put a placeholder for future references.
+
+> Warning:
+>
+> You can not paste an audio in editor from clipboard. You need to upload the audio from your local machine, or provide a link to the audio.
+
+Try it out in [demo](/)
+
+---
+
+# Table
+
+`Edra` component provides a way to add a table in editor. You can add it by either clicking
+the `table` button in `EdraToolbar` or by using `SlashCommand` or `/table`.
+By Default, a table with 3 columns and 3 rows will be added. Furthermore, you can insert _after, before or delete a column or row_.
+
+> Error:
+>
+> If you click the `table` button in `EdraToolbar` or use it from `SlashCommand`, while being focused on the `table` in the editor, the current table will be deleted.
+
+Try it out in [demo](/)
+
+---
+
+# Search And Replace
+
+`Edra` component provides a way to search and replace text in the editor. You can use it by clicking the `search` button in the `EdraToolbar`. You can search a text, _match case_, _go to next match_ and _go to previous match_.
+
+You can also _replace_ the current text or _replace all_ the text in the editor by using the `replace` button in the `EdraToolbar`.
+
+Try it out in [demo](/)
+
+---
+
+# Links
+
+`Edra` component provides an advanced link feature. By default, the links will not open on click.
+The link have a `bubble menu` which let's you _edit_, _open_, _copy link_ and _delete link_.
+
+If you want to change this behavior, you can change the `openOnClick` value in `Link.configure` function in `$lib/components/edra/editor.ts` file in **your project**. You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/editor.ts).
+
+```svelte{ga[2]%gd[3]%f[$lib/components/edra/editor.ts]}
+Link.configure({
+	openOnClick: true,
+	openOnClick: false,
+	autolink: true,
+	defaultProtocol: 'https',
+	HTMLAttributes: {
+		target: '_blank',
+		rel: 'noopener noreferrer'
+	}
+})
+```
+
+Try it out in [demo](/)
+
+---
+
+# Drag Handle
+
+`Edra` component provides a way to _drag and drop_ handle in the editor.
+You can drag a node and drop it in anywhere in the **editor**.
+You can find the _drag handle_ component in `$lib/components/edra/drag-handle.svelte` file in **your project** and you can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/drag-handle.svelte).
+
+Try it out in [demo](/)
+
+---
+
+# LaTeX Support
+
+`Edra` component provides a way to add LaTeX expressions in the editor. You can add them
+by using `$` symbol. For example, you can write `$\sum_{i=1}^n i^2$` to get an equation.
+You also click on a LaTeX expression and it will be evaluated and the result will be shown.
+
+Try it out in [demo](/)
