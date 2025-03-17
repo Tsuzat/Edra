@@ -1,6 +1,6 @@
 {
 	"name": "edra",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Best Rich Text Editor, made for Svelte Developers with Tiptap",
 	"author": {
 		"name": "Tsuzat",
@@ -10,7 +10,6 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"publish": "npm run prepack && npm publish",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
