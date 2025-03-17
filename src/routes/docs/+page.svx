@@ -179,7 +179,7 @@ The simplest way to do this is to use the `onUpdate` prop, which is a callback f
 
 For the JSON output, you can use following example code:
 
-```ts
+```ts{h[2]%f[my-editor.svelte]}
 function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 	const myOutput = props.editor.getJSON());
 	// save the output in your preferred way
@@ -191,7 +191,7 @@ function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 
 Similar to JSON output, you can also get the HTML output of the editor in `onUpdate` callback function.
 
-```ts
+```ts{h[2]%f[my-editor.svelte]}
 function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 	const myOutput = props.editor.getHTML());
 	// save the output in your preferred way

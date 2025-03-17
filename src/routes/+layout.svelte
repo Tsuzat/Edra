@@ -11,7 +11,7 @@
 </script>
 
 <ModeWatcher />
-<Toaster richColors />
+<Toaster richColors={true} />
 
 <div class="relative flex min-h-screen flex-col">
 	<Navbar />
