@@ -60,14 +60,19 @@ export default (menuList: Component<any, any, ''>): Extension =>
 						const { view, state } = editor;
 						const { $head, $from } = view.state.selection;
 
-						const end = $from.pos;
-						const from = $head?.nodeBefore
-							? end -
-								($head.nodeBefore.text?.substring($head.nodeBefore.text?.indexOf('/')).length ?? 0)
-							: $from.start();
+						try {
+							const end = $from.pos;
+							const from = $head?.nodeBefore
+								? end -
+									($head.nodeBefore.text?.substring($head.nodeBefore.text?.indexOf('/')).length ??
+										0)
+								: $from.start();
 
-						const tr = state.tr.deleteRange(from, end);
-						view.dispatch(tr);
+							const tr = state.tr.deleteRange(from, end);
+							view.dispatch(tr);
+						} catch (error) {
+							console.error(error);
+						}
 
 						props.action(editor);
 						view.focus();
