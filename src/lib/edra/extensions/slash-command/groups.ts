@@ -1,6 +1,6 @@
 import { commands } from '../../commands/commands.js';
 
-import type { EdraCommand } from '$lib/edra/commands/types.js';
+import type { EdraCommand } from '../../commands/types.js';
 import type { Editor } from '@tiptap/core';
 
 export interface Group {
