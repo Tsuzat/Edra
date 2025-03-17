@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 hr {
 	@apply my-6 border-muted !important;
 }
