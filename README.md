@@ -1,5 +1,10 @@
 # ShadEditor - A Rich Text Editor for Svelte with ShadCN UI
 
+> [!CAUTION]
+> ShadEditor is evolving to be [Edra](https://edra.tsuzat.com). Please use `Edra` from now on.
+> `Edra` has all the features of ShadEditor and more. ShadEditor will not receive any updates.
+
+
 <img src="https://waka-api.dev-tsuzat.workers.dev/ShadEditor" />
 
 A ready to use text editor build for svelte with tiptap and shadcn ui.
