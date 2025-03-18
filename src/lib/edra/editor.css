@@ -397,3 +397,29 @@ input[type='checkbox'] {
 	background-color: var(--search-result-current-bg);
 	color: black;
 }
+
+.code-wrapper {
+	background-color: var(--code-bg);
+	border-radius: 0.25rem;
+	padding: 1.5rem;
+	position: relative;
+	height: fit-content;
+}
+
+.code-wrapper-tile {
+	opacity: 0;
+	width: 100%;
+	display: flex;
+	position: absolute;
+	top: 0;
+	padding: 0.25rem;
+	right: 0;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.code-wrapper:hover .code-wrapper-tile {
+	opacity: 1;
+}
