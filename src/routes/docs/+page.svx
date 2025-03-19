@@ -110,6 +110,8 @@ To use the `edra` component, you can import it in your Svelte component and use 
 ```svelte{h[2,4-7,9-11,16,18]%f[my-editor.svelte]}
 <script lang="ts">
 	import { Edra, EdraToolbar } from '$lib/components/edra/shadcn/index.js';
+	import type { Content, Editor } from '@tiptap/core';
+	import { Transaction } from '@tiptap/pm/state';
 
 	let editor = $state<Editor>();
 	let content = $state<Content>();
@@ -117,7 +119,7 @@ To use the `edra` component, you can import it in your Svelte component and use 
 	let showMenu = $state(true);
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-		saveContent(props.editor.getJSON());
+		saveContent(props.editor.getJSON()); // save the content in your preferred way
 	}
 </script>
 
