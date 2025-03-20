@@ -265,6 +265,14 @@ export const commands: Record<string, EdraCommandGroup> = {
 				action: (editor) => {
 					editor.chain().focus().insertVideoPlaceholder().run();
 				}
+			},
+			{
+				iconName: 'CodeXml',
+				name: 'iframe-placeholder',
+				label: 'IFrame',
+				action: (editor) => {
+					editor.chain().focus().insertIFramePlaceholder().run();
+				}
 			}
 		]
 	},
