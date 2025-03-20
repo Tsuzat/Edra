@@ -3,6 +3,7 @@ import { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import type { EditorState, Transaction } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
+import { browser } from '$app/environment';
 
 export interface ShouldShowProps {
 	editor: Editor;
@@ -43,8 +44,9 @@ export const findColors = (doc: Node) => {
 /**
  * Check if the current browser is mac or not
  */
-export const isMac =
-	navigator.userAgent.includes('Macintosh') || navigator.userAgent.includes('Mac OS X');
+export const isMac = browser
+	? navigator.userAgent.includes('Macintosh') || navigator.userAgent.includes('Mac OS X')
+	: false;
 
 /**
  * Dupilcate content at the current selection
