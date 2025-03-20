@@ -34,6 +34,10 @@
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import type { EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
+	import IFramePlaceholderComponent from './components/IFramePlaceholder.svelte';
+	import { IFramePlaceHolder } from '../extensions/iframe/IFramePlaceHolder.js';
+	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
+	import IFrameExtendedComponent from './components/IFrameExtended.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -64,6 +68,8 @@
 				}),
 				AudioPlaceHolder(AudioPlaceHolderComponent),
 				ImagePlaceHolder(ImagePlaceHolderComponent),
+				IFramePlaceHolder(IFramePlaceholderComponent),
+				IFrameExtended(IFrameExtendedComponent),
 				VideoPlaceHolder(VideoPlaceHolderComponent),
 				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
