@@ -6,7 +6,7 @@ customizable and extensible, allowing developers to create their own custom edit
 
 The main goal of Edra is to provide a **baseline** with minimum to no pre-configured components, yet highly customizable and extensible.
 
-> Info:
+> Note:
 >
 > **Why is edra a component based library?**
 >
@@ -209,7 +209,7 @@ The `SlashCommand` is a feature that allows you to add custom commands to the ed
 It is a powerful feature that allows you to add custom commands to the editor,
 which can be used to perform various actions, like inserting `images`, `videos`, `audios`, `tables`, `code blocks`, etc. You can use in by pressing the `/` key and then simply start typing the command name.
 
-> Info:
+> Note:
 >
 > You can use `ArrowDown`, `crtl+j` or `cmd+j`, `Tabs` to navigate down
 > and `ArrowUp`, `ctrl+k` or `cmd+k` to navigate up. Use `enter` to select the command.
@@ -227,7 +227,7 @@ The `Edra` component comes with `Notion` like bubble menus. There are basically 
 3. Table Row Menu: Provides table row related actions like insert, delete, etc.
 4. Table Col Menu: Provides table column related actions like insert, delete, etc.
 
-> Info:
+> Note:
 >
 > You can disable all of them by passing `false` to the `showMenu` prop.
 
@@ -337,6 +337,20 @@ You can add an **audio link or select an audio from your local machine** and add
 > Warning:
 >
 > You can not paste an audio in editor from clipboard. You need to upload the audio from your local machine, or provide a link to the audio.
+
+Try it out in [demo](/)
+
+---
+
+# IFrame Extended
+
+Similar to `ImageExtended` and `VideoExtended`, you can add an iframe with a source url.
+
+`Edra` provides an `IFramePlaceholder` component which let's you put a placeholder for future references.
+
+> Warning:
+>
+> You can only add the iframe with a source url. You can not paste an iframe in editor from clipboard.
 
 Try it out in [demo](/)
 
