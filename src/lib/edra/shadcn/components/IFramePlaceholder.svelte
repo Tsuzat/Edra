@@ -5,7 +5,6 @@
 	import CodeXml from 'lucide-svelte/icons/code-xml';
 	const { editor }: NodeViewProps = $props();
 	import * as Popover from '$lib/components/ui/popover/index.js';
-	import X from 'lucide-svelte/icons/x';
 	import { Input } from '$lib/components/ui/input/index.js';
 
 	let src = $state<string>('');
