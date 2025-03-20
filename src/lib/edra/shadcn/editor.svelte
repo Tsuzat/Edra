@@ -34,6 +34,10 @@
 	import type { EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
 	import { cn } from '$lib/utils.js';
+	import { IFramePlaceHolder } from '../extensions/iframe/IFramePlaceHolder.js';
+	import IFramePlaceHolderComponent from './components/IFramePlaceholder.svelte';
+	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
+	import IFrameExtendedComponent from './components/IFrameExtended.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -64,6 +68,8 @@
 				}),
 				AudioPlaceHolder(AudioPlaceHolderComponent),
 				ImagePlaceHolder(ImagePlaceHolderComponent),
+				IFramePlaceHolder(IFramePlaceHolderComponent),
+				IFrameExtended(IFrameExtendedComponent),
 				VideoPlaceHolder(VideoPlaceHolderComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
