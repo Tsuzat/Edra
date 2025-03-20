@@ -423,3 +423,7 @@ input[type='checkbox'] {
 .code-wrapper:hover .code-wrapper-tile {
 	opacity: 1;
 }
+
+.tiptap iframe {
+	aspect-ratio: 16 / 9;
+}
