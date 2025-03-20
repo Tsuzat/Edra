@@ -183,7 +183,7 @@ For the JSON output, you can use following example code:
 
 ```ts{h[2]%f[my-editor.svelte]}
 function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-	const myOutput = props.editor.getJSON());
+	const myOutput = props.editor.getJSON();
 	// save the output in your preferred way
 	saveContent(myOutput);
 }
@@ -195,7 +195,7 @@ Similar to JSON output, you can also get the HTML output of the editor in `onUpd
 
 ```ts{h[2]%f[my-editor.svelte]}
 function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-	const myOutput = props.editor.getHTML());
+	const myOutput = props.editor.getHTML();
 	// save the output in your preferred way
 	saveContent(myOutput);
 }
