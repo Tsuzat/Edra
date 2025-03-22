@@ -21,53 +21,36 @@
 
 	// Function to get ordered toolbar items based on allowedCommands
 	function getOrderedToolbarItems() {
-		// If no allowedCommands provided, return all commands
-		if (!allowedCommands || allowedCommands.length === 0) {
-			const items = [];
-
-			// Add all regular commands first
-			Object.keys(commands).forEach((groupKey) => {
-				if (commands[groupKey]) {
-					commands[groupKey].commands.forEach((command) => {
-						items.push({ type: 'command', command });
-					});
-				}
-			});
-
-			// Append special commands
-			items.push({ type: 'fontSize' });
-			items.push({ type: 'quickColor' });
-			items.push({ type: 'searchAndReplace' });
-			return items;
+		if (!allowedCommands?.length) {
+			return [
+				...Object.values(commands).flatMap((group) =>
+					group.commands.map((cmd) => ({ type: 'command', command: cmd }))
+				),
+				...specialComponents.map((comp) => ({ type: comp }))
+			];
 		}
 
-		// If allowedCommands is provided, return items in the specified order
 		return allowedCommands
 			.map((cmdName) => {
-				// Handle special components
 				if (specialComponents.includes(cmdName)) {
 					return { type: cmdName };
 				}
-
-				// Check for group
+				// Check if it's a group
 				if (commands[cmdName]) {
-					return commands[cmdName].commands.map((command) => ({
+					return commands[cmdName].commands.map((cmd) => ({
 						type: 'command',
-						command
+						command: cmd
 					}));
 				}
+				// Find individual command
+				const command = Object.values(commands)
+					.flatMap((group) => group.commands)
+					.find((cmd) => cmd.name === cmdName);
 
-				// Check for individual command from any group
-				for (const groupKey in commands) {
-					const command = commands[groupKey].commands.find((cmd) => cmd.name === cmdName);
-					if (command) {
-						return { type: 'command', command };
-					}
-				}
-				return null;
+				return command ? { type: 'command', command } : null;
 			})
 			.flat()
-			.filter(Boolean); // Remove null values
+			.filter(Boolean);
 	}
 </script>
 
