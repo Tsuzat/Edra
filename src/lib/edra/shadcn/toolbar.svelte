@@ -12,7 +12,7 @@
 		class?: string;
 		editor: Editor;
 		allowedCommands?: string[];
-		children: Snippet;
+		children?: Snippet;
 	}
 
 	const { class: className = '', editor, allowedCommands, children }: Props = $props();
