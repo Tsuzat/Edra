@@ -107,20 +107,62 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
+
+	<div class="mx-auto w-[80%] px-4">
 		{#if editor && showToolBar}
-			<div transition:slide>
-				<EdraToolbar {editor} />
+			<div class="rounded-t border-x border-t p-1">
+				<EdraToolbar
+					{editor}
+					allowedCommands={[
+						'undo-redo',
+						'headings',
+						'link',
+						'bold',
+						'italic',
+						'underline',
+						'strike',
+						'blockquote',
+						'superscript',
+						'subscript',
+						'code',
+						'codeBlock',
+						'alignLeft',
+						'alignLeft',
+						'alignCenter',
+						'alignRight',
+						'alignJustify',
+						'bulletList',
+						'orderedList',
+						'taskList',
+						'audio-placeholder',
+						'image-placeholder',
+						'video-placeholder',
+						'iframe-placeholder',
+						'table',
+						'fontSize',
+						'quickColor',
+						'searchAndReplace'
+					]}
+				/>
 			</div>
 		{/if}
-		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+		<div class="rounded-b border">
+			<Edra
+				class="h-[35rem] overflow-auto"
+				bind:editor
+				showBubbleMenu={true}
+				{content}
+				{onUpdate}
+				showSlashCommands={true}
+				allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			/>
+		</div>
 	</div>
 </div>
 
 <style>
 	:global(.edra-toolbar) {
 		width: 100%;
-		border-bottom-width: 1px;
 		padding: 0.25rem;
 	}
 

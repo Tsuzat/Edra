@@ -88,6 +88,26 @@
 			}
 		);
 	});
+
+	// Sets focus on the editor and moves the cursor to the clicked text position,
+	// defaulting to the end of the document if the click is outside any text.
+	function focusEditor(event?: MouseEvent | KeyboardEvent) {
+		if (!editor) return;
+		if (event instanceof MouseEvent) {
+			const { clientX, clientY } = event;
+			// See if click x,y position is valid
+			const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
+			if (pos == null) {
+				// If not valid position, move cursor to end of document
+				const endPos = editor.state.doc.content.size;
+				editor.chain().focus().setTextSelection(endPos).run();
+			} else {
+				editor.chain().focus().setTextSelection(pos).run();
+			}
+		} else {
+			editor.chain().focus().run();
+		}
+	}
 </script>
 
 {#if editor}
@@ -108,6 +128,15 @@
 	{/if}
 	<div
 		bind:this={element}
-		class="edra-editor prose size-full min-w-full flex-grow overflow-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
+		role="button"
+		tabindex="0"
+		onclick={focusEditor}
+		onkeydown={(event) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				focusEditor(event);
+			}
+		}}
+		class="prose h-full min-w-full cursor-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
 	></div>
 </div>
+

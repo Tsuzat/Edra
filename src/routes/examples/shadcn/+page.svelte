@@ -34,30 +34,24 @@
 	}
 </script>
 
-<div>
-	<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
-		{#if editor && showToolBar}
-			<div transition:slide>
-				<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
-			</div>
-		{/if}
+<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+<div class="mx-auto w-[95%] px-4">
+	{#if editor && showToolBar}
+		<div class="rounded-t border-x border-t p-1">
+			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+		</div>
+	{/if}
+	<div class="rounded-b border">
 		<Edra
-			class="overflow-auto"
+			class="overflow-auto h-64"
 			bind:editor
 			{showBubbleMenu}
 			{content}
 			{onUpdate}
 			{showSlashCommands}
-            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
 		/>
 	</div>
 </div>
 
-<style>
-	:global(.edra-toolbar) {
-		width: 100%;
-		border-bottom-width: 1px;
-		padding: 0.25rem;
-	}
-</style>
+
