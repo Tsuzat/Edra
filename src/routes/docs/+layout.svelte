@@ -111,7 +111,10 @@
 		{ name: 'Search And Replace', href: '/docs#search-and-replace' },
 		{ name: 'Links', href: '/docs#Links' },
 		{ name: 'Drag Handle', href: '/docs#drag-handle' },
-		{ name: 'LaTeX Support', href: '/docs#latex-support' }
+		{ name: 'LaTeX Support', href: '/docs#latex-support' },
+		{ name: 'Commands' },
+		{ name: 'Regular Commands', href: '/docs#regular-commands' },
+		{ name: 'Special Commands', href: '/docs#special-commands' }
 	];
 </script>
 

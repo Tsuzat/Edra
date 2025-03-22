@@ -129,6 +129,7 @@ interface Props {
 	class?: string;
 	editor: Editor;
 	allowedCommands?: string[];
+	children?: Snippet;
 }
 ```
 
@@ -137,7 +138,8 @@ interface Props {
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
 - `allowedCommands?` An optional array of strings that defines the order and selection of commands to be displayed. 
 	- Each entry can be a top‑level group name (e.g. `headings`) to include all commands from that group, or an individual command name (e.g. `bulletList`) to include just that command.
-
+- `children?` Allows for additional elements to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
+	- Note: Additional elements will always be appended to the end.
 
 ## Examples
 Below are example use cases for Shadcn and Headless:
@@ -161,26 +163,28 @@ Below are example use cases for Shadcn and Headless:
 	}
 </script>
 
-<div>
-	<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
-		{#if editor && showToolBar}
+<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+<div class="mx-auto w-[95%] px-4">
+	{#if editor && showToolBar}
+		<div class="rounded-t border-x border-t p-1">
 			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
-		{/if}
+		</div>
+	{/if}
+	<div class="rounded-b border">
 		<Edra
-			class="overflow-auto"
+			class="overflow-auto h-64"
 			bind:editor
 			{showBubbleMenu}
 			{content}
 			{onUpdate}
 			{showSlashCommands}
-            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
 		/>
 	</div>
 </div>
 ```
 
-
+<br />
 
 ### Headless
 ```svelte
@@ -201,20 +205,22 @@ Below are example use cases for Shadcn and Headless:
 	}
 </script>
 
-<div>
-	<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
-		{#if editor && showToolBar}
+<div class="py-4 text-center text-xl font-bold">Headless Example</div>
+<div class="mx-auto w-[95%] px-4">
+	{#if editor && showToolBar}
+		<div class="rounded-t border-x border-t p-1">
 			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
-		{/if}
+		</div>
+	{/if}
+	<div class="rounded-b border">
 		<Edra
-			class="overflow-auto"
+			class="h-64 overflow-auto"
 			bind:editor
 			{showBubbleMenu}
 			{content}
 			{onUpdate}
 			{showSlashCommands}
-            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
 		/>
 	</div>
 </div>
@@ -496,3 +502,49 @@ by using `$` symbol. For example, you can write `$\sum_{i=1}^n i^2$` to get an e
 You also click on a LaTeX expression and it will be evaluated and the result will be shown.
 
 Try it out in [demo](/)
+
+# Commands
+
+Below is a list of all available commands that can be passed to the `<Edra />` and `<EdraToolbar />`. A full list of the commands can also be seen in `src\lib\edra\commands\commands.ts`.
+
+## Regular Commands
+| Command             | Description                                                                                  |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| undo                | Reverts the last action.                                                                     |
+| redo                | Re-applies the previously undone action.                                                     |
+| heading1            | Toggles heading formatting at level 1.                                                       |
+| heading2            | Toggles heading formatting at level 2.                                                       |
+| heading3            | Toggles heading formatting at level 3.                                                       |
+| link                | Prompts for a URL and creates a hyperlink for the selected text.                             |
+| bold                | Toggles bold formatting for the selected text.                                               |
+| italic              | Toggles italic formatting for the selected text.                                             |
+| underline           | Toggles underline formatting for the selected text.                                          |
+| strike              | Toggles strikethrough formatting for the selected text.                                      |
+| blockquote          | Toggles blockquote formatting.                                                               |
+| superscript         | Toggles superscript formatting for the selected text.                                        |
+| subscript           | Toggles subscript formatting for the selected text.                                          |
+| code                | Toggles inline code formatting for the selected text.                                        |
+| codeBlock           | Toggles code block formatting.                                                               |
+| alignLeft           | Aligns the text to the left.                                                                 |
+| alignCenter         | Centers the text.                                                                            |
+| alignRight          | Aligns the text to the right.                                                                |
+| alignJustify        | Justifies the text alignment.                                                                |
+| bulletList          | Toggles bullet list formatting.                                                              |
+| orderedList         | Toggles ordered list formatting.                                                             |
+| taskList            | Toggles task list (checklist) formatting.                                                    |
+| audio-placeholder   | Inserts an audio placeholder.                                                                |
+| image-placeholder   | Inserts an image placeholder.                                                                |
+| video-placeholder   | Inserts a video placeholder.                                                                 |
+| iframe-placeholder  | Inserts an iframe placeholder.                                                               |
+| color               | Resets or unsets the text color.                                                             |
+| highlight           | Toggles highlighting for the selected text.                                                  |
+| table               | Inserts a 3x3 table if no table is active; deletes the table if one is already active.       |
+| font increment      | Increases the font size of the selected text.                                                |
+| font decrement      | Decreases the font size of the selected text.                                                |
+
+## Special Commands
+| Command             | Description                                                                                  |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| fontSize            | Buttons to increase and decrease font size and shows the current font size                   |
+| quickColor          | Color menu to change the text color and highlight the text                                   |
+| searchAndReplace    | Text search and replace tool                                                                 |
