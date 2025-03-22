@@ -45,6 +45,7 @@
 		class: className = '',
 		content = undefined,
 		showBubbleMenu = true,
+		allowedBubbleMenuCommands = [],
 		showSlashCommands = true,
 		limit = undefined,
 		editable = true,
@@ -103,7 +104,7 @@
 		<LinkMenu {editor} />
 		<TableRowMenu {editor} />
 		<TableColMenu {editor} />
-		<BubbleMenu {editor} />
+		<BubbleMenu {editor} {allowedBubbleMenuCommands} />
 	{/if}
 	{#if !editor}
 		<div class="edra-loading">

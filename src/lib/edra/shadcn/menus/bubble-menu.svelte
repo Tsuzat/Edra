@@ -9,9 +9,10 @@
 
 	interface Props {
 		editor: Editor;
+		allowedBubbleMenuCommands?: string[];
 	}
 
-	let { editor }: Props = $props();
+	let { editor, allowedBubbleMenuCommands }: Props = $props();
 
 	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
@@ -91,12 +92,32 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each Object.keys(commands).filter((key) => !excludeCommands.includes(key)) as keys}
-		{@const groups = commands[keys].commands}
-		{#each groups as command}
-			<EdraToolBarIcon {command} {editor} />
-		{/each}
+	{#each Object.keys(commands) as groupKey}
+		{#if allowedBubbleMenuCommands && allowedBubbleMenuCommands.length > 0}
+			<!-- If allowedCommands has top-level name, show all commands within that group, else filter by individual commands -->
+			{@const groupCommands = commands[groupKey].commands}
+			{@const filteredCommands = allowedBubbleMenuCommands.includes(groupKey)
+				? groupCommands
+				: groupCommands.filter((command) => allowedBubbleMenuCommands.includes(command.name))}
+			{#if filteredCommands.length > 0}
+				{#each filteredCommands as command}
+					<EdraToolBarIcon {command} {editor} />
+				{/each}
+			{/if}
+		{:else}
+			<!-- If no allowedCommands are passed, use default exclusions -->
+			{#if !excludeCommands.includes(groupKey)}
+				{#each commands[groupKey].commands as command}
+					<EdraToolBarIcon {command} {editor} />
+				{/each}
+			{/if}
+		{/if}
 	{/each}
-	<FontSize {editor} />
-	<QuickColor {editor} />
+
+	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('fontSize')}
+		<FontSize {editor} />
+	{/if}
+	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('quickColor')}
+		<QuickColor {editor} />
+	{/if}
 </BubbleMenu>

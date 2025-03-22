@@ -7,14 +7,17 @@
 
 	interface Props {
 		editor: Editor;
+		allowedBubbleMenuCommands?: string[];
 	}
-	const { editor }: Props = $props();
+	const { editor, allowedBubbleMenuCommands }: Props = $props();
 
 	const bubbleMenuCommands = [
 		...commands['text-formatting'].commands,
 		...commands.alignment.commands,
 		...commands.lists.commands
 	];
+
+	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
 	const colorCommands = commands.colors.commands;
 	const fontCommands = commands.fonts.commands;
@@ -95,45 +98,75 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each bubbleMenuCommands as command}
+	<!-- {#each filteredBubbleMenuCommands as command}
 		<EdraToolBarIcon {command} {editor} />
+	{/each} -->
+
+	{#each Object.keys(commands) as groupKey}
+		{#if allowedBubbleMenuCommands && allowedBubbleMenuCommands.length > 0}
+			<!-- If allowedCommands has top-level name, show all commands within that group, else filter by individual commands -->
+			{@const groupCommands = commands[groupKey].commands}
+			{@const filteredCommands = allowedBubbleMenuCommands.includes(groupKey)
+				? groupCommands
+				: groupCommands.filter((command) => allowedBubbleMenuCommands.includes(command.name))}
+			{#if filteredCommands.length > 0}
+				{#each filteredCommands as command}
+					<EdraToolBarIcon {command} {editor} />
+				{/each}
+			{/if}
+		{:else}
+			<!-- If no allowedCommands are passed, use default exclusions -->
+			{#if !excludeCommands.includes(groupKey)}
+				{#each commands[groupKey].commands as command}
+					<EdraToolBarIcon {command} {editor} />
+				{/each}
+			{/if}
+		{/if}
 	{/each}
+	
 
-	<EdraToolBarIcon command={fontCommands[0]} {editor} />
-	<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
-	<EdraToolBarIcon command={fontCommands[1]} {editor} />
+	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('fontSize')}
+		<EdraToolBarIcon command={fontCommands[0]} {editor} />
+		<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
+		<EdraToolBarIcon command={fontCommands[1]} {editor} />
+	{/if}
 
-	<EdraToolBarIcon
-		command={colorCommands[0]}
-		{editor}
-		style={`color: ${editor.getAttributes('textStyle').color};`}
-		onclick={() => {
-			const color = editor.getAttributes('textStyle').color;
-			const hasColor = editor.isActive('textStyle', { color });
-			if (hasColor) {
-				editor.chain().focus().unsetColor().run();
-			} else {
-				const color = prompt('Enter the color of the text:');
-				if (color !== null) {
-					editor.chain().focus().setColor(color).run();
+	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('color')}
+		<EdraToolBarIcon
+			command={colorCommands[0]}
+			{editor}
+			style={`color: ${editor.getAttributes('textStyle').color};`}
+			onclick={() => {
+				const color = editor.getAttributes('textStyle').color;
+				const hasColor = editor.isActive('textStyle', { color });
+				if (hasColor) {
+					editor.chain().focus().unsetColor().run();
+				} else {
+					const color = prompt('Enter the color of the text:');
+					if (color !== null) {
+						editor.chain().focus().setColor(color).run();
+					}
 				}
-			}
-		}}
-	/>
-	<EdraToolBarIcon
-		command={colorCommands[1]}
-		{editor}
-		style={`background-color: ${editor.getAttributes('highlight').color};`}
-		onclick={() => {
-			const hasHightlight = editor.isActive('highlight');
-			if (hasHightlight) {
-				editor.chain().focus().unsetHighlight().run();
-			} else {
-				const color = prompt('Enter the color of the highlight:');
-				if (color !== null) {
-					editor.chain().focus().setHighlight({ color }).run();
+			}}
+		/>
+	{/if}
+
+	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('highlight')}
+		<EdraToolBarIcon
+			command={colorCommands[1]}
+			{editor}
+			style={`background-color: ${editor.getAttributes('highlight').color};`}
+			onclick={() => {
+				const hasHightlight = editor.isActive('highlight');
+				if (hasHightlight) {
+					editor.chain().focus().unsetHighlight().run();
+				} else {
+					const color = prompt('Enter the color of the highlight:');
+					if (color !== null) {
+						editor.chain().focus().setHighlight({ color }).run();
+					}
 				}
-			}
-		}}
-	/>
+			}}
+		/>
+	{/if}
 </BubbleMenu>

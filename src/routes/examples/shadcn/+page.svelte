@@ -10,8 +10,8 @@
 	let content = $state<Content>();
 	let editor = $state<Editor>();
 	let showToolBar = $state(true);
-    let showBubbleMenu = $state(true);
-    let showSlashCommands = $state(true);
+	let showBubbleMenu = $state(true);
+	let showSlashCommands = $state(true);
 
 	$effect(() => {
 		console.log('Content', content);
@@ -42,7 +42,15 @@
 				<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
 			</div>
 		{/if}
-		<Edra class="overflow-auto" bind:editor {showBubbleMenu} {content} {onUpdate} {showSlashCommands} />
+		<Edra
+			class="overflow-auto"
+			bind:editor
+			{showBubbleMenu}
+			{content}
+			{onUpdate}
+			{showSlashCommands}
+            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+		/>
 	</div>
 </div>
 

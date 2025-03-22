@@ -45,6 +45,7 @@
 		class: className = '',
 		content = undefined,
 		showBubbleMenu = true,
+		allowedBubbleMenuCommands = [],
 		showSlashCommands = true,
 		limit = undefined,
 		editable = true,
@@ -98,7 +99,7 @@
 		<LinkMenu {editor} />
 		<TableColMenu {editor} />
 		<TableRowMenu {editor} />
-		<BubbleMenu {editor} />
+		<BubbleMenu {editor} {allowedBubbleMenuCommands} />
 	{/if}
 	{#if !editor}
 		<div class="flex size-full items-center justify-center gap-4 text-xl">
