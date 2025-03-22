@@ -106,7 +106,7 @@ export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showMenu?: boolean;
+	showBubbleMenu?: boolean;
 	showSlashCommands?: boolean;
 	limit?: number;
 	editor?: Editor;

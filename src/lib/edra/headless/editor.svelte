@@ -44,7 +44,7 @@
 	let {
 		class: className = '',
 		content = undefined,
-		showMenu = true,
+		showBubbleMenu = true,
 		showSlashCommands = true,
 		limit = undefined,
 		editable = true,
@@ -99,7 +99,7 @@
 {/if}
 
 <div class={`edra ${className}`}>
-	{#if editor && showMenu}
+	{#if editor && showBubbleMenu}
 		<LinkMenu {editor} />
 		<TableRowMenu {editor} />
 		<TableColMenu {editor} />
