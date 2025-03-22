@@ -38,7 +38,7 @@
 	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
 		{#if editor && showToolBar}
 			<div transition:slide>
-				<EdraToolbar {editor} />
+				<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor', 'fontSize']} />
 			</div>
 		{/if}
 		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />

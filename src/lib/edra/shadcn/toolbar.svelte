@@ -10,9 +10,10 @@
 	interface Props {
 		class?: string;
 		editor: Editor;
+		allowedCommands?: string[];
 	}
 
-	const { class: className = '', editor }: Props = $props();
+	const { class: className = '', editor, allowedCommands }: Props = $props();
 </script>
 
 <div
@@ -21,13 +22,23 @@
 		className
 	)}
 >
-	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
-		{@const groups = commands[keys].commands}
-		{#each groups as command}
-			<EdraToolBarIcon {command} {editor} />
-		{/each}
+	{#each Object.keys(commands) as groupKey}
+		{#if commands[groupKey]}
+			{#each commands[groupKey].commands as command}
+				{#if !allowedCommands || allowedCommands.includes(groupKey) || allowedCommands.includes(command.name)}
+					<EdraToolBarIcon {command} {editor} />
+				{/if}
+			{/each}
+		{/if}
 	{/each}
-	<FontSize {editor} />
-	<QuickColor {editor} />
-	<SearchAndReplace {editor} />
+
+	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('fontSize')}
+		<FontSize {editor} />
+	{/if}
+	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('quickColor')}
+		<QuickColor {editor} />
+	{/if}
+	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('searchAndReplace')}
+		<SearchAndReplace {editor} />
+	{/if}
 </div>
