@@ -93,12 +93,18 @@
 	// defaulting to the end of the document if the click is outside any text.
 	function focusEditor(event?: MouseEvent | KeyboardEvent) {
 		if (!editor) return;
+		// Check if there is a text selection already (i.e. a non-empty selection)
+		const selection = window.getSelection();
+		if (selection && selection.toString().length > 0) {
+			// Focus the editor without modifying selection
+			editor.chain().focus().run();
+			return;
+		}
 		if (event instanceof MouseEvent) {
 			const { clientX, clientY } = event;
-			// See if click x,y position is valid
 			const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
 			if (pos == null) {
-				// If not valid position, move cursor to end of document
+				// If not a valid position, move cursor to the end of the document
 				const endPos = editor.state.doc.content.size;
 				editor.chain().focus().setTextSelection(endPos).run();
 			} else {
@@ -139,4 +145,3 @@
 		class="prose h-full min-w-full cursor-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
 	></div>
 </div>
-

@@ -96,18 +96,21 @@
 	// Sets focus on the editor and moves the cursor to the clicked text position,
 	// defaulting to the end of the document if the click is outside any text.
 	function focusEditor(event?: MouseEvent | KeyboardEvent) {
-		console.log('focusEditor');
 		if (!editor) return;
-		if (event instanceof MouseEvent) {
-			console.log('focusEditor');
-			const { clientX, clientY } = event;
-			// See if click x,y position is valid
-			const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
-			console.log('pos', pos);
 
+		// Check if there is a text selection already (i.e. a non-empty selection)
+		const selection = window.getSelection();
+		if (selection && selection.toString().length > 0) {
+			// Just focus the editor without modifying the selection
+			editor.chain().focus().run();
+			return;
+		}
+
+		if (event instanceof MouseEvent) {
+			const { clientX, clientY } = event;
+			const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
 			if (pos == null) {
-				// If not valid position, move cursor to end of document
-				console.log('END');
+				// If not a valid position, move cursor to the end of the document
 				const endPos = editor.state.doc.content.size;
 				editor.chain().focus().setTextSelection(endPos).run();
 			} else {
