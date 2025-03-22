@@ -3,14 +3,16 @@
 	import { commands } from '../commands/commands.js';
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		class?: string;
 		editor: Editor;
 		allowedCommands?: string[];
+		children: Snippet;
 	}
 
-	const { class: className = '', editor, allowedCommands }: Props = $props();
+	const { class: className = '', editor, allowedCommands, children }: Props = $props();
 
 	// Special components that are handled separately
 	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
@@ -102,4 +104,5 @@
 		{/each}
 	{/if}
 	<SearchAndReplace {editor} bind:show={showSearchAndReplace} />
+	{@render children?.()}
 </div>

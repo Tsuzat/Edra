@@ -5,15 +5,17 @@
 	import QuickColor from './components/QuickColor.svelte';
 	import FontSize from './components/FontSize.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
+	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils.js';
 
 	interface Props {
 		class?: string;
 		editor: Editor;
 		allowedCommands?: string[];
+		children: Snippet;
 	}
 
-	const { class: className = '', editor, allowedCommands }: Props = $props();
+	const { class: className = '', editor, allowedCommands, children }: Props = $props();
 
 	// Special components that are handled separately
 	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
@@ -71,4 +73,5 @@
 			<SearchAndReplace {editor} />
 		{/if}
 	{/each}
+	{@render children?.()}
 </div>
