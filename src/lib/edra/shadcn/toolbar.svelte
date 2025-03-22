@@ -14,6 +14,61 @@
 	}
 
 	const { class: className = '', editor, allowedCommands }: Props = $props();
+
+	// Special components that are handled separately
+	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
+	const toolbarItems = getOrderedToolbarItems() as Array<{ type: string; command?: any }>;
+
+	// Function to get ordered toolbar items based on allowedCommands
+	function getOrderedToolbarItems() {
+		// If no allowedCommands provided, return all commands
+		if (!allowedCommands || allowedCommands.length === 0) {
+			const items = [];
+
+			// Add all regular commands first
+			Object.keys(commands).forEach((groupKey) => {
+				if (commands[groupKey]) {
+					commands[groupKey].commands.forEach((command) => {
+						items.push({ type: 'command', command });
+					});
+				}
+			});
+
+			// Append special commands
+			items.push({ type: 'fontSize' });
+			items.push({ type: 'quickColor' });
+			items.push({ type: 'searchAndReplace' });
+			return items;
+		}
+
+		// If allowedCommands is provided, return items in the specified order
+		return allowedCommands
+			.map((cmdName) => {
+				// Handle special components
+				if (specialComponents.includes(cmdName)) {
+					return { type: cmdName };
+				}
+
+				// Check for group
+				if (commands[cmdName]) {
+					return commands[cmdName].commands.map((command) => ({
+						type: 'command',
+						command
+					}));
+				}
+
+				// Check for individual command from any group
+				for (const groupKey in commands) {
+					const command = commands[groupKey].commands.find((cmd) => cmd.name === cmdName);
+					if (command) {
+						return { type: 'command', command };
+					}
+				}
+				return null;
+			})
+			.flat()
+			.filter(Boolean); // Remove null values
+	}
 </script>
 
 <div
@@ -22,23 +77,15 @@
 		className
 	)}
 >
-	{#each Object.keys(commands) as groupKey}
-		{#if commands[groupKey]}
-			{#each commands[groupKey].commands as command}
-				{#if !allowedCommands || allowedCommands.includes(groupKey) || allowedCommands.includes(command.name)}
-					<EdraToolBarIcon {command} {editor} />
-				{/if}
-			{/each}
+	{#each toolbarItems as item}
+		{#if item.type === 'command'}
+			<EdraToolBarIcon command={item.command} {editor} />
+		{:else if item.type === 'fontSize'}
+			<FontSize {editor} />
+		{:else if item.type === 'quickColor'}
+			<QuickColor {editor} />
+		{:else if item.type === 'searchAndReplace'}
+			<SearchAndReplace {editor} />
 		{/if}
 	{/each}
-
-	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('fontSize')}
-		<FontSize {editor} />
-	{/if}
-	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('quickColor')}
-		<QuickColor {editor} />
-	{/if}
-	{#if !allowedCommands || allowedCommands.length === 0 || allowedCommands.includes('searchAndReplace')}
-		<SearchAndReplace {editor} />
-	{/if}
 </div>

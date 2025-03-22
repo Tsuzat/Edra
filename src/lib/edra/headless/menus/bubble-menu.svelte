@@ -98,10 +98,6 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	<!-- {#each filteredBubbleMenuCommands as command}
-		<EdraToolBarIcon {command} {editor} />
-	{/each} -->
-
 	{#each Object.keys(commands) as groupKey}
 		{#if allowedBubbleMenuCommands && allowedBubbleMenuCommands.length > 0}
 			<!-- If allowedCommands has top-level name, show all commands within that group, else filter by individual commands -->
