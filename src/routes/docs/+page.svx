@@ -78,9 +78,12 @@ This command will copy the `edra` component as folder in `src/lib/components/edr
 
 # Usage
 
-First of all, let's talk about the component structure. The `edra` will provide two main components, `Edra` and `EdraToolbar`. The `Edra` component is the main component that will render the editor, while the `EdraToolbar` component is used to render the toolbar.
+The Edra library and its two primary components, `Edra` and `EdraToolbar`. `Edra` is the main component that will render the editor. `EdraToolbar` is used to render the toolbar.
 
-Take a look at the `Edra` component's props interface:
+## Structure
+### Editor `<Edra>`
+
+The `<Edra>` component is the core rich-text editor built on Tiptap. It initializes the editor with various extensions (such as code block highlighting, media placeholders, math rendering, etc.) and manages editor lifecycle events. It also supports advanced features such as a bubble menu (contextual toolbar) and slash commands.
 
 ```ts{f[$lib/components/edra/utils.ts]}
 /**
@@ -90,7 +93,9 @@ export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showMenu?: boolean;
+	showBubbleMenu?: boolean;
+	allowedBubbleMenuCommands?: string[];
+	showSlashCommands?: boolean;
 	limit?: number;
 	editor?: Editor;
 	/**
@@ -101,35 +106,121 @@ export interface EdraProps {
 }
 ```
 
-> Info:
->
-> The `class` prop is used to add custom classes to the `Edra` component. The `editor` which is a **bindable** prop is used to pass the editor instance to the `Edra` component. The `showMenu` prop is used to control whether any bubble menu should show or not. The `content` prop is used to pass the initial content to the editor. The `onUpdate` prop is used to update the content of the editor after a transaction is executed, and `limit` prop is used to set the maximum number of characters allowed in the editor.
+**Properties:**
+- `class?: string` Additional classes to style the editor container.
+- `content?: Content` The initial content for the editor.
+- `editable?: boolean` Flag indicating if the editor should be editable (`true`) or read-only (`false`).
+- `showBubbleMenu?: boolean` Boolean field indicating if the bubble menu is shown when text is selected.
+- `allowedBubbleMenuCommands?: string[]`: An optional array to filter and order the commands shown in the bubble menu. Accepts both top‑level group names and individual command names.
+- `showSlashCommands?: boolean`: Allows slash commands to be enabled in the editor. Slash commands can be triggered by typing "/" in the editor.
+- `limit?: number` Sets the maximum number of characters allowed in the editor.
+- `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
+- `onUpdate?` To update the content of the editor after a transaction is executed
 
-To use the `edra` component, you can import it in your Svelte component and use it as follows:
+<br />
 
-```svelte{h[2,4-7,9-11,16,18]%f[my-editor.svelte]}
+### Toolbar `<EdraToolbar>`
+
+The `<EdraToolbar>` component renders the editor's toolbar and displays a set of command buttons in a specific order. You can control which commands appear and in what order by passing an array to the allowedCommands property. The toolbar supports “special” toolbar components like font size, quick color, and search/replace.
+
+
+```ts
+interface Props {
+	class?: string;
+	editor: Editor;
+	allowedCommands?: string[];
+}
+```
+
+**Properties:**
+- `class?: string` Additional classes to style the editor container.
+- `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
+- `allowedCommands?` An optional array of strings that defines the order and selection of commands to be displayed. 
+	- Each entry can be a top‑level group name (e.g. `headings`) to include all commands from that group, or an individual command name (e.g. `bulletList`) to include just that command.
+
+
+## Examples
+Below are example use cases for Shadcn and Headless:
+
+### Shadcn
+```svelte
 <script lang="ts">
-	import { Edra, EdraToolbar } from '$lib/components/edra/shadcn';
 	import type { Content, Editor } from '@tiptap/core';
-	import { Transaction } from '@tiptap/pm/state';
+	import type { Transaction } from '@tiptap/pm/state';
+	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
 
-	let editor = $state<Editor>();
+	// Editor states
 	let content = $state<Content>();
+	let editor = $state<Editor>();
 	let showToolBar = $state(true);
-	let showMenu = $state(true);
+	let showBubbleMenu = $state(true);
+	let showSlashCommands = $state(true);
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-		saveContent(props.editor.getJSON()); // save the content in your preferred way
+		content = props.editor.getJSON();
 	}
 </script>
 
-<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
-	{#if editor && showToolBar}
-		<EdraToolbar class="w-full border-b p-1" {editor} />
-	{/if}
-	<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+<div>
+	<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
+		{#if editor && showToolBar}
+			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+		{/if}
+		<Edra
+			class="overflow-auto"
+			bind:editor
+			{showBubbleMenu}
+			{content}
+			{onUpdate}
+			{showSlashCommands}
+            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+		/>
+	</div>
 </div>
 ```
+
+
+
+### Headless
+```svelte
+<script lang="ts">
+	import type { Content, Editor } from '@tiptap/core';
+	import type { Transaction } from '@tiptap/pm/state';
+	import { Edra, EdraToolbar } from '$lib/edra/headless/index.js';
+
+	// Editor states
+	let content = $state<Content>();
+	let editor = $state<Editor>();
+	let showToolBar = $state(true);
+	let showBubbleMenu = $state(true);
+	let showSlashCommands = $state(true);
+
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		content = props.editor.getJSON();
+	}
+</script>
+
+<div>
+	<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
+		{#if editor && showToolBar}
+			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+		{/if}
+		<Edra
+			class="overflow-auto"
+			bind:editor
+			{showBubbleMenu}
+			{content}
+			{onUpdate}
+			{showSlashCommands}
+            allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+		/>
+	</div>
+</div>
+```
+
+<br />
 
 > Warning:
 >
@@ -137,28 +228,12 @@ To use the `edra` component, you can import it in your Svelte component and use 
 
 You can also use the class names for the `Edra` component to customize the editor's appearance. e.g.
 
-```svelte{ga[17,20,23-32]%gd[16,19]%f[my-editor.svelte]}
-<script lang="ts">
-	import { Edra, EdraToolbar } from '$lib/components/edra/shadcn/index.js';
+```svelte{ga[2,4,7-16]%gd[1,5]%f[my-editor.svelte]}
+<EdraToolbar {editor} />
+<EdraToolbar class="w-full border-b p-1" {editor} />
 
-	let editor = $state<Editor>();
-	let content = $state<Content>();
-	let showToolBar = $state(true);
-	let showMenu = $state(true);
-
-	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
-		saveContent(props.editor.getJSON());
-	}
-</script>
-
-<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[80%]">
-	{#if editor && showToolBar}
-		<EdraToolbar class="w-full border-b p-1" {editor} />
-		<EdraToolbar {editor} />
-	{/if}
-	<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
-	<Edra bind:editor {showMenu} {content} {onUpdate} />
-</div>
+<Edra bind:editor {showMenu} {content} {onUpdate} />
+<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
 
 <style>
 	:global(.edra-toolbar) {
