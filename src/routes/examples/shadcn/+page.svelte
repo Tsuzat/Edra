@@ -11,6 +11,7 @@
 	let editor = $state<Editor>();
 	let showToolBar = $state(true);
 	let showMenu = $state(true);
+    let showSlashCommands = $state(true);
 
 	$effect(() => {
 		console.log('Content', content);
@@ -41,7 +42,7 @@
 				<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
 			</div>
 		{/if}
-		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} {showSlashCommands} />
 	</div>
 </div>
 

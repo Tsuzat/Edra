@@ -44,9 +44,10 @@
 	let {
 		class: className = '',
 		content = undefined,
-		editable = true,
 		showMenu = true,
+		showSlashCommands = true,
 		limit = undefined,
+		editable = true,
 		editor = $bindable<Editor | undefined>(),
 		onUpdate
 	}: EdraProps = $props();
@@ -74,7 +75,7 @@
 				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
-				slashcommand(SlashCommandList)
+				...(showSlashCommands ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,

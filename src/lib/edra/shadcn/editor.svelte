@@ -45,6 +45,7 @@
 		class: className = '',
 		content = undefined,
 		showMenu = true,
+		showSlashCommands = true,
 		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
@@ -74,7 +75,7 @@
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
 				AudioExtended(AudioExtendedComponent),
-				slashcommand(SlashCommandList)
+				...(showSlashCommands ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,

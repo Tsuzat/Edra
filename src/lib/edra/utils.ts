@@ -107,6 +107,7 @@ export interface EdraProps {
 	content?: Content;
 	editable?: boolean;
 	showMenu?: boolean;
+	showSlashCommands?: boolean;
 	limit?: number;
 	editor?: Editor;
 	/**
