@@ -100,6 +100,37 @@ export function getHandlePaste(editor: Editor, maxSize: number = 2) {
 }
 
 /**
+ * Sets focus on the editor and moves the cursor to the clicked text position,
+ * defaulting to the end of the document if the click is outside any text.
+ *
+ * @param editor - Editor instance
+ * @param event - Optional MouseEvent or KeyboardEvent triggering the focus
+ */
+export function focusEditor(editor: Editor | undefined, event?: MouseEvent | KeyboardEvent) {
+	if (!editor) return;
+	// Check if there is a text selection already (i.e. a non-empty selection)
+	const selection = window.getSelection();
+	if (selection && selection.toString().length > 0) {
+		// Focus the editor without modifying selection
+		editor.chain().focus().run();
+		return;
+	}
+	if (event instanceof MouseEvent) {
+		const { clientX, clientY } = event;
+		const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
+		if (pos == null) {
+			// If not a valid position, move cursor to the end of the document
+			const endPos = editor.state.doc.content.size;
+			editor.chain().focus().setTextSelection(endPos).run();
+		} else {
+			editor.chain().focus().setTextSelection(pos).run();
+		}
+	} else {
+		editor.chain().focus().run();
+	}
+}
+
+/**
  * Props for Edra's editor component
  */
 export interface EdraProps {

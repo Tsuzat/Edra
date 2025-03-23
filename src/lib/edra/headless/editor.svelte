@@ -32,7 +32,7 @@
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import BubbleMenu from './menus/bubble-menu.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
-	import type { EdraProps } from '../utils.js';
+	import { focusEditor, type EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
 	import IFramePlaceholderComponent from './components/IFramePlaceholder.svelte';
 	import { IFramePlaceHolder } from '../extensions/iframe/IFramePlaceHolder.js';
@@ -93,33 +93,6 @@
 		editor?.destroy();
 	});
 
-	// Sets focus on the editor and moves the cursor to the clicked text position,
-	// defaulting to the end of the document if the click is outside any text.
-	function focusEditor(event?: MouseEvent | KeyboardEvent) {
-		if (!editor) return;
-
-		// Check if there is a text selection already (i.e. a non-empty selection)
-		const selection = window.getSelection();
-		if (selection && selection.toString().length > 0) {
-			// Just focus the editor without modifying the selection
-			editor.chain().focus().run();
-			return;
-		}
-
-		if (event instanceof MouseEvent) {
-			const { clientX, clientY } = event;
-			const pos = editor.view.posAtCoords({ left: clientX, top: clientY })?.pos;
-			if (pos == null) {
-				// If not a valid position, move cursor to the end of the document
-				const endPos = editor.state.doc.content.size;
-				editor.chain().focus().setTextSelection(endPos).run();
-			} else {
-				editor.chain().focus().setTextSelection(pos).run();
-			}
-		} else {
-			editor.chain().focus().run();
-		}
-	}
 </script>
 
 {#if editor}
@@ -142,10 +115,10 @@
 		bind:this={element}
 		role="button"
 		tabindex="0"
-		onclick={focusEditor}
+		onclick={(event) => focusEditor(editor, event)}
 		onkeydown={(event) => {
 			if (event.key === 'Enter' || event.key === ' ') {
-				focusEditor(event);
+				focusEditor(editor, event);
 			}
 		}}
 		class="edra-editor"
