@@ -131,6 +131,51 @@ export function focusEditor(editor: Editor | undefined, event?: MouseEvent | Key
 }
 
 /**
+ * Returns an ordered array of toolbar items based on allowed commands.
+ *
+ * @param allowedCommands - An optional array of allowed command names.
+ * @param commands - An object with command groups. Each group should have a `commands` array.
+ * @param specialComponents - An array of command names that are handled as special components.
+ * @returns An array of toolbar items.
+ */
+export function getOrderedToolbarItems(
+	allowedCommands: string[] | undefined,
+	commands: Record<string, { commands: any[] }>,
+	specialComponents: string[]
+): Array<{ type: string; command?: any }> {
+	if (!allowedCommands?.length) {
+		return [
+			...Object.values(commands).flatMap((group) =>
+				group.commands.map((cmd) => ({ type: 'command', command: cmd }))
+			),
+			...specialComponents.map((comp) => ({ type: comp }))
+		];
+	}
+
+	return allowedCommands
+		.map((cmdName) => {
+			if (specialComponents.includes(cmdName)) {
+				return { type: cmdName };
+			}
+			// Check if it's a group
+			if (commands[cmdName]) {
+				return commands[cmdName].commands.map((cmd) => ({
+					type: 'command',
+					command: cmd
+				}));
+			}
+			// Find individual command
+			const command = Object.values(commands)
+				.flatMap((group) => group.commands)
+				.find((cmd) => cmd.name === cmdName);
+
+			return command ? { type: 'command', command } : null;
+		})
+		.flat()
+		.filter(Boolean) as Array<{ type: string; command?: any }>;
+}
+
+/**
  * Props for Edra's editor component
  */
 export interface EdraProps {

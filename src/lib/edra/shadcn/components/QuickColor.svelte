@@ -26,10 +26,9 @@
 
 	const currentColor = $derived.by(() => editor.getAttributes('textStyle').color);
 	const currentHighlight = $derived.by(() => editor.getAttributes('highlight').color);
-	let isOpen = $state(false);
 </script>
 
-<Popover.Root bind:open={isOpen}>
+<Popover.Root>
 	<Popover.Trigger>
 		<EdraToolTip content="Quick Colors">
 			<Button
@@ -60,7 +59,6 @@
 					style={`color: ${color.value}; background-color: ${color.value}50; border-color: ${color.value};`}
 					title={color.label}
 					onclick={() => {
-						isOpen = false;
 						if (color.value === '' || color.label === 'Default')
 							editor.chain().focus().unsetColor().run();
 						else
@@ -89,7 +87,6 @@
 					style={`background-color: ${color.value}50; border-color: ${color.value};`}
 					title={color.label}
 					onclick={() => {
-						isOpen = false;
 						if (color.value === '' || color.label === 'Default')
 							editor.chain().focus().unsetHighlight().run();
 						else editor.chain().focus().toggleHighlight({ color: color.value }).run();

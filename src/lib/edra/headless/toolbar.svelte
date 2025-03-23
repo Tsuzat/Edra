@@ -4,6 +4,7 @@
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
 	import type { Snippet } from 'svelte';
+	import { getOrderedToolbarItems } from '../utils.js';
 
 	interface Props {
 		class?: string;
@@ -16,44 +17,11 @@
 
 	// Special components that are handled separately
 	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
-	const toolbarItems = getOrderedToolbarItems() as Array<{ type: string; command?: any }>;
+	const toolbarItems = getOrderedToolbarItems(allowedCommands, commands, specialComponents) as Array<{ type: string; command?: any }>;
 	let showSearchAndReplace = $state(false);
 	const colorCommands = commands.colors.commands;
 	const fontCommands = commands.fonts.commands;
 
-	// Function to get ordered toolbar items based on allowedCommands
-	function getOrderedToolbarItems() {
-		if (!allowedCommands?.length) {
-			return [
-				...Object.values(commands).flatMap((group) =>
-					group.commands.map((cmd) => ({ type: 'command', command: cmd }))
-				),
-				...specialComponents.map((comp) => ({ type: comp }))
-			];
-		}
-
-		return allowedCommands
-			.map((cmdName) => {
-				if (specialComponents.includes(cmdName)) {
-					return { type: cmdName };
-				}
-				// Check if it's a group
-				if (commands[cmdName]) {
-					return commands[cmdName].commands.map((cmd) => ({
-						type: 'command',
-						command: cmd
-					}));
-				}
-				// Find individual command
-				const command = Object.values(commands)
-					.flatMap((group) => group.commands)
-					.find((cmd) => cmd.name === cmdName);
-
-				return command ? { type: 'command', command } : null;
-			})
-			.flat()
-			.filter(Boolean);
-	}
 </script>
 
 <div class={`edra-toolbar ${className}`}>
