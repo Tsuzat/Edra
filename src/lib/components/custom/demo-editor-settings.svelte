@@ -7,13 +7,13 @@
 
 	interface Props {
 		showToolBar: boolean;
-		showBubbleMenus: boolean;
+		showBubbleMenu: boolean;
 		editable: boolean;
 	}
 
 	let {
 		showToolBar = $bindable(true),
-		showBubbleMenus = $bindable(true),
+		showBubbleMenu = $bindable(true),
 		editable = $bindable(true)
 	}: Props = $props();
 </script>
@@ -21,7 +21,7 @@
 <Dialog.Root>
 	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
 		<Settings />
-		<span>Demo Settings</span>
+		<span>Editor settings</span>
 	</Dialog.Trigger>
 	<Dialog.Content class="h-fit max-h-[95vh] w-80 max-w-[95vw] p-4">
 		<Dialog.Header class="mb-4">
@@ -31,13 +31,13 @@
 			<div class="flex w-full items-center gap-2">
 				<Checkbox id="toolbar" bind:checked={showToolBar} />
 				<Label for="toolbar" class="w-full cursor-pointer text-sm font-medium leading-none"
-					>Show Editor Toolbar</Label
+					>Show editor toolbar</Label
 				>
 			</div>
 			<div class="flex w-full items-center gap-2">
-				<Checkbox id="menus" bind:checked={showBubbleMenus} />
+				<Checkbox id="menus" bind:checked={showBubbleMenu} />
 				<Label for="menus" class="w-full cursor-pointer text-sm font-medium leading-none"
-					>Show Editor Menus</Label
+					>Show editor bubble menu</Label
 				>
 			</div>
 			<div class="flex w-full items-center gap-2">

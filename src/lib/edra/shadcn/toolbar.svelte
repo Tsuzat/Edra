@@ -7,7 +7,6 @@
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
 	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils.js';
-	import type { Snippet } from 'svelte';
 
 	interface Props {
 		class?: string;

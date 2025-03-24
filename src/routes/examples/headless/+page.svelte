@@ -3,7 +3,6 @@
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Edra, EdraToolbar } from '$lib/edra/headless/index.js';
-	import { slide } from 'svelte/transition';
 	import defaultContent from '$lib/default_content.js';
 
 	// Editor states
@@ -38,7 +37,7 @@
 <div class="mx-auto w-[95%] px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
-			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+			<EdraToolbar {editor} />
 		</div>
 	{/if}
 	<div class="rounded-b border">
@@ -49,7 +48,6 @@
 			{content}
 			{onUpdate}
 			{showSlashCommands}
-			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
 		/>
 	</div>
 </div>

@@ -43,11 +43,11 @@
 	let {
 		class: className = '',
 		content = undefined,
-		showBubbleMenus = true,
+		showBubbleMenu = true,
 		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
-		showSlashCommand = true,
+		showSlashCommands = true,
 		onUpdate,
 		children
 	}: EdraProps = $props();
@@ -75,7 +75,7 @@
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
 				AudioExtended(AudioExtendedComponent),
-				...(showSlashCommand ? [slashcommand(SlashCommandList)] : [])
+				...(showSlashCommands ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,
@@ -97,7 +97,7 @@
 
 <div class={cn('edra', className)}>
 	{@render children?.()}
-	{#if editor && showBubbleMenus}
+	{#if editor && showBubbleMenu}
 		<LinkMenu {editor} />
 		<TableColMenu {editor} />
 		<TableRowMenu {editor} />

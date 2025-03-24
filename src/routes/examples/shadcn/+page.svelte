@@ -2,9 +2,9 @@
 	import { browser } from '$app/environment';
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
-	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
-	import { slide } from 'svelte/transition';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
 	import defaultContent from '$lib/default_content.js';
+	import FontSize from '$lib/edra/shadcn/components/FontSize.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -14,7 +14,7 @@
 	let showSlashCommands = $state(true);
 
 	$effect(() => {
-		console.log('Content', content);
+		$inspect('[DEBUG] Content', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
 	});
 
@@ -38,20 +38,20 @@
 <div class="mx-auto w-[95%] px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
-			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+			<EdraToolbar {editor}>
+				<FontSize {editor} />
+			</EdraToolbar>
 		</div>
+		<EdraBubbleMenu {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
-			class="overflow-auto h-64"
+			class="h-64 overflow-auto"
 			bind:editor
 			{showBubbleMenu}
 			{content}
 			{onUpdate}
 			{showSlashCommands}
-			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
 		/>
 	</div>
 </div>
-
-

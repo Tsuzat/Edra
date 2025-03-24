@@ -13,17 +13,17 @@
 	import DemoEditorSettings from '$lib/components/custom/demo-editor-settings.svelte';
 	import EditorOutput from '$lib/components/custom/editor-output.svelte';
 
+	// Editor states
 	let content = $state<Content>();
 	let editor = $state<Editor>();
+	let showToolBar = $state(true);
+	let showBubbleMenu = $state(true);
+	let editable = $state(true);
 
 	$effect(() => {
-		console.log('Content', content);
+		$inspect('[DEBUG] Content', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
 	});
-
-	let showToolBar = $state(true);
-	let showBubbleMenus = $state(true);
-	let editable = $state(true);
 
 	$effect(() => {
 		console.log('editable', editable);
@@ -76,14 +76,14 @@
 			</Button>
 		</div>
 		<div class="size-full *:my-2">
-			<div class="text-center text-xl font-bold">Explore Demo</div>
+			<div class="text-center text-xl font-bold">Explore the demo</div>
 			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-				<DemoEditorSettings bind:showToolBar bind:showBubbleMenus bind:editable />
+				<DemoEditorSettings bind:showToolBar bind:showBubbleMenu bind:editable />
 				<EditorOutput code={JSON.stringify(content, null, 2)} />
 			</div>
 		</div>
 	</div>
-	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
+	<div class="m-auto flex w-[95%] flex-col rounded border sm:w-[85%]">
 		{#if editor}
 			{#if showToolBar}
 				<div transition:slide>
@@ -92,7 +92,14 @@
 			{/if}
 			<EdraBubbleMenu {editor} />
 		{/if}
-		<Edra class="overflow-auto" bind:editor {editable} {showBubbleMenus} {content} {onUpdate} />
+		<Edra
+			class="h-[32rem] min-h-[32rem] overflow-auto"
+			bind:editor
+			{editable}
+			{showBubbleMenu}
+			{content}
+			{onUpdate}
+		/>
 	</div>
 </div>
 

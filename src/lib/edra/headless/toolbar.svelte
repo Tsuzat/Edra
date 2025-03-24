@@ -2,7 +2,7 @@
 	import type { Editor } from '@tiptap/core';
 	import { commands } from '../commands/commands.js';
 	import EdraToolBarIcon from './components/EdraToolBarIcon.svelte';
-	import SearcnAndReplace from './components/SearcnAndReplace.svelte';
+	import SearchAndReplace from './components/SearchAndReplace.svelte';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
@@ -15,7 +15,6 @@
 
 	// Special components that are handled separately
 	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
-	const toolbarItems = getOrderedToolbarItems(allowedCommands, commands, specialComponents) as Array<{ type: string; command?: any }>;
 	let showSearchAndReplace = $state(false);
 	const colorCommands = commands.colors.commands;
 	const fontCommands = commands.fonts.commands;
@@ -75,6 +74,6 @@
 				}}
 			/>
 		{/if}
-		<SearcnAndReplace {editor} bind:show={showSearchAndReplace} />
+		<SearchAndReplace {editor} bind:show={showSearchAndReplace} />
 	{/if}
 </div>
