@@ -6,13 +6,17 @@
 	import FontSize from './components/FontSize.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
 	import { cn } from '$lib/utils.js';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		class?: string;
 		editor: Editor;
+		children?: Snippet<[]>;
 	}
 
-	const { class: className = '', editor }: Props = $props();
+	const { class: className = '', editor, children }: Props = $props();
+
+	const excludedCommands = ['colors', 'fonts'];
 </script>
 
 <div
@@ -21,13 +25,17 @@
 		className
 	)}
 >
-	{#each Object.keys(commands).filter((key) => key !== 'colors' && key !== 'fonts') as keys}
-		{@const groups = commands[keys].commands}
-		{#each groups as command}
-			<EdraToolBarIcon {command} {editor} />
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each Object.keys(commands).filter((key) => !excludedCommands.includes(key)) as keys}
+			{@const groups = commands[keys].commands}
+			{#each groups as command}
+				<EdraToolBarIcon {command} {editor} />
+			{/each}
 		{/each}
-	{/each}
-	<FontSize {editor} />
-	<QuickColor {editor} />
-	<SearchAndReplace {editor} />
+		<FontSize {editor} />
+		<QuickColor {editor} />
+		<SearchAndReplace {editor} />
+	{/if}
 </div>
