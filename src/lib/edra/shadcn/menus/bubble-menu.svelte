@@ -6,12 +6,16 @@
 	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
 	import FontSize from '../components/FontSize.svelte';
 	import QuickColor from '../components/QuickColor.svelte';
+	import type { Snippet } from 'svelte';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
+		children?: Snippet<[]>;
 	}
 
-	let { editor }: Props = $props();
+	let { class: className = '', editor, children }: Props = $props();
 
 	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
@@ -65,7 +69,10 @@
 
 <BubbleMenu
 	{editor}
-	class="flex h-fit w-fit items-center gap-1 rounded-md border bg-background/90 p-0.5 backdrop-blur-md"
+	class={cn(
+		'edra-bubblemenu flex h-fit w-fit items-center gap-1 rounded-md border bg-background/90 p-0.5 backdrop-blur-md',
+		className
+	)}
 	{shouldShow}
 	pluginKey="bubble-menu"
 	updateDelay={100}
@@ -91,12 +98,16 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each Object.keys(commands).filter((key) => !excludeCommands.includes(key)) as keys}
-		{@const groups = commands[keys].commands}
-		{#each groups as command}
-			<EdraToolBarIcon {command} {editor} />
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each Object.keys(commands).filter((key) => !excludeCommands.includes(key)) as keys}
+			{@const groups = commands[keys].commands}
+			{#each groups as command}
+				<EdraToolBarIcon {command} {editor} />
+			{/each}
 		{/each}
-	{/each}
-	<FontSize {editor} />
-	<QuickColor {editor} />
+		<FontSize {editor} />
+		<QuickColor {editor} />
+	{/if}
 </BubbleMenu>
