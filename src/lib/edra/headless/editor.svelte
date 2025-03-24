@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Editor } from '@tiptap/core';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import { initiateEditor } from '../editor.js';
 	import './style.css';
@@ -45,10 +45,12 @@
 		class: className = '',
 		content = undefined,
 		editable = true,
-		showMenu = true,
+		showBubbleMenus = true,
 		limit = undefined,
 		editor = $bindable<Editor | undefined>(),
-		onUpdate
+		showSlashCommand = true,
+		onUpdate,
+		children
 	}: EdraProps = $props();
 
 	let element = $state<HTMLElement>();
@@ -74,7 +76,7 @@
 				AudioExtended(AudioExtendedComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
-				slashcommand(SlashCommandList)
+				...(showSlashCommand ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,
@@ -85,11 +87,7 @@
 				}
 			}
 		);
-	});
-
-	onDestroy(() => {
-		console.log('Destroying editor');
-		editor?.destroy();
+		return () => editor?.destroy();
 	});
 </script>
 
@@ -98,11 +96,11 @@
 {/if}
 
 <div class={`edra ${className}`}>
-	{#if editor && showMenu}
+	{@render children?.()}
+	{#if editor && showBubbleMenus}
 		<LinkMenu {editor} />
 		<TableRowMenu {editor} />
 		<TableColMenu {editor} />
-		<BubbleMenu {editor} />
 	{/if}
 	{#if !editor}
 		<div class="edra-loading">
