@@ -2,20 +2,16 @@
 	import { browser } from '$app/environment';
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
-	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
 	import { cn } from '$lib/utils.js';
 	import GridPattern from '$lib/components/custom/grid-pattern.svelte';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import Document from 'lucide-svelte/icons/file-text';
 	import GitHub from 'lucide-svelte/icons/github';
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import FileJson from 'lucide-svelte/icons/file-json';
-	import ShikiCode from '$lib/components/custom/shiki-code.svelte';
-	import { toast } from 'svelte-sonner';
-	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
 	import { slide } from 'svelte/transition';
 	import defaultContent from '$lib/default_content.js';
+	import DemoEditorSettings from '$lib/components/custom/demo-editor-settings.svelte';
+	import EditorOutput from '$lib/components/custom/editor-output.svelte';
 
 	let content = $state<Content>();
 	let editor = $state<Editor>();
@@ -26,7 +22,13 @@
 	});
 
 	let showToolBar = $state(true);
-	let showMenu = $state(true);
+	let showBubbleMenus = $state(true);
+	let editable = $state(true);
+
+	$effect(() => {
+		console.log('editable', editable);
+		editor?.setEditable(editable);
+	});
 
 	if (browser) {
 		const rawDataString = localStorage.getItem('edra-content');
@@ -74,46 +76,23 @@
 			</Button>
 		</div>
 		<div class="size-full *:my-2">
+			<div class="text-center text-xl font-bold">Explore Demo</div>
 			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-				<div class="flex items-center gap-2">
-					<Checkbox id="toolbar" bind:checked={showToolBar} />
-					<Label for="toolbar" class="text-sm font-medium leading-none">Show Editor Toolbar</Label>
-				</div>
-				<div class="flex items-center gap-2">
-					<Checkbox id="menus" bind:checked={showMenu} />
-					<Label for="menus" class="text-sm font-medium leading-none">Show Editor Menus</Label>
-				</div>
-				<Dialog.Root>
-					<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
-						<FileJson /> Show Output
-					</Dialog.Trigger>
-					<Dialog.Content class="h-[95%] w-[95vw] sm:h-[80%] sm:min-w-[50%]">
-						<Dialog.Header>
-							<Dialog.Title>JSON Output</Dialog.Title>
-							<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
-						</Dialog.Header>
-						{@const stringContent = JSON.stringify(content, null, 2)}
-						<ShikiCode class="size-full overflow-auto" code={stringContent} lang="json" />
-						<Button
-							variant="outline"
-							class="ml-auto w-fit"
-							onclick={() => {
-								navigator.clipboard.writeText(stringContent);
-								toast.success(`Copied to clipboard`);
-							}}>Copy JSON Output</Button
-						>
-					</Dialog.Content>
-				</Dialog.Root>
+				<DemoEditorSettings bind:showToolBar bind:showBubbleMenus bind:editable />
+				<EditorOutput code={JSON.stringify(content, null, 2)} />
 			</div>
 		</div>
 	</div>
 	<div class="m-auto flex h-[35rem] w-[95%] flex-col rounded border sm:w-[85%]">
-		{#if editor && showToolBar}
-			<div transition:slide>
-				<EdraToolbar {editor} />
-			</div>
+		{#if editor}
+			{#if showToolBar}
+				<div transition:slide>
+					<EdraToolbar {editor} />
+				</div>
+			{/if}
+			<EdraBubbleMenu {editor} />
 		{/if}
-		<Edra class="overflow-auto" bind:editor {showMenu} {content} {onUpdate} />
+		<Edra class="overflow-auto" bind:editor {editable} {showBubbleMenus} {content} {onUpdate} />
 	</div>
 </div>
 
