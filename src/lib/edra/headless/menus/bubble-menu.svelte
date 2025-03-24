@@ -4,11 +4,14 @@
 	import { commands } from '../../commands/commands.js';
 	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
 	import type { ShouldShowProps } from '../../utils.js';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
+		children?: Snippet<[]>;
 	}
-	const { editor }: Props = $props();
+	const { class: className = '', editor, children }: Props = $props();
 
 	const bubbleMenuCommands = [
 		...commands['text-formatting'].commands,
@@ -69,7 +72,7 @@
 
 <BubbleMenu
 	{editor}
-	class="bubble-menu-wrapper"
+	class={`bubble-menu-wrapper ${className}`}
 	{shouldShow}
 	pluginKey="bubble-menu"
 	updateDelay={100}
@@ -95,45 +98,49 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each bubbleMenuCommands as command}
-		<EdraToolBarIcon {command} {editor} />
-	{/each}
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each bubbleMenuCommands as command}
+			<EdraToolBarIcon {command} {editor} />
+		{/each}
 
-	<EdraToolBarIcon command={fontCommands[0]} {editor} />
-	<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
-	<EdraToolBarIcon command={fontCommands[1]} {editor} />
+		<EdraToolBarIcon command={fontCommands[0]} {editor} />
+		<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
+		<EdraToolBarIcon command={fontCommands[1]} {editor} />
 
-	<EdraToolBarIcon
-		command={colorCommands[0]}
-		{editor}
-		style={`color: ${editor.getAttributes('textStyle').color};`}
-		onclick={() => {
-			const color = editor.getAttributes('textStyle').color;
-			const hasColor = editor.isActive('textStyle', { color });
-			if (hasColor) {
-				editor.chain().focus().unsetColor().run();
-			} else {
-				const color = prompt('Enter the color of the text:');
-				if (color !== null) {
-					editor.chain().focus().setColor(color).run();
+		<EdraToolBarIcon
+			command={colorCommands[0]}
+			{editor}
+			style={`color: ${editor.getAttributes('textStyle').color};`}
+			onclick={() => {
+				const color = editor.getAttributes('textStyle').color;
+				const hasColor = editor.isActive('textStyle', { color });
+				if (hasColor) {
+					editor.chain().focus().unsetColor().run();
+				} else {
+					const color = prompt('Enter the color of the text:');
+					if (color !== null) {
+						editor.chain().focus().setColor(color).run();
+					}
 				}
-			}
-		}}
-	/>
-	<EdraToolBarIcon
-		command={colorCommands[1]}
-		{editor}
-		style={`background-color: ${editor.getAttributes('highlight').color};`}
-		onclick={() => {
-			const hasHightlight = editor.isActive('highlight');
-			if (hasHightlight) {
-				editor.chain().focus().unsetHighlight().run();
-			} else {
-				const color = prompt('Enter the color of the highlight:');
-				if (color !== null) {
-					editor.chain().focus().setHighlight({ color }).run();
+			}}
+		/>
+		<EdraToolBarIcon
+			command={colorCommands[1]}
+			{editor}
+			style={`background-color: ${editor.getAttributes('highlight').color};`}
+			onclick={() => {
+				const hasHightlight = editor.isActive('highlight');
+				if (hasHightlight) {
+					editor.chain().focus().unsetHighlight().run();
+				} else {
+					const color = prompt('Enter the color of the highlight:');
+					if (color !== null) {
+						editor.chain().focus().setHighlight({ color }).run();
+					}
 				}
-			}
-		}}
-	/>
+			}}
+		/>
+	{/if}
 </BubbleMenu>
