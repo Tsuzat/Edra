@@ -7,20 +7,17 @@
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
 	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils.js';
-	import { getOrderedToolbarItems } from '../utils.js';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		class?: string;
 		editor: Editor;
-		allowedCommands?: string[];
-		children?: Snippet;
+		children?: Snippet<[]>;
 	}
 
-	const { class: className = '', editor, allowedCommands, children }: Props = $props();
+	const { class: className = '', editor, children }: Props = $props();
 
-	// Special components that are handled separately
-	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
-	const toolbarItems = getOrderedToolbarItems(allowedCommands, commands, specialComponents) as Array<{ type: string; command?: any }>;
+	const excludedCommands = ['colors', 'fonts'];
 </script>
 
 <div
@@ -29,16 +26,17 @@
 		className
 	)}
 >
-	{#each toolbarItems as item}
-		{#if item.type === 'command'}
-			<EdraToolBarIcon command={item.command} {editor} />
-		{:else if item.type === 'fontSize'}
-			<FontSize {editor} />
-		{:else if item.type === 'quickColor'}
-			<QuickColor {editor} />
-		{:else if item.type === 'searchAndReplace'}
-			<SearchAndReplace {editor} />
-		{/if}
-	{/each}
-	{@render children?.()}
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each Object.keys(commands).filter((key) => !excludedCommands.includes(key)) as keys}
+			{@const groups = commands[keys].commands}
+			{#each groups as command}
+				<EdraToolBarIcon {command} {editor} />
+			{/each}
+		{/each}
+		<FontSize {editor} />
+		<QuickColor {editor} />
+		<SearchAndReplace {editor} />
+	{/if}
 </div>

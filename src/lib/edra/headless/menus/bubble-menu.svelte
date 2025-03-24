@@ -4,12 +4,14 @@
 	import { commands } from '../../commands/commands.js';
 	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
 	import type { ShouldShowProps } from '../../utils.js';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
-		allowedBubbleMenuCommands?: string[];
+		children?: Snippet<[]>;
 	}
-	const { editor, allowedBubbleMenuCommands }: Props = $props();
+	const { class: className = '', editor, children }: Props = $props();
 
 	const bubbleMenuCommands = [
 		...commands['text-formatting'].commands,
@@ -72,7 +74,7 @@
 
 <BubbleMenu
 	{editor}
-	class="bubble-menu-wrapper"
+	class={`bubble-menu-wrapper ${className}`}
 	{shouldShow}
 	pluginKey="bubble-menu"
 	updateDelay={100}
@@ -98,36 +100,17 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each Object.keys(commands) as groupKey}
-		{#if allowedBubbleMenuCommands && allowedBubbleMenuCommands.length > 0}
-			<!-- If allowedCommands has top-level name, show all commands within that group, else filter by individual commands -->
-			{@const groupCommands = commands[groupKey].commands}
-			{@const filteredCommands = allowedBubbleMenuCommands.includes(groupKey)
-				? groupCommands
-				: groupCommands.filter((command) => allowedBubbleMenuCommands.includes(command.name))}
-			{#if filteredCommands.length > 0}
-				{#each filteredCommands as command}
-					<EdraToolBarIcon {command} {editor} />
-				{/each}
-			{/if}
-		{:else}
-			<!-- If no allowedCommands are passed, use default exclusions -->
-			{#if !excludeCommands.includes(groupKey)}
-				{#each commands[groupKey].commands as command}
-					<EdraToolBarIcon {command} {editor} />
-				{/each}
-			{/if}
-		{/if}
-	{/each}
-	
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each bubbleMenuCommands as command}
+			<EdraToolBarIcon {command} {editor} />
+		{/each}
 
-	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('fontSize')}
 		<EdraToolBarIcon command={fontCommands[0]} {editor} />
 		<span>{editor.getAttributes('textStyle').fontSize ?? '16px'}</span>
 		<EdraToolBarIcon command={fontCommands[1]} {editor} />
-	{/if}
 
-	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('color')}
 		<EdraToolBarIcon
 			command={colorCommands[0]}
 			{editor}
@@ -145,9 +128,6 @@
 				}
 			}}
 		/>
-	{/if}
-
-	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('highlight')}
 		<EdraToolBarIcon
 			command={colorCommands[1]}
 			{editor}

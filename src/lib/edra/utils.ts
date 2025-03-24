@@ -4,6 +4,7 @@ import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import type { EditorState, Transaction } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 import { browser } from '$app/environment';
+import type { Snippet } from 'svelte';
 
 export interface ShouldShowProps {
 	editor: Editor;
@@ -182,14 +183,14 @@ export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showBubbleMenu?: boolean;
-	allowedBubbleMenuCommands?: string[];
-	showSlashCommands?: boolean;
+	showBubbleMenus?: boolean;
 	limit?: number;
 	editor?: Editor;
+	showSlashCommand?: boolean;
 	/**
 	 * Callback function to be called when the content is updated
 	 * @param content
 	 */
 	onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
+	children?: Snippet<[]>;
 }

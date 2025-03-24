@@ -29,7 +29,6 @@
 	import TableRowMenu from './menus/table-row-menu.svelte';
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
-	import BubbleMenu from './menus/bubble-menu.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import { focusEditor, type EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
@@ -44,13 +43,13 @@
 	let {
 		class: className = '',
 		content = undefined,
-		showBubbleMenu = true,
-		allowedBubbleMenuCommands = [],
-		showSlashCommands = true,
+		showBubbleMenus = true,
 		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
-		onUpdate
+		showSlashCommand = true,
+		onUpdate,
+		children
 	}: EdraProps = $props();
 
 	let element = $state<HTMLElement>();
@@ -76,7 +75,7 @@
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
 				AudioExtended(AudioExtendedComponent),
-				...(showSlashCommands ? [slashcommand(SlashCommandList)] : [])
+				...(showSlashCommand ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,
@@ -87,6 +86,7 @@
 				}
 			}
 		);
+		return () => editor?.destroy();
 	});
 
 </script>
@@ -96,11 +96,11 @@
 {/if}
 
 <div class={cn('edra', className)}>
-	{#if editor && showBubbleMenu}
+	{@render children?.()}
+	{#if editor && showBubbleMenus}
 		<LinkMenu {editor} />
 		<TableColMenu {editor} />
 		<TableRowMenu {editor} />
-		<BubbleMenu {editor} {allowedBubbleMenuCommands} />
 	{/if}
 	{#if !editor}
 		<div class="flex size-full items-center justify-center gap-4 text-xl">

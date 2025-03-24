@@ -6,13 +6,16 @@
 	import EdraToolBarIcon from '../components/EdraToolBarIcon.svelte';
 	import FontSize from '../components/FontSize.svelte';
 	import QuickColor from '../components/QuickColor.svelte';
+	import type { Snippet } from 'svelte';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
-		allowedBubbleMenuCommands?: string[];
+		children?: Snippet<[]>;
 	}
 
-	let { editor, allowedBubbleMenuCommands }: Props = $props();
+	let { class: className = '', editor, children }: Props = $props();
 
 	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
@@ -66,7 +69,10 @@
 
 <BubbleMenu
 	{editor}
-	class="flex h-fit w-fit items-center gap-1 rounded-md border bg-background/90 p-0.5 backdrop-blur-md"
+	class={cn(
+		'edra-bubblemenu flex h-fit w-fit items-center gap-1 rounded-md border bg-background/90 p-0.5 backdrop-blur-md',
+		className
+	)}
 	{shouldShow}
 	pluginKey="bubble-menu"
 	updateDelay={100}
@@ -92,32 +98,16 @@
 		maxWidth: 'calc(100vw - 16px)'
 	}}
 >
-	{#each Object.keys(commands) as groupKey}
-		{#if allowedBubbleMenuCommands && allowedBubbleMenuCommands.length > 0}
-			<!-- If allowedCommands has top-level name, show all commands within that group, else filter by individual commands -->
-			{@const groupCommands = commands[groupKey].commands}
-			{@const filteredCommands = allowedBubbleMenuCommands.includes(groupKey)
-				? groupCommands
-				: groupCommands.filter((command) => allowedBubbleMenuCommands.includes(command.name))}
-			{#if filteredCommands.length > 0}
-				{#each filteredCommands as command}
-					<EdraToolBarIcon {command} {editor} />
-				{/each}
-			{/if}
-		{:else}
-			<!-- If no allowedCommands are passed, use default exclusions -->
-			{#if !excludeCommands.includes(groupKey)}
-				{#each commands[groupKey].commands as command}
-					<EdraToolBarIcon {command} {editor} />
-				{/each}
-			{/if}
-		{/if}
-	{/each}
-
-	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('fontSize')}
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each Object.keys(commands).filter((key) => !excludeCommands.includes(key)) as keys}
+			{@const groups = commands[keys].commands}
+			{#each groups as command}
+				<EdraToolBarIcon {command} {editor} />
+			{/each}
+		{/each}
 		<FontSize {editor} />
-	{/if}
-	{#if !allowedBubbleMenuCommands || allowedBubbleMenuCommands.length === 0 || allowedBubbleMenuCommands.includes('quickColor')}
 		<QuickColor {editor} />
 	{/if}
 </BubbleMenu>
