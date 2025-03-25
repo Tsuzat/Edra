@@ -1,6 +1,6 @@
 {
 	"name": "edra",
-	"version": "1.0.7",
+	"version": "1.1.0",
 	"description": "Best Rich Text Editor, made for Svelte Developers with Tiptap",
 	"author": {
 		"name": "Tsuzat",
