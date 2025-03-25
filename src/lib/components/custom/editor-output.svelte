@@ -10,9 +10,10 @@
 
 	interface Props {
 		code: string;
+		onReset?: () => void;
 	}
 
-	let { code }: Props = $props();
+	let { code, onReset }: Props = $props();
 
 	let expand = $state(false);
 
@@ -49,14 +50,16 @@
 		</Dialog.Header>
 
 		<ShikiCode class="size-full overflow-auto" {code} lang="json" />
-		
-		<Button
-			variant="outline"
-			class="ml-auto w-fit"
-			onclick={() => {
-				navigator.clipboard.writeText(code);
-				toast.success(`Copied to clipboard`);
-			}}>Copy JSON Output</Button
-		>
+
+		<div class="mt-4 flex w-full items-center justify-end gap-2">
+			<Button
+				variant="outline"
+				onclick={() => {
+					navigator.clipboard.writeText(code);
+					toast.success(`Copied to clipboard`);
+				}}>Copy JSON Output</Button
+			>
+			<Button variant="destructive" onclick={onReset}>Reset to Default</Button>
+		</div>
 	</Dialog.Content>
 </Dialog.Root>
