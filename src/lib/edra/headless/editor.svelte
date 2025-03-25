@@ -30,7 +30,6 @@
 	import TableColMenu from './menus/table/table-col-menu.svelte';
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
-	import BubbleMenu from './menus/bubble-menu.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import type { EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
