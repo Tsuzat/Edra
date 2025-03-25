@@ -120,7 +120,7 @@
 
 <div class="m-auto flex px-2 sm:px-8">
 	<div
-		class="sticky left-0 top-14 hidden max-h-screen w-[30%] max-w-60 flex-col gap-2 overflow-auto border-r py-4 text-sm sm:flex"
+		class="sticky left-0 top-14 hidden h-[calc(100vh-3.5rem)] w-[30%] max-w-60 flex-col overflow-auto border-r py-2 text-sm sm:flex"
 	>
 		{#each sideBarContent as item (item.name)}
 			{#if !item.href}
