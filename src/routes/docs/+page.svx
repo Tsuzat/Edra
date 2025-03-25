@@ -81,6 +81,7 @@ This command will copy the `edra` component as folder in `src/lib/components/edr
 The Edra library and its two primary components, `Edra` and `EdraToolbar`. `Edra` is the main component that will render the editor. `EdraToolbar` is used to render the toolbar.
 
 ## Structure
+
 ### Editor `<Edra>`
 
 The `<Edra>` component is the core rich-text editor built on Tiptap. It initializes the editor with various extensions (such as code block highlighting, media placeholders, math rendering, etc.) and manages editor lifecycle events. It also supports advanced features such as a bubble menu (contextual toolbar) and slash commands.
@@ -109,6 +110,7 @@ export interface EdraProps {
 ```
 
 **Properties:**
+
 - `class?: string` Additional classes to style the editor container.
 - `content?: Content` The initial content for the editor.
 - `editable?: boolean` Flag indicating if the editor should be editable (`true`) or read-only (`false`).
@@ -126,7 +128,6 @@ export interface EdraProps {
 
 The `<EdraToolbar>` component renders the editor's toolbar and displays a set of command buttons in a specific order. You can control which commands appear and in what order by passing an array to the allowedCommands property. The toolbar supports “special” toolbar components like font size, quick color, and search/replace.
 
-
 ```ts
 interface Props {
 	class?: string;
@@ -136,11 +137,14 @@ interface Props {
 ```
 
 **Properties:**
+
 - `class?: string` Additional classes to style the editor container.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
 - `children?` Allows for components to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
-	- Note: If children components are passed to the `<EdraToolbar>` it will override the default set of toolbar commands.
 
+> Warning:
+>
+> If children components are passed to the `<EdraToolbar>` it will override the default set of toolbar commands.
 
 ### BubbleMenu `<EdraBubbleMenu {editor} />`
 
@@ -155,24 +159,31 @@ interface Props {
 ```
 
 **Properties:**
+
 - `class?: string` Additional classes to style the editor container.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
 - `children?` Allows for components to be passed directly to the bubble menu.
 
+> Warning:
+>
+> If children components are passed to the `<EdraBubbleMenu>` it will override the default set of toolbar commands.
 
+---
 
 ## Examples
+
 Below are example use cases for Shadcn and Headless:
+
 - [Shadcn Basic Example](/docs#shadcn-basic-example)
 - [Shadcn Advanced Example](/docs#shadcn-advanced-example)
 - [Headless Basic Example](/docs#headless-basic-example)
 - [Headless Advanced Example](/docs#headless-advanced-example)
 
-
 ### Shadcn Basic Example
+
 A simple setup using the default Edra editor, toolbar, and bubble menu.
 
-```
+```svelte
 <script lang="ts">
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
@@ -202,8 +213,10 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 </div>
 ```
 
+---
 
 ### Shadcn Advanced Example
+
 A more detailed implementation showcasing toolbar customization and additional feature toggles like slash commands and table tools.
 
 ```svelte
@@ -234,7 +247,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 
 			<!-- Customized Edra toolbar -->
 			<EdraToolbar {editor}>
-				<div class="text-sm border-r px-3">Customized toolbar</div>
+				<div class="border-r px-3 text-sm">Customized toolbar</div>
 				<FontSize {editor} />
 			</EdraToolbar>
 		</div>
@@ -255,9 +268,10 @@ A more detailed implementation showcasing toolbar customization and additional f
 </div>
 ```
 
-<br />
+---
 
 ### Headless Basic Example
+
 A simple setup using the default Edra editor, toolbar, and bubble menu.
 
 ```svelte
@@ -289,7 +303,10 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 </div>
 ```
 
+---
+
 ### Headless Advanced Example
+
 A more detailed implementation showcasing toolbar customization and additional feature toggles like slash commands and table tools.
 
 ```svelte
@@ -329,7 +346,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 						label: 'Bold',
 						shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+B`],
 						action: (editor) => {
-							editor.chain().focus().toggleItalic().run();
+							editor.chain().focus().toggleBold().run();
 						}
 					}}
 					{editor}
@@ -357,7 +374,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 
 > Warning:
 >
-> You must need to create an editor instance, if you do not want to use `EdraToolbar` component.
+> You must need to create an editor instance, if you want to use `EdraToolbar` and/or `EdraBubbleMenu` component.
 
 You can also use the class names for the `Edra` component to customize the editor's appearance. e.g.
 
@@ -637,43 +654,45 @@ Try it out in [demo](/)
 Below is a list of all available commands that can be passed to the `<Edra />` and `<EdraToolbar />`. A full list of the commands can also be seen in `src\lib\edra\commands\commands.ts`.
 
 ## Regular Commands
-| Command             | Description                                                                                  |
-| ------------------- | -------------------------------------------------------------------------------------------- |
-| undo                | Reverts the last action.                                                                     |
-| redo                | Re-applies the previously undone action.                                                     |
-| heading1            | Toggles heading formatting at level 1.                                                       |
-| heading2            | Toggles heading formatting at level 2.                                                       |
-| heading3            | Toggles heading formatting at level 3.                                                       |
-| link                | Prompts for a URL and creates a hyperlink for the selected text.                             |
-| bold                | Toggles bold formatting for the selected text.                                               |
-| italic              | Toggles italic formatting for the selected text.                                             |
-| underline           | Toggles underline formatting for the selected text.                                          |
-| strike              | Toggles strikethrough formatting for the selected text.                                      |
-| blockquote          | Toggles blockquote formatting.                                                               |
-| superscript         | Toggles superscript formatting for the selected text.                                        |
-| subscript           | Toggles subscript formatting for the selected text.                                          |
-| code                | Toggles inline code formatting for the selected text.                                        |
-| codeBlock           | Toggles code block formatting.                                                               |
-| alignLeft           | Aligns the text to the left.                                                                 |
-| alignCenter         | Centers the text.                                                                            |
-| alignRight          | Aligns the text to the right.                                                                |
-| alignJustify        | Justifies the text alignment.                                                                |
-| bulletList          | Toggles bullet list formatting.                                                              |
-| orderedList         | Toggles ordered list formatting.                                                             |
-| taskList            | Toggles task list (checklist) formatting.                                                    |
-| audio-placeholder   | Inserts an audio placeholder.                                                                |
-| image-placeholder   | Inserts an image placeholder.                                                                |
-| video-placeholder   | Inserts a video placeholder.                                                                 |
-| iframe-placeholder  | Inserts an iframe placeholder.                                                               |
-| color               | Resets or unsets the text color.                                                             |
-| highlight           | Toggles highlighting for the selected text.                                                  |
-| table               | Inserts a 3x3 table if no table is active; deletes the table if one is already active.       |
-| font increment      | Increases the font size of the selected text.                                                |
-| font decrement      | Decreases the font size of the selected text.                                                |
+
+| Command            | Description                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| undo               | Reverts the last action.                                                               |
+| redo               | Re-applies the previously undone action.                                               |
+| heading1           | Toggles heading formatting at level 1.                                                 |
+| heading2           | Toggles heading formatting at level 2.                                                 |
+| heading3           | Toggles heading formatting at level 3.                                                 |
+| link               | Prompts for a URL and creates a hyperlink for the selected text.                       |
+| bold               | Toggles bold formatting for the selected text.                                         |
+| italic             | Toggles italic formatting for the selected text.                                       |
+| underline          | Toggles underline formatting for the selected text.                                    |
+| strike             | Toggles strikethrough formatting for the selected text.                                |
+| blockquote         | Toggles blockquote formatting.                                                         |
+| superscript        | Toggles superscript formatting for the selected text.                                  |
+| subscript          | Toggles subscript formatting for the selected text.                                    |
+| code               | Toggles inline code formatting for the selected text.                                  |
+| codeBlock          | Toggles code block formatting.                                                         |
+| alignLeft          | Aligns the text to the left.                                                           |
+| alignCenter        | Centers the text.                                                                      |
+| alignRight         | Aligns the text to the right.                                                          |
+| alignJustify       | Justifies the text alignment.                                                          |
+| bulletList         | Toggles bullet list formatting.                                                        |
+| orderedList        | Toggles ordered list formatting.                                                       |
+| taskList           | Toggles task list (checklist) formatting.                                              |
+| audio-placeholder  | Inserts an audio placeholder.                                                          |
+| image-placeholder  | Inserts an image placeholder.                                                          |
+| video-placeholder  | Inserts a video placeholder.                                                           |
+| iframe-placeholder | Inserts an iframe placeholder.                                                         |
+| color              | Resets or unsets the text color.                                                       |
+| highlight          | Toggles highlighting for the selected text.                                            |
+| table              | Inserts a 3x3 table if no table is active; deletes the table if one is already active. |
+| font increment     | Increases the font size of the selected text.                                          |
+| font decrement     | Decreases the font size of the selected text.                                          |
 
 ## Special Commands
-| Command             | Description                                                                                  |
-| ------------------- | -------------------------------------------------------------------------------------------- |
-| fontSize            | Buttons to increase and decrease font size and shows the current font size                   |
-| quickColor          | Color menu to change the text color and highlight the text                                   |
-| searchAndReplace    | Text search and replace tool                                                                 |
+
+| Command          | Description                                                                |
+| ---------------- | -------------------------------------------------------------------------- |
+| fontSize         | Buttons to increase and decrease font size and shows the current font size |
+| quickColor       | Color menu to change the text color and highlight the text                 |
+| searchAndReplace | Text search and replace tool                                               |
