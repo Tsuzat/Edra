@@ -12,12 +12,12 @@
 	import CodeExtended from './components/CodeExtended.svelte';
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
-	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
-	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
-	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
-	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
-	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
-	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
+	import { ImagePlaceholder } from '../extensions/image/ImagePlaceholder.js';
+	import ImagePlaceholderComponent from './components/ImagePlaceholder.svelte';
+	import { AudioPlaceholder } from '../extensions/audio/AudioPlaceholder.js';
+	import AudioPlaceholderComponent from './components/AudioPlaceholder.svelte';
+	import { VideoPlaceholder } from '../extensions/video/VideoPlaceholder.js';
+	import VideoPlaceholderComponent from './components/VideoPlaceholder.svelte';
 	import { ImageExtended } from '../extensions/image/ImageExtended.js';
 	import { VideoExtended } from '../extensions/video/VideoExtended.js';
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
@@ -30,11 +30,11 @@
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
-	import type { EdraProps } from '../utils.js';
+	import { focusEditor, type EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
 	import { cn } from '$lib/utils.js';
-	import { IFramePlaceHolder } from '../extensions/iframe/IFramePlaceHolder.js';
-	import IFramePlaceHolderComponent from './components/IFramePlaceholder.svelte';
+	import { IFramePlaceholder } from '../extensions/iframe/IFramePlaceholder.js';
+	import IFramePlaceholderComponent from './components/IFramePlaceholder.svelte';
 	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
 	import IFrameExtendedComponent from './components/IFrameExtended.svelte';
 
@@ -43,11 +43,12 @@
 	let {
 		class: className = '',
 		content = undefined,
-		showBubbleMenus = true,
 		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
-		showSlashCommand = true,
+		showSlashCommands = true,
+		showLinkBubbleMenu = true,
+		showTableBubbleMenu = true,
 		onUpdate,
 		children
 	}: EdraProps = $props();
@@ -67,15 +68,15 @@
 						return SvelteNodeViewRenderer(CodeExtended);
 					}
 				}),
-				AudioPlaceHolder(AudioPlaceHolderComponent),
-				ImagePlaceHolder(ImagePlaceHolderComponent),
-				IFramePlaceHolder(IFramePlaceHolderComponent),
+				AudioPlaceholder(AudioPlaceholderComponent),
+				ImagePlaceholder(ImagePlaceholderComponent),
+				IFramePlaceholder(IFramePlaceholderComponent),
 				IFrameExtended(IFrameExtendedComponent),
-				VideoPlaceHolder(VideoPlaceHolderComponent),
+				VideoPlaceholder(VideoPlaceholderComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
 				AudioExtended(AudioExtendedComponent),
-				...(showSlashCommand ? [slashcommand(SlashCommandList)] : [])
+				...(showSlashCommands ? [slashcommand(SlashCommandList)] : [])
 			],
 			{
 				editable,
@@ -88,6 +89,7 @@
 		);
 		return () => editor?.destroy();
 	});
+
 </script>
 
 {#if editor}
@@ -96,10 +98,14 @@
 
 <div class={cn('edra', className)}>
 	{@render children?.()}
-	{#if editor && showBubbleMenus}
-		<LinkMenu {editor} />
+	{#if editor}
+		{#if showLinkBubbleMenu}
+			<LinkMenu {editor} />
+		{/if}
+		{#if showTableBubbleMenu}
 		<TableColMenu {editor} />
 		<TableRowMenu {editor} />
+		{/if}
 	{/if}
 	{#if !editor}
 		<div class="flex size-full items-center justify-center gap-4 text-xl">
@@ -108,6 +114,14 @@
 	{/if}
 	<div
 		bind:this={element}
-		class="edra-editor prose size-full min-w-full flex-grow overflow-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
+		role="button"
+		tabindex="0"
+		onclick={(event) => focusEditor(editor, event)}
+		onkeydown={(event) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				focusEditor(editor, event);
+			}
+		}}
+		class="prose h-full min-w-full cursor-auto py-2 pl-10 pr-8 dark:prose-invert *:outline-none"
 	></div>
 </div>

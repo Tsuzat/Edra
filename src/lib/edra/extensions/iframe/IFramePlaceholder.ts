@@ -1,31 +1,25 @@
-import { Editor, Node, mergeAttributes, type CommandProps, type NodeViewProps } from '@tiptap/core';
+import { Node, mergeAttributes, type CommandProps, type NodeViewProps } from '@tiptap/core';
 import type { Component } from 'svelte';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-export interface VideoPlaceholderOptions {
+export interface IFramePlaceholderOptions {
 	HTMLAttributes: Record<string, object>;
-	onDrop: (files: File[], editor: Editor) => void;
-	onDropRejected?: (files: File[], editor: Editor) => void;
-	onEmbed: (url: string, editor: Editor) => void;
-	allowedMimeTypes?: Record<string, string[]>;
-	maxFiles?: number;
-	maxSize?: number;
 }
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
-		videoPlaceholder: {
+		iframePlaceholder: {
 			/**
-			 * Inserts a video placeholder
+			 * Inserts a IFrame placeholder
 			 */
-			insertVideoPlaceholder: () => ReturnType;
+			insertIFramePlaceholder: () => ReturnType;
 		};
 	}
 }
 
-export const VideoPlaceHolder = (content: Component<NodeViewProps>) =>
-	Node.create<VideoPlaceholderOptions>({
-		name: 'video-placeholder',
+export const IFramePlaceholder = (content: Component<NodeViewProps>) =>
+	Node.create<IFramePlaceholderOptions>({
+		name: 'iframe-placeholder',
 		addOptions() {
 			return {
 				HTMLAttributes: {},
@@ -52,9 +46,9 @@ export const VideoPlaceHolder = (content: Component<NodeViewProps>) =>
 		},
 		addCommands() {
 			return {
-				insertVideoPlaceholder: () => (props: CommandProps) => {
+				insertIFramePlaceholder: () => (props: CommandProps) => {
 					return props.commands.insertContent({
-						type: 'video-placeholder'
+						type: 'iframe-placeholder'
 					});
 				}
 			};

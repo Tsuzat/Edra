@@ -13,7 +13,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import Text from '@tiptap/extension-text';
 import { SmilieReplacer } from './extensions/SmilieReplacer.js';
-import { ColorHighlighter } from './extensions/ColorHighLighter.js';
+import { ColorHighlighter } from './extensions/ColorHighlighter.js';
 import AutoJoiner from 'tiptap-extension-auto-joiner';
 import { MathExtension } from '@aarkue/tiptap-math-extension';
 import { Table, TableCell, TableHeader, TableRow } from './extensions/table/index.js';

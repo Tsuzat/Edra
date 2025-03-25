@@ -23,7 +23,7 @@
 
 <Dialog.Root>
 	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>
-		<FileJson /> Show Output
+		<FileJson /> Show output
 	</Dialog.Trigger>
 	<Dialog.Content
 		class={cn(
@@ -47,7 +47,9 @@
 			<Dialog.Title>JSON Output</Dialog.Title>
 			<Dialog.Description>Observe the JSON output of the editor content</Dialog.Description>
 		</Dialog.Header>
+
 		<ShikiCode class="size-full overflow-auto" {code} lang="json" />
+		
 		<Button
 			variant="outline"
 			class="ml-auto w-fit"

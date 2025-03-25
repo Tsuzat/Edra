@@ -2,7 +2,7 @@ import { Editor, Node, mergeAttributes, type CommandProps, type NodeViewProps } 
 import type { Component } from 'svelte';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-export interface ImagePlaceholderOptions {
+export interface VideoPlaceholderOptions {
 	HTMLAttributes: Record<string, object>;
 	onDrop: (files: File[], editor: Editor) => void;
 	onDropRejected?: (files: File[], editor: Editor) => void;
@@ -14,20 +14,18 @@ export interface ImagePlaceholderOptions {
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
-		imagePlaceholder: {
+		videoPlaceholder: {
 			/**
-			 * Inserts an image placeholder
+			 * Inserts a video placeholder
 			 */
-			insertImagePlaceholder: () => ReturnType;
+			insertVideoPlaceholder: () => ReturnType;
 		};
 	}
 }
 
-export const ImagePlaceHolder = (
-	component: Component<NodeViewProps>
-): Node<ImagePlaceholderOptions> =>
-	Node.create<ImagePlaceholderOptions>({
-		name: 'image-placeholder',
+export const VideoPlaceholder = (content: Component<NodeViewProps>) =>
+	Node.create<VideoPlaceholderOptions>({
+		name: 'video-placeholder',
 		addOptions() {
 			return {
 				HTMLAttributes: {},
@@ -50,13 +48,13 @@ export const ImagePlaceHolder = (
 		isolating: true,
 
 		addNodeView() {
-			return SvelteNodeViewRenderer(component);
+			return SvelteNodeViewRenderer(content);
 		},
 		addCommands() {
 			return {
-				insertImagePlaceholder: () => (props: CommandProps) => {
+				insertVideoPlaceholder: () => (props: CommandProps) => {
 					return props.commands.insertContent({
-						type: 'image-placeholder'
+						type: 'video-placeholder'
 					});
 				}
 			};

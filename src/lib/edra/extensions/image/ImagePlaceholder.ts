@@ -2,7 +2,7 @@ import { Editor, Node, mergeAttributes, type CommandProps, type NodeViewProps } 
 import type { Component } from 'svelte';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-export interface AudioPlaceholderOptions {
+export interface ImagePlaceholderOptions {
 	HTMLAttributes: Record<string, object>;
 	onDrop: (files: File[], editor: Editor) => void;
 	onDropRejected?: (files: File[], editor: Editor) => void;
@@ -14,20 +14,20 @@ export interface AudioPlaceholderOptions {
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
-		audioPlaceholder: {
+		imagePlaceholder: {
 			/**
-			 * Inserts an audio placeholder
+			 * Inserts an image placeholder
 			 */
-			insertAudioPlaceholder: () => ReturnType;
+			insertImagePlaceholder: () => ReturnType;
 		};
 	}
 }
 
-export const AudioPlaceholder = (
+export const ImagePlaceholder = (
 	component: Component<NodeViewProps>
-): Node<AudioPlaceholderOptions> =>
-	Node.create<AudioPlaceholderOptions>({
-		name: 'audio-placeholder',
+): Node<ImagePlaceholderOptions> =>
+	Node.create<ImagePlaceholderOptions>({
+		name: 'image-placeholder',
 		addOptions() {
 			return {
 				HTMLAttributes: {},
@@ -54,9 +54,9 @@ export const AudioPlaceholder = (
 		},
 		addCommands() {
 			return {
-				insertAudioPlaceholder: () => (props: CommandProps) => {
+				insertImagePlaceholder: () => (props: CommandProps) => {
 					return props.commands.insertContent({
-						type: 'audio-placeholder'
+						type: 'image-placeholder'
 					});
 				}
 			};

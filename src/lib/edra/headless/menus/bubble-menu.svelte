@@ -19,6 +19,8 @@
 		...commands.lists.commands
 	];
 
+	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
+
 	const colorCommands = commands.colors.commands;
 	const fontCommands = commands.fonts.commands;
 

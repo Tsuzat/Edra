@@ -5,8 +5,8 @@
 	import QuickColor from './components/QuickColor.svelte';
 	import FontSize from './components/FontSize.svelte';
 	import SearchAndReplace from './components/SearchAndReplace.svelte';
-	import { cn } from '$lib/utils.js';
 	import type { Snippet } from 'svelte';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
 		class?: string;
@@ -21,7 +21,7 @@
 
 <div
 	class={cn(
-		'edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden',
+		'edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden border-b',
 		className
 	)}
 >
