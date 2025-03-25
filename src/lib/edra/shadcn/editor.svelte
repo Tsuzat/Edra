@@ -12,12 +12,12 @@
 	import CodeExtended from './components/CodeExtended.svelte';
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
-	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
-	import ImagePlaceHolderComponent from './components/ImagePlaceholder.svelte';
-	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
+	import { ImagePlaceholder } from '../extensions/image/ImagePlaceholder.js';
+	import ImagePlaceholderComponent from './components/ImagePlaceholder.svelte';
+	import { AudioPlaceholder } from '../extensions/audio/AudioPlaceholder.js';
 	import AudioPlaceholderComponent from './components/AudioPlaceholder.svelte';
-	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
-	import VideoPlaceHolderComponent from './components/VideoPlaceholder.svelte';
+	import { VideoPlaceholder } from '../extensions/video/VideoPlaceholder.js';
+	import VideoPlaceholderComponent from './components/VideoPlaceholder.svelte';
 	import { ImageExtended } from '../extensions/image/ImageExtended.js';
 	import { VideoExtended } from '../extensions/video/VideoExtended.js';
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
@@ -33,8 +33,8 @@
 	import { focusEditor, type EdraProps } from '../utils.js';
 	import DragHandle from '../drag-handle.svelte';
 	import { cn } from '$lib/utils.js';
-	import { IFramePlaceHolder } from '../extensions/iframe/IFramePlaceHolder.js';
-	import IFramePlaceHolderComponent from './components/IFramePlaceholder.svelte';
+	import { IFramePlaceholder } from '../extensions/iframe/IFramePlaceholder.js';
+	import IFramePlaceholderComponent from './components/IFramePlaceholder.svelte';
 	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
 	import IFrameExtendedComponent from './components/IFrameExtended.svelte';
 
@@ -68,11 +68,11 @@
 						return SvelteNodeViewRenderer(CodeExtended);
 					}
 				}),
-				AudioPlaceHolder(AudioPlaceHolderComponent),
-				ImagePlaceHolder(ImagePlaceHolderComponent),
-				IFramePlaceHolder(IFramePlaceHolderComponent),
+				AudioPlaceholder(AudioPlaceholderComponent),
+				ImagePlaceholder(ImagePlaceholderComponent),
+				IFramePlaceholder(IFramePlaceholderComponent),
 				IFrameExtended(IFrameExtendedComponent),
-				VideoPlaceHolder(VideoPlaceHolderComponent),
+				VideoPlaceholder(VideoPlaceholderComponent),
 				ImageExtended(ImageExtendedComponent),
 				VideoExtended(VideoExtendedComponent),
 				AudioExtended(AudioExtendedComponent),
