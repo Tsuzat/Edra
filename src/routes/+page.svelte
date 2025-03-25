@@ -79,11 +79,17 @@
 			<div class="text-center text-xl font-bold">Explore the demo</div>
 			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
 				<DemoEditorSettings bind:showToolBar bind:showBubbleMenu bind:editable />
-				<EditorOutput code={JSON.stringify(content, null, 2)} />
+				<EditorOutput
+					code={JSON.stringify(content, null, 2)}
+					onReset={() => {
+						editor?.setOptions({ content: defaultContent });
+						content = defaultContent;
+					}}
+				/>
 			</div>
 		</div>
 	</div>
-	<div class="mx-auto flex max-w-7xl w-[95%] flex-col rounded border sm:w-[85%]">
+	<div class="mx-auto flex w-[95%] max-w-7xl flex-col rounded border sm:w-[85%]">
 		{#if editor}
 			{#if showToolBar}
 				<div transition:slide>
