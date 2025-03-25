@@ -88,34 +88,37 @@ The `<Edra>` component is the core rich-text editor built on Tiptap. It initiali
 ```ts{f[$lib/components/edra/utils.ts]}
 /**
  * Props for Edra's editor component
-*/
+ */
 export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showBubbleMenu?: boolean;
-	allowedBubbleMenuCommands?: string[];
-	showSlashCommands?: boolean;
 	limit?: number;
 	editor?: Editor;
+	showSlashCommands?: boolean;
+	showLinkBubbleMenu?: boolean;
+	showTableBubbleMenu?: boolean;
 	/**
 	 * Callback function to be called when the content is updated
 	 * @param content
 	 */
 	onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
+	children?: Snippet<[]>;
 }
+
 ```
 
 **Properties:**
 - `class?: string` Additional classes to style the editor container.
 - `content?: Content` The initial content for the editor.
 - `editable?: boolean` Flag indicating if the editor should be editable (`true`) or read-only (`false`).
-- `showBubbleMenu?: boolean` Boolean field indicating if the bubble menu is shown when text is selected.
-- `allowedBubbleMenuCommands?: string[]`: An optional array to filter and order the commands shown in the bubble menu. Accepts both top‑level group names and individual command names.
-- `showSlashCommands?: boolean`: Allows slash commands to be enabled in the editor. Slash commands can be triggered by typing "/" in the editor.
 - `limit?: number` Sets the maximum number of characters allowed in the editor.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
+- `showSlashCommands?: boolean` (default: `true`) Enables slash commands in the editor. Slash commands can be triggered by typing `/` in the editor.
+- `showLinkBubbleMenu?: boolean` (default: `true`) Enables a bubble menu for editing links. This menu appears when the user clicks on a link in the editor.
+- `showTableBubbleMenu?: boolean` (default: `true`) Enables a bubble menu for table editing. This menu appears when interacting with table rows or columns in the editor.
 - `onUpdate?` To update the content of the editor after a transaction is executed
+- `children?` Pass children components to the editor.
 
 <br />
 
@@ -128,7 +131,6 @@ The `<EdraToolbar>` component renders the editor's toolbar and displays a set of
 interface Props {
 	class?: string;
 	editor: Editor;
-	allowedCommands?: string[];
 	children?: Snippet;
 }
 ```
@@ -136,27 +138,50 @@ interface Props {
 **Properties:**
 - `class?: string` Additional classes to style the editor container.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
-- `allowedCommands?` An optional array of strings that defines the order and selection of commands to be displayed. 
-	- Each entry can be a top‑level group name (e.g. `headings`) to include all commands from that group, or an individual command name (e.g. `bulletList`) to include just that command.
-- `children?` Allows for additional elements to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
-	- Note: Additional elements will always be appended to the end.
+- `children?` Allows for components to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
+	- Note: If children components are passed to the `<EdraToolbar>` it will override the default set of toolbar commands.
+
+
+### BubbleMenu `<EdraBubbleMenu {editor} />`
+
+The `<EdraBubbleMenu>` component provides a floating formatting toolbar that appears when the user selects text within the editor. It gives quick access to inline formatting options like bold, italic, and code, and can be extended with custom components or actions using children.
+
+```ts
+interface Props {
+	class?: string;
+	editor: Editor;
+	children?: Snippet<[]>;
+}
+```
+
+**Properties:**
+- `class?: string` Additional classes to style the editor container.
+- `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
+- `children?` Allows for components to be passed directly to the bubble menu.
+
+
 
 ## Examples
 Below are example use cases for Shadcn and Headless:
+- [Shadcn Basic Example](/docs#shadcn-basic-example)
+- [Shadcn Advanced Example](/docs#shadcn-advanced-example)
+- [Headless Basic Example](/docs#headless-basic-example)
+- [Headless Advanced Example](/docs#headless-advanced-example)
 
-### Shadcn
-```svelte
+
+### Shadcn Basic Example
+A simple setup using the default Edra editor, toolbar, and bubble menu.
+
+```
 <script lang="ts">
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
-	import { Edra, EdraToolbar } from '$lib/edra/shadcn/index.js';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
 
 	// Editor states
 	let content = $state<Content>();
 	let editor = $state<Editor>();
 	let showToolBar = $state(true);
-	let showBubbleMenu = $state(true);
-	let showSlashCommands = $state(true);
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 		content = props.editor.getJSON();
@@ -167,18 +192,64 @@ Below are example use cases for Shadcn and Headless:
 <div class="mx-auto w-[95%] px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
-			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+			<EdraToolbar {editor} />
 		</div>
+		<EdraBubbleMenu {editor} />
+	{/if}
+	<div class="rounded-b border">
+		<Edra class="h-64 overflow-auto" bind:editor {content} {onUpdate} />
+	</div>
+</div>
+```
+
+
+### Shadcn Advanced Example
+A more detailed implementation showcasing toolbar customization and additional feature toggles like slash commands and table tools.
+
+```svelte
+<script lang="ts">
+	import type { Content, Editor } from '@tiptap/core';
+	import type { Transaction } from '@tiptap/pm/state';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
+	import FontSize from '$lib/edra/shadcn/components/FontSize.svelte';
+
+	// Editor states
+	let content = $state<Content>();
+	let editor = $state<Editor>();
+	let showSlashCommands = $state(true);
+	let showLinkBubbleMenu = $state(true);
+	let showTableBubbleMenu = $state(true);
+
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		content = props.editor.getJSON();
+	}
+</script>
+
+<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+<div class="mx-auto w-[95%] px-4">
+	{#if editor}
+		<div class="rounded-t border-x border-t p-1">
+			<!-- Default Edra toolbar -->
+			<EdraToolbar {editor} />
+
+			<!-- Customized Edra toolbar -->
+			<EdraToolbar {editor}>
+				<div class="text-sm border-r px-3">Customized toolbar</div>
+				<FontSize {editor} />
+			</EdraToolbar>
+		</div>
+		<!-- Add bubble menu -->
+		<EdraBubbleMenu {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
-			class="overflow-auto h-64"
+			class="h-64 overflow-auto"
 			bind:editor
-			{showBubbleMenu}
 			{content}
-			{onUpdate}
 			{showSlashCommands}
-			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			{showLinkBubbleMenu}
+			{showTableBubbleMenu}
+			{onUpdate}
 		/>
 	</div>
 </div>
@@ -186,19 +257,18 @@ Below are example use cases for Shadcn and Headless:
 
 <br />
 
-### Headless
+### Headless Basic Example
+A simple setup using the default Edra editor, toolbar, and bubble menu.
+
 ```svelte
 <script lang="ts">
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
-	import { Edra, EdraToolbar } from '$lib/edra/headless/index.js';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/headless/index.js';
 
 	// Editor states
 	let content = $state<Content>();
 	let editor = $state<Editor>();
-	let showToolBar = $state(true);
-	let showBubbleMenu = $state(true);
-	let showSlashCommands = $state(true);
 
 	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 		content = props.editor.getJSON();
@@ -207,20 +277,77 @@ Below are example use cases for Shadcn and Headless:
 
 <div class="py-4 text-center text-xl font-bold">Headless Example</div>
 <div class="mx-auto w-[95%] px-4">
-	{#if editor && showToolBar}
+	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
-			<EdraToolbar {editor} allowedCommands={['bulletList', 'headings', 'quickColor']} />
+			<EdraToolbar {editor} />
 		</div>
+		<EdraBubbleMenu {editor} />
+	{/if}
+	<div class="rounded-b border">
+		<Edra class="h-64 overflow-auto" bind:editor {content} {onUpdate} />
+	</div>
+</div>
+```
+
+### Headless Advanced Example
+A more detailed implementation showcasing toolbar customization and additional feature toggles like slash commands and table tools.
+
+```svelte
+<script lang="ts">
+	import type { Content, Editor } from '@tiptap/core';
+	import type { Transaction } from '@tiptap/pm/state';
+	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/headless/index.js';
+	import EdraToolBarIcon from '$lib/edra/headless/components/EdraToolBarIcon.svelte';
+	import { isMac } from '$lib/edra/utils.js';
+
+	// Editor states
+	let content = $state<Content>();
+	let editor = $state<Editor>();
+	let showSlashCommands = $state(true);
+	let showLinkBubbleMenu = $state(true);
+	let showTableBubbleMenu = $state(true);
+
+	function onUpdate(props: { editor: Editor; transaction: Transaction }) {
+		content = props.editor.getJSON();
+	}
+</script>
+
+<div class="py-4 text-center text-xl font-bold">Headless Example</div>
+<div class="mx-auto w-[95%] px-4">
+	{#if editor}
+		<div class="rounded-t border-x border-t p-1">
+			<!-- Default Edra toolbar -->
+			<EdraToolbar {editor} />
+
+			<!-- Customized Edra toolbar -->
+			<EdraToolbar {editor}>
+				<div class="border-r px-3 text-sm">Customized toolbar</div>
+				<EdraToolBarIcon
+					command={{
+						iconName: 'Bold',
+						name: 'bold',
+						label: 'Bold',
+						shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+B`],
+						action: (editor) => {
+							editor.chain().focus().toggleItalic().run();
+						}
+					}}
+					{editor}
+				/>
+			</EdraToolbar>
+		</div>
+		<!-- Add bubble menu -->
+		<EdraBubbleMenu {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
 			class="h-64 overflow-auto"
 			bind:editor
-			{showBubbleMenu}
 			{content}
-			{onUpdate}
 			{showSlashCommands}
-			allowedBubbleMenuCommands={['link', 'bulletList', 'headings', 'quickColor']}
+			{showLinkBubbleMenu}
+			{showTableBubbleMenu}
+			{onUpdate}
 		/>
 	</div>
 </div>
@@ -255,7 +382,9 @@ You can also use the class names for the `Edra` component to customize the edito
 
 ---
 
-# JSON Output
+# Features
+
+## JSON Output
 
 You can controll the editor output without worrying about the initial `content` format.
 The simplest way to do this is to use the `onUpdate` prop, which is a callback function that is called when the `content` is updated.
@@ -270,7 +399,7 @@ function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 }
 ```
 
-# HTML Output
+## HTML Output
 
 Similar to JSON output, you can also get the HTML output of the editor in `onUpdate` callback function.
 
@@ -284,7 +413,7 @@ function onUpdate(props: { editor: Editor; transaction: Transaction }) {
 
 ---
 
-# Slash Command
+## Slash Command
 
 The `SlashCommand` is a feature that allows you to add custom commands to the editor.
 It is a powerful feature that allows you to add custom commands to the editor,
@@ -299,7 +428,7 @@ Try it out in [demo](/)
 
 ---
 
-# Bubble Menu
+## Bubble Menu
 
 The `Edra` component comes with `Notion` like bubble menus. There are basically 4 bubble menus in action.
 
@@ -321,7 +450,7 @@ Try it out in [demo](/)
 
 ---
 
-# Font Size
+## Font Size
 
 `Edra` component provides a way to change the font size of the editor.
 In `headless` ui, you'll find a decrease and increase button in the editor toolbar.
@@ -333,7 +462,7 @@ Try it out in [demo](/)
 
 ---
 
-# Placeholder
+## Placeholder
 
 `Edra` component provides a way to add placeholder text to the editor.
 This is a `ghost` text and can be seen in an empty line. You can change the behavior of the
@@ -345,7 +474,7 @@ Try it out in [demo](/)
 
 ---
 
-# Code Block Extended
+## Code Block Extended
 
 `Edra` component provides a way to extend the `code block` feature. You can add a language selector and copy the code to clipboard. For code highlighting, we're using lowlight with `one-dark` and `one-light` themes, for both `dark` and `light` mode respectively. You can find the file for `onedark.css` in `$lib/components/edra/onedark.css` file in **your project**.
 
@@ -365,7 +494,7 @@ Try it out in [demo](/)
 
 ---
 
-# Image Extended
+## Image Extended
 
 `Edra` component let's you add an image in different ways. You can add an image link or
 select an image from your local machine and add it to the editor. Moreover, you can also
@@ -395,7 +524,7 @@ Try it out in [demo](/)
 
 ---
 
-# Video Extended
+## Video Extended
 
 Similar to `ImageExtended`, you can add a video in different ways.
 You can add a **video link or select a video from your local machine** and add it to the editor.
@@ -409,7 +538,7 @@ Try it out in [demo](/)
 
 ---
 
-# Audio Extended
+## Audio Extended
 
 Similar to `ImageExtended` and `VideoExtended`, you can add an audio in different ways.
 You can add an **audio link or select an audio from your local machine** and add it to the editor.
@@ -423,7 +552,7 @@ Try it out in [demo](/)
 
 ---
 
-# IFrame Extended
+## IFrame Extended
 
 Similar to `ImageExtended` and `VideoExtended`, you can add an iframe with a source url.
 
@@ -437,7 +566,7 @@ Try it out in [demo](/)
 
 ---
 
-# Table
+## Table
 
 `Edra` component provides a way to add a table in editor. You can add it by either clicking
 the `table` button in `EdraToolbar` or by using `SlashCommand` or `/table`.
@@ -451,7 +580,7 @@ Try it out in [demo](/)
 
 ---
 
-# Search And Replace
+## Search And Replace
 
 `Edra` component provides a way to search and replace text in the editor. You can use it by clicking the `search` button in the `EdraToolbar`. You can search a text, _match case_, _go to next match_ and _go to previous match_.
 
@@ -461,7 +590,7 @@ Try it out in [demo](/)
 
 ---
 
-# Links
+## Links
 
 `Edra` component provides an advanced link feature. By default, the links will not open on click.
 The link have a `bubble menu` which let's you _edit_, _open_, _copy link_ and _delete link_.
@@ -485,7 +614,7 @@ Try it out in [demo](/)
 
 ---
 
-# Drag Handle
+## Drag Handle
 
 `Edra` component provides a way to _drag and drop_ handle in the editor.
 You can drag a node and drop it in anywhere in the **editor**.
@@ -495,7 +624,7 @@ Try it out in [demo](/)
 
 ---
 
-# LaTeX Support
+## LaTeX Support
 
 `Edra` component provides a way to add LaTeX expressions in the editor. You can add them
 by using `$` symbol. For example, you can write `$\sum_{i=1}^n i^2$` to get an equation.

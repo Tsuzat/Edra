@@ -10,8 +10,9 @@
 	let content = $state<Content>();
 	let editor = $state<Editor>();
 	let showToolBar = $state(true);
-	let showBubbleMenu = $state(true);
 	let showSlashCommands = $state(true);
+	let showLinkBubbleMenu = $state(true);
+	let showTableBubbleMenu = $state(true);
 
 	$effect(() => {
 		$inspect('[DEBUG] Content', content);
@@ -38,20 +39,27 @@
 <div class="mx-auto w-[95%] px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
+			<!-- Default Edra toolbar -->
+			<EdraToolbar {editor} />
+
+			<!-- Customized Edra toolbar -->
 			<EdraToolbar {editor}>
+				<div class="text-sm border-r px-3">Customized toolbar</div>
 				<FontSize {editor} />
 			</EdraToolbar>
 		</div>
+		<!-- Add bubble menu -->
 		<EdraBubbleMenu {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
 			class="h-64 overflow-auto"
 			bind:editor
-			{showBubbleMenu}
 			{content}
-			{onUpdate}
 			{showSlashCommands}
+			{showLinkBubbleMenu}
+			{showTableBubbleMenu}
+			{onUpdate}
 		/>
 	</div>
 </div>

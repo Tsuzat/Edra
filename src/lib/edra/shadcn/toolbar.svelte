@@ -21,7 +21,7 @@
 
 <div
 	class={cn(
-		'edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden',
+		'edra-toolbar flex h-fit w-fit items-center gap-1 overflow-x-auto overflow-y-hidden border-b',
 		className
 	)}
 >

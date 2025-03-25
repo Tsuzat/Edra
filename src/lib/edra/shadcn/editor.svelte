@@ -13,11 +13,11 @@
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 	import { ImagePlaceHolder } from '../extensions/image/ImagePlaceHolder.js';
-	import ImagePlaceHolderComponent from './components/ImagePlaceHolder.svelte';
+	import ImagePlaceHolderComponent from './components/ImagePlaceholder.svelte';
 	import { AudioPlaceHolder } from '../extensions/audio/AudioPlaceholder.js';
-	import AudioPlaceHolderComponent from './components/AudioPlaceHolder.svelte';
+	import AudioPlaceholderComponent from './components/AudioPlaceholder.svelte';
 	import { VideoPlaceHolder } from '../extensions/video/VideoPlaceHolder.js';
-	import VideoPlaceHolderComponent from './components/VideoPlaceHolder.svelte';
+	import VideoPlaceHolderComponent from './components/VideoPlaceholder.svelte';
 	import { ImageExtended } from '../extensions/image/ImageExtended.js';
 	import { VideoExtended } from '../extensions/video/VideoExtended.js';
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
@@ -43,11 +43,12 @@
 	let {
 		class: className = '',
 		content = undefined,
-		showBubbleMenu = true,
 		limit = undefined,
 		editable = true,
 		editor = $bindable<Editor | undefined>(),
 		showSlashCommands = true,
+		showLinkBubbleMenu = true,
+		showTableBubbleMenu = true,
 		onUpdate,
 		children
 	}: EdraProps = $props();
@@ -97,10 +98,14 @@
 
 <div class={cn('edra', className)}>
 	{@render children?.()}
-	{#if editor && showBubbleMenu}
-		<LinkMenu {editor} />
+	{#if editor}
+		{#if showLinkBubbleMenu}
+			<LinkMenu {editor} />
+		{/if}
+		{#if showTableBubbleMenu}
 		<TableColMenu {editor} />
 		<TableRowMenu {editor} />
+		{/if}
 	{/if}
 	{#if !editor}
 		<div class="flex size-full items-center justify-center gap-4 text-xl">

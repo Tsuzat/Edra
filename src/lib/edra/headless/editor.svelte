@@ -45,10 +45,11 @@
 		class: className = '',
 		content = undefined,
 		editable = true,
-		showBubbleMenu = true,
 		limit = undefined,
 		editor = $bindable<Editor | undefined>(),
 		showSlashCommands = true,
+		showLinkBubbleMenu = true,
+		showTableBubbleMenu = true,
 		onUpdate,
 		children
 	}: EdraProps = $props();
@@ -97,10 +98,14 @@
 
 <div class={`edra ${className}`}>
 	{@render children?.()}
-	{#if editor && showBubbleMenu}
-		<LinkMenu {editor} />
-		<TableRowMenu {editor} />
-		<TableColMenu {editor} />
+	{#if editor}
+		{#if showLinkBubbleMenu}
+			<LinkMenu {editor} />
+		{/if}
+		{#if showTableBubbleMenu}
+			<TableRowMenu {editor} />
+			<TableColMenu {editor} />
+		{/if}
 	{/if}
 	{#if !editor}
 		<div class="edra-loading">

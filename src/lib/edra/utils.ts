@@ -138,10 +138,11 @@ export interface EdraProps {
 	class?: string;
 	content?: Content;
 	editable?: boolean;
-	showBubbleMenu?: boolean;
 	limit?: number;
 	editor?: Editor;
 	showSlashCommands?: boolean;
+	showLinkBubbleMenu?: boolean;
+	showTableBubbleMenu?: boolean;
 	/**
 	 * Callback function to be called when the content is updated
 	 * @param content

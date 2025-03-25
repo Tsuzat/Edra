@@ -83,7 +83,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-auto flex w-[95%] flex-col rounded border sm:w-[85%]">
+	<div class="mx-auto flex max-w-7xl w-[95%] flex-col rounded border sm:w-[85%]">
 		{#if editor}
 			{#if showToolBar}
 				<div transition:slide>
@@ -96,7 +96,6 @@
 			class="h-[32rem] min-h-[32rem] overflow-auto"
 			bind:editor
 			{editable}
-			{showBubbleMenu}
 			{content}
 			{onUpdate}
 		/>
