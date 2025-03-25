@@ -35,8 +35,16 @@
 	}
 </script>
 
-<div class="py-4 text-center text-xl font-bold">Headless Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto grid grid-cols-3 px-6 py-4">
+	<div class="col-start-2 text-center text-xl font-bold">Headless Example</div>
+	<div class="text-right">
+		<a class="text-sm text-muted-foreground hover:underline" href="/examples/shadcn"
+			>View shadcn example</a
+		>
+	</div>
+</div>
+
+<div class="w-7xl mx-auto px-4">
 	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
 			<!-- Default Edra toolbar -->

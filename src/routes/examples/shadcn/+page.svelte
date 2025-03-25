@@ -35,8 +35,16 @@
 	}
 </script>
 
-<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto grid grid-cols-3 px-6 py-4">
+	<div class="col-start-2 text-center text-xl font-bold">Shadcn Example</div>
+	<div class="text-right">
+		<a class="text-sm text-muted-foreground hover:underline" href="/examples/headless"
+			>View headless example</a
+		>
+	</div>
+</div>
+
+<div class="w-7xl mx-auto px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
 			<!-- Default Edra toolbar -->
@@ -44,7 +52,7 @@
 
 			<!-- Customized Edra toolbar -->
 			<EdraToolbar {editor}>
-				<div class="text-sm border-r px-3">Customized toolbar</div>
+				<div class="border-r px-3 text-sm">Customized toolbar</div>
 				<FontSize {editor} />
 			</EdraToolbar>
 		</div>

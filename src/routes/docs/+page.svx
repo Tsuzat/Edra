@@ -189,7 +189,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 </script>
 
 <div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
 			<EdraToolbar {editor} />
@@ -226,7 +226,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 </script>
 
 <div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto px-4">
 	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
 			<!-- Default Edra toolbar -->
@@ -276,7 +276,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 </script>
 
 <div class="py-4 text-center text-xl font-bold">Headless Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto px-4">
 	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
 			<EdraToolbar {editor} />
@@ -313,7 +313,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 </script>
 
 <div class="py-4 text-center text-xl font-bold">Headless Example</div>
-<div class="mx-auto w-[95%] px-4">
+<div class="w-7xl mx-auto px-4">
 	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
 			<!-- Default Edra toolbar -->
