@@ -60,7 +60,7 @@
 						label: 'Bold',
 						shortCuts: [`${isMac ? 'Cmd' : 'Ctrl'}+B`],
 						action: (editor) => {
-							editor.chain().focus().toggleItalic().run();
+							editor.chain().focus().toggleBold().run();
 						}
 					}}
 					{editor}
