@@ -202,7 +202,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 <div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
 <div class="w-7xl mx-auto px-4">
 	{#if editor && showToolBar}
-		<div class="rounded-t border-x border-t p-1">
+		<div class="rounded-t border-x border-t p-1 overflow-auto">
 			<EdraToolbar {editor} />
 		</div>
 		<EdraBubbleMenu {editor} />
