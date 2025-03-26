@@ -90,8 +90,6 @@
 		]
 	},
 	"dependencies": {
-		"fs-extra": "^11.3.0",
-		"package-manager-detector": "^1.0.0",
 		"@aarkue/tiptap-math-extension": "^1.3.4",
 		"@tiptap/core": "^2.11.5",
 		"@tiptap/extension-character-count": "^2.11.5",
@@ -116,11 +114,12 @@
 		"@tiptap/pm": "^2.11.5",
 		"@tiptap/starter-kit": "^2.11.5",
 		"@tiptap/suggestion": "^2.11.5",
+		"fs-extra": "^11.3.0",
 		"katex": "^0.16.21",
 		"lowlight": "^3.3.0",
+		"package-manager-detector": "^1.0.0",
 		"svelte-tiptap": "^2.1.0",
 		"tippy.js": "^6.3.7",
-		"tiptap-extension-auto-joiner": "^0.1.3",
-		"tiptap-extension-global-drag-handle": "^0.1.18"
+		"tiptap-extension-auto-joiner": "^0.1.3"
 	}
 }

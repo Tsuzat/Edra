@@ -101,9 +101,6 @@ importers:
       tiptap-extension-auto-joiner:
         specifier: ^0.1.3
         version: 0.1.3
-      tiptap-extension-global-drag-handle:
-        specifier: ^0.1.18
-        version: 0.1.18
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.7
@@ -2229,9 +2226,6 @@ packages:
 
   tiptap-extension-auto-joiner@0.1.3:
     resolution: {integrity: sha512-nY3aKeCpVb2WjjVEZkLtEqxsK3KU1zGioyglMhK1sUFNjKDccOfRyz/YDKrHRAVsKJPGnk2A8VA1827iGEAXWQ==}
-
-  tiptap-extension-global-drag-handle@0.1.18:
-    resolution: {integrity: sha512-jwFuy1K8DP3a4bFy76Hpc63w1Sil0B7uZ3mvhQomVvUFCU787Lg2FowNhn7NFzeyok761qY2VG+PZ/FDthWUdg==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -4431,8 +4425,6 @@ snapshots:
       '@popperjs/core': 2.11.8
 
   tiptap-extension-auto-joiner@0.1.3: {}
-
-  tiptap-extension-global-drag-handle@0.1.18: {}
 
   to-regex-range@5.0.1:
     dependencies:
