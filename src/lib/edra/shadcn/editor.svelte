@@ -89,12 +89,7 @@
 		);
 		return () => editor?.destroy();
 	});
-
 </script>
-
-{#if editor}
-	<DragHandle {editor} />
-{/if}
 
 <div class={cn('edra', className)}>
 	{@render children?.()}
@@ -103,8 +98,8 @@
 			<LinkMenu {editor} />
 		{/if}
 		{#if showTableBubbleMenu}
-		<TableColMenu {editor} />
-		<TableRowMenu {editor} />
+			<TableColMenu {editor} />
+			<TableRowMenu {editor} />
 		{/if}
 	{/if}
 	{#if !editor}

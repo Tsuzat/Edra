@@ -91,10 +91,6 @@
 	});
 </script>
 
-{#if editor}
-	<DragHandle {editor} />
-{/if}
-
 <div class={`edra ${className}`}>
 	{@render children?.()}
 	{#if editor}
