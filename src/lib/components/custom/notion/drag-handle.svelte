@@ -28,7 +28,7 @@
 	onMount(() => {
 		const plugin = DragHandlePlugin({
 			pluginKey: pluginKey,
-			dragHandleWidth: 55,
+			dragHandleWidth: 60,
 			scrollTreshold: 100,
 			dragHandleSelector: '.drag-handle',
 			excludedTags: ['pre', 'code', 'table p'],
@@ -75,12 +75,12 @@
 	};
 
 	const handleRemoveFormatting = () => {
-		const chain = editor.chain();
-		chain.setNodeSelection(currentNodePos).unsetAllMarks();
 		if (currentNode?.type.name !== 'paragraph') {
+			const chain = editor.chain();
+			chain.setNodeSelection(currentNodePos).unsetAllMarks();
 			chain.setParagraph();
+			chain.run();
 		}
-		chain.run();
 	};
 
 	const handleDuplicate = () => {
@@ -112,16 +112,24 @@
 	};
 </script>
 
-<div class="drag-handle z-50">
-	<Button variant="ghost" class="size-6 rounded-sm p-0" onclick={handleAddNode}>
+<div class="drag-handle flex !h-fit !w-fit !flex-row items-center justify-center gap-1">
+	<Button variant="ghost" class="!size-6 rounded-sm p-0" onclick={handleAddNode}>
 		<Plus />
 	</Button>
-	<Button variant="ghost" class="size-6 rounded-sm p-0" onclick={() => (open = !open)}>
+	<Button
+		variant="ghost"
+		class="!size-6 rounded-sm p-0"
+		onclick={() => {
+			open = !open;
+			console.log('[Debug] Current NodePos = ', currentNodePos);
+			console.log('[Debug] Current Node = ', currentNode?.toJSON());
+		}}
+	>
 		<GripVertical />
 	</Button>
 	<DropdownMenu.Root bind:open>
 		<DropdownMenu.Trigger class="sr-only">
-			<span>Show Drag</span>
+			<span>Drag Handle</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="w-fit rounded-md bg-popover p-2">
 			<DropdownMenu.Item onclick={handleRemoveFormatting}>
