@@ -6,6 +6,7 @@
 	import defaultContent from '$lib/default_content.js';
 	import EdraToolBarIcon from '$lib/edra/headless/components/EdraToolBarIcon.svelte';
 	import { isMac } from '$lib/edra/utils.js';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -69,6 +70,7 @@
 		</div>
 		<!-- Add bubble menu -->
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra

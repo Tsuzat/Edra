@@ -5,6 +5,7 @@
 	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
 	import defaultContent from '$lib/default_content.js';
 	import FontSize from '$lib/edra/shadcn/components/FontSize.svelte';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -58,6 +59,7 @@
 		</div>
 		<!-- Add bubble menu -->
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra

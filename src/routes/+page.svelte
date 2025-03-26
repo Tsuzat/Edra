@@ -12,6 +12,7 @@
 	import defaultContent from '$lib/default_content.js';
 	import DemoEditorSettings from '$lib/components/custom/demo-editor-settings.svelte';
 	import EditorOutput from '$lib/components/custom/editor-output.svelte';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -97,14 +98,9 @@
 				</div>
 			{/if}
 			<EdraBubbleMenu {editor} />
+			<DragHandle {editor} />
 		{/if}
-		<Edra
-			class="h-[32rem] min-h-[32rem] overflow-auto"
-			bind:editor
-			{editable}
-			{content}
-			{onUpdate}
-		/>
+		<Edra class="h-[32rem]  overflow-auto" bind:editor {editable} {content} {onUpdate} />
 	</div>
 </div>
 
@@ -112,6 +108,10 @@
 	:global(.edra-toolbar) {
 		width: 100%;
 		padding: 0.25rem;
+	}
+
+	:global(.edra-editor) {
+		padding-left: 3.5rem;
 	}
 
 	.animated-load {
