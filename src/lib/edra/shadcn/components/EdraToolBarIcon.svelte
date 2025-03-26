@@ -7,13 +7,14 @@
 	import EdraToolTip from './EdraToolTip.svelte';
 
 	interface Props {
+		class?: string;
 		command: EdraCommand;
 		editor: Editor;
 		style?: string;
 		onclick?: () => void;
 	}
 
-	const { command, editor, style, onclick }: Props = $props();
+	const { class: className = '', command, editor, style, onclick }: Props = $props();
 
 	const Icon = icons[command.iconName];
 	const shortcut = command.shortCuts ? ` (${command.shortCuts[0]})` : '';
@@ -25,7 +26,7 @@
 	<Button
 		variant="ghost"
 		size="icon"
-		class={cn(isActive && 'bg-muted')}
+		class={cn(isActive && 'bg-muted', className)}
 		onclick={() => {
 			if (onclick !== undefined) onclick();
 			else command.action(editor);

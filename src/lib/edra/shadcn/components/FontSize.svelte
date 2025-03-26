@@ -4,12 +4,14 @@
 	import { Editor } from '@tiptap/core';
 	import ChevronDown from 'lucide-svelte/icons/chevron-down';
 	import EdraToolTip from './EdraToolTip.svelte';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
 	}
 
-	const { editor }: Props = $props();
+	const { class: className = '', editor }: Props = $props();
 
 	const FONT_SIZE = [
 		{ label: 'Tiny', value: '0.7rem' },
@@ -32,7 +34,7 @@
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger>
 		<EdraToolTip content="Font Size">
-			<Button variant="ghost" class="gap-0.5 p-2">
+			<Button variant="ghost" class={cn('gap-0.5 p-2', className)}>
 				<span>{currentLabel}</span>
 				<ChevronDown class="!size-2 text-muted-foreground" />
 			</Button>

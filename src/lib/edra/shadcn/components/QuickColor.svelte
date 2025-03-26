@@ -7,9 +7,10 @@
 	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		class?: string;
 		editor: Editor;
 	}
-	const { editor }: Props = $props();
+	const { class: className = '', editor }: Props = $props();
 
 	const colors = [
 		{ label: 'Default', value: '' },
@@ -34,7 +35,7 @@
 			<Button
 				variant="ghost"
 				size="icon"
-				class="gap-0.5"
+				class={cn('gap-0.5 p-2', className)}
 				style={`color: ${currentColor}; background-color: ${currentHighlight}50;`}
 			>
 				<span>A</span>
