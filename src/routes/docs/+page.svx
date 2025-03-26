@@ -78,7 +78,12 @@ This command will copy the `edra` component as folder in `src/lib/components/edr
 
 # Usage
 
-The Edra library and its two primary components, `Edra` and `EdraToolbar`. `Edra` is the main component that will render the editor. `EdraToolbar` is used to render the toolbar.
+The `Edra` library has following primary components:
+
+- `<Edra>` - The main component that will render the editor.
+- `<EdraToolbar>` - Used to render the toolbar.
+- `<EdraBubbleMenu>` - Used to render the bubble menu.
+- `<DragHandle>` - Used to render the drag handle.
 
 ## Structure
 
@@ -188,6 +193,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -202,10 +208,11 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 <div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
 <div class="w-7xl mx-auto px-4">
 	{#if editor && showToolBar}
-		<div class="rounded-t border-x border-t p-1 overflow-auto">
+		<div class="overflow-auto rounded-t border-x border-t p-1">
 			<EdraToolbar {editor} />
 		</div>
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra class="h-64 overflow-auto" bind:editor {content} {onUpdate} />
@@ -224,6 +231,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 	import FontSize from '$lib/edra/shadcn/components/FontSize.svelte';
 
 	// Editor states
@@ -253,6 +261,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 		</div>
 		<!-- Add bubble menu -->
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
@@ -279,6 +288,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/headless/index.js';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -296,6 +306,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 			<EdraToolbar {editor} />
 		</div>
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra class="h-64 overflow-auto" bind:editor {content} {onUpdate} />
@@ -314,6 +325,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 	import type { Content, Editor } from '@tiptap/core';
 	import type { Transaction } from '@tiptap/pm/state';
 	import { Edra, EdraToolbar, EdraBubbleMenu } from '$lib/edra/headless/index.js';
+	import DragHandle from '$lib/edra/drag-handle.svelte';
 	import EdraToolBarIcon from '$lib/edra/headless/components/EdraToolBarIcon.svelte';
 	import { isMac } from '$lib/edra/utils.js';
 
@@ -355,6 +367,7 @@ A more detailed implementation showcasing toolbar customization and additional f
 		</div>
 		<!-- Add bubble menu -->
 		<EdraBubbleMenu {editor} />
+		<DragHandle {editor} />
 	{/if}
 	<div class="rounded-b border">
 		<Edra
@@ -637,7 +650,50 @@ Try it out in [demo](/)
 You can drag a node and drop it in anywhere in the **editor**.
 You can find the _drag handle_ component in `$lib/components/edra/drag-handle.svelte` file in **your project** and you can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/main/src/lib/edra/drag-handle.svelte).
 
+> Warning:
+>
+> You must import the `DragHandle` component in your editor component to use it. See more in [this example](#shadcn-basic-example).
+
 Try it out in [demo](/)
+
+---
+
+## Drag Handle Advanced
+
+`Edra` component has a way to make the **drag handle** more advanced. You can find the
+extension implementation in `$lib/edra/extensions/drag-handle/index.ts` file in **your project**. This extension allows you to have a context of currently hovered editor node
+and it's position on the editor DOM. You can get this information by using the `onMouseMove` callback function.
+
+There's a simple example
+
+```svelte{f[my-drag-handle.svelte]}
+<script lang="ts">
+	let currentNode: Node | null = $state(null);
+	let currentNodePos: number = $state(-1);
+	let open = $state(false);
+
+	const pluginKey = 'globalDragHandle';
+
+	onMount(() => {
+		const plugin = DragHandlePlugin({
+			pluginKey: pluginKey,
+			dragHandleWidth: 55,
+			scrollTreshold: 100,
+			dragHandleSelector: '.drag-handle',
+			excludedTags: ['pre', 'code', 'table p'],
+			customNodes: [],
+			onMouseMove: onMouseMove
+		});
+		editor.registerPlugin(plugin);
+		return () => editor.unregisterPlugin(pluginKey);
+	});
+
+	const onMouseMove = (data: { node: Node; pos: number }) => {
+		if (data.node) currentNode = data.node;
+		currentNodePos = data.pos;
+	};
+</script>
+```
 
 ---
 
@@ -648,6 +704,8 @@ by using `$` symbol. For example, you can write `$\sum_{i=1}^n i^2$` to get an e
 You also click on a LaTeX expression and it will be evaluated and the result will be shown.
 
 Try it out in [demo](/)
+
+---
 
 # Commands
 
