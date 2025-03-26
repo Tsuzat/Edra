@@ -17,6 +17,21 @@
 
 	let { class: className = '', editor, children }: Props = $props();
 
+	let isDragging = $state(false);
+
+	editor.view.dom.addEventListener('dragstart', () => {
+		isDragging = true;
+	});
+
+	editor.view.dom.addEventListener('drop', () => {
+		isDragging = true;
+
+		// Allow some time for the drop action to complete before re-enabling
+		setTimeout(() => {
+			isDragging = false;
+		}, 100); // Adjust delay if needed
+	});
+
 	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
 	function shouldShow(props: ShouldShowProps) {
@@ -48,7 +63,7 @@
 		if (empty || isEmptyTextBlock || !editor.isEditable) {
 			return false;
 		}
-		return true;
+		return !isDragging && !editor.state.selection.empty;
 	}
 
 	const isTableGripSelected = (node: HTMLElement) => {
