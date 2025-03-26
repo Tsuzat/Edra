@@ -2,7 +2,7 @@
 	import type { Editor } from '@tiptap/core';
 	import { onMount } from 'svelte';
 	import GripVertical from 'lucide-svelte/icons/grip-vertical';
-	import { DragHandlePlugin } from 'tiptap-extension-global-drag-handle';
+	import { DragHandlePlugin } from './extensions/drag-handle/index.js';
 
 	interface Props {
 		editor: Editor;
