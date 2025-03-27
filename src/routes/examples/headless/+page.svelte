@@ -74,7 +74,7 @@
 	{/if}
 	<div class="rounded-b border">
 		<Edra
-			class="h-64 overflow-auto"
+			class="h-80 overflow-auto"
 			bind:editor
 			{content}
 			{showSlashCommands}
