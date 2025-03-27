@@ -10,10 +10,11 @@
 >
 	<a class="inline-flex items-center gap-2" href="/">
 		<img src="/favicon.png" alt="Edra logo" class="size-8" />
-		<span class="text-xl font-bold">Edra</span>
+		<span class="hidden text-xl font-bold sm:block">Edra</span>
 	</a>
 	<div>
-		<Button variant="link" class="text-muted-foreground" href="/docs">Docs</Button>
+		<Button variant="link" class="w-fit text-muted-foreground" href="/examples">Examples</Button>
+		<Button variant="link" class="w-fit text-muted-foreground" href="/docs">Docs</Button>
 		<Button variant="outline" size="icon" href="https://buymeacoffee.com/tsuzat" target="_blank">
 			<Coffee />
 		</Button>
