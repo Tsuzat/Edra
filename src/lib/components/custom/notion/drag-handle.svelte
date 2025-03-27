@@ -75,12 +75,10 @@
 	};
 
 	const handleRemoveFormatting = () => {
-		if (currentNode?.type.name !== 'paragraph') {
-			const chain = editor.chain();
-			chain.setNodeSelection(currentNodePos).unsetAllMarks();
-			chain.setParagraph();
-			chain.run();
-		}
+		const chain = editor.chain();
+		chain.setNodeSelection(currentNodePos).unsetAllMarks();
+		chain.setParagraph();
+		chain.run();
 	};
 
 	const handleDuplicate = () => {
@@ -116,15 +114,7 @@
 	<Button variant="ghost" class="!size-6 rounded-sm p-0" onclick={handleAddNode}>
 		<Plus />
 	</Button>
-	<Button
-		variant="ghost"
-		class="!size-6 rounded-sm p-0"
-		onclick={() => {
-			open = !open;
-			console.log('[Debug] Current NodePos = ', currentNodePos);
-			console.log('[Debug] Current Node = ', currentNode?.toJSON());
-		}}
-	>
+	<Button variant="ghost" class="!size-6 rounded-sm p-0" onclick={() => (open = true)}>
 		<GripVertical />
 	</Button>
 	<DropdownMenu.Root bind:open>
