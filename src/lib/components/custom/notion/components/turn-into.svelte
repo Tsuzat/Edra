@@ -31,8 +31,9 @@
 		portalProps={{ disabled: true, to: undefined }}
 	>
 		<DropdownMenu.Group>
-			<DropdownMenu.GroupHeading class="text-muted-foreground">Turn Into</DropdownMenu.GroupHeading>
-			<DropdownMenu.Separator />
+			<DropdownMenu.GroupHeading class="font-medium text-muted-foreground"
+				>Turn Into</DropdownMenu.GroupHeading
+			>
 			{#each turnIntoCommands as command}
 				{@const isActive = command.isActive?.(editor) || editor.isActive(command.name)}
 				<DropdownMenu.Item onclick={() => command.action(editor)}>
