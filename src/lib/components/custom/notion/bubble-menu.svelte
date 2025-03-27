@@ -14,11 +14,13 @@
 	import FontSize from '$lib/edra/shadcn/components/FontSize.svelte';
 	import QuickColor from '$lib/edra/shadcn/components/QuickColor.svelte';
 	import TurnInto from './components/turn-into.svelte';
+	import Ai from './components/ai.svelte';
 
 	const directCommands = [...commands['text-formatting'].commands];
 </script>
 
 <EdraBubbleMenu {editor}>
+	<Ai {editor} />
 	{#each directCommands as command}
 		<EdraToolBarIcon class="size-8 p-0" {command} {editor} />
 	{/each}
