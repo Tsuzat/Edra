@@ -22,6 +22,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
 import SearchAndReplace from './extensions/FindAndReplace.js';
 import { getHandlePaste } from './utils.js';
+import { Markdown } from 'tiptap-markdown';
 
 export const initiateEditor = (
 	element?: HTMLElement,
@@ -87,6 +88,16 @@ export const initiateEditor = (
 			TableRow,
 			TableCell,
 			FontSize,
+			Markdown.configure({
+				html: true,
+				tightLists: true,
+				tightListClass: 'tight',
+				bulletListMarker: '-',
+				linkify: true, // Create links from "https://..." text
+				breaks: true, // New lines (\n) in markdown input are converted to <br>
+				transformPastedText: true, // Allow to paste markdown text in the editor
+				transformCopiedText: false // Copied text is transformed to markdown
+			}),
 			Placeholder.configure({
 				emptyEditorClass: 'is-empty',
 				// Use a placeholder:
