@@ -32,7 +32,6 @@
 	import SlashCommandList from './components/SlashCommandList.svelte';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import { focusEditor, type EdraProps } from '../utils.js';
-	import DragHandle from '../drag-handle.svelte';
 	import IFramePlaceholderComponent from './components/IFramePlaceholder.svelte';
 	import { IFramePlaceholder } from '../extensions/iframe/IFramePlaceholder.js';
 	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';

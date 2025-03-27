@@ -8,7 +8,6 @@
 	import EdraToolTip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
 	import EllipsisVertical from 'lucide-svelte/icons/ellipsis-vertical';
 	import Check from 'lucide-svelte/icons/check';
-	import { cn } from '$lib/utils.js';
 
 	interface Props {
 		editor: Editor;

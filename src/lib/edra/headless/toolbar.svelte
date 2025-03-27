@@ -14,7 +14,6 @@
 	const { class: className = '', editor, children }: Props = $props();
 
 	// Special components that are handled separately
-	const specialComponents = ['fontSize', 'quickColor', 'searchAndReplace'];
 	let showSearchAndReplace = $state(false);
 	const colorCommands = commands.colors.commands;
 	const fontCommands = commands.fonts.commands;
