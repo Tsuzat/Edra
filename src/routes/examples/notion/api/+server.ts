@@ -26,12 +26,12 @@ export const POST: RequestHandler = async ({ request }) => {
 		const data: ReqBody = await request.json();
 		const { tool, text } = data;
 		if (tool === undefined || text === undefined || text.trim() === '') {
-			return json({ error: 'Please provide a tool and text' }, { status: 400 });
+			return json({ message: 'Please provide a tool and text' }, { status: 400 });
 		}
 		const aiRes = await handleAICall(tool, text);
 		return json({ message: aiRes }, { status: 200 });
 	} catch (error) {
 		console.error('Error parsing JSON:', error);
-		return json({ error: error }, { status: 400 });
+		return json({ message: error }, { status: 400 });
 	}
 };
