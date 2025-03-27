@@ -42,13 +42,13 @@
 			const status = response.status;
 			if (status === 200) {
 				insertMD(message);
-				toast.success('AI Changes are done!', { id, duration: 1000 });
+				toast.success('AI Changes are done!', { id });
 			} else {
-				toast.error(message, { id, duration: 1000 });
+				toast.error(message, { id });
 			}
 		} catch (error) {
 			console.error(error);
-			toast.error('Something went wrong! Check console.', { id, duration: 1000 });
+			toast.error('Something went wrong! Check console.', { id });
 		}
 	}
 
