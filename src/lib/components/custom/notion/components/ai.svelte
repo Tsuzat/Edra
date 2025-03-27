@@ -28,27 +28,28 @@
 	}
 
 	async function processText(tool: 'longer' | 'shorter' | 're-write' | 'fix-grammar') {
-		const text = getSelectionText();
-		const data = { tool, text };
-		toast.promise(
-			fetch('/examples/notion/api', {
+		const id = toast.loading('AI is thinking...', { duration: 10000 });
+		try {
+			const text = getSelectionText();
+			const data = { tool, text };
+
+			const response = await fetch('/examples/notion/api', {
 				method: 'POST',
 				body: JSON.stringify(data),
 				headers: { 'Content-Type': 'application/json' }
-			}),
-			{
-				loading: 'AI is thinking...',
-				success: (response) => {
-					console.log(response.json());
-					// insertMD(response.json());
-					return 'AI changes are done!';
-				},
-				error: (error) => {
-					console.error(error);
-					return 'Something went wrong! Check console.';
-				}
+			});
+			const { message } = await response.json();
+			const status = response.status;
+			if (status === 200) {
+				insertMD(message);
+				toast.success('AI Changes are done!', { id, duration: 1000 });
+			} else {
+				toast.error(message, { id, duration: 1000 });
 			}
-		);
+		} catch (error) {
+			console.error(error);
+			toast.error('Something went wrong! Check console.', { id, duration: 1000 });
+		}
 	}
 
 	const makeTextShorter = () => processText('shorter');
