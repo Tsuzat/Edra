@@ -35,7 +35,10 @@
 						>Show editor toolbar</Label
 					>
 				</div>
-				<p class="text-xs text-muted-foreground">Toggles the main toolbar above the editor with formatting options like headings, bold, italic, etc.</p>
+				<p class="text-xs text-muted-foreground">
+					Toggles the main toolbar above the editor with formatting options like headings, bold,
+					italic, etc.
+				</p>
 			</div>
 
 			<div class="space-y-1">
@@ -45,7 +48,9 @@
 						>Show editor bubble menu</Label
 					>
 				</div>
-				<p class="text-xs text-muted-foreground">Displays a floating formatting menu when text is selected in the editor.</p>
+				<p class="text-xs text-muted-foreground">
+					Displays a floating formatting menu when text is selected in the editor.
+				</p>
 			</div>
 
 			<div class="space-y-1">
@@ -55,7 +60,10 @@
 						>Editable</Label
 					>
 				</div>
-				<p class="text-xs text-muted-foreground">Allows users to directly edit the content. When unchecked, the editor is in read-only mode.</p>
+				<p class="text-xs text-muted-foreground">
+					Allows users to directly edit the content. When unchecked, the editor is in read-only
+					mode.
+				</p>
 			</div>
 		</div>
 	</Dialog.Content>
