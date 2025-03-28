@@ -90,7 +90,9 @@
 	},
 	"pnpm": {
 		"ignoredBuiltDependencies": [
-			"esbuild"
+			"esbuild",
+			"sharp",
+			"workerd"
 		]
 	},
 	"dependencies": {
@@ -119,6 +121,7 @@
 		"@tiptap/pm": "^2.11.5",
 		"@tiptap/starter-kit": "^2.11.5",
 		"@tiptap/suggestion": "^2.11.5",
+		"@vercel/analytics": "^1.5.0",
 		"fs-extra": "^11.3.0",
 		"katex": "^0.16.21",
 		"lowlight": "^3.3.0",
