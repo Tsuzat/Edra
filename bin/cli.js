@@ -48,7 +48,8 @@ const dependencies = [
 	'tippy.js',
 	'tiptap-extension-auto-joiner',
 	'tiptap-extension-global-drag-handle',
-	'lucide-svelte'
+	'lucide-svelte',
+	'tiptap-markdown'
 ];
 
 // Install dependencies with the detected package manager
