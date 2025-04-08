@@ -89,6 +89,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      html-format:
+        specifier: ^1.1.7
+        version: 1.1.7
       katex:
         specifier: ^0.16.21
         version: 0.16.21
@@ -1540,6 +1543,9 @@ packages:
   highlight.js@11.11.1:
     resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
     engines: {node: '>=12.0.0'}
+
+  html-format@1.1.7:
+    resolution: {integrity: sha512-ba6woq8dni6HkfRFpsu27PrCM/sxEz9KrVW22xVyMbXsZHbSpJE6Z1gAl7OeqEfU92MKYb9Pn7MnIyqV5tJHKA==}
 
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
@@ -3819,6 +3825,8 @@ snapshots:
   hey-listen@1.0.8: {}
 
   highlight.js@11.11.1: {}
+
+  html-format@1.1.7: {}
 
   html-void-elements@3.0.0: {}
 

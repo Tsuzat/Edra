@@ -123,6 +123,7 @@
 		"@tiptap/suggestion": "^2.11.5",
 		"@vercel/analytics": "^1.5.0",
 		"fs-extra": "^11.3.0",
+		"html-format": "^1.1.7",
 		"katex": "^0.16.21",
 		"lowlight": "^3.3.0",
 		"package-manager-detector": "^1.1.0",
