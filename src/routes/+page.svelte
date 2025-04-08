@@ -80,13 +80,9 @@
 			<div class="text-center text-xl font-bold">Explore the demo</div>
 			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
 				<DemoEditorSettings bind:showToolBar bind:showBubbleMenu bind:editable />
-				<EditorOutput
-					code={JSON.stringify(content, null, 2)}
-					onReset={() => {
-						editor?.setOptions({ content: defaultContent });
-						content = defaultContent;
-					}}
-				/>
+				{#if editor !== undefined}
+					<EditorOutput {editor} />
+				{/if}
 			</div>
 		</div>
 	</div>
