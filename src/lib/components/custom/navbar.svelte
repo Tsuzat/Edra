@@ -6,15 +6,16 @@
 </script>
 
 <nav
-	class="sticky top-0 z-50 inline-flex w-full items-center justify-between gap-4 border-b border-border/75 bg-background/75 px-4 py-2 backdrop-blur"
+	class="sticky top-0 z-50 inline-flex w-full items-center justify-between border-b border-border/75 bg-background/75 px-4 py-2 backdrop-blur"
 >
 	<a class="inline-flex items-center gap-2" href="/">
 		<img src="/favicon.png" alt="Edra logo" class="size-8" />
 		<span class="hidden text-xl font-bold sm:block">Edra</span>
 	</a>
-	<div>
-		<Button variant="link" class="w-fit text-muted-foreground" href="/examples">Examples</Button>
-		<Button variant="link" class="w-fit text-muted-foreground" href="/docs">Docs</Button>
+	<div class="inline-flex items-center gap-2">
+		<Button variant="link" class="w-fit p-1 text-muted-foreground" href="/examples">Examples</Button
+		>
+		<Button variant="link" class="w-fit p-1 text-muted-foreground" href="/docs">Docs</Button>
 		<Button variant="outline" size="icon" href="https://buymeacoffee.com/tsuzat" target="_blank">
 			<Coffee />
 		</Button>
