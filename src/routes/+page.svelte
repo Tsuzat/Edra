@@ -96,7 +96,7 @@
 			<EdraBubbleMenu {editor} />
 			<DragHandle {editor} />
 		{/if}
-		<Edra class="h-[32rem]  overflow-auto" bind:editor {editable} {content} {onUpdate} />
+		<Edra class="h-[32rem] overflow-auto" bind:editor {editable} {content} {onUpdate} />
 	</div>
 </div>
 

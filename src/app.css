@@ -79,22 +79,15 @@ html {
 		--sidebar-border: 240 3.7% 15.9%;
 		--sidebar-ring: 217.2 91.2% 59.8%;
 	}
-
-	::-webkit-scrollbar {
-		width: 0.4rem;
-		height: 0.4rem;
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	::-webkit-scrollbar-thumb {
-		@apply rounded-full bg-muted-foreground dark:bg-muted;
-	}
 }
 
 @layer base {
 	* {
 		@apply border-border;
+
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		scrollbar-width: thin;
+		scrollbar-color: hsla(var(--muted-foreground) / 0.25) transparent;
 	}
 	body {
 		@apply bg-background text-foreground;
