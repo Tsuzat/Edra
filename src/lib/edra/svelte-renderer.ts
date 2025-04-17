@@ -18,6 +18,7 @@ class SvelteRenderer<R = unknown, P extends Record<string, any> = object> {
 	ref: R | null = null;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	mnt: Record<any, any> | null = null;
+	isDestroyed = false; // track if the component was already destroyed
 
 	constructor(component: App, { props, editor }: RendererOptions<P>) {
 		this.id = Math.floor(Math.random() * 0xffffffff).toString();
@@ -43,7 +44,12 @@ class SvelteRenderer<R = unknown, P extends Record<string, any> = object> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.mnt = mount(this.component as any, {
 			target: this.element,
-			props: { props: this.props }
+			props: {
+				props: {
+					...this.props,
+					markDestroyed: () => (this.isDestroyed = true) // to be called on onDestroy in the component
+				}
+			}
 		});
 	}
 
@@ -62,6 +68,10 @@ class SvelteRenderer<R = unknown, P extends Record<string, any> = object> {
 	}
 
 	destroy(): void {
+		if (this.isDestroyed) {
+			return;
+		}
+
 		if (this.mnt) {
 			unmount(this.mnt);
 		} else {
