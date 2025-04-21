@@ -17,6 +17,7 @@
 	{editor}
 	pluginKey="table-row-menu"
 	shouldShow={(props: ShouldShowProps) => {
+		if (!props.editor.isEditable) return false;
 		if (!props.state) {
 			return false;
 		}

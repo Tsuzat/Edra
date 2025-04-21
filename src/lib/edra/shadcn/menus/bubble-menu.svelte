@@ -35,6 +35,7 @@
 	const excludeCommands = ['undo-redo', 'media', 'table', 'colors', 'fonts', 'lists'];
 
 	function shouldShow(props: ShouldShowProps) {
+		if (!props.editor.isEditable) return false;
 		const { view, editor } = props;
 		if (!view || editor.view.dragging) {
 			return false;

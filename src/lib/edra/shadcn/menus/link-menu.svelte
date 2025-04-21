@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Editor } from '@tiptap/core';
+	import { type Editor } from '@tiptap/core';   
 	import { BubbleMenu } from 'svelte-tiptap';
 	import type { ShouldShowProps } from '../../utils.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -52,6 +52,7 @@
 	{editor}
 	pluginKey="link-menu"
 	shouldShow={(props: ShouldShowProps) => {
+		if (!props.editor.isEditable) return false;
 		if (props.editor.isActive('link')) {
 			return true;
 		} else {
