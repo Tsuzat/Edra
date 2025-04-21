@@ -19,7 +19,10 @@
 	let editor = $state<Editor>();
 	let showToolBar = $state(true);
 	let showBubbleMenu = $state(true);
-	let editable = $state(true);
+	let editable = $derived.by(() => {
+		if (browser) return localStorage.getItem('edra-editable') === 'true';
+		return true;
+	});
 
 	$effect(() => {
 		$inspect('[DEBUG] Content', content);
@@ -29,6 +32,7 @@
 	$effect(() => {
 		console.log('editable', editable);
 		editor?.setEditable(editable);
+		localStorage.setItem('edra-editable', editable ? 'true' : 'false');
 	});
 
 	if (browser) {
