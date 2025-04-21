@@ -23,7 +23,7 @@
 		<Settings />
 		<span>Editor settings</span>
 	</Dialog.Trigger>
-	<Dialog.Content class="h-fit max-h-[95vh] w-80 max-w-[95vw] p-4">
+	<Dialog.Content class="max-h-[95vh] w-80 max-w-[95vw] p-4">
 		<Dialog.Header class="mb-4">
 			<Dialog.Title>Edra demo settings</Dialog.Title>
 		</Dialog.Header>
