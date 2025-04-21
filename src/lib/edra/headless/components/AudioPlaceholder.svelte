@@ -5,6 +5,7 @@
 	const { editor }: NodeViewProps = $props();
 
 	function handleClick(e: MouseEvent) {
+		if (!editor.isEditable) return;
 		e.preventDefault();
 		const audioUrl = prompt('Enter the URL of an audio:');
 		if (!audioUrl) {

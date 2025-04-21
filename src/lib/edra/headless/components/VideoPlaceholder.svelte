@@ -5,6 +5,7 @@
 	const { editor }: NodeViewProps = $props();
 
 	function handleClick(e: MouseEvent) {
+		if (!editor.isEditable) return;
 		e.preventDefault();
 		const videoUrl = prompt('Enter the URL of the video:');
 		if (!videoUrl) {

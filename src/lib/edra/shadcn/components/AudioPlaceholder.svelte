@@ -21,6 +21,7 @@
 				variant: 'outline',
 				class: 'h-fit w-full bg-muted/50 p-0'
 			})}
+			disabled={!editor.isEditable}
 		>
 			<div contenteditable="false" class="flex w-full items-center justify-start p-4">
 				<AudioLines class="mr-2" />
