@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
 	import { icons } from 'lucide-svelte';
@@ -91,8 +90,6 @@
 		}
 		return false;
 	}
-
-	onDestroy(() => props.markDestroyed());
 </script>
 
 <svelte:window onkeydown={handleKeyDown} />
