@@ -131,7 +131,8 @@ export interface EdraProps {
 
 ### Toolbar `<EdraToolbar>`
 
-The `<EdraToolbar>` component renders the editor's toolbar and displays a set of command buttons in a specific order. You can control which commands appear and in what order by passing an array to the allowedCommands property. The toolbar supports “special” toolbar components like font size, quick color, and search/replace.
+The `<EdraToolbar>` component renders the editor's toolbar and displays a set of command buttons in a specific order.
+The toolbar supports “special” toolbar components like font size, quick color, and search/replace.
 
 ```ts
 interface Props {
