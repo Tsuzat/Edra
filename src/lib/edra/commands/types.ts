@@ -1,9 +1,9 @@
 import type { Editor } from '@tiptap/core';
-import { icons } from '@lucide/svelte';
+import { Icon } from '@lucide/svelte';
 
 export interface EdraToolBarCommands {
 	name: string;
-	icon: keyof typeof icons;
+	icon: typeof Icon;
 	tooltip?: string;
 	shortCut?: string;
 	onClick?: (editor: Editor) => void;

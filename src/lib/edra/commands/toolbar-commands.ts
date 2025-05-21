@@ -1,10 +1,16 @@
 import type { EdraToolBarCommands } from './types.js';
 import { isMac } from '../utils.js';
+import Undo from '@lucide/svelte/icons/undo-2';
+import Redo from '@lucide/svelte/icons/redo-2';
+import Heading1 from '@lucide/svelte/icons/heading-1';
+import Heading2 from '@lucide/svelte/icons/heading-2';
+import Heading3 from '@lucide/svelte/icons/heading-3';
+import Heading4 from '@lucide/svelte/icons/heading-4';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
 		{
-			icon: 'Undo',
+			icon: Undo,
 			name: 'undo',
 			tooltip: 'Undo',
 			shortCut: `${isMac ? '⌘' : 'Ctrl'}+Z`,
@@ -16,7 +22,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		},
 		{
-			icon: 'Redo',
+			icon: Redo,
 			name: 'redo',
 			tooltip: 'Redo',
 			shortCut: `${isMac ? '⌘' : 'Ctrl'}+Y`,
@@ -30,7 +36,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 	],
 	heading: [
 		{
-			icon: 'H1',
+			icon: Heading1,
 			name: 'h1',
 			tooltip: 'Heading 1',
 			onClick: (editor) => {
@@ -41,7 +47,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		},
 		{
-			icon: 'H2',
+			icon: Heading2,
 			name: 'h2',
 			tooltip: 'Heading 2',
 			onClick: (editor) => {
@@ -52,7 +58,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		},
 		{
-			icon: 'H3',
+			icon: Heading3,
 			name: 'h3',
 			tooltip: 'Heading 3',
 			onClick: (editor) => {
@@ -63,7 +69,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		},
 		{
-			icon: 'H4',
+			icon: Heading4,
 			name: 'h4',
 			tooltip: 'Heading 4',
 			onClick: (editor) => {

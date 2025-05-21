@@ -2,6 +2,8 @@
 	import { onDestroy, onMount } from 'svelte';
 	import type { EdraEditorProps } from '../types.js';
 	import initEditor from '../editor.js';
+	import { focusEditor } from '../utils.js';
+	import { cn } from '$lib/utils.js';
 
 	/**
 	 * Bind the element to the editor
@@ -12,7 +14,8 @@
 		editable = true,
 		extensions,
 		content,
-		onUpdate
+		onUpdate,
+		class: className
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
@@ -24,4 +27,15 @@
 	});
 </script>
 
-<div bind:this={element}></div>
+<div
+	bind:this={element}
+	role="button"
+	tabindex="0"
+	onclick={(event) => focusEditor(editor, event)}
+	onkeydown={(event) => {
+		if (event.key === 'Enter' || event.key === ' ') {
+			focusEditor(editor, event);
+		}
+	}}
+	class={cn('edra-editor h-full min-w-full cursor-auto p-2 *:outline-none', className)}
+></div>
