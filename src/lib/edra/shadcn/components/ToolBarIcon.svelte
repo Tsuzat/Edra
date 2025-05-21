@@ -19,7 +19,7 @@
 		size="icon"
 		class={cn(command.isActive?.(editor) && 'bg-muted')}
 		onclick={() => command.onClick?.(editor)}
-		disabled={!command.clickable?.(editor)}
+		disabled={command.clickable ? !command.clickable(editor) : false}
 	>
 		{@const Icon = command.icon}
 		<Icon />

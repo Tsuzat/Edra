@@ -10,14 +10,14 @@
 	const { tooltip, children, shortCut }: Props = $props();
 </script>
 
-<Tooltip.Provider>
+<Tooltip.Provider delayDuration={100}>
 	<Tooltip.Root>
 		<Tooltip.Trigger>
 			{@render children()}
 		</Tooltip.Trigger>
 		<Tooltip.Content>
-			<p>{tooltip}</p>
-			<p class="text-muted-foreground">{shortCut}</p>
+			<span>{tooltip}</span>
+			<span class="text-muted-foreground">{shortCut}</span>
 		</Tooltip.Content>
 	</Tooltip.Root>
 </Tooltip.Provider>
