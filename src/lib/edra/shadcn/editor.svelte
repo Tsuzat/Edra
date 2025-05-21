@@ -4,6 +4,9 @@
 	import initEditor from '../editor.js';
 	import { focusEditor } from '../utils.js';
 	import { cn } from '$lib/utils.js';
+	import '../editor.css';
+	import './style.css';
+	import '../onedark.css';
 
 	/**
 	 * Bind the element to the editor
@@ -19,7 +22,12 @@
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
-		editor = initEditor(element, extensions);
+		editor = initEditor(element, extensions, {
+			onTransaction(props) {
+				editor = undefined;
+				editor = props.editor;
+			}
+		});
 	});
 
 	onDestroy(() => {
