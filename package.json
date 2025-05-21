@@ -45,6 +45,7 @@
 		"@tailwindcss/vite": "^4.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"bits-ui": "^1.5.0",
 		"clsx": "^2.1.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
@@ -60,7 +61,7 @@
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwind-merge": "^3.0.2",
-		"tailwind-variants": "^1.0.0",
+		"tailwind-variants": "^0.2.1",
 		"tailwindcss": "^4.0.0",
 		"tw-animate-css": "^1.3.0",
 		"typescript": "^5.0.0",
@@ -70,5 +71,10 @@
 	},
 	"keywords": [
 		"svelte"
-	]
+	],
+	"dependencies": {
+		"@tiptap/core": "^3.0.0-beta.5",
+		"@tiptap/pm": "^3.0.0-beta.5",
+		"@tiptap/starter-kit": "^3.0.0-beta.5"
+	}
 }
