@@ -1,0 +1,39 @@
+:root {
+	/* Convert Tailwind HSL variables to proper CSS colors using hsl() function */
+	--border-color: hsl(var(--muted));
+	--border-color-hover: hsl(var(--muted-foreground));
+	--blockquote-border: hsl(var(--muted-foreground) / 0.25);
+	--code-color: rgb(255, 68, 0);
+	--code-bg: hsl(var(--muted-foreground) / 0.1);
+	--code-border: hsl(var(--muted-foreground) / 0.15);
+	--table-border: hsl(var(--muted-foreground) / 0.25);
+	--table-bg-selected: hsl(var(--muted-foreground) / 0.1);
+	--table-bg-hover: hsl(var(--muted));
+	--task-completed-color: hsl(var(--muted-foreground));
+	--highlight-color: rgba(0, 255, 0, 0.1);
+	--highlight-border: green;
+	--search-result-bg: yellow;
+	--search-result-current-bg: orange;
+}
+
+.prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+	margin: 0 !important;
+}
+
+.tiptap code::after,
+.tiptap code::before {
+	content: '';
+}
+
+.tiptap a {
+	color: blue;
+}
+
+.tiptap blockquote p::after,
+.tiptap blockquote p::before {
+	content: '';
+}
+
+.tiptap blockquote {
+	font-style: normal;
+}
