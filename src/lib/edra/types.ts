@@ -8,3 +8,9 @@ export interface EdraEditorProps {
 	onUpdate?: (content: Content) => void;
 	class?: string;
 }
+
+export interface EdraToolbarProps {
+	editor: Editor;
+	class?: string;
+	excludedCommands?: string[];
+}
