@@ -11,6 +11,14 @@ import Bold from '@lucide/svelte/icons/bold';
 import Italic from '@lucide/svelte/icons/italic';
 import Underline from '@lucide/svelte/icons/underline';
 import StrikeThrough from '@lucide/svelte/icons/strikethrough';
+import Quote from '@lucide/svelte/icons/quote';
+import Code from '@lucide/svelte/icons/code';
+import Superscript from '@lucide/svelte/icons/superscript';
+import Subscript from '@lucide/svelte/icons/subscript';
+import AlignLeft from '@lucide/svelte/icons/align-left';
+import AlignCenter from '@lucide/svelte/icons/align-center';
+import AlignRight from '@lucide/svelte/icons/align-right';
+import AlighJustify from '@lucide/svelte/icons/align-justify';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -175,6 +183,120 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			isActive: (editor) => {
 				return editor.isActive('strike');
 			}
+		},
+		{
+			icon: Quote,
+			name: 'blockQuote',
+			tooltip: 'BlockQuote',
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}B`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleBlockquote().run();
+			},
+			clickable: (editor) => {
+				return editor.can().toggleBlockquote();
+			},
+			isActive: (editor) => {
+				return editor.isActive('blockquote');
+			}
+		},
+		{
+			icon: Code,
+			name: 'code',
+			tooltip: 'Inline Code',
+			shortCut: `${isMac ? '⌘' : 'Ctrl+'}E`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleCode().run();
+			},
+			clickable: (editor) => {
+				return editor.can().toggleCode();
+			},
+			isActive: (editor) => {
+				return editor.isActive('code');
+			}
+		},
+		{
+			icon: Superscript,
+			name: 'superscript',
+			tooltip: 'Superscript',
+			shortCut: `${isMac ? '⌘' : 'Ctrl+'}.`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleSuperscript().run();
+			},
+			clickable: (editor) => {
+				return editor.can().toggleSuperscript();
+			},
+			isActive: (editor) => {
+				return editor.isActive('superscript');
+			}
+		},
+		{
+			icon: Subscript,
+			name: 'subscript',
+			tooltip: 'Subscript',
+			shortCut: `${isMac ? '⌘' : 'Ctrl+'},`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleSubscript().run();
+			},
+			clickable: (editor) => {
+				return editor.can().toggleSubscript();
+			},
+			isActive: (editor) => {
+				return editor.isActive('subscript');
+			}
+		}
+	],
+	'text-align': [
+		{
+			icon: AlignLeft,
+			name: 'align-left',
+			tooltip: 'Align Left',
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}L`,
+			onClick: (editor) => {
+				editor.chain().focus().setTextAlign('left').run();
+			},
+			clickable: (editor) => {
+				return editor.can().setTextAlign('left');
+			},
+			isActive: (editor) => editor.isActive({ textAlign: 'left' })
+		},
+		{
+			icon: AlignCenter,
+			name: 'align-center',
+			tooltip: 'Align Center',
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}E`,
+			onClick: (editor) => {
+				editor.chain().focus().setTextAlign('center').run();
+			},
+			clickable: (editor) => {
+				return editor.can().setTextAlign('center');
+			},
+			isActive: (editor) => editor.isActive({ textAlign: 'center' })
+		},
+		{
+			icon: AlignRight,
+			name: 'align-right',
+			tooltip: 'Align Right',
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}R`,
+			onClick: (editor) => {
+				editor.chain().focus().setTextAlign('right').run();
+			},
+			clickable: (editor) => {
+				return editor.can().setTextAlign('right');
+			},
+			isActive: (editor) => editor.isActive({ textAlign: 'right' })
+		},
+		{
+			icon: AlighJustify,
+			name: 'align-justify',
+			tooltip: 'Align Justify',
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}J`,
+			onClick: (editor) => {
+				editor.chain().focus().setTextAlign('justify').run();
+			},
+			clickable: (editor) => {
+				return editor.can().setTextAlign('justify');
+			},
+			isActive: (editor) => editor.isActive({ textAlign: 'justify' })
 		}
 	]
 };
