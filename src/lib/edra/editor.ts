@@ -8,6 +8,8 @@ import { ColorHighlighter } from './extensions/ColorHighlighter.js';
 import { SmilieReplacer } from './extensions/SmilieReplacer.js';
 import { FontSize, TextStyle } from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
+import Highlight from '@tiptap/extension-highlight';
+import SearchAndReplace from './extensions/FindAndReplace.js';
 
 export default (
 	element?: HTMLElement,
@@ -38,6 +40,9 @@ export default (
 				},
 				codeBlock: false
 			}),
+			Highlight.configure({
+				multicolor: true
+			}),
 			Subscript,
 			Superscript,
 			Typography,
@@ -48,6 +53,7 @@ export default (
 			TextAlign.configure({
 				types: ['heading', 'paragraph']
 			}),
+			SearchAndReplace,
 			...(extensions ?? [])
 		],
 		injectCSS: false,
