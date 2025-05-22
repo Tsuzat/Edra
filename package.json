@@ -74,7 +74,14 @@
 	],
 	"dependencies": {
 		"@tiptap/core": "^3.0.0-beta.5",
+		"@tiptap/extension-image": "^3.0.0-beta.5",
+		"@tiptap/extension-subscript": "^3.0.0-beta.5",
+		"@tiptap/extension-superscript": "^3.0.0-beta.5",
+		"@tiptap/extension-text-align": "^3.0.0-beta.5",
+		"@tiptap/extension-text-style": "^3.0.0-beta.5",
+		"@tiptap/extension-typography": "^3.0.0-beta.5",
 		"@tiptap/pm": "^3.0.0-beta.5",
-		"@tiptap/starter-kit": "^3.0.0-beta.5"
+		"@tiptap/starter-kit": "^3.0.0-beta.5",
+		"svelte-tiptap": "^2.1.0"
 	}
 }
