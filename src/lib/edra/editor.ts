@@ -10,6 +10,7 @@ import { FontSize, TextStyle } from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import SearchAndReplace from './extensions/FindAndReplace.js';
+import { TaskItem, TaskList } from '@tiptap/extension-list';
 
 export default (
 	element?: HTMLElement,
@@ -52,6 +53,10 @@ export default (
 			SmilieReplacer,
 			TextAlign.configure({
 				types: ['heading', 'paragraph']
+			}),
+			TaskList,
+			TaskItem.configure({
+				nested: true
 			}),
 			SearchAndReplace,
 			...(extensions ?? [])
