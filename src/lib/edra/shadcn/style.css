@@ -13,11 +13,6 @@
 	--search-result-current-bg: orange;
 }
 
-.tiptap code::after,
-.tiptap code::before {
-	content: '';
-}
-
 .tiptap a {
 	color: blue;
 }
