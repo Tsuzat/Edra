@@ -5,6 +5,7 @@
       "name": "edra",
       "dependencies": {
         "@tiptap/core": "^3.0.0-beta.5",
+        "@tiptap/extension-highlight": "^3.0.0-beta.5",
         "@tiptap/extension-image": "^3.0.0-beta.5",
         "@tiptap/extension-subscript": "^3.0.0-beta.5",
         "@tiptap/extension-superscript": "^3.0.0-beta.5",
@@ -307,6 +308,8 @@
     "@tiptap/extension-hard-break": ["@tiptap/extension-hard-break@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/core": "3.0.0-beta.5" } }, "sha512-0ozhGM0lCq3jTnWXP5fhjVuiCoX6mvs9/YU9J/W85s2RNTq9qCyyO04aTbg/hJvilLvp4XinHugk8nUueUUeEA=="],
 
     "@tiptap/extension-heading": ["@tiptap/extension-heading@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/core": "3.0.0-beta.5" } }, "sha512-6esETWdxFqRd1LM5Y+5Dqw05e7FpYYQ0q+UWPZkseQRdzZv53hKGjjv2shgUBhrrgGe/+wa4y+TEUwKY/XJKLA=="],
+
+    "@tiptap/extension-highlight": ["@tiptap/extension-highlight@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/core": "3.0.0-beta.5" } }, "sha512-2OUjjdVN2Ng/j5aFT3q7FP0KwlkgBiVdBRhsrTLiIh7DBvohsj1p9P2jHSscLX9I/tFHlYk+NvVC7rOWwkUXCg=="],
 
     "@tiptap/extension-horizontal-rule": ["@tiptap/extension-horizontal-rule@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/core": "3.0.0-beta.5", "@tiptap/pm": "3.0.0-beta.5" } }, "sha512-RzDf6kNsH+wZ5tfsZmN92rrnGmc0DvxVe/kBC8xhuvTYHGVUy+lzqAvdo1+k8CEZr5tlcxycC8XaaQtWuTNwhA=="],
 
