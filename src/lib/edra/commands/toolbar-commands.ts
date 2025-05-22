@@ -19,6 +19,9 @@ import AlignLeft from '@lucide/svelte/icons/align-left';
 import AlignCenter from '@lucide/svelte/icons/align-center';
 import AlignRight from '@lucide/svelte/icons/align-right';
 import AlighJustify from '@lucide/svelte/icons/align-justify';
+import List from '@lucide/svelte/icons/list';
+import ListOrdered from '@lucide/svelte/icons/list-ordered';
+import ListChecks from '@lucide/svelte/icons/list-checks';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -298,7 +301,70 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			},
 			isActive: (editor) => editor.isActive({ textAlign: 'justify' })
 		}
+	],
+	lists: [
+		{
+			icon: List,
+			name: 'bulletList',
+			tooltip: 'Bullet List',
+			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+8`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleBulletList().run();
+			}
+		},
+		{
+			icon: ListOrdered,
+			name: 'orderedList',
+			tooltip: 'Ordered List',
+			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+7`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleOrderedList().run();
+			}
+		},
+		{
+			icon: ListChecks,
+			name: 'taskList',
+			tooltip: 'Task List',
+			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+9`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleTaskList().run();
+			}
+		}
 	]
+	// media: [
+	// 	{
+	// 		iconName: 'AudioLines',
+	// 		name: 'audio-placeholder',
+	// 		label: 'Audio',
+	// 		action: (editor) => {
+	// 			editor.chain().focus().insertAudioPlaceholder().run();
+	// 		}
+	// 	},
+	// 	{
+	// 		iconName: 'Image',
+	// 		name: 'image-placeholder',
+	// 		label: 'Image',
+	// 		action: (editor) => {
+	// 			editor.chain().focus().insertImagePlaceholder().run();
+	// 		}
+	// 	},
+	// 	{
+	// 		iconName: 'Video',
+	// 		name: 'video-placeholder',
+	// 		label: 'Video',
+	// 		action: (editor) => {
+	// 			editor.chain().focus().insertVideoPlaceholder().run();
+	// 		}
+	// 	},
+	// 	{
+	// 		iconName: 'CodeXml',
+	// 		name: 'iframe-placeholder',
+	// 		label: 'IFrame',
+	// 		action: (editor) => {
+	// 			editor.chain().focus().insertIFramePlaceholder().run();
+	// 		}
+	// 	}
+	// ]
 };
 
 export default commands;
