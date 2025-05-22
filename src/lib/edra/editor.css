@@ -32,7 +32,11 @@
 }
 
 .tiptap h1 {
-	font-size: 2rem;
+	scroll-margin: 5rem;
+	font-size: 2.25rem;
+	line-height: 2.5rem;
+	font-weight: 800;
+	letter-spacing: -0.015em;
 }
 
 .tiptap h2 {
@@ -51,12 +55,11 @@
 
 /* Blockquote Styles */
 .tiptap blockquote {
-	border-left: 0.5rem solid var(--blockquote-border);
-	border-radius: 0.5rem;
-	background-color: var(--code-bg);
-	margin: 1rem 0;
-	padding: 0.5rem 0;
-	padding-left: 1rem;
+	margin-top: 1.5rem;
+	border-left: 3px solid var(--blockquote-border);
+	padding: 0.25rem 0;
+	padding-left: 0.5rem;
+	font-style: italic;
 }
 
 .tiptap blockquote p {
@@ -72,12 +75,13 @@
 
 /* Inline Code */
 .tiptap code:not(pre code) {
-	border-radius: 0.25rem;
-	color: var(--code-color);
 	background-color: var(--code-bg);
-	border: 0.5px solid var(--code-border) !important;
-	padding: 0.25rem;
-	font-family: 'JetBrains Mono', monospace, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono';
+	position: relative;
+	border-radius: 0.25rem;
+	padding: 0.2rem 0.3rem;
+	font-family: monospace;
+	font-size: 0.875rem;
+	font-weight: 500;
 }
 
 /* List Styling */
