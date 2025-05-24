@@ -55,7 +55,7 @@
 
 /* Blockquote Styles */
 .tiptap blockquote {
-	margin-top: 1.5rem;
+	margin: 1rem 0rem;
 	border-left: 3px solid var(--blockquote-border);
 	padding: 0.25rem 0;
 	padding-left: 0.5rem;
