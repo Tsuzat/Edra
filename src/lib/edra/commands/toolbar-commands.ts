@@ -22,6 +22,7 @@ import AlighJustify from '@lucide/svelte/icons/align-justify';
 import List from '@lucide/svelte/icons/list';
 import ListOrdered from '@lucide/svelte/icons/list-ordered';
 import ListChecks from '@lucide/svelte/icons/list-checks';
+import Image from '@lucide/svelte/icons/image';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -330,41 +331,17 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 				editor.chain().focus().toggleTaskList().run();
 			}
 		}
+	],
+	media: [
+		{
+			icon: Image,
+			name: 'image-placeholder',
+			tooltip: 'Image',
+			onClick: (editor) => {
+				editor.chain().focus().insertImagePlaceholder().run();
+			}
+		}
 	]
-	// media: [
-	// 	{
-	// 		iconName: 'AudioLines',
-	// 		name: 'audio-placeholder',
-	// 		label: 'Audio',
-	// 		action: (editor) => {
-	// 			editor.chain().focus().insertAudioPlaceholder().run();
-	// 		}
-	// 	},
-	// 	{
-	// 		iconName: 'Image',
-	// 		name: 'image-placeholder',
-	// 		label: 'Image',
-	// 		action: (editor) => {
-	// 			editor.chain().focus().insertImagePlaceholder().run();
-	// 		}
-	// 	},
-	// 	{
-	// 		iconName: 'Video',
-	// 		name: 'video-placeholder',
-	// 		label: 'Video',
-	// 		action: (editor) => {
-	// 			editor.chain().focus().insertVideoPlaceholder().run();
-	// 		}
-	// 	},
-	// 	{
-	// 		iconName: 'CodeXml',
-	// 		name: 'iframe-placeholder',
-	// 		label: 'IFrame',
-	// 		action: (editor) => {
-	// 			editor.chain().focus().insertIFramePlaceholder().run();
-	// 		}
-	// 	}
-	// ]
 };
 
 export default commands;
