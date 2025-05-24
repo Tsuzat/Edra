@@ -1,17 +1,18 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import EdraEditor from '$lib/edra/shadcn/editor.svelte';
 	import Toolbar from '$lib/edra/shadcn/toolbar.svelte';
 	import { Editor, type Content } from '@tiptap/core';
-	import { onMount } from 'svelte';
 	let editor = $state<Editor>();
 	let content = $state<Content>();
 
-	onMount(() => {
+	if (browser) {
 		const rawContent = localStorage.getItem('edra-content');
+		console.log('Raw Content', rawContent);
 		if (rawContent) {
 			content = JSON.parse(rawContent);
 		}
-	});
+	}
 
 	$effect(() => {
 		console.log('[DEBUG]', $state.snapshot(content));
@@ -26,8 +27,11 @@
 <main class="mx-auto my-auto flex max-w-4xl flex-col items-center justify-center">
 	<div class="mt-12 size-full rounded-md border border-dashed">
 		{#if editor}
-			<Toolbar class="flex w-full items-center overflow-x-scroll border-b border-dashed" {editor} />
+			<Toolbar
+				class="flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
+				{editor}
+			/>
 		{/if}
-		<EdraEditor bind:editor {content} class="h-96" {onUpdate} />
+		<EdraEditor bind:editor {content} class="h-96 overflow-y-scroll" {onUpdate} />
 	</div>
 </main>
