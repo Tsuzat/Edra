@@ -7,6 +7,8 @@
 	import '../editor.css';
 	import './style.css';
 	import '../onedark.css';
+	import { ImagePlaceholder } from '../extensions/image/ImagePlaceholder.js';
+	import ImagePlaceholderComp from './components/ImagePlaceholder.svelte';
 
 	/**
 	 * Bind the element to the editor
@@ -22,7 +24,8 @@
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
-		editor = initEditor(element, extensions, {
+		editor = initEditor(element, extensions, [ImagePlaceholder(ImagePlaceholderComp)], {
+			onUpdate,
 			onTransaction(props) {
 				editor = undefined;
 				editor = props.editor;
