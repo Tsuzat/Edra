@@ -1,4 +1,4 @@
-import { Editor, Extension, type EditorOptions } from '@tiptap/core';
+import { Editor, type Extensions, type EditorOptions, type Content } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { getHandlePaste } from './utils.js';
 import Subscript from '@tiptap/extension-subscript';
@@ -14,11 +14,13 @@ import { TaskItem, TaskList } from '@tiptap/extension-list';
 
 export default (
 	element?: HTMLElement,
-	extensions?: Extension[],
+	content?: Content,
+	extensions?: Extensions,
 	options?: Partial<EditorOptions>
 ) => {
 	const editor = new Editor({
 		element,
+		content,
 		extensions: [
 			StarterKit.configure({
 				orderedList: {
