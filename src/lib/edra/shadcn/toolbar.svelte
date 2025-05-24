@@ -10,9 +10,9 @@
 </script>
 
 <div class={cn('edra-toolbar', className)}>
-	{#each toolbarCommands as command}
-		{@const commandGroup = commands[command]}
-		{#each commandGroup as command}
+	{#each toolbarCommands as cmd (cmd)}
+		{@const commandGroup = commands[cmd]}
+		{#each commandGroup as command (command)}
 			<ToolBarIcon {editor} {command} />
 		{/each}
 	{/each}
