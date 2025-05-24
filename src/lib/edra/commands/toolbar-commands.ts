@@ -308,7 +308,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			icon: List,
 			name: 'bulletList',
 			tooltip: 'Bullet List',
-			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+8`,
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}8`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleBulletList().run();
 			}
@@ -317,7 +317,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			icon: ListOrdered,
 			name: 'orderedList',
 			tooltip: 'Ordered List',
-			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+7`,
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}7`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleOrderedList().run();
 			}
@@ -326,7 +326,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			icon: ListChecks,
 			name: 'taskList',
 			tooltip: 'Task List',
-			shortCut: `${isMac ? 'Cmd' : 'Ctrl'}+Shift+9`,
+			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}9`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleTaskList().run();
 			}
@@ -336,10 +336,11 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 		{
 			icon: Image,
 			name: 'image-placeholder',
-			tooltip: 'Image',
+			tooltip: 'Image Placeholder',
 			onClick: (editor) => {
 				editor.chain().focus().insertImagePlaceholder().run();
-			}
+			},
+			isActive: (editor) => editor.isActive('image-placeholder')
 		}
 	]
 };
