@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount, type Snippet } from 'svelte';
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
 	import { cn } from '$lib/utils.js';
@@ -17,12 +17,24 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { duplicateContent } from '../../utils.js';
 
-	const { node, editor, selected, deleteNode, updateAttributes }: NodeViewProps = $props();
+	interface MediaExtendedProps extends NodeViewProps {
+		children: Snippet<[]>;
+		mediaRef?: HTMLElement;
+	}
+
+	const {
+		node,
+		editor,
+		selected,
+		deleteNode,
+		updateAttributes,
+		children,
+		mediaRef = $bindable()
+	}: MediaExtendedProps = $props();
 
 	const minWidthPercent = 15;
 	const maxWidthPercent = 100;
 
-	let imgRef = $state<HTMLElement>();
 	let nodeRef = $state<HTMLElement>();
 
 	let resizing = $state(false);
@@ -40,8 +52,8 @@
 		e.preventDefault();
 		resizing = true;
 		resizingInitialMouseX = e.clientX;
-		if (imgRef && nodeRef?.parentElement) {
-			const currentWidth = imgRef.offsetWidth;
+		if (mediaRef && nodeRef?.parentElement) {
+			const currentWidth = mediaRef.offsetWidth;
 			const parentWidth = nodeRef.parentElement.offsetWidth;
 			resizingInitialWidthPercent = (currentWidth / parentWidth) * 100;
 		}
@@ -73,8 +85,8 @@
 		resizing = true;
 		resizingPosition = position;
 		resizingInitialMouseX = e.touches[0].clientX;
-		if (imgRef && nodeRef?.parentElement) {
-			const currentWidth = imgRef.offsetWidth;
+		if (mediaRef && nodeRef?.parentElement) {
+			const currentWidth = mediaRef.offsetWidth;
 			const parentWidth = nodeRef.parentElement.offsetWidth;
 			resizingInitialWidthPercent = (currentWidth / parentWidth) * 100;
 		}
@@ -133,13 +145,7 @@
 	style={`width: ${node.attrs.width}`}
 >
 	<div class={cn('group relative flex flex-col rounded-md', resizing && '')}>
-		<img
-			bind:this={imgRef}
-			src={node.attrs.src}
-			alt={node.attrs.alt}
-			title={node.attrs.title}
-			class="m-0 object-cover"
-		/>
+		{@render children()}
 
 		{#if editor?.isEditable}
 			<div

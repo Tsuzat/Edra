@@ -9,6 +9,16 @@
 	import '../onedark.css';
 	import { ImagePlaceholder } from '../extensions/image/ImagePlaceholder.js';
 	import ImagePlaceholderComp from './components/ImagePlaceholder.svelte';
+	import { ImageExtended } from '../extensions/image/ImageExtended.js';
+	import ImageExtendedComp from './components/ImageExtended.svelte';
+	import { VideoPlaceholder } from '../extensions/video/VideoPlaceholder.js';
+	import VideoPlaceHolderComp from './components/VideoPlaceholder.svelte';
+	import { VideoExtended } from '../extensions/video/VideoExtended.js';
+	import VideoExtendedComp from './components/VideoExtended.svelte';
+	import { AudioPlaceholder } from '../extensions/audio/AudioPlaceholder.js';
+	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
+	import AudioPlaceHolderComp from './components/AudioPlaceHolder.svelte';
+	import AudioExtendedComp from './components/AudioExtended.svelte';
 
 	/**
 	 * Bind the element to the editor
@@ -17,20 +27,32 @@
 	let {
 		editor = $bindable(),
 		editable = true,
-		extensions,
 		content,
 		onUpdate,
 		class: className
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
-		editor = initEditor(element, extensions, [ImagePlaceholder(ImagePlaceholderComp)], {
-			onUpdate,
-			onTransaction(props) {
-				editor = undefined;
-				editor = props.editor;
+		console.log('On mount content', content);
+		editor = initEditor(
+			element,
+			content,
+			[
+				ImagePlaceholder(ImagePlaceholderComp),
+				ImageExtended(ImageExtendedComp),
+				VideoPlaceholder(VideoPlaceHolderComp),
+				VideoExtended(VideoExtendedComp),
+				AudioPlaceholder(AudioPlaceHolderComp),
+				AudioExtended(AudioExtendedComp)
+			],
+			{
+				onUpdate,
+				onTransaction(props) {
+					editor = undefined;
+					editor = props.editor;
+				}
 			}
-		});
+		);
 	});
 
 	onDestroy(() => {
