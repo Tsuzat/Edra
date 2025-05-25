@@ -33,6 +33,6 @@
 			/>
 			<DragHandle {editor} />
 		{/if}
-		<EdraEditor bind:editor {content} class="ml-4 h-96 overflow-y-scroll" {onUpdate} />
+		<EdraEditor bind:editor {content} class="h-96 overflow-y-scroll pr-2 pl-6" {onUpdate} />
 	</div>
 </main>
