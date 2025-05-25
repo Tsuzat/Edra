@@ -54,12 +54,33 @@
 }
 
 /* Blockquote Styles */
-.tiptap blockquote {
+/* .tiptap blockquote {
 	margin: 1rem 0rem;
 	border-left: 3px solid var(--blockquote-border);
 	padding: 0.25rem 0;
 	padding-left: 0.5rem;
 	font-style: italic;
+	color: var(--blockquote-color);
+} */
+
+.tiptap blockquote {
+	margin: 1rem 0rem;
+	padding: 0.5rem 0;
+	padding-left: 0.75rem;
+	font-style: italic;
+	color: var(--blockquote-color);
+	position: relative;
+}
+
+.tiptap blockquote::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 0.25rem;
+	background-color: var(--blockquote-border);
+	border-radius: 0.5rem;
 }
 
 .tiptap blockquote p {
@@ -76,12 +97,11 @@
 /* Inline Code */
 .tiptap code:not(pre code) {
 	background-color: var(--code-bg);
-	position: relative;
 	border-radius: 0.25rem;
 	padding: 0.2rem 0.3rem;
 	font-family: monospace;
 	font-size: 0.875rem;
-	font-weight: 500;
+	font-weight: bold;
 }
 
 /* List Styling */
@@ -410,7 +430,7 @@ input[type='checkbox'] {
 }
 
 .code-wrapper {
-	background-color: var(--code-bg);
+	background-color: var(--codeblock-bg);
 	border-radius: 0.5rem;
 	padding: 1rem;
 	position: relative;
