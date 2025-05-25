@@ -8,7 +8,6 @@
 
 	if (browser) {
 		const rawContent = localStorage.getItem('edra-content');
-		console.log('Raw Content', rawContent);
 		if (rawContent) {
 			content = JSON.parse(rawContent);
 		}
