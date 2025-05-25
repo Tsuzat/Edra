@@ -1,21 +1,24 @@
 <script lang="ts">
 	import type { ShouldShowProps } from '../../types.js';
 	import { type Editor } from '@tiptap/core';
-	import { BubbleMenu } from 'svelte-tiptap';
 	import ArrowDownFromLine from '@lucide/svelte/icons/arrow-down-from-line';
 	import ArrowUpFromLine from '@lucide/svelte/icons/arrow-up-from-line';
 	import Trash from '@lucide/svelte/icons/trash';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { isRowGripSelected } from '../../extensions/table/utils.js';
 	import EdraToolTip from '../components/EdraToolTip.svelte';
+	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
 	interface Props {
 		editor: Editor;
 	}
 
-	let { editor }: Props = $props();
+	const { editor }: Props = $props();
+
+	let element = document.createElement('div');
 </script>
 
 <BubbleMenu
+	{element}
 	{editor}
 	pluginKey="table-row-menu"
 	shouldShow={(props: ShouldShowProps) => {
@@ -30,10 +33,7 @@
 			from: props.from
 		});
 	}}
-	tippyOptions={{
-		placement: 'top-start'
-	}}
-	class="bg-background flex h-fit w-fit items-center gap-1 rounded border p-1 shadow-lg"
+	class="bg-background flex h-fit w-fit items-center gap-1 rounded border shadow-lg"
 >
 	<EdraToolTip tooltip="Add Row After">
 		<Button variant="ghost" size="icon" onclick={() => editor.chain().focus().addRowAfter().run()}>

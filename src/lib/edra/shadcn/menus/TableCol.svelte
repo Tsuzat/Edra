@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ShouldShowProps } from '../../types.js';
 	import { type Editor } from '@tiptap/core';
-	import { BubbleMenu } from 'svelte-tiptap';
 	import ArrowLeftFromLine from '@lucide/svelte/icons/arrow-left-from-line';
 	import ArrowRightFromLine from '@lucide/svelte/icons/arrow-right-from-line';
 
@@ -9,14 +8,18 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { isColumnGripSelected } from '../../extensions/table/utils.js';
 	import EdraToolTip from '../components/EdraToolTip.svelte';
+	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
 	interface Props {
 		editor: Editor;
 	}
 
-	let { editor }: Props = $props();
+	const { editor }: Props = $props();
+
+	let element = document.createElement('div');
 </script>
 
 <BubbleMenu
+	{element}
 	{editor}
 	pluginKey="table-col-menu"
 	shouldShow={(props: ShouldShowProps) => {
@@ -31,10 +34,7 @@
 			from: props.from
 		});
 	}}
-	tippyOptions={{
-		placement: 'top-start'
-	}}
-	class="bg-background flex h-fit w-fit items-center gap-1 rounded border p-1 shadow-lg"
+	class="bg-background flex h-fit w-fit items-center gap-1 rounded border shadow-lg"
 >
 	<EdraToolTip tooltip="Add Column After">
 		<Button

@@ -40,7 +40,7 @@
 				<ChevronDown class="!size-2" />
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content class="h-96 w-40 overflow-auto" contenteditable="false">
-				{#each languages as language}
+				{#each languages as language (language)}
 					<DropdownMenu.Item
 						contenteditable="false"
 						data-current={defaultLanguage === language}
@@ -68,6 +68,6 @@
 		</Button>
 	</div>
 	<pre bind:this={preRef} draggable={false}>
-		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />	
+		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />
 	</pre>
 </NodeViewWrapper>
