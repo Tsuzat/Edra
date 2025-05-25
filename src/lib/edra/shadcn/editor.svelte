@@ -23,6 +23,12 @@
 	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
 	import IFramePlaceHolderComp from './components/IFramePlaceHolder.svelte';
 	import IFrameExtendedComp from './components/IFrameExtended.svelte';
+	import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+	import { all, createLowlight } from 'lowlight';
+	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
+	import CodeBlock from './components/CodeBlock.svelte';
+
+	const lowlight = createLowlight(all);
 
 	/**
 	 * Bind the element to the editor
@@ -37,11 +43,17 @@
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
-		console.log('On mount content', content);
 		editor = initEditor(
 			element,
 			content,
 			[
+				CodeBlockLowlight.configure({
+					lowlight
+				}).extend({
+					addNodeView() {
+						return SvelteNodeViewRenderer(CodeBlock);
+					}
+				}),
 				ImagePlaceholder(ImagePlaceholderComp),
 				ImageExtended(ImageExtendedComp),
 				VideoPlaceholder(VideoPlaceHolderComp),
@@ -56,7 +68,8 @@
 				onTransaction(props) {
 					editor = undefined;
 					editor = props.editor;
-				}
+				},
+				editable
 			}
 		);
 	});
@@ -76,5 +89,5 @@
 			focusEditor(editor, event);
 		}
 	}}
-	class={cn('edra-editor h-full min-w-full cursor-auto p-2 *:outline-none', className)}
+	class={cn('edra-editor h-full w-full cursor-auto *:outline-none', className)}
 ></div>
