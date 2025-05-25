@@ -26,6 +26,7 @@ import Image from '@lucide/svelte/icons/image';
 import Video from '@lucide/svelte/icons/video';
 import Audio from '@lucide/svelte/icons/audio-lines';
 import IFrame from '@lucide/svelte/icons/code-xml';
+import Table from '@lucide/svelte/icons/table';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -259,10 +260,10 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			tooltip: 'Align Left',
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}L`,
 			onClick: (editor) => {
-				editor.chain().focus().setTextAlign('left').run();
+				editor.chain().focus().toggleTextAlign('left').run();
 			},
 			clickable: (editor) => {
-				return editor.can().setTextAlign('left');
+				return editor.can().toggleTextAlign('left');
 			},
 			isActive: (editor) => editor.isActive({ textAlign: 'left' })
 		},
@@ -272,10 +273,10 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			tooltip: 'Align Center',
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}E`,
 			onClick: (editor) => {
-				editor.chain().focus().setTextAlign('center').run();
+				editor.chain().focus().toggleTextAlign('center').run();
 			},
 			clickable: (editor) => {
-				return editor.can().setTextAlign('center');
+				return editor.can().toggleTextAlign('center');
 			},
 			isActive: (editor) => editor.isActive({ textAlign: 'center' })
 		},
@@ -285,10 +286,10 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			tooltip: 'Align Right',
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}R`,
 			onClick: (editor) => {
-				editor.chain().focus().setTextAlign('right').run();
+				editor.chain().focus().toggleTextAlign('right').run();
 			},
 			clickable: (editor) => {
-				return editor.can().setTextAlign('right');
+				return editor.can().toggleTextAlign('right');
 			},
 			isActive: (editor) => editor.isActive({ textAlign: 'right' })
 		},
@@ -298,10 +299,10 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			tooltip: 'Align Justify',
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}J`,
 			onClick: (editor) => {
-				editor.chain().focus().setTextAlign('justify').run();
+				editor.chain().focus().toggleTextAlign('justify').run();
 			},
 			clickable: (editor) => {
-				return editor.can().setTextAlign('justify');
+				return editor.can().toggleTextAlign('justify');
 			},
 			isActive: (editor) => editor.isActive({ textAlign: 'justify' })
 		}
@@ -371,6 +372,17 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 				editor.chain().focus().insertIFramePlaceholder().run();
 			},
 			isActive: (editor) => editor.isActive('iframe-placeholder')
+		}
+	],
+	table: [
+		{
+			icon: Table,
+			name: 'table',
+			tooltip: 'Table',
+			onClick: (editor) => {
+				editor.chain().focus().insertTable({ cols: 3, rows: 3, withHeaderRow: false }).run();
+			},
+			isActive: (editor) => editor.isActive('table')
 		}
 	]
 };

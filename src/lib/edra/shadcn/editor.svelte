@@ -27,6 +27,8 @@
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 	import CodeBlock from './components/CodeBlock.svelte';
+	import TableCol from './menus/TableCol.svelte';
+	import TableRow from './menus/TableRow.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -79,6 +81,10 @@
 	});
 </script>
 
+{#if editor && !editor.isDestroyed}
+	<TableCol {editor} />
+	<TableRow {editor} />
+{/if}
 <div
 	bind:this={element}
 	role="button"
