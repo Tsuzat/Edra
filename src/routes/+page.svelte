@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import DragHandle from '$lib/edra/components/DragHandle.svelte';
 	import EdraEditor from '$lib/edra/shadcn/editor.svelte';
 	import Toolbar from '$lib/edra/shadcn/toolbar.svelte';
 	import { Editor, type Content } from '@tiptap/core';
@@ -25,12 +26,13 @@
 
 <main class="mx-auto my-auto flex max-w-4xl flex-col items-center justify-center">
 	<div class="mt-12 size-full rounded-md border border-dashed">
-		{#if editor}
+		{#if editor && !editor.isDestroyed}
 			<Toolbar
 				class="flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
 				{editor}
 			/>
+			<DragHandle {editor} />
 		{/if}
-		<EdraEditor bind:editor {content} class="h-96 overflow-y-scroll" {onUpdate} />
+		<EdraEditor bind:editor {content} class="ml-4 h-96 overflow-y-scroll" {onUpdate} />
 	</div>
 </main>
