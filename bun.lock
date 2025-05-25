@@ -5,6 +5,7 @@
       "name": "edra",
       "dependencies": {
         "@tiptap/core": "^3.0.0-beta.5",
+        "@tiptap/extension-bubble-menu": "^3.0.0-beta.5",
         "@tiptap/extension-code-block-lowlight": "^3.0.0-beta.5",
         "@tiptap/extension-highlight": "^3.0.0-beta.5",
         "@tiptap/extension-image": "^3.0.0-beta.5",
@@ -292,7 +293,7 @@
 
     "@tiptap/extension-bold": ["@tiptap/extension-bold@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/core": "3.0.0-beta.5" } }, "sha512-NLeheU9EqggFh+bVD2+0nU9OBQqJFsSZDAjdELdh5q5PB4MX1Vy6llbQDAgRjgylYGXvUU/iXKNovJoCLzbfEw=="],
 
-    "@tiptap/extension-bubble-menu": ["@tiptap/extension-bubble-menu@2.12.0", "", { "dependencies": { "tippy.js": "^6.3.7" }, "peerDependencies": { "@tiptap/core": "^2.7.0", "@tiptap/pm": "^2.7.0" } }, "sha512-DYijoE0igV0Oi+ZppFsp2UrQsM/4HZtmmpD78BJM9zfCbd1YvAUIxmzmXr8uqU18OHd1uQy+/zvuNoUNYyw67g=="],
+    "@tiptap/extension-bubble-menu": ["@tiptap/extension-bubble-menu@3.0.0-beta.5", "", { "dependencies": { "@floating-ui/dom": "^1.0.0" }, "peerDependencies": { "@tiptap/core": "3.0.0-beta.5", "@tiptap/pm": "3.0.0-beta.5" } }, "sha512-R8SwLXhZU+fz4F/dzFNRtopV7WJU1QH7+yISy6SUu9wvTbO8YAJ/OLDUKoYwsDbnuUGbVEmugbSgOfh3li7zUg=="],
 
     "@tiptap/extension-bullet-list": ["@tiptap/extension-bullet-list@3.0.0-beta.5", "", { "peerDependencies": { "@tiptap/extension-list": "3.0.0-beta.5" } }, "sha512-Hl3J9UH1CxwNkxxI9r0EtzFVdZq7gN65kyoGas7SDK5OkWcJ8Rnu99T+zswmqdY2W3vdrGuymG45EwKpWdFAKw=="],
 
