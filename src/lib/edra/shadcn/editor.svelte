@@ -19,6 +19,10 @@
 	import { AudioExtended } from '../extensions/audio/AudiExtended.js';
 	import AudioPlaceHolderComp from './components/AudioPlaceHolder.svelte';
 	import AudioExtendedComp from './components/AudioExtended.svelte';
+	import { IFramePlaceholder } from '../extensions/iframe/IFramePlaceholder.js';
+	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
+	import IFramePlaceHolderComp from './components/IFramePlaceHolder.svelte';
+	import IFrameExtendedComp from './components/IFrameExtended.svelte';
 
 	/**
 	 * Bind the element to the editor
@@ -43,7 +47,9 @@
 				VideoPlaceholder(VideoPlaceHolderComp),
 				VideoExtended(VideoExtendedComp),
 				AudioPlaceholder(AudioPlaceHolderComp),
-				AudioExtended(AudioExtendedComp)
+				AudioExtended(AudioExtendedComp),
+				IFramePlaceholder(IFramePlaceHolderComp),
+				IFrameExtended(IFrameExtendedComp)
 			],
 			{
 				onUpdate,
