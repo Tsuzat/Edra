@@ -19,11 +19,12 @@
 	contenteditable="false"
 	class={`media-placeholder ${className}`}
 	onclick={onClick}
+	style="user-select: none;"
 >
 	{#if !children && icon && title}
 		{@const Icon = icon}
 		<Icon />
-		<div>{title}</div>
+		<div contenteditable="false">{title}</div>
 	{/if}
 	{@render children?.()}
 </NodeViewWrapper>
