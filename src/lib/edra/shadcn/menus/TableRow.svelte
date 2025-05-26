@@ -13,12 +13,9 @@
 	}
 
 	const { editor }: Props = $props();
-
-	let element = document.createElement('div');
 </script>
 
 <BubbleMenu
-	{element}
 	{editor}
 	pluginKey="table-row-menu"
 	shouldShow={(props: ShouldShowProps) => {
