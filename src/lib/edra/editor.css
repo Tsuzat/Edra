@@ -41,16 +41,19 @@
 
 .tiptap h2 {
 	font-size: 1.5rem;
+	font-weight: 700;
 }
 
 .tiptap h3 {
 	font-size: 1.25rem;
+	font-weight: 600;
 }
 
 .tiptap h4,
 .tiptap h5,
 .tiptap h6 {
 	font-size: 1rem;
+	font-weight: 600;
 }
 
 /* Blockquote Styles */
