@@ -55,7 +55,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		}
 	],
-	heading: [
+	headings: [
 		{
 			icon: Heading1,
 			name: 'h1',
