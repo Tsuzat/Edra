@@ -123,9 +123,13 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			name: 'link',
 			tooltip: 'Link',
 			onClick: (editor) => {
-				const url = window.prompt('Enter the URL of the link:');
-				if (url) {
-					editor.chain().focus().toggleLink({ href: url }).run();
+				if (editor.isActive('link')) {
+					editor.chain().focus().unsetLink().run();
+				} else {
+					const url = window.prompt('Enter the URL of the link:');
+					if (url) {
+						editor.chain().focus().toggleLink({ href: url }).run();
+					}
 				}
 			},
 			isActive: (editor) => {
@@ -253,7 +257,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			}
 		}
 	],
-	'text-align': [
+	alignment: [
 		{
 			icon: AlignLeft,
 			name: 'align-left',
