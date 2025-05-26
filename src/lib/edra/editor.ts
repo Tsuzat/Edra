@@ -5,12 +5,13 @@ import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import Typography from '@tiptap/extension-typography';
 import { ColorHighlighter } from './extensions/ColorHighlighter.js';
-import { FontSize, TextStyle } from '@tiptap/extension-text-style';
+import { FontSize, TextStyle, Color } from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import SearchAndReplace from './extensions/FindAndReplace.js';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Table, TableCell, TableRow, TableHeader } from './extensions/table/index.js';
+import { Placeholder } from '@tiptap/extensions';
 
 export default (
 	element?: HTMLElement,
@@ -46,6 +47,20 @@ export default (
 			Highlight.configure({
 				multicolor: true
 			}),
+			Placeholder.configure({
+				emptyEditorClass: 'is-empty',
+				// Use a placeholder:
+				// Use different placeholders depending on the node type:
+				placeholder: ({ node }) => {
+					if (node.type.name === 'heading') {
+						return 'What’s the title?';
+					} else if (node.type.name === 'paragraph') {
+						return 'Press / or write something ...';
+					}
+					return '';
+				}
+			}),
+			Color,
 			Subscript,
 			Superscript,
 			Typography,
