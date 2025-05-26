@@ -24,8 +24,8 @@
 	}
 </script>
 
-<main class="mx-auto my-auto flex max-w-4xl flex-col items-center justify-center">
-	<div class="mt-12 size-full rounded-md border border-dashed">
+<main class="mx-auto my-auto flex flex-col items-center justify-center">
+	<div class="mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<Toolbar
 				class="flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
