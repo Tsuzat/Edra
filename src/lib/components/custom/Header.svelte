@@ -13,9 +13,9 @@
 >
 	<a class="flex items-center gap-2" href="/">
 		<img src={AppLogo} alt="Edra logo" class="size-8" />
-		<span class="text-xl font-bold">Edra</span>
+		<span class="hidden text-xl font-bold sm:block">Edra</span>
 	</a>
-	<div class="flex items-center gap-4">
+	<div class="flex items-center gap-2 sm:gap-4">
 		<Button variant="link" class="text-muted-foreground w-fit p-0" href="/examples">Examples</Button
 		>
 		<Button variant="link" class="text-muted-foreground w-fit p-0" href="/docs">Docs</Button>
