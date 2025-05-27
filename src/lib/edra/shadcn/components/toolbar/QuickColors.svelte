@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import type { Editor } from '@tiptap/core';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
@@ -32,15 +32,17 @@
 <Popover.Root>
 	<Popover.Trigger>
 		<EdraToolTip tooltip="Quick Colors">
-			<Button
-				variant="ghost"
-				size="icon"
-				class={cn('gap-0.5 p-2', className)}
+			<div
+				class={buttonVariants({
+					variant: 'ghost',
+					size: 'icon',
+					class: cn('gap-0.5', className)
+				})}
 				style={`color: ${currentColor}; background-color: ${currentHighlight}50;`}
 			>
 				<span>A</span>
 				<ChevronDown class="text-muted-foreground !size-2" />
-			</Button>
+			</div>
 		</EdraToolTip>
 	</Popover.Trigger>
 	<Popover.Content class="size-fit shadow-lg" portalProps={{ disabled: true, to: undefined }}>
