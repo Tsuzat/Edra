@@ -29,6 +29,7 @@
 	import CodeBlock from './components/CodeBlock.svelte';
 	import TableCol from './menus/TableCol.svelte';
 	import TableRow from './menus/TableRow.svelte';
+	import Link from './menus/Link.svelte';
 
 	const lowlight = createLowlight(all);
 
@@ -82,6 +83,7 @@
 </script>
 
 {#if editor && !editor.isDestroyed}
+	<Link {editor} />
 	<TableCol {editor} />
 	<TableRow {editor} />
 {/if}
