@@ -147,7 +147,7 @@
 	<div class={cn('group relative flex flex-col rounded-md', resizing && '')}>
 		{@render children()}
 
-		{#if editor?.isEditable}
+		{#if editor.isEditable}
 			<div
 				role="button"
 				tabindex="0"
