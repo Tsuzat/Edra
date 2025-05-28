@@ -43,6 +43,10 @@
 		}
 		if (editor.isActive('link')) return false;
 		if (editor.isActive('codeBlock')) return false;
+		if (editor.isActive('image-placeholder')) return false;
+		if (editor.isActive('video-placeholder')) return false;
+		if (editor.isActive('audio-placeholder')) return false;
+		if (editor.isActive('iframe-placeholder')) return false;
 		const {
 			state: {
 				doc,
@@ -107,5 +111,4 @@
 	{/each}
 	<FontSize {editor} />
 	<QuickColors {editor} />
-	<SearchAndReplace {editor} />
 </BubbleMenu>
