@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import Particles from '$lib/components/custom/Particles.svelte';
 	import DragHandle from '$lib/edra/components/DragHandle.svelte';
 	import EdraEditor from '$lib/edra/shadcn/editor.svelte';
 	import Toolbar from '$lib/edra/shadcn/toolbar.svelte';
@@ -24,8 +25,9 @@
 	}
 </script>
 
-<main class="mx-auto my-auto flex flex-col items-center justify-center">
-	<div class="mt-12 size-full max-w-5xl rounded-md border border-dashed">
+<main class="relative flex flex-col items-center justify-center">
+	<Particles />
+	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<Toolbar
 				class="flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
