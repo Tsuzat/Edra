@@ -27,6 +27,13 @@
 
 <main class="relative flex flex-col items-center justify-center">
 	<Particles />
+	<h1 class="animate-pulse text-4xl font-bold">Edra</h1>
+	<div>
+		Best Rich Text Editor, made for
+		<strong>Svelte Developers</strong> with
+		<strong>Tiptap</strong>
+	</div>
+
 	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<Toolbar
