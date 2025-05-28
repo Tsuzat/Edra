@@ -9,7 +9,7 @@
 </script>
 
 <header
-	class="bg-background/50 sticky top-0 flex items-center justify-between border-b border-dashed p-4 backdrop-blur-lg"
+	class="bg-background/50 sticky top-0 z-50 flex items-center justify-between border-b border-dashed p-4 backdrop-blur-2xl"
 >
 	<a class="flex items-center gap-2" href="/">
 		<img src={AppLogo} alt="Edra logo" class="size-8" />

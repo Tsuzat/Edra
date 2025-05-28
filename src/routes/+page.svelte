@@ -29,7 +29,7 @@
 	}
 </script>
 
-<main class="relative flex flex-col items-center justify-center gap-4">
+<main class="relative flex flex-col items-center justify-center gap-8">
 	<Particles />
 	<h1 class="mt-4 animate-pulse text-4xl font-bold">Edra</h1>
 	<div class="text-muted-foreground animate-bounce">
