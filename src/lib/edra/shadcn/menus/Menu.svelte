@@ -9,7 +9,6 @@
 	import FontSize from '../components/toolbar/FontSize.svelte';
 	import Headings from '../components/toolbar/Headings.svelte';
 	import QuickColors from '../components/toolbar/QuickColors.svelte';
-	import SearchAndReplace from '../components/toolbar/SearchAndReplace.svelte';
 	import ToolBarIcon from '../components/ToolBarIcon.svelte';
 
 	const {
