@@ -96,9 +96,10 @@
 	>
 		<Button
 			variant="ghost"
-			class={cn('size-6 rounded-sm p-0 transition-transform', showMore && 'bg-muted rotate-90')}
-			title="Show More"
+			size="icon"
+			class={cn('transition-transform', showMore && 'bg-muted rotate-90')}
 			onclick={() => (showMore = !showMore)}
+			title="Show More"
 		>
 			<ChevronRight />
 		</Button>
