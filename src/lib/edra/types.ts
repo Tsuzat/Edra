@@ -6,6 +6,7 @@ export interface EdraEditorProps {
 	content?: Content;
 	editable?: boolean;
 	editor?: Editor;
+	autofocus?: boolean;
 	onUpdate?: () => void;
 	class?: string;
 }

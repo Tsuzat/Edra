@@ -45,6 +45,7 @@
 		editable = true,
 		content,
 		onUpdate,
+		autofocus = false,
 		class: className
 	}: EdraEditorProps = $props();
 
@@ -76,7 +77,8 @@
 					editor = undefined;
 					editor = props.editor;
 				},
-				editable
+				editable,
+				autofocus
 			}
 		);
 	});
