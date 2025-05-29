@@ -319,7 +319,8 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}8`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleBulletList().run();
-			}
+			},
+			isActive: (editor) => editor.isActive('bulletList')
 		},
 		{
 			icon: ListOrdered,
@@ -328,7 +329,8 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}7`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleOrderedList().run();
-			}
+			},
+			isActive: (editor) => editor.isActive('orderedList')
 		},
 		{
 			icon: ListChecks,
@@ -337,7 +339,8 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}9`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleTaskList().run();
-			}
+			},
+			isActive: (editor) => editor.isActive('taskList')
 		}
 	],
 	media: [
