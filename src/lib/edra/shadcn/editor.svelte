@@ -89,7 +89,6 @@
 </script>
 
 {#if editor && !editor.isDestroyed}
-	<Menu {editor} />
 	<Link {editor} />
 	<TableCol {editor} />
 	<TableRow {editor} />
