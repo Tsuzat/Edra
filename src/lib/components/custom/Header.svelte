@@ -19,9 +19,6 @@
 		<Button variant="link" class="text-muted-foreground w-fit p-0" href="/examples">Examples</Button
 		>
 		<Button variant="link" class="text-muted-foreground w-fit p-0" href="/docs">Docs</Button>
-		<Button href="https://buymeacoffee.com/tsuzat" target="_blank" variant="outline" size="icon">
-			<Coffee />
-		</Button>
 		<Button href="https://github.com/Tsuzat/Edra" target="_blank" variant="outline" size="icon">
 			<Github />
 		</Button>
