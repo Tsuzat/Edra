@@ -3,8 +3,7 @@
 	import Particles from '$lib/components/custom/Particles.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import DragHandle from '$lib/edra/components/DragHandle.svelte';
-	import EdraEditor from '$lib/edra/shadcn/editor.svelte';
-	import Toolbar from '$lib/edra/shadcn/toolbar.svelte';
+	import { EdraEditor, EdraToolBar } from '$lib/edra/shadcn/index.js';
 	import { Editor, type Content } from '@tiptap/core';
 	let editor = $state<Editor>();
 	let content = $state<Content>();
@@ -61,7 +60,7 @@
 
 	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
-			<Toolbar
+			<EdraToolBar
 				class="bg-secondary/50 flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
 				{editor}
 			/>
