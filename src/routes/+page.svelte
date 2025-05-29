@@ -62,7 +62,7 @@
 	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<Toolbar
-				class="flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
+				class="bg-secondary/50 flex w-full items-center overflow-x-scroll border-b border-dashed p-0.5"
 				{editor}
 			/>
 			<DragHandle {editor} />
