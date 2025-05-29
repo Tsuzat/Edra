@@ -42,7 +42,7 @@
 			</div>
 		</EdraToolTip>
 	</DropdownMenu.Trigger>
-	<DropdownMenu.Content>
+	<DropdownMenu.Content portalProps={{ disabled: true, to: undefined }}>
 		{#each alignments as alignment (alignment)}
 			{@const Icon = alignment.icon}
 			<DropdownMenu.Item onclick={() => alignment.onClick?.(editor)}>
