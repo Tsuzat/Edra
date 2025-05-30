@@ -2,7 +2,6 @@
 	import type { ShouldShowProps } from '../../types.js';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { Editor } from '@tiptap/core';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import Copy from '@lucide/svelte/icons/copy';
 	import Trash from '@lucide/svelte/icons/trash';
 
@@ -22,33 +21,24 @@
 		if (!props.editor.isEditable) return false;
 		return props.editor.isActive('link');
 	}}
-	options={{
-		strategy: 'fixed'
-	}}
-	class="bg-popover flex h-fit w-fit items-center gap-1 rounded border p-1 shadow-lg"
 >
-	<Button variant="link" href={link} class="max-w-80 p-1" target="_blank">
-		<span class="w-full overflow-hidden text-ellipsis">
-			{link}
-		</span>
-	</Button>
-	<Button
-		variant="ghost"
+	<a href={link} target="_blank">
+		{link}
+	</a>
+	<button
 		title="Copy Link"
-		size="icon"
-		class="z-50"
+		class="edra-command-button"
 		onclick={() => {
 			navigator.clipboard.writeText(link);
 		}}
 	>
-		<Copy />
-	</Button>
-	<Button
-		variant="ghost"
+		<Copy class="edra-toolbar-icon" />
+	</button>
+	<button
+		class="edra-command-button"
 		title="Remove Link"
-		size="icon"
 		onclick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()}
 	>
-		<Trash />
-	</Button>
+		<Trash class="edra-toolbar-icon" />
+	</button>
 </BubbleMenu>

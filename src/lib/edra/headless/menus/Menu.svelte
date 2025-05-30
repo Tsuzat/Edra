@@ -1,9 +1,8 @@
 <script lang="ts">
-	import commands from '$lib/edra/commands/toolbar-commands.js';
-	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
-	import type { EdraToolbarProps, ShouldShowProps } from '$lib/edra/types.js';
+	import commands from '../../commands/toolbar-commands.js';
+	import BubbleMenu from '../../components/BubbleMenu.svelte';
+	import type { EdraToolbarProps, ShouldShowProps } from '../../types.js';
 
-	import { cn } from '$lib/utils.js';
 	import { isTextSelection } from '@tiptap/core';
 	import FontSize from '../components/toolbar/FontSize.svelte';
 	import QuickColors from '../components/toolbar/QuickColors.svelte';
@@ -12,7 +11,7 @@
 	const {
 		editor,
 		class: className,
-		excludedCommands = ['undo-redo', 'media', 'lists', 'table']
+		excludedCommands = ['undo-redo', 'headings', 'media', 'lists', 'table']
 	}: EdraToolbarProps = $props();
 
 	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
@@ -85,15 +84,7 @@
 	};
 </script>
 
-<BubbleMenu
-	{editor}
-	pluginKey="link-bubble-menu"
-	{shouldShow}
-	class={cn(
-		'edra-bubble-menu bg-popover flex h-fit w-fit items-center rounded-lg p-0.5',
-		className
-	)}
->
+<BubbleMenu {editor} class={className} pluginKey="link-bubble-menu" {shouldShow}>
 	{#each toolbarCommands.filter((c) => !excludedCommands?.includes(c)) as cmd (cmd)}
 		{@const commandGroup = commands[cmd]}
 		{#each commandGroup as command (command)}

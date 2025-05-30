@@ -1,17 +1,16 @@
 <script lang="ts">
-	import type { ShouldShowProps } from '../../types.js';
 	import { type Editor } from '@tiptap/core';
 	import ArrowDownFromLine from '@lucide/svelte/icons/arrow-down-from-line';
 	import ArrowUpFromLine from '@lucide/svelte/icons/arrow-up-from-line';
 	import Trash from '@lucide/svelte/icons/trash';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import type { ShouldShowProps } from '../../types.js';
 	import { isRowGripSelected } from '../../extensions/table/utils.js';
-	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
+	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	interface Props {
 		editor: Editor;
 	}
 
-	const { editor }: Props = $props();
+	let { editor }: Props = $props();
 </script>
 
 <BubbleMenu
@@ -29,15 +28,26 @@
 			from: props.from
 		});
 	}}
-	class="edra-menu-wrapper"
 >
-	<Button variant="ghost" size="icon" onclick={() => editor.chain().focus().addRowAfter().run()}>
-		<ArrowDownFromLine />
-	</Button>
-	<Button variant="ghost" size="icon" onclick={() => editor.chain().focus().addRowBefore().run()}>
-		<ArrowUpFromLine />
-	</Button>
-	<Button variant="ghost" size="icon" onclick={() => editor.chain().focus().deleteRow().run()}>
-		<Trash />
-	</Button>
+	<button
+		class="edra-command-button"
+		title="Add Column After"
+		onclick={() => editor.chain().focus().addRowAfter().run()}
+	>
+		<ArrowDownFromLine class="edra-toolbar-icon" />
+	</button>
+	<button
+		class="edra-command-button"
+		title="Add Column Before"
+		onclick={() => editor.chain().focus().addRowBefore().run()}
+	>
+		<ArrowUpFromLine class="edra-toolbar-icon" />
+	</button>
+	<button
+		class="edra-command-button"
+		title="Delete Column"
+		onclick={() => editor.chain().focus().deleteRow().run()}
+	>
+		<Trash class="edra-toolbar-icon" />
+	</button>
 </BubbleMenu>

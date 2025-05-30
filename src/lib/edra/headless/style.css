@@ -49,6 +49,11 @@
 	outline: none !important;
 }
 
+.tiptap a {
+	color: blue;
+	text-decoration: underline;
+}
+
 .edra-command-button {
 	display: inline-flex;
 	align-items: center;
