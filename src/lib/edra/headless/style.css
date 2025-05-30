@@ -1,0 +1,343 @@
+:root {
+	/* Color Variables */
+	--edra-border-color: #80808050;
+	--edra-button-bg-color: #80808025;
+	--edra-button-hover-bg-color: #80808075;
+	--edra-button-active-bg-color: #80808090;
+	--edra-icon-color: currentColor; /* Default, can be customized */
+	--edra-separator-color: currentColor; /* Default, can be customized */
+
+	/* Size and Spacing Variables */
+	--edra-gap: 0.25rem;
+	--edra-border-radius: 0.5rem;
+	--edra-button-border-radius: 0.5rem;
+	--edra-padding: 0.5rem;
+	--edra-button-padding: 0.25rem;
+	--edra-button-size: 2rem;
+	--edra-icon-size: 1rem;
+	--edra-separator-width: 0.25rem;
+}
+
+/** Editor Styles */
+:root {
+	--border-color: rgba(128, 128, 128, 0.3);
+	--border-color-hover: rgba(128, 128, 128, 0.5);
+	--blockquote-border: rgba(128, 128, 128, 0.7);
+	--code-color: rgb(255, 68, 0);
+	--code-bg: rgba(128, 128, 128, 0.3);
+	--code-border: rgba(128, 128, 128, 0.4);
+	--table-border: rgba(128, 128, 128, 0.3);
+	--table-bg-selected: rgba(128, 128, 128, 0.1);
+	--table-bg-hover: rgba(128, 128, 128, 0.2);
+	--task-completed-color: rgba(128, 128, 128, 0.7);
+	--code-wrapper-bg: rgba(128, 128, 128, 0.05);
+	--highlight-color: rgba(0, 128, 0, 0.3);
+	--highlight-border: greenyellow;
+	--search-result-bg: yellow;
+	--search-result-current-bg: orange;
+}
+
+.edra-editor {
+	height: 100%;
+	width: 100%;
+	cursor: auto;
+	outline: none !important;
+}
+
+.tiptap,
+.ProseMirror {
+	outline: none !important;
+}
+
+.edra-command-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background-color: var(--edra-button-bg-color);
+	border-radius: var(--edra-button-border-radius);
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+	padding: var(--edra-button-padding);
+	min-width: var(--edra-button-size);
+	min-height: var(--edra-button-size);
+}
+
+.edra-command-button:hover {
+	background-color: var(--edra-button-hover-bg-color);
+}
+
+.edra-command-button.active {
+	background-color: var(--edra-button-active-bg-color);
+}
+
+.edra-toolbar-icon {
+	height: var(--edra-icon-size);
+	width: var(--edra-icon-size);
+	color: var(--edra-icon-color);
+}
+
+.edra-media-placeholder-wrapper {
+	width: 100%;
+	height: fit-content;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.5rem 0;
+}
+
+.edra-media-placeholder-content {
+	height: 100%;
+	width: 100%;
+	padding: 1rem;
+	padding-right: 0;
+	background-color: var(--edra-button-bg-color);
+	border-radius: var(--edra-button-border-radius);
+	border: 1px solid var(--edra-border-color);
+	display: inline-flex;
+	align-items: center;
+	justify-content: start;
+	gap: 1rem;
+	cursor: pointer;
+}
+
+.edra-media-placeholder-icon {
+	height: var(--edra-icon-size);
+	width: var(--edra-icon-size);
+	color: var(--edra-icon-color);
+}
+
+.edra-media-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5rem;
+	border: 2px solid transparent;
+	margin: 1rem 0;
+}
+
+.edra-media-container.selected {
+	border-color: #808080;
+}
+
+.edra-media-container.align-left {
+	left: 0;
+	transform: translateX(0);
+}
+
+.edra-media-container.align-center {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.edra-media-container.align-right {
+	left: 100%;
+	transform: translateX(-100%);
+}
+
+.edra-media-group {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5rem;
+}
+
+.edra-media-content {
+	margin: 0;
+	object-fit: cover;
+}
+
+.edra-media-caption {
+	margin: 0.125rem 0;
+	width: 100%;
+	background-color: transparent;
+	text-align: center;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: #808080;
+	outline: none;
+	border: none;
+}
+
+.edra-media-resize-handle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 20;
+	display: flex;
+	width: 0.5rem;
+	cursor: col-resize;
+	align-items: center;
+}
+
+.edra-media-resize-handle-left {
+	left: 0;
+	justify-content: flex-start;
+	padding: 0.5rem;
+}
+
+.edra-media-resize-handle-right {
+	right: 0;
+	justify-content: flex-end;
+	padding: 0.5rem;
+}
+
+.edra-media-resize-indicator {
+	z-index: 20;
+	height: 3rem;
+	width: 0.25rem;
+	border-radius: 12px;
+	border: 1px solid #808080;
+	background-color: #808080;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.edra-media-group:hover .edra-media-resize-indicator {
+	opacity: 0.5;
+}
+
+.edra-media-toolbar {
+	position: absolute;
+	right: 16px;
+	top: 8px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	border-radius: 4px;
+	border: 1px solid #808080;
+	background-color: #80808075;
+	padding: 4px;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.edra-media-toolbar-audio {
+	top: -32px;
+}
+
+.edra-media-group:hover .edra-media-toolbar,
+.edra-media-toolbar.visible {
+	opacity: 1;
+}
+
+.edra-toolbar-button {
+	width: 1.5rem;
+	height: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	color: currentColor;
+}
+
+.edra-toolbar-button:hover {
+	background-color: #80808030;
+}
+
+.edra-toolbar-button.active {
+	background-color: #80808080;
+}
+
+.edra-destructive {
+	color: red;
+}
+
+.bubble-menu-wrapper {
+	z-index: 100;
+	width: fit-content;
+	padding: 0.25rem;
+	border: 1px solid var(--edra-border-color);
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	background-color: white;
+	backdrop-filter: blur(8px);
+}
+
+html.dark .bubble-menu-wrapper {
+	background-color: black;
+}
+
+.bubble-menu-wrapper input {
+	padding: 0.5rem;
+	border: none;
+	max-width: 10rem;
+	background: none;
+	margin-right: 0.5rem;
+	width: fit-content;
+}
+
+input.valid {
+	border: 1px solid green;
+}
+input:focus {
+	outline: none;
+}
+
+input.invalid {
+	border: 1px solid red;
+}
+
+.edra-slash-command-list {
+	margin-bottom: 2rem;
+	max-height: min(80vh, 20rem);
+	width: 12rem;
+	overflow: auto;
+	scroll-behavior: smooth;
+	border-radius: 0.5rem;
+	border: 1px solid var(--edra-border-color);
+	padding: 0.5rem;
+	backdrop-filter: blur(8px);
+}
+
+.edra-slash-command-list-title {
+	margin: 0.5rem;
+	user-select: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.edra-slash-command-list-item {
+	display: flex;
+	height: fit-content;
+	width: 100%;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	background: none;
+	border: none;
+	margin: 0.25rem 0;
+	border-radius: 0.25rem;
+}
+.edra-slash-command-list-item.active {
+	background-color: var(--edra-border-color);
+}
+
+.edra-search-and-replace {
+	display: flex;
+	align-items: center;
+	gap: var(--edra-gap);
+}
+
+.edra-search-and-replace-content {
+	display: flex;
+	align-items: center;
+	gap: var(--edra-gap);
+}
+
+.edra-search-and-replace-content input {
+	max-width: 10rem;
+	background: none;
+	width: 15rem;
+	border: 1px solid var(--edra-border-color);
+	border-radius: var(--edra-button-border-radius);
+	padding: 0.2rem 0.5rem;
+}
