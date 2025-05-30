@@ -93,6 +93,7 @@
 		"@tiptap/suggestion": "^3.0.0-beta.5",
 		"katex": "^0.16.22",
 		"lowlight": "^3.3.0",
-		"svelte-tiptap": "^2.1.0"
+		"svelte-tiptap": "^2.1.0",
+		"tiptap-extension-auto-joiner": "^0.1.3"
 	}
 }

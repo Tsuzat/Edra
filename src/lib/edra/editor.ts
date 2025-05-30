@@ -13,6 +13,7 @@ import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Table, TableCell, TableRow, TableHeader } from './extensions/table/index.js';
 import { Placeholder } from '@tiptap/extensions';
 import MathExtension from '@aarkue/tiptap-math-extension';
+import AutoJoiner from 'tiptap-extension-auto-joiner';
 import 'katex/dist/katex.min.css';
 
 export default (
@@ -78,6 +79,7 @@ export default (
 			}),
 			SearchAndReplace,
 			MathExtension.configure({ evaluation: true }),
+			AutoJoiner,
 			Table,
 			TableHeader,
 			TableRow,
