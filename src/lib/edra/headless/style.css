@@ -283,7 +283,7 @@ input.invalid {
 .edra-slash-command-list {
 	margin-bottom: 2rem;
 	max-height: min(80vh, 20rem);
-	width: 12rem;
+	width: fit-content;
 	overflow: auto;
 	scroll-behavior: smooth;
 	border-radius: 0.5rem;

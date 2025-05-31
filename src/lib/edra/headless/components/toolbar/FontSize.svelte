@@ -47,6 +47,6 @@
 		transition: background-color 0.2s ease-in-out;
 		padding: var(--edra-button-padding);
 		min-width: fit;
-		min-height: var(--edra-button-size);
+		min-height: full;
 	}
 </style>
