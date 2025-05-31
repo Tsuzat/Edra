@@ -31,6 +31,7 @@
 	import Link from './menus/Link.svelte';
 	import slashcommand from '../extensions/slash-command/slashcommand.js';
 	import SlashCommandList from './components/SlashCommandList.svelte';
+	import Menu from './menus/Menu.svelte';
 
 	const lowlight = createLowlight(all);
 

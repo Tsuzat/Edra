@@ -115,7 +115,7 @@
 
 	onMount(() => {
 		// Attach id to nodeRef
-		nodeRef = document.getElementById('resizable-container-image') as HTMLDivElement;
+		nodeRef = document.getElementById('resizable-container-media') as HTMLDivElement;
 
 		// Mouse events
 		window.addEventListener('mousemove', resize);
@@ -134,7 +134,7 @@
 </script>
 
 <NodeViewWrapper
-	id="resizable-container-image"
+	id="resizable-container-media"
 	class={cn(
 		'relative my-2 flex flex-col rounded-md border-2 border-transparent',
 		selected ? 'border-muted-foreground' : '',
