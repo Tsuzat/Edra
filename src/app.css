@@ -32,6 +32,19 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
+
+	font-size: 14px !important;
+	font-family:
+		'Open Sans Variable', sans-serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji',
+		Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+	line-height: 24px;
+	font-weight: 400;
+	text-rendering: optimizeLegibility;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .dark {
@@ -104,6 +117,9 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		scrollbar-width: thin;
+		scrollbar-color: hsla(var(--muted-foreground) / 0.25) transparent;
 	}
 	body {
 		@apply bg-background text-foreground;
