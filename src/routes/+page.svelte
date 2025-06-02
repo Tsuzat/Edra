@@ -29,7 +29,7 @@
 
 <main class="relative flex flex-col items-center justify-center gap-8">
 	<Particles />
-	<h1 class="mt-4 animate-pulse text-4xl font-bold">Edra</h1>
+	<h1 class="animate-pulse">Edra</h1>
 	<div class="text-muted-foreground animate-bounce">
 		Best Rich Text Editor, made for
 		<strong class="text-foreground">Svelte Developers</strong> with
