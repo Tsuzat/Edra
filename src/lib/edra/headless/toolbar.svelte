@@ -6,7 +6,7 @@
 	import SearchAndReplace from './components/toolbar/SearchAndReplace.svelte';
 	import ToolBarIcon from './components/ToolBarIcon.svelte';
 
-	const { editor, class: className, excludedCommands }: EdraToolbarProps = $props();
+	const { editor, class: className, excludedCommands, children }: EdraToolbarProps = $props();
 
 	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
 
@@ -14,15 +14,19 @@
 </script>
 
 <div class={`edra-toolbar ${className}`}>
-	{#if !show}
-		{#each toolbarCommands as cmd (cmd)}
-			{@const commandGroup = commands[cmd]}
-			{#each commandGroup as command (command)}
-				<ToolBarIcon {editor} {command} />
+	{#if children}
+		{@render children()}
+	{:else}
+		{#if !show}
+			{#each toolbarCommands as cmd (cmd)}
+				{@const commandGroup = commands[cmd]}
+				{#each commandGroup as command (command)}
+					<ToolBarIcon {editor} {command} />
+				{/each}
 			{/each}
-		{/each}
-		<FontSize {editor} />
-		<QuickColors {editor} />
+			<FontSize {editor} />
+			<QuickColors {editor} />
+		{/if}
+		<SearchAndReplace {editor} bind:show />
 	{/if}
-	<SearchAndReplace {editor} bind:show />
 </div>

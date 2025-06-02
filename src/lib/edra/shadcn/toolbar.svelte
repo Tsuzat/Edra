@@ -9,25 +9,29 @@
 	import SearchAndReplace from './components/toolbar/SearchAndReplace.svelte';
 	import ToolBarIcon from './components/ToolBarIcon.svelte';
 
-	const { editor, class: className, excludedCommands }: EdraToolbarProps = $props();
+	const { editor, class: className, excludedCommands, children }: EdraToolbarProps = $props();
 
 	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
 </script>
 
 <div class={cn('edra-toolbar', className)}>
-	{#each toolbarCommands as cmd (cmd)}
-		{#if cmd === 'headings'}
-			<Headings {editor} />
-		{:else if cmd === 'alignment'}
-			<Alignment {editor} />
-		{:else}
-			{@const commandGroup = commands[cmd]}
-			{#each commandGroup as command (command)}
-				<ToolBarIcon {editor} {command} />
-			{/each}
-		{/if}
-	{/each}
-	<FontSize {editor} />
-	<QuickColors {editor} />
-	<SearchAndReplace {editor} />
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each toolbarCommands as cmd (cmd)}
+			{#if cmd === 'headings'}
+				<Headings {editor} />
+			{:else if cmd === 'alignment'}
+				<Alignment {editor} />
+			{:else}
+				{@const commandGroup = commands[cmd]}
+				{#each commandGroup as command (command)}
+					<ToolBarIcon {editor} {command} />
+				{/each}
+			{/if}
+		{/each}
+		<FontSize {editor} />
+		<QuickColors {editor} />
+		<SearchAndReplace {editor} />
+	{/if}
 </div>
