@@ -36,7 +36,8 @@ const dependencies = [
 	'lowlight',
 	'svelte-tiptap',
 	'tiptap-extension-auto-joiner',
-	'@lucide/svelte'
+	'@lucide/svelte',
+	'tiptap-markdown'
 ];
 
 // Install dependencies with the detected package manager

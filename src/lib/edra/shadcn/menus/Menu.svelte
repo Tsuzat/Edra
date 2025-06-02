@@ -14,7 +14,8 @@
 	const {
 		editor,
 		class: className,
-		excludedCommands = ['undo-redo', 'media', 'lists', 'table']
+		excludedCommands = ['undo-redo', 'media', 'lists', 'table'],
+		children
 	}: EdraToolbarProps = $props();
 
 	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
@@ -96,18 +97,22 @@
 		className
 	)}
 >
-	{#each toolbarCommands.filter((c) => !excludedCommands?.includes(c)) as cmd (cmd)}
-		{#if cmd === 'headings'}
-			<Headings {editor} />
-		{:else if cmd === 'alignment'}
-			<Alignment {editor} />
-		{:else}
-			{@const commandGroup = commands[cmd]}
-			{#each commandGroup as command (command)}
-				<ToolBarIcon {editor} {command} />
-			{/each}
-		{/if}
-	{/each}
-	<FontSize {editor} />
-	<QuickColors {editor} />
+	{#if children}
+		{@render children()}
+	{:else}
+		{#each toolbarCommands.filter((c) => !excludedCommands?.includes(c)) as cmd (cmd)}
+			{#if cmd === 'headings'}
+				<Headings {editor} />
+			{:else if cmd === 'alignment'}
+				<Alignment {editor} />
+			{:else}
+				{@const commandGroup = commands[cmd]}
+				{#each commandGroup as command (command)}
+					<ToolBarIcon {editor} {command} />
+				{/each}
+			{/if}
+		{/each}
+		<FontSize {editor} />
+		<QuickColors {editor} />
+	{/if}
 </BubbleMenu>

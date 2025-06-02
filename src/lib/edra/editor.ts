@@ -12,6 +12,7 @@ import SearchAndReplace from './extensions/FindAndReplace.js';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Table, TableCell, TableRow, TableHeader } from './extensions/table/index.js';
 import { Placeholder } from '@tiptap/extensions';
+import { Markdown } from 'tiptap-markdown';
 import MathExtension from '@aarkue/tiptap-math-extension';
 import AutoJoiner from 'tiptap-extension-auto-joiner';
 import 'katex/dist/katex.min.css';
@@ -84,6 +85,17 @@ export default (
 			TableHeader,
 			TableRow,
 			TableCell,
+			Markdown.configure({
+				html: true,
+				tightLists: true,
+				tightListClass: 'tight',
+				bulletListMarker: '-',
+				linkify: true,
+				breaks: true,
+				transformPastedText: true,
+				transformCopiedText: false
+			}),
+
 			...(extensions ?? [])
 		],
 		...options
