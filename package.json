@@ -1,6 +1,7 @@
 {
 	"name": "edra",
-	"version": "2.0.0-alpha.2",
+	"version": "2.0.0-alpha.3",
+	"description": "Best Rich Text Editor, made for Svelte Developers with Tiptap",
 	"author": {
 		"name": "Tsuzat",
 		"url": "https://tsuzat.com"
@@ -28,6 +29,7 @@
 	"license": "MIT",
 	"files": [
 		"dist",
+		"bin/",
 		"src/lib/edra",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
