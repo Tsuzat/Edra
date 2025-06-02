@@ -9,11 +9,14 @@
 	import Docs from '@lucide/svelte/icons/file-text';
 	import Github from '@lucide/svelte/icons/github';
 	import Coffee from '@lucide/svelte/icons/coffee';
+	import defaultContent from '$lib/default_content.js';
 
 	if (browser) {
 		const rawContent = localStorage.getItem('edra-content');
 		if (rawContent) {
 			content = JSON.parse(rawContent);
+		} else {
+			content = defaultContent;
 		}
 	}
 

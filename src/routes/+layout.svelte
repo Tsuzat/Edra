@@ -4,11 +4,13 @@
 	import '@fontsource-variable/open-sans';
 	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
+	import { Toaster } from 'svelte-sonner';
 
 	let { children } = $props();
 </script>
 
 <ModeWatcher />
+<Toaster closeButton richColors />
 
 <Header />
 {@render children()}
