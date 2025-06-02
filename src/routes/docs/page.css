@@ -1,0 +1,155 @@
+.prose {
+	pre.shiki {
+		margin: 0 !important;
+		max-height: 30rem;
+		border-radius: 0;
+		background-color: transparent !important;
+		padding: 0.5rem 0 !important; /* py-2 */
+	}
+
+	/* Inline Code */
+	code:not(pre code) {
+		background-color: var(--color-muted);
+		color: var(--color-muted-foreground);
+		border-radius: var(--radius);
+		overflow-wrap: break-word;
+		padding: 0 0.25rem;
+	}
+
+	blockquote {
+		border-radius: 0.5rem;
+	}
+
+	blockquote {
+		padding: 1rem;
+	}
+
+	/* Line-number grid in code blocks */
+	pre.shiki code {
+		display: grid;
+		counter-reset: line;
+	}
+	pre.shiki code > span {
+		border-left: 3px solid transparent;
+		padding-left: 0.5rem;
+		padding-right: 0.75rem;
+	}
+	pre.shiki code > span::before {
+		content: counter(line) !important;
+		counter-increment: line;
+		display: inline-block;
+		width: 1rem;
+		margin-right: 1.5rem;
+		text-align: left;
+		color: var(--color-muted-foreground);
+	}
+
+	/* Highlighted lines */
+	pre.shiki code span.line-highlight {
+		border-left-color: rgba(29, 78, 216, 0.8); /* blue-700/80 */
+		background-color: rgba(30, 64, 175, 0.15); /* blue-800/[15%] */
+	}
+
+	/* Diff additions */
+	pre.shiki code span.diff-add::before {
+		content: '+' attr(data-line) !important;
+		color: #22c55e; /* green-400 */
+	}
+	pre.shiki code span.diff-add {
+		border-left: 3px solid rgba(34, 197, 94, 0.8);
+		background-color: rgba(34, 197, 94, 0.15);
+	}
+
+	/* Diff removals */
+	pre.shiki code span.diff-remove::before {
+		content: '-' attr(data-line) !important;
+		color: #f87171; /* red-400 */
+	}
+	pre.shiki code span.diff-remove {
+		border-left: 3px solid rgba(248, 113, 113, 0.8);
+		background-color: rgba(248, 113, 113, 0.15);
+	}
+
+	details {
+		cursor: pointer;
+	}
+
+	h1 {
+		scroll-margin: 5rem;
+		font-size: 2.25rem;
+		font-weight: 800;
+	}
+
+	@media (min-width: 1024px) {
+		h1 {
+			font-size: 3rem;
+		}
+	}
+
+	h2 {
+		margin-top: 2.5rem;
+		scroll-margin: 5rem;
+		border-bottom: 1px solid var(--color-muted);
+		padding-bottom: 0.5rem;
+		font-size: 1.875rem;
+		font-weight: 600;
+		transition: color 0.2s ease;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	h3 {
+		margin-top: 2rem;
+		scroll-margin: 5rem;
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
+	ul {
+		margin: 1.5rem 0;
+		margin-left: 1.5rem;
+		list-style-type: disc;
+	}
+
+	ul li {
+		margin-top: 0.5rem;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	thead th {
+		text-align: left;
+		font-weight: bold;
+		border: 1px solid var(--color-muted);
+		padding: 0.5rem 1rem;
+	}
+
+	tbody td {
+		border: 1px solid var(--color-muted);
+		padding: 0.5rem 1rem;
+		text-align: left;
+	}
+
+	tr:nth-child(even) {
+		background-color: var(--color-muted);
+	}
+
+	a {
+		text-decoration: underline;
+		color: rgb(68, 125, 248);
+	}
+}
+
+/* Dark-mode tweaks for Shiki */
+html.dark .shiki,
+html.dark .shiki span {
+	color: var(--shiki-dark) !important;
+	font-style: var(--shiki-dark-font-style) !important;
+	font-weight: var(--shiki-dark-font-weight) !important;
+	text-decoration: var(--shiki-dark-text-decoration) !important;
+}
