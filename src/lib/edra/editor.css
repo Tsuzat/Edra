@@ -102,6 +102,9 @@
 .tiptap ul,
 .tiptap ol {
 	padding: 0 0.5rem;
+}
+
+.tiptap li {
 	margin-left: 1.5rem;
 }
 
