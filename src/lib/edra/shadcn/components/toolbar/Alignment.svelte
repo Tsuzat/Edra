@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import commands from '$lib/edra/commands/toolbar-commands.js';
+	import commands from '../../../commands/toolbar-commands.js';
 	import type { Editor } from '@tiptap/core';
 	import AlignLeft from '@lucide/svelte/icons/align-left';
 	import EdraToolTip from '../EdraToolTip.svelte';

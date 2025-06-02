@@ -3,7 +3,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import Heading from '@lucide/svelte/icons/heading';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
-	import commands from '$lib/edra/commands/toolbar-commands.js';
+	import commands from '../../../commands/toolbar-commands.js';
 	import { cn } from '$lib/utils.js';
 	import EdraToolTip from '../EdraToolTip.svelte';
 	import Paragraph from '@lucide/svelte/icons/pilcrow';
