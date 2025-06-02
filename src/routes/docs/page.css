@@ -4,7 +4,9 @@
 		max-height: 30rem;
 		border-radius: 0;
 		background-color: transparent !important;
-		padding: 0.5rem 0 !important; /* py-2 */
+		padding: 0.5rem 0 !important;
+		overflow: auto;
+		font-size: 0.9rem !important;
 	}
 
 	/* Inline Code */

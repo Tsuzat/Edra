@@ -87,31 +87,22 @@ The `Edra` library has following primary components:
 
 ## Structure
 
-### Editor `<Edra>`
+### Editor `<EdraEditor>`
 
-The `<Edra>` component is the core rich-text editor built on Tiptap. It initializes the editor with various extensions (such as code block highlighting, media placeholders, math rendering, etc.) and manages editor lifecycle events. It also supports advanced features such as a bubble menu (contextual toolbar) and slash commands.
+The `<EdraEditor>` component is the core rich-text editor built on Tiptap. It initializes the editor with various extensions (such as code block highlighting, media placeholders, math rendering, etc.) and manages editor lifecycle events. It also supports advanced features such as a bubble menu (contextual toolbar) and slash commands.
 
 ```ts{f[$lib/components/edra/utils.ts]}
 /**
  * Props for Edra's editor component
  */
-export interface EdraProps {
-	class?: string;
+export interface EdraEditorProps {
 	content?: Content;
 	editable?: boolean;
-	limit?: number;
 	editor?: Editor;
-	showSlashCommands?: boolean;
-	showLinkBubbleMenu?: boolean;
-	showTableBubbleMenu?: boolean;
-	/**
-	 * Callback function to be called when the content is updated
-	 * @param content
-	 */
-	onUpdate?: (props: { editor: Editor; transaction: Transaction }) => void;
-	children?: Snippet<[]>;
+	autofocus?: boolean;
+	onUpdate?: () => void;
+	class?: string;
 }
-
 ```
 
 **Properties:**
@@ -119,13 +110,8 @@ export interface EdraProps {
 - `class?: string` Additional classes to style the editor container.
 - `content?: Content` The initial content for the editor.
 - `editable?: boolean` Flag indicating if the editor should be editable (`true`) or read-only (`false`).
-- `limit?: number` Sets the maximum number of characters allowed in the editor.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
-- `showSlashCommands?: boolean` (default: `true`) Enables slash commands in the editor. Slash commands can be triggered by typing `/` in the editor.
-- `showLinkBubbleMenu?: boolean` (default: `true`) Enables a bubble menu for editing links. This menu appears when the user clicks on a link in the editor.
-- `showTableBubbleMenu?: boolean` (default: `true`) Enables a bubble menu for table editing. This menu appears when interacting with table rows or columns in the editor.
 - `onUpdate?` To update the content of the editor after a transaction is executed
-- `children?` Pass children components to the editor.
 
 <br />
 
@@ -135,10 +121,11 @@ The `<EdraToolbar>` component renders the editor's toolbar and displays a set of
 The toolbar supports “special” toolbar components like font size, quick color, and search/replace.
 
 ```ts
-interface Props {
-	class?: string;
+export interface EdraToolbarProps {
 	editor: Editor;
-	children?: Snippet;
+	class?: string;
+	excludedCommands?: string[];
+	children?: Snippet<[]>;
 }
 ```
 
@@ -146,6 +133,7 @@ interface Props {
 
 - `class?: string` Additional classes to style the editor container.
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
+- `excludedCommands?: string[]` An array of command names to exclude from the toolbar. This allows you to customize which commands are shown.
 - `children?` Allows for components to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
 
 > Warning:
@@ -156,19 +144,9 @@ interface Props {
 
 The `<EdraBubbleMenu>` component provides a floating formatting toolbar that appears when the user selects text within the editor. It gives quick access to inline formatting options like bold, italic, and code, and can be extended with custom components or actions using children.
 
-```ts
-interface Props {
-	class?: string;
-	editor: Editor;
-	children?: Snippet<[]>;
-}
-```
-
-**Properties:**
-
-- `class?: string` Additional classes to style the editor container.
-- `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
-- `children?` Allows for components to be passed directly to the bubble menu.
+> Info:
+>
+> The `<EdraBubbleMenu>` follows the same props as `<EdraToolbar>`, allowing you to customize its appearance and functionality.
 
 > Warning:
 >
