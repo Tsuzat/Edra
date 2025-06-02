@@ -1,6 +1,6 @@
 {
 	"name": "edra",
-	"version": "2.0.0-alpha.1",
+	"version": "2.0.0-alpha.2",
 	"author": {
 		"name": "Tsuzat",
 		"url": "https://tsuzat.com"
@@ -18,8 +18,17 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run"
 	},
+	"bin": {
+		"edra": "./bin/cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Tsuzat/Edra.git"
+	},
+	"license": "MIT",
 	"files": [
 		"dist",
+		"src/lib/edra",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
@@ -98,8 +107,10 @@
 		"@tiptap/pm": "^3.0.0-beta.5",
 		"@tiptap/starter-kit": "^3.0.0-beta.5",
 		"@tiptap/suggestion": "^3.0.0-beta.5",
+		"fs-extra": "^11.3.0",
 		"katex": "^0.16.22",
 		"lowlight": "^3.3.0",
+		"package-manager-detector": "^1.3.0",
 		"svelte-tiptap": "^2.1.0",
 		"tiptap-extension-auto-joiner": "^0.1.3"
 	}
