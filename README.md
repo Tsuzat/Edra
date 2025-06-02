@@ -1,5 +1,7 @@
 # Edra@next
 
+![pretty_snap_2025_5_2_23_3](https://github.com/user-attachments/assets/82030abf-1ab9-411c-aabe-fd4bc61092cf)
+
 Edra next will have following features:
 
 - Tiptap V3 editor (beta)
