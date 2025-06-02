@@ -21,7 +21,7 @@
 	}
 
 	$effect(() => {
-		console.log('[DEBUG]', $state.snapshot(content));
+		console.log('[DEBUG]', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
 	});
 
