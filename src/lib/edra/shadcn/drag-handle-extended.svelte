@@ -2,7 +2,7 @@
 	import type { Editor } from '@tiptap/core';
 	import { onMount } from 'svelte';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
-	import { DragHandlePlugin } from '$lib/edra/extensions/drag-handle/index.js';
+	import { DragHandlePlugin } from '../extensions/drag-handle/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { Node } from '@tiptap/pm/model';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import commands from '$lib/edra/commands/toolbar-commands.js';
-	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
-	import type { EdraToolbarProps, ShouldShowProps } from '$lib/edra/types.js';
+	import commands from '../../commands/toolbar-commands.js';
+	import BubbleMenu from '../../components/BubbleMenu.svelte';
+	import type { EdraToolbarProps, ShouldShowProps } from '../../types.js';
 
 	import { cn } from '$lib/utils.js';
 	import { isTextSelection } from '@tiptap/core';

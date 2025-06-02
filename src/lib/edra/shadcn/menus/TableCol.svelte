@@ -8,7 +8,8 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { isColumnGripSelected } from '../../extensions/table/utils.js';
 	import EdraToolTip from '../components/EdraToolTip.svelte';
-	import BubbleMenu from '$lib/edra/components/BubbleMenu.svelte';
+	import BubbleMenu from '../../components/BubbleMenu.svelte';
+
 	interface Props {
 		editor: Editor;
 	}
