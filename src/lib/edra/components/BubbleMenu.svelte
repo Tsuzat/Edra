@@ -62,6 +62,6 @@
 	});
 </script>
 
-<div bind:this={element} class="bubble-menu-wrapper" {style} {...restProps}>
+<div bind:this={element} class={`bubble-menu-wrapper ${className}`} {style} {...restProps}>
 	{@render children?.()}
 </div>
