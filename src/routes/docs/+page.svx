@@ -67,9 +67,11 @@ command to install `edra` component with `shadcn` ui.
 
 ```sh
 # For NPM
-npx edra init shadcn
+npx edra@next init shadcn
 # For PNPM
-pnpm dlx edra init shadcn
+pnpm dlx edra@next init shadcn
+# For Bun
+bunx edra@next init shadcn
 ```
 
 This command will copy the `edra` component as folder in `src/lib/components/edra` and install the required dependencies.
@@ -80,7 +82,7 @@ This command will copy the `edra` component as folder in `src/lib/components/edr
 
 The `Edra` library has following primary components:
 
-- `<Edra>` - The main component that will render the editor.
+- `<EdraEditor>` - The main component that will render the editor.
 - `<EdraToolbar>` - Used to render the toolbar.
 - `<EdraBubbleMenu>` - Used to render the bubble menu.
 - `<DragHandle>` - Used to render the drag handle.
@@ -256,7 +258,7 @@ Try it out in [demo](/)
 
 ## Bubble Menu
 
-The `Edra` component comes with `Notion` like bubble menus. There are basically 4 bubble menus in action.
+The `Edra` comes with `Notion` like bubble menus. There are basically 4 bubble menus in action.
 
 1. Editor Menu: Provides basic editor actions like `EdraToolBar`
 2. Link Menu: Provides link related actions like copy, delete, edit, etc.
@@ -273,7 +275,7 @@ Try it out in [demo](/)
 
 ## Font Size
 
-`Edra` component provides a way to change the font size of the editor.
+`Edra` provides a way to change the font size of the editor.
 In `headless` ui, you'll find a decrease and increase button in the editor toolbar.
 In `shadcn` ui, you'll find a dropdown menu in the editor toolbar.
 
@@ -285,7 +287,7 @@ Try it out in [demo](/)
 
 ## Placeholder
 
-`Edra` component provides a way to add placeholder text to the editor.
+`Edra` provides a way to add placeholder text to the editor.
 This is a `ghost` text and can be seen in an empty line. You can change the behavior of the
 placeholder as per your liking in `$lib/components/edra/editor.ts` file in **your project**.
 
@@ -297,14 +299,14 @@ Try it out in [demo](/)
 
 ## Code Block Extended
 
-`Edra` component provides a way to extend the `code block` feature. You can add a language selector and copy the code to clipboard. For code highlighting, we're using lowlight with `one-dark` and `one-light` themes, for both `dark` and `light` mode respectively. You can find the file for `onedark.css` in `$lib/components/edra/onedark.css` file in **your project**.
+`Edra` provides a way to extend the `code block` feature. You can add a language selector and copy the code to clipboard. For code highlighting, we're using lowlight with `one-dark` and `one-light` themes, for both `dark` and `light` mode respectively. You can find the file for `onedark.css` in `$lib/components/edra/onedark.css` file in **your project**.
 
 You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/onedark.css).
 
 > Info:
 >
 > By default, tiptap does not provide a way to select the language or to copy the code.
-> We have extended this functionality in `Edra` component to better UX.
+> We have extended this functionality in `Edra` to better UX.
 
 > Warning:
 >
@@ -317,7 +319,7 @@ Try it out in [demo](/)
 
 ## Image Extended
 
-`Edra` component let's you add an image in different ways. You can add an image link or
+`Edra` let's you add an image in different ways. You can add an image link or
 select an image from your local machine and add it to the editor. Moreover, you can also
 add an image from your clipboard. `Edra` provides an `ImagePlaceholder` component which let's you put a placeholder for future references.
 
@@ -389,7 +391,7 @@ Try it out in [demo](/)
 
 ## Table
 
-`Edra` component provides a way to add a table in editor. You can add it by either clicking
+`Edra` provides a way to add a table in editor. You can add it by either clicking
 the `table` button in `EdraToolbar` or by using `SlashCommand` or `/table`.
 By Default, a table with 3 columns and 3 rows will be added. Furthermore, you can insert _after, before or delete a column or row_.
 
@@ -403,7 +405,7 @@ Try it out in [demo](/)
 
 ## Search And Replace
 
-`Edra` component provides a way to search and replace text in the editor. You can use it by clicking the `search` button in the `EdraToolbar`. You can search a text, _match case_, _go to next match_ and _go to previous match_.
+`Edra` provides a way to search and replace text in the editor. You can use it by clicking the `search` button in the `EdraToolbar`. You can search a text, _match case_, _go to next match_ and _go to previous match_.
 
 You can also _replace_ the current text or _replace all_ the text in the editor by using the `replace` button in the `EdraToolbar`.
 
@@ -413,7 +415,7 @@ Try it out in [demo](/)
 
 ## Links
 
-`Edra` component provides an advanced link feature. By default, the links will not open on click.
+`Edra` provides an advanced link feature. By default, the links will not open on click.
 The link have a `bubble menu` which let's you _edit_, _open_, _copy link_ and _delete link_.
 
 If you want to change this behavior, you can change the `openOnClick` value in `Link.configure` function in `$lib/components/edra/editor.ts` file in **your project**. You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/editor.ts).
@@ -437,7 +439,7 @@ Try it out in [demo](/)
 
 ## Drag Handle
 
-`Edra` component provides a way to _drag and drop_ handle in the editor.
+`Edra` provides a way to _drag and drop_ node(s) in the editor.
 You can drag a node and drop it in anywhere in the **editor**.
 You can find the _drag handle_ component in `$lib/components/edra/components/DragHandle.svelte` file in **your project** and you can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/components/DragHandle.svelte).
 
