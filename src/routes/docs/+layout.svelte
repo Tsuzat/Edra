@@ -112,6 +112,7 @@
 		{ name: 'Search And Replace', href: '/docs#search-and-replace' },
 		{ name: 'Links', href: '/docs#Links' },
 		{ name: 'Drag Handle', href: '/docs#drag-handle' },
+		{ name: 'Drag Handle Extended', href: '/docs#drag-handle-extended' },
 		{ name: 'Drag Handle Advanced', href: '/docs#drag-handle-advanced' },
 		{ name: 'LaTeX Support', href: '/docs#latex-support' },
 		{ name: 'Commands' },

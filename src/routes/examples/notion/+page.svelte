@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { EdraEditor } from '$lib/edra/shadcn/index.js';
+	import { EdraEditor, EdraDragHandleExtended as DragHandle } from '$lib/edra/shadcn/index.js';
 	import type { Content, Editor } from '@tiptap/core';
 	import defaultContent from '$lib/default_content.js';
-	import DragHandle from '$lib/components/notion/drag-handle.svelte';
 	import BubbleMenu from '$lib/components/notion/bubble-menu.svelte';
 
 	// Editor states

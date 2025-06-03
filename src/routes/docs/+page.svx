@@ -449,6 +449,16 @@ Try it out in [demo](/)
 
 ---
 
+## Drag Handle Extended
+
+`Edra` component provides an extended drag handle feature. It allows you to drag and drop a node in the editor. Moreover, it also provides few more options when clicked. You can explore it by clicking in drag handle in demo.
+
+> Warning:
+>
+> You must import the `DragHandleExtended` component in your editor component to use it. This component is only available in `shadcn` ui flavor.
+
+Try it out in [demo](/)
+
 ---
 
 ## Drag Handle Advanced
@@ -502,7 +512,7 @@ Try it out in [demo](/)
 
 # Commands
 
-Below is a list of all available commands that can be passed to the `<Edra />` and `<EdraToolbar />`. A full list of the commands can also be seen in `src\lib\edra\commands\commands.ts`.
+Below is a list of all available commands that can be passed to the `<Edra />` and `<EdraToolbar />`. A full list of the commands can also be seen in `src\lib\edra\commands\toolbar-commands.ts`.
 
 ## Regular Commands
 
