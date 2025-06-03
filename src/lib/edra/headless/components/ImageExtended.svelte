@@ -9,11 +9,5 @@
 
 <MediaExtended bind:mediaRef {...rest}>
 	{@const node = rest.node}
-	<img
-		bind:this={mediaRef}
-		src={node.attrs.src}
-		alt={node.attrs.alt}
-		title={node.attrs.title}
-		class="m-0 object-cover"
-	/>
+	<img bind:this={mediaRef} src={node.attrs.src} alt={node.attrs.alt} title={node.attrs.title} />
 </MediaExtended>

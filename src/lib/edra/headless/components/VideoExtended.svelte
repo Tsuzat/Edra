@@ -9,13 +9,7 @@
 
 <MediaExtended bind:mediaRef {...rest}>
 	{@const node = rest.node}
-	<video
-		bind:this={mediaRef}
-		src={node.attrs.src}
-		controls
-		title={node.attrs.title}
-		class="m-0 object-cover"
-	>
+	<video bind:this={mediaRef} src={node.attrs.src} controls title={node.attrs.title}>
 		<track kind="captions" />
 	</video>
 </MediaExtended>
