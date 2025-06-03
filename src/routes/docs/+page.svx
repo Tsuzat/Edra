@@ -34,9 +34,9 @@ For installation with headless ui, you can use the following command:
 
 ```sh
 # For NPM
-npx edra init headless
+npx edra@next init headless
 # For PNPM
-pnpm dlx edra init headless
+pnpm dlx edra@next init headless
 ```
 
 The above command will copy the `edra` component as folder in `src/lib/components/edra` and install the required dependencies.

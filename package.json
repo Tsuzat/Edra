@@ -4,7 +4,8 @@
 	"description": "Best Rich Text Editor, made for Svelte Developers with Tiptap",
 	"author": {
 		"name": "Tsuzat",
-		"url": "https://tsuzat.com"
+		"url": "https://tsuzat.com",
+		"email": "edra@tsuzat.com"
 	},
 	"scripts": {
 		"dev": "vite dev",
