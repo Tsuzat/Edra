@@ -98,10 +98,10 @@
 		bind:this={scrollContainer}
 		class="bg-popover flex max-h-80 flex-col gap-1 overflow-auto scroll-smooth rounded border"
 	>
-		{#each items as grp, groupIndex}
+		{#each items as grp, groupIndex (groupIndex)}
 			<span class="text-muted-foreground p-2 text-xs">{grp.title}</span>
 
-			{#each grp.commands as command, commandIndex}
+			{#each grp.commands as command, commandIndex (commandIndex)}
 				{@const Icon = command.icon}
 				{@const isActive =
 					selectedGroupIndex === groupIndex && selectedCommandIndex === commandIndex}

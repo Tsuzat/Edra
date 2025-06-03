@@ -20,7 +20,7 @@
 
 <EdraBubbleMenu {editor}>
 	<Ai {editor} />
-	{#each directCommands as command}
+	{#each directCommands as command (command.name)}
 		<ToolBarIcon {command} {editor} />
 	{/each}
 	<Alignment {editor} />

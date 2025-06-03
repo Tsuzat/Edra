@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Content, Editor } from '@tiptap/core';
-	import { EdraEditor, EdraToolBar, BubbleMenu } from '$lib/edra/headless/index.js';
+	import { EdraEditor, EdraToolBar } from '$lib/edra/headless/index.js';
 	import defaultContent from '$lib/default_content.js';
 	import EdraToolBarIcon from '$lib/edra/headless/components/ToolBarIcon.svelte';
 	import { isMac } from '$lib/edra/utils.js';
@@ -13,7 +13,7 @@
 	let editor = $state<Editor>();
 
 	$effect(() => {
-		$inspect('[DEBUG] Content', content);
+		console.log('[DEBUG] Content', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
 	});
 

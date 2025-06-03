@@ -3,7 +3,6 @@
 	import Sun from '@lucide/svelte/icons/sun';
 	import Moon from '@lucide/svelte/icons/moon-star';
 	import Github from '@lucide/svelte/icons/github';
-	import Coffee from '@lucide/svelte/icons/coffee';
 	import { toggleMode } from 'mode-watcher';
 	import AppLogo from '$lib/assets/app_logo.png';
 </script>

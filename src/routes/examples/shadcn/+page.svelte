@@ -16,7 +16,7 @@
 	let showToolBar = $state(true);
 
 	$effect(() => {
-		$inspect('[DEBUG] Content', content);
+		console.log('[DEBUG] Content', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
 	});
 
