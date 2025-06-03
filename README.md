@@ -6,7 +6,8 @@
 
 Edra is a rich text editor made with Tiptap for Svelte Developers with extensibility and proper data output. It Focuses on ease of use and **copied to your project as an component**, with a beautiful default UI.
 
-![Screenshot 2025-05-18 at 9 10 57 AM](https://github.com/user-attachments/assets/82030abf-1ab9-411c-aabe-fd4bc61092cf)
+<img width="1023" alt="Screenshot 2025-06-03 at 1 13 31 PM" src="https://github.com/user-attachments/assets/b85e6e3f-28a4-439e-91ed-bc7fc9fddcc2" />
+
 
 ## Features
 
