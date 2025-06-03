@@ -101,17 +101,14 @@
 
 .tiptap ul,
 .tiptap ol {
-	padding: 0 0.5rem;
-}
-
-.tiptap li {
-	margin-left: 1.5rem;
+	padding: 0 1rem;
+	margin: 0.5rem 1rem 0.5rem 0.4rem;
 }
 
 .tiptap ul li p,
 .tiptap ol li p {
-	margin-top: 0.25em;
-	margin-bottom: 0.25em;
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
 }
 
 /* Task List Styling */
@@ -127,10 +124,8 @@
 }
 
 .tiptap ul[data-type='taskList'] li > label {
+	flex: 0 0 auto;
 	margin-right: 0.5rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	user-select: none;
 }
 
