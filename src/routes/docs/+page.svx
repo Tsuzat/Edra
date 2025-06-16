@@ -57,9 +57,9 @@ After installing the `svelte-shadcn` and `tailwind-typography` packages, you nee
 
 ```sh
 # For NPM
-npx shadcn-svelte@next add dropdown-menu button tooltip input popover
+npx shadcn-svelte add dropdown-menu button tooltip input popover
 # using pnpm
-pnpm dlx shadcn-svelte@next add dropdown-menu button tooltip input popover
+pnpm dlx shadcn-svelte add dropdown-menu button tooltip input popover
 ```
 
 After the installation of `svelte-shadcn` components, we can run following

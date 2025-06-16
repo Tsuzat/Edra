@@ -58,10 +58,10 @@ async function installDependencies() {
 	// Construct the install command based on the package manager
 	switch (packageManager.name) {
 		case 'npm':
-			installCommand = `npm install ${dependencies.join(' ')}`;
+			installCommand = `npm install ${dependencies.join(' ')} --legacy-peer-deps`;
 			break;
 		case 'pnpm':
-			installCommand = `pnpm add ${dependencies.join(' ')}`;
+			installCommand = `pnpm add ${dependencies.join(' ')} --legacy-peer-deps`;
 			break;
 		case 'yarn':
 			installCommand = `yarn add ${dependencies.join(' ')}`;
