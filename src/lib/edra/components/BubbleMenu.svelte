@@ -29,13 +29,13 @@
 		...restProps
 	}: Props = $props();
 
-	let element: HTMLElement = document.createElement('div');
+	let element = $state<HTMLElement>();
 
 	onMount(() => {
 		if (!element) return;
 
-		element.style.visibility = 'hidden';
 		element.style.position = 'absolute';
+		element.style.visibility = 'hidden';
 
 		if (!editor || editor.isDestroyed) {
 			console.warn('BubbleMenu component does not have editor prop or editor is destroyed.');
