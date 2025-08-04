@@ -299,6 +299,7 @@ input[type='checkbox'] {
 	bottom: -2px;
 	display: flex;
 	width: 0.5rem;
+	background-color: var(--table-border);
 }
 
 .ProseMirror table .column-resize-handle::before {
