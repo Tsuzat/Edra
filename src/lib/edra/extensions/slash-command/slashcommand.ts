@@ -1,16 +1,26 @@
 import { Editor, Extension } from '@tiptap/core';
 import Suggestion, { type SuggestionProps, type SuggestionKeyDownProps } from '@tiptap/suggestion';
 import { PluginKey } from '@tiptap/pm/state';
+import { computePosition, flip, offset, autoUpdate, type Placement } from '@floating-ui/dom';
 
 import { GROUPS } from './groups.js';
 import SvelteRenderer from '../../svelte-renderer.js';
-import tippy from 'tippy.js';
+
 import type { Component } from 'svelte';
 
 const extensionName = 'slashCommand';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let popup: any;
+interface PopupState {
+	element: HTMLElement | null;
+	cleanup: (() => void) | null;
+	isVisible: boolean;
+}
+
+const popup: PopupState = {
+	element: null,
+	cleanup: null,
+	isVisible: false
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (menuList: Component<any, any, ''>): Extension =>
@@ -20,23 +30,15 @@ export default (menuList: Component<any, any, ''>): Extension =>
 		priority: 200,
 
 		onCreate() {
-			popup = tippy('body', {
-				interactive: true,
-				trigger: 'manual',
-				placement: 'bottom-start',
-				theme: 'slash-command',
-				maxWidth: '16rem',
-				offset: [16, 8],
-				popperOptions: {
-					strategy: 'fixed',
-					modifiers: [
-						{
-							name: 'flip',
-							enabled: false
-						}
-					]
-				}
-			});
+			// Create popup container
+			popup.element = document.createElement('div');
+			popup.element.style.position = 'fixed';
+			popup.element.style.zIndex = '9999';
+			popup.element.style.maxWidth = '16rem';
+			popup.element.style.visibility = 'hidden';
+			popup.element.style.pointerEvents = 'none';
+			popup.element.className = 'slash-command-popup';
+			document.body.appendChild(popup.element);
 		},
 
 		addProseMirrorPlugins() {
@@ -120,103 +122,93 @@ export default (menuList: Component<any, any, ''>): Extension =>
 
 								const { view } = props.editor;
 
-								const getReferenceClientRect = () => {
-									if (!props.clientRect) {
-										return props.editor.storage[extensionName].rect;
+								if (popup.element) {
+									popup.element.appendChild(component.element);
+									popup.element.style.visibility = 'visible';
+									popup.element.style.pointerEvents = 'auto';
+									popup.isVisible = true;
+
+									const updatePosition = () => {
+										if (!popup.element || !props.clientRect) return;
+
+										const rect = props.clientRect();
+										if (!rect) return;
+
+										const referenceElement = {
+											getBoundingClientRect: () => rect
+										};
+
+										computePosition(referenceElement, popup.element, {
+											placement: 'bottom-start' as Placement,
+											middleware: [
+												offset({ mainAxis: 8, crossAxis: 16 }),
+												flip({ fallbackPlacements: ['top-start', 'bottom-start'] })
+											]
+										}).then(({ x, y }) => {
+											if (popup.element) {
+												popup.element.style.left = `${x}px`;
+												popup.element.style.top = `${y}px`;
+											}
+										});
+									};
+
+									updatePosition();
+
+									// Set up auto-update for scroll events
+									if (props.clientRect) {
+										const referenceElement = {
+											getBoundingClientRect: () => props.clientRect?.() || new DOMRect()
+										};
+										popup.cleanup = autoUpdate(referenceElement, popup.element, updatePosition);
 									}
 
-									const rect = props.clientRect();
-
-									if (!rect) {
-										return props.editor.storage[extensionName].rect;
-									}
-
-									let yPos = rect.y;
-
-									if (rect.top + component.element.offsetHeight + 40 > window.innerHeight) {
-										const diff =
-											rect.top + component.element.offsetHeight - window.innerHeight + 40;
-										yPos = rect.y - diff;
-									}
-
-									return new DOMRect(rect.x, yPos, rect.width, rect.height);
-								};
-
-								scrollHandler = () => {
-									popup?.[0].setProps({
-										getReferenceClientRect
-									});
-								};
-
-								view.dom.parentElement?.addEventListener('scroll', scrollHandler);
-
-								popup?.[0].setProps({
-									getReferenceClientRect,
-									appendTo: () => document.body,
-									content: component.element
-								});
-
-								popup?.[0].show();
+									scrollHandler = updatePosition;
+									view.dom.parentElement?.addEventListener('scroll', scrollHandler);
+								}
 							},
 
 							onUpdate(props: SuggestionProps) {
 								component.updateProps(props);
 
-								const { view } = props.editor;
-
-								const getReferenceClientRect = () => {
-									if (!props.clientRect) {
-										return props.editor.storage[extensionName].rect;
-									}
-
+								if (popup.element && popup.isVisible && props.clientRect) {
 									const rect = props.clientRect();
-
-									if (!rect) {
-										return props.editor.storage[extensionName].rect;
-									}
-
-									let yPos = rect.y;
-
-									if (rect.top + component.element.offsetHeight + 40 > window.innerHeight) {
-										const diff =
-											rect.top + component.element.offsetHeight - window.innerHeight + 40;
-										yPos = rect.y - diff;
-									}
-
-									return new DOMRect(rect.x, yPos, rect.width, rect.height);
-								};
-
-								const scrollHandler = () => {
-									popup?.[0].setProps({
-										getReferenceClientRect
-									});
-								};
-
-								view.dom.parentElement?.addEventListener('scroll', scrollHandler);
-
-								props.editor.storage[extensionName].rect = props.clientRect
-									? getReferenceClientRect()
-									: {
-											width: 0,
-											height: 0,
-											left: 0,
-											top: 0,
-											right: 0,
-											bottom: 0
+									if (rect) {
+										const referenceElement = {
+											getBoundingClientRect: () => rect
 										};
-								popup?.[0].setProps({
-									getReferenceClientRect
-								});
+
+										computePosition(referenceElement, popup.element, {
+											placement: 'bottom-start' as Placement,
+											middleware: [
+												offset({ mainAxis: 8, crossAxis: 16 }),
+												flip({ fallbackPlacements: ['top-start', 'bottom-start'] })
+											]
+										}).then(({ x, y }) => {
+											if (popup.element) {
+												popup.element.style.left = `${x}px`;
+												popup.element.style.top = `${y}px`;
+											}
+										});
+
+										props.editor.storage[extensionName].rect = rect;
+									}
+								}
 							},
 
 							onKeyDown(props: SuggestionKeyDownProps) {
 								if (props.event.key === 'Escape') {
-									popup?.[0].hide();
+									if (popup.element) {
+										popup.element.style.visibility = 'hidden';
+										popup.element.style.pointerEvents = 'none';
+										popup.isVisible = false;
+									}
 									return true;
 								}
 
-								if (!popup?.[0].state.isShown) {
-									popup?.[0].show();
+								if (!popup.isVisible && popup.element) {
+									popup.element.style.visibility = 'visible';
+									popup.element.style.pointerEvents = 'auto';
+									popup.isVisible = true;
 								}
 
 								if (props.event.key === 'Enter') return true;
@@ -226,11 +218,24 @@ export default (menuList: Component<any, any, ''>): Extension =>
 							},
 
 							onExit(props) {
-								popup?.[0].hide();
+								if (popup.element) {
+									popup.element.style.visibility = 'hidden';
+									popup.element.style.pointerEvents = 'none';
+									popup.element.innerHTML = '';
+									popup.isVisible = false;
+								}
+
+								if (popup.cleanup) {
+									popup.cleanup();
+									popup.cleanup = null;
+								}
+
 								if (scrollHandler) {
 									const { view } = props.editor;
 									view.dom.parentElement?.removeEventListener('scroll', scrollHandler);
+									scrollHandler = null;
 								}
+
 								component.destroy();
 							}
 						};
