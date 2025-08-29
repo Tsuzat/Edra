@@ -8,7 +8,6 @@ Edra is a rich text editor made with Tiptap for Svelte Developers with extensibi
 
 <img width="1023" alt="Screenshot 2025-06-03 at 1 13 31 PM" src="https://github.com/user-attachments/assets/b85e6e3f-28a4-439e-91ed-bc7fc9fddcc2" />
 
-
 ## Features
 
 - **Rich Text** Editing with markdown shortcuts
