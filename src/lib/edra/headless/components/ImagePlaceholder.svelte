@@ -16,6 +16,6 @@
 <MediaPlaceHolder
 	class="edra-media-placeholder-wrapper"
 	icon={Image}
-	title="Insert an Image"
+	title="Insert an image"
 	onClick={handleClick}
 />
