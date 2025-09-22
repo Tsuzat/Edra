@@ -17,6 +17,6 @@
 <MediaPlaceHolder
 	class={buttonVariants({ variant: 'secondary', class: 'my-2 w-full justify-start p-6' })}
 	icon={Image}
-	title="Insert an Image"
+	title="Insert an image"
 	onClick={handleClick}
 />

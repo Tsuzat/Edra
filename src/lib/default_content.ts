@@ -365,7 +365,7 @@ export default {
 				},
 				{
 					type: 'text',
-					text: ' on topics you are commiting to. Moreover, we have 3 types of lists.'
+					text: ' on topics you are committing to. Moreover, we have 3 types of lists.'
 				}
 			]
 		},
@@ -802,7 +802,7 @@ export default {
 							}
 						}
 					],
-					text: 'Rending Math and '
+					text: 'Rendering Math and '
 				},
 				{
 					type: 'inlineMath',
