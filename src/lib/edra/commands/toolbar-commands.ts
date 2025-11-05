@@ -27,6 +27,8 @@ import Video from '@lucide/svelte/icons/video';
 import Audio from '@lucide/svelte/icons/audio-lines';
 import IFrame from '@lucide/svelte/icons/code-xml';
 import Table from '@lucide/svelte/icons/table';
+import Radical from '@lucide/svelte/icons/radical';
+import SquareRadical from '@lucide/svelte/icons/square-radical';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -397,6 +399,30 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 				editor.chain().focus().insertTable({ cols: 3, rows: 3, withHeaderRow: false }).run();
 			},
 			isActive: (editor) => editor.isActive('table')
+		}
+	],
+	math: [
+		{
+			icon: SquareRadical,
+			name: 'mathematics',
+			tooltip: 'Block Equation',
+			onClick: (editor) => {
+				const latex = prompt('Enter Math Expression: ');
+				if (!latex) return;
+				editor.chain().focus().insertBlockMath({ latex }).run();
+			},
+			isActive: (editor) => editor.isActive('blockMath')
+		},
+		{
+			icon: Radical,
+			name: 'mathematics',
+			tooltip: 'Inline Equation',
+			onClick: (editor) => {
+				const latex = prompt('Enter Math Expression: ');
+				if (!latex) return;
+				editor.chain().focus().insertInlineMath({ latex }).run();
+			},
+			isActive: (editor) => editor.isActive('inlineMath')
 		}
 	]
 };

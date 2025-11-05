@@ -12,8 +12,9 @@ import SearchAndReplace from './extensions/FindAndReplace.js';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Table, TableCell, TableRow, TableHeader } from './extensions/table/index.js';
 import { Placeholder } from '@tiptap/extensions';
-import { Markdown } from 'tiptap-markdown';
-import MathExtension from '@aarkue/tiptap-math-extension';
+import { Markdown } from '@tiptap/markdown';
+import Math from '@tiptap/extension-mathematics';
+
 import AutoJoiner from 'tiptap-extension-auto-joiner';
 import 'katex/dist/katex.min.css';
 
@@ -79,23 +80,40 @@ export default (
 				nested: true
 			}),
 			SearchAndReplace,
-			MathExtension.configure({ evaluation: true }),
+			Math.configure({
+				blockOptions: {
+					onClick: (node, pos) => {
+						const newCalculation = prompt('Enter new calculation:', node.attrs.latex);
+						if (newCalculation) {
+							editor
+								.chain()
+								.setNodeSelection(pos)
+								.updateBlockMath({ latex: newCalculation })
+								.focus()
+								.run();
+						}
+					}
+				},
+				inlineOptions: {
+					onClick: (node, pos) => {
+						const newCalculation = prompt('Enter new calculation:', node.attrs.latex);
+						if (newCalculation) {
+							editor
+								.chain()
+								.setNodeSelection(pos)
+								.updateInlineMath({ latex: newCalculation })
+								.focus()
+								.run();
+						}
+					}
+				}
+			}),
 			AutoJoiner,
 			Table,
 			TableHeader,
 			TableRow,
 			TableCell,
-			Markdown.configure({
-				html: true,
-				tightLists: true,
-				tightListClass: 'tight',
-				bulletListMarker: '-',
-				linkify: true,
-				breaks: true,
-				transformPastedText: true,
-				transformCopiedText: false
-			}),
-
+			Markdown,
 			...(extensions ?? [])
 		],
 		...options
