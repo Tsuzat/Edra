@@ -18,7 +18,6 @@ const uiOptions = ['headless', 'shadcn'];
 
 // List of dependencies to install
 const dependencies = [
-	'@aarkue/tiptap-math-extension',
 	'@tiptap/core',
 	'@tiptap/extension-code-block-lowlight',
 	'@tiptap/extension-highlight',
@@ -35,13 +34,14 @@ const dependencies = [
 	'@tiptap/extensions',
 	'@tiptap/extension-list',
 	'@tiptap/extension-bubble-menu',
-	'tippy.js',
+	'@tiptap/markdown',
+	'@tiptap/extension-mathematics',
+	'@floating-ui/dom',
 	'katex',
 	'lowlight',
 	'svelte-tiptap',
 	'tiptap-extension-auto-joiner',
-	'@lucide/svelte',
-	'tiptap-markdown'
+	'@lucide/svelte'
 ];
 
 // Install dependencies with the detected package manager
