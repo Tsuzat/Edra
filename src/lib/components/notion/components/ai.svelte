@@ -16,21 +16,25 @@
 
 	let { editor }: Props = $props();
 
-	function getSelectionText(): string {
+	function getSelectionText() {
 		const slice = editor.state.selection.content();
-		return editor.storage.markdown.serializer.serialize(slice.content);
+		if (editor.markdown) return editor.markdown?.serialize(slice.toJSON());
+		toast.error('Editor markdown is not loaded');
 	}
 
 	function insertMD(text: string) {
 		const { from, to } = editor.view.state.selection;
 
-		editor.chain().focus().insertContentAt({ from, to }, text).run();
+		editor.chain().focus().insertContentAt({ from, to }, text, { contentType: 'markdown' }).run();
 	}
 
 	async function processText(tool: 'longer' | 'shorter' | 're-write' | 'fix-grammar') {
 		const id = toast.loading('AI is thinking...', { duration: 10000 });
 		try {
 			const text = getSelectionText();
+			if (!text || text.trim() === '') {
+				return;
+			}
 			const data = { tool, text };
 
 			const response = await fetch('/examples/notion/api', {
