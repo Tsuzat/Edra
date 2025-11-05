@@ -172,7 +172,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 ```svelte
 <script lang="ts">
 	import type { Content, Editor } from '@tiptap/core';
-	import { EdraEditor, EdraToolBar, EdraDragHandleExtended } from '$lib/edra/shadcn/index.js';
+	import { EdraEditor, EdraToolBar, EdraDragHandleExtended } from '$lib/components/edra/shadcn';
 
 	// Editor states
 	let content = $state<Content>();
