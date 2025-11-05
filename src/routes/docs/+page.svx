@@ -183,7 +183,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 	}
 </script>
 
-<div class="py-4 text-center text-xl font-bold">Shadcn Example</div>
+<div class="py-4 text-center text-xl font-bold">Shadcn Example
 	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<EdraToolBar
@@ -195,7 +195,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 		<EdraEditor
 			bind:editor
 			{content}
-			class="h-[30rem] max-h-screen overflow-y-scroll pr-2 pl-6"
+			class="h-120 max-h-screen overflow-y-scroll pr-2 pl-6"
 			{onUpdate}
 		/>
 	</div>
