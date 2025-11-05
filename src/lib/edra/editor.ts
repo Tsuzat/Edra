@@ -13,10 +13,11 @@ import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Table, TableCell, TableRow, TableHeader } from './extensions/table/index.js';
 import { Placeholder } from '@tiptap/extensions';
 import { Markdown } from '@tiptap/markdown';
-import Math from '@tiptap/extension-mathematics';
+import MathMatics from '@tiptap/extension-mathematics';
 
 import AutoJoiner from 'tiptap-extension-auto-joiner';
 import 'katex/dist/katex.min.css';
+import { InlineMathReplacer } from './extensions/InlineMathReplacer.js';
 
 export default (
 	element?: HTMLElement,
@@ -80,7 +81,8 @@ export default (
 				nested: true
 			}),
 			SearchAndReplace,
-			Math.configure({
+			InlineMathReplacer,
+			MathMatics.configure({
 				blockOptions: {
 					onClick: (node, pos) => {
 						const newCalculation = prompt('Enter new calculation:', node.attrs.latex);

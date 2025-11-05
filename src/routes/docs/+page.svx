@@ -502,11 +502,13 @@ There's a simple example
 
 ---
 
-## LaTeX Support
+## Math Expression Support
 
 `Edra` component provides a way to add LaTeX expressions in the editor. You can add them
-by using `$` symbol. For example, you can write `$\sum_{i=1}^n i^2$` to get an equation.
+by using `$$` symbol. For example, you can write `$$\sum_{i=1}^n i^2$$` to get an equation.
 You also click on a LaTeX expression and it will be evaluated and the result will be shown.
+
+Moreover, you can insert `inline` or `block` math expression with toolbar or slash-command.
 
 Try it out in [demo](/)
 

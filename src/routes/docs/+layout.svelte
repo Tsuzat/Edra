@@ -114,7 +114,7 @@
 		{ name: 'Drag Handle', href: '/docs#drag-handle' },
 		{ name: 'Drag Handle Extended', href: '/docs#drag-handle-extended' },
 		{ name: 'Drag Handle Advanced', href: '/docs#drag-handle-advanced' },
-		{ name: 'LaTeX Support', href: '/docs#latex-support' },
+		{ name: 'Math Expression Support', href: '/docs#math-expression-support' },
 		{ name: 'Commands' },
 		{ name: 'Regular Commands', href: '/docs#regular-commands' },
 		{ name: 'Special Commands', href: '/docs#special-commands' }
