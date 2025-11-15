@@ -2,6 +2,8 @@
 	import type { Editor } from '@tiptap/core';
 	import { onMount } from 'svelte';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import Repeat2 from '@lucide/svelte/icons/repeat-2';
+	import Plus from '@lucide/svelte/icons/plus';
 	import { DragHandlePlugin } from '../extensions/drag-handle/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { Node } from '@tiptap/pm/model';
@@ -11,6 +13,7 @@
 	import Clipboard from '@lucide/svelte/icons/clipboard';
 	import Delete from '@lucide/svelte/icons/trash-2';
 	import { NodeSelection } from '@tiptap/pm/state';
+	import commands from '../commands/toolbar-commands.js';
 
 	interface Props {
 		editor: Editor;
@@ -21,6 +24,9 @@
 	let currentNode: Node | null = $state(null);
 	let currentNodePos: number = $state(-1);
 	let open = $state(false);
+	const turnIntoCommand = Object.values(commands)
+		.flat()
+		.filter((c) => c.turnInto !== undefined);
 
 	const pluginKey = 'globalDragHandle';
 
@@ -77,10 +83,39 @@
 			.deleteSelection()
 			.run();
 	};
+
+	const handleAddNodeNext = () => {
+		if (currentNodePos === -1) return;
+		const currentNodeSize = currentNode?.nodeSize || 0;
+		const insertPos = currentNodePos + currentNodeSize;
+		const currentNodeIsEmptyParagraph =
+			currentNode?.type.name === 'paragraph' && currentNode?.content?.size === 0;
+		const focusPos = currentNodeIsEmptyParagraph ? currentNodePos + 2 : insertPos + 2;
+		editor
+			.chain()
+			.command(({ dispatch, tr, state }) => {
+				if (dispatch) {
+					if (currentNodeIsEmptyParagraph) {
+						tr.insertText('/', currentNodePos, currentNodePos + 1);
+					} else {
+						tr.insert(
+							insertPos,
+							state.schema.nodes.paragraph.create(null, [state.schema.text('/')])
+						);
+					}
+
+					return dispatch(tr);
+				}
+
+				return true;
+			})
+			.focus(focusPos)
+			.run();
+	};
 </script>
 
 <div class="drag-handle">
-	<Button variant="ghost" class="!size-6 rounded-sm p-0" onclick={() => (open = true)}>
+	<Button variant="ghost" class="size-6! rounded-sm p-0" onclick={() => (open = true)}>
 		<GripVertical />
 	</Button>
 	<DropdownMenu.Root bind:open>
@@ -88,10 +123,43 @@
 			<span>Drag Handle</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content>
+			<DropdownMenu.Group>
+				<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
+					{currentNode?.type.name}
+				</DropdownMenu.GroupHeading>
+				<DropdownMenu.Sub>
+					<DropdownMenu.SubTrigger openDelay={300}>
+						<Repeat2 />
+						Turn Into
+					</DropdownMenu.SubTrigger>
+					<DropdownMenu.SubContent class="max-h-96 overflow-auto duration-300">
+						{#each turnIntoCommand as command (command)}
+							{@const Icon = command.icon}
+							<DropdownMenu.Item
+								onclick={() => {
+									if (currentNode && currentNodePos) command.turnInto?.(editor, currentNodePos);
+								}}
+							>
+								<Icon />
+								<span>{command.tooltip}</span>
+								<DropdownMenu.Shortcut class="bg-background rounded border p-0.5"
+									>{command.shortCut}</DropdownMenu.Shortcut
+								>
+							</DropdownMenu.Item>
+						{/each}
+					</DropdownMenu.SubContent>
+				</DropdownMenu.Sub>
+			</DropdownMenu.Group>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item onclick={handleAddNodeNext}>
+				<Plus />
+				Add Node
+			</DropdownMenu.Item>
 			<DropdownMenu.Item onclick={handleRemoveFormatting}>
 				<RemoveFormatting />
 				Remove Formatting
 			</DropdownMenu.Item>
+			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={handleDuplicate}>
 				<Duplicate />
 				Duplicate Node
@@ -100,6 +168,7 @@
 				<Clipboard />
 				Copy to clipboard
 			</DropdownMenu.Item>
+			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={handleDelete}>
 				<Delete class="text-destructive" />
 				Delete Node

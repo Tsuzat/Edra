@@ -15,7 +15,7 @@
 	import Ai from './components/ai.svelte';
 	import Alignment from '$lib/edra/shadcn/components/toolbar/Alignment.svelte';
 
-	const directCommands = commands['text-formatting'];
+	const directCommands = commands['text-formatting'].filter((c) => c.name !== 'paragraph');
 </script>
 
 <EdraBubbleMenu {editor}>
