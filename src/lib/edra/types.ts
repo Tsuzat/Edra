@@ -1,4 +1,4 @@
-import type { Content, Editor } from '@tiptap/core';
+import type { Content, Editor, Extensions } from '@tiptap/core';
 import type { EditorState } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 import type { Snippet } from 'svelte';
@@ -10,6 +10,7 @@ export interface EdraEditorProps {
 	autofocus?: boolean;
 	onUpdate?: () => void;
 	class?: string;
+	extensions?: Extensions;
 }
 
 export interface EdraToolbarProps {
