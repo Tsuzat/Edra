@@ -1,29 +1,29 @@
 <script lang="ts">
-import commands from '$lib/edra/commands/toolbar-commands.js';
-import { buttonVariants } from '$lib/components/ui/button/index.js';
-import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-import { cn } from '$lib/utils.js';
-import ChevronDown from '@lucide/svelte/icons/chevron-down';
-import Minus from '@lucide/svelte/icons/minus';
-import type { Editor } from '@tiptap/core';
-import EdraToolTip from '../EdraToolTip.svelte';
+	import commands from '$lib/edra/commands/toolbar-commands.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { cn } from '$lib/utils.js';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import Minus from '@lucide/svelte/icons/minus';
+	import type { Editor } from '@tiptap/core';
+	import EdraToolTip from '../EdraToolTip.svelte';
 
-interface Props {
-  editor: Editor;
-}
+	interface Props {
+		editor: Editor;
+	}
 
-const { editor }: Props = $props();
+	const { editor }: Props = $props();
 
-const lists = commands['lists'];
+	const lists = commands['lists'];
 
-const isActive = $derived.by(() => {
-  return lists.find((h) => h.isActive?.(editor)) !== undefined;
-});
+	const isActive = $derived.by(() => {
+		return lists.find((h) => h.isActive?.(editor)) !== undefined;
+	});
 
-const ListIcon = $derived.by(() => {
-  const h = lists.find((h) => h.isActive?.(editor));
-  return h ? h.icon : Minus;
-});
+	const ListIcon = $derived.by(() => {
+		const h = lists.find((h) => h.isActive?.(editor));
+		return h ? h.icon : Minus;
+	});
 </script>
 
 <DropdownMenu.Root>
@@ -43,7 +43,7 @@ const ListIcon = $derived.by(() => {
 			<ChevronDown class="text-muted-foreground size-2!" />
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
-	<DropdownMenu.Content portalProps={{ to: document.getElementById('nota-editor') ?? 'undefined' }}>
+	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
 		<DropdownMenu.Label>Lists</DropdownMenu.Label>
 		{#each lists as list (list)}
 			{@const Icon = list.icon}

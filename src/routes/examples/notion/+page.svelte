@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { EdraEditor, EdraDragHandleExtended as DragHandle } from '$lib/edra/shadcn/index.js';
+	import {
+		EdraEditor,
+		EdraDragHandleExtended as DragHandle,
+		EdraBubbleMenu,
+		ToC
+	} from '$lib/edra/shadcn/index.js';
 	import type { Content, Editor } from '@tiptap/core';
 	import defaultContent from '$lib/default_content.js';
-	import BubbleMenu from '$lib/components/notion/bubble-menu.svelte';
 
 	// Editor states
 	let content = $state<Content>();
@@ -37,7 +41,8 @@
 <div class="h-full w-full">
 	{#if editor && editable}
 		<DragHandle {editor} />
-		<BubbleMenu {editor} />
+		<EdraBubbleMenu {editor} />
+		<ToC {editor} />
 	{/if}
 	<EdraEditor
 		class="mx-auto h-full w-full max-w-3xl overflow-auto"

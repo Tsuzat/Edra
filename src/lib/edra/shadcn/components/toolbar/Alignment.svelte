@@ -1,30 +1,30 @@
 <script lang="ts">
-import commands from '$lib/edra/commands/toolbar-commands.js';
-import { buttonVariants } from '$lib/components/ui/button/index.js';
-// import * as Select from '@lib/components/ui/select';
-import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-import { cn } from '$lib/utils.js';
-import AlignLeft from '@lucide/svelte/icons/align-left';
-import ChevronDown from '@lucide/svelte/icons/chevron-down';
-import type { Editor } from '@tiptap/core';
-import EdraToolTip from '../EdraToolTip.svelte';
+	import commands from '$lib/edra/commands/toolbar-commands.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	// import * as Select from '@lib/components/ui/select';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { cn } from '$lib/utils.js';
+	import AlignLeft from '@lucide/svelte/icons/align-left';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import type { Editor } from '@tiptap/core';
+	import EdraToolTip from '../EdraToolTip.svelte';
 
-interface Props {
-  editor: Editor;
-}
+	interface Props {
+		editor: Editor;
+	}
 
-const { editor }: Props = $props();
+	const { editor }: Props = $props();
 
-const alignments = commands['alignment'];
+	const alignments = commands['alignment'];
 
-const isActive = $derived.by(() => {
-  return alignments.find((h) => h.isActive?.(editor)) !== undefined;
-});
+	const isActive = $derived.by(() => {
+		return alignments.find((h) => h.isActive?.(editor)) !== undefined;
+	});
 
-const AlignmentIcon = $derived.by(() => {
-  const h = alignments.find((h) => h.isActive?.(editor));
-  return h ? h.icon : AlignLeft;
-});
+	const AlignmentIcon = $derived.by(() => {
+		const h = alignments.find((h) => h.isActive?.(editor));
+		return h ? h.icon : AlignLeft;
+	});
 </script>
 
 <DropdownMenu.Root>
@@ -40,7 +40,7 @@ const AlignmentIcon = $derived.by(() => {
 			<ChevronDown class="text-muted-foreground size-2!" />
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
-	<DropdownMenu.Content portalProps={{ to: document.getElementById('nota-editor') ?? 'undefined' }}>
+	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
 		<DropdownMenu.Label>Alignments</DropdownMenu.Label>
 		{#each alignments as alignment (alignment)}
 			{@const Icon = alignment.icon}

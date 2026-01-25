@@ -49,6 +49,7 @@
         {defaultLanguage}
       </Popover.Trigger>
       <Popover.Content class="p-0 w-36 max-h-96 text-primary!" 
+        onfocusout={(e) => e.preventDefault()}
       			portalProps={{ disabled: true, to: undefined }}
       >
         <Command.Root>

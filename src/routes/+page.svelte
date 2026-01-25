@@ -71,7 +71,7 @@
 		<EdraEditor
 			bind:editor
 			{content}
-			class="h-120 px-10 pt-4 max-h-screen w-full overflow-y-scroll"
+			class="h-120 max-h-screen w-full overflow-y-scroll px-10 pt-4"
 			{onUpdate}
 		/>
 	</div>
