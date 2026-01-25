@@ -63,11 +63,11 @@ After installing the `svelte-shadcn` and `tailwind-typography` packages, you nee
 
 ```sh
 # For NPM
-npx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
+npx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip sonner
 # using pnpm
-pnpm dlx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
+pnpm dlx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip sonner
 # For Bun
-bunx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
+bunx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip sonner
 ```
 
 After the installation of `svelte-shadcn` components, we can run following
