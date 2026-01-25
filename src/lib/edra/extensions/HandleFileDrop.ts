@@ -7,10 +7,6 @@ export interface FileDropOptions {
 	 */
 	handler: (files: string) => Promise<string>;
 	/**
-	 * The assets getter. By default it returns an empty array.
-	 */
-	assetsGetter: (fileType: FileType) => Promise<string[]>;
-	/**
 	 * The local file selector/getter. By default it returns an empty string.
 	 * This function allows consumers to open a local file picker or otherwise
 	 * provide a local file reference for the given file type.
@@ -31,16 +27,6 @@ declare module '@tiptap/core' {
 			 * returns a Promise<string[]> of the uploaded URLs.
 			 */
 			handleFileDrop: (file: string) => ReturnType;
-			/**
-			 * Set the assets getter that takes a file type
-			 * and returns a Promise of the asset URLs.
-			 */
-			setGetAssets: (getter: (fileType: string) => Promise<string[]>) => ReturnType;
-			/**
-			 * Get assets for a specific file type,
-			 * returns a Promise<string[]> of the asset URLs.
-			 */
-			getAssets: (fileType: string) => ReturnType;
 		};
 	}
 
@@ -69,7 +55,6 @@ export const FileDrop = Extension.create<FileDropOptions>({
 	addStorage() {
 		return {
 			handler: this.options.handler,
-			assetsGetter: this.options.assetsGetter,
 			localFileGetter: this.options.localFileGetter
 		};
 	},
@@ -88,21 +73,6 @@ export const FileDrop = Extension.create<FileDropOptions>({
 				({ editor }: CommandProps) => {
 					// await the currently-registered handler
 					void editor.storage.fileDrop.handler(file);
-					return true;
-				},
-
-			setGetAssets:
-				(getter) =>
-				({ editor }: CommandProps) => {
-					editor.storage.fileDrop.assetsGetter = getter;
-					return true;
-				},
-
-			getAssets:
-				(fileType) =>
-				({ editor }: CommandProps) => {
-					// await the currently-registered assets getter
-					void editor.storage.fileDrop.assetsGetter(fileType);
 					return true;
 				}
 		};

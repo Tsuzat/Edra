@@ -2,7 +2,6 @@ import type { Content, Editor } from '@tiptap/core';
 import type { EditorState } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 import type { Snippet } from 'svelte';
-import type { FileType } from './utils.js';
 export type { Content, Editor };
 
 export interface EdraEditorProps {
@@ -40,23 +39,20 @@ export interface EdraEditorProps {
 	 */
 	spellcheck?: boolean;
 	/**
-	 * Use this to upload or process a file once it's selected returning final file source
+	 * Use this to upload or process a file once it's selected returning final file source.
+	 * Usefull when you want user to upload a file from system, upload it and set the final path as content source
 	 * @param file Current File Path from System
 	 * @returns Promise<string> - Final Path of file
 	 */
 	onFileSelect?: (file: string) => Promise<string>;
 	/**
-	 * Runs when a file is dropped or pasted on editor returning final file source
+	 * Runs when a file is dropped or pasted on editor returning final file source.
+	 * Usefull when you want user to Drop a file on editor, process and(or) upload it
+	 * and set the final path as content source
 	 * @param file File
 	 * @returns finalPath string
 	 */
 	onDropOrPaste?: (file: File) => Promise<string>;
-	/**
-	 * Get all the files in related to fileType
-	 * @param fileType
-	 * @returns files - string[]
-	 */
-	getAssets?: (fileType: FileType) => Promise<string[]>;
 }
 
 export interface EdraToolbarProps {

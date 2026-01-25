@@ -48,8 +48,8 @@
 			</Popover.Trigger>
 			<Popover.Content
 				class="text-primary! max-h-96 w-36 p-0"
-				onfocusout={(e) => e.preventDefault()}
 				portalProps={{ disabled: true, to: undefined }}
+				onCloseAutoFocus={(e) => e.preventDefault()}
 			>
 				<Command.Root>
 					<Command.Input placeholder="Search language..." />

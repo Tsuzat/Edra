@@ -57,8 +57,7 @@
 		class: className,
 		spellcheck = true,
 		onFileSelect,
-		onDropOrPaste,
-		getAssets
+		onDropOrPaste
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
@@ -83,8 +82,7 @@
 				IFrameExtended(IFrameExtendedComp),
 				slashcommand(SlashCommandList),
 				FileDrop.configure({
-					handler: onFileSelect,
-					assetsGetter: getAssets
+					handler: onFileSelect
 				}),
 				Mathematics.configure({
 					// Options for the block math node

@@ -12,6 +12,7 @@
 	interface SideBarItem {
 		name: string;
 		href?: string;
+		isNew?: boolean;
 	}
 
 	onMount(() => {
@@ -109,12 +110,14 @@
 		{ name: 'Audio Extended', href: '/docs#audio-extended' },
 		{ name: 'IFrame Extended', href: '/docs#iframe-extended' },
 		{ name: 'Table', href: '/docs#table' },
+		{ name: 'Table of Contents', href: '/docs#table-of-contents', isNew: true },
+		{ name: 'File Uploads', href: '/docs#file-uploads', isNew: true },
 		{ name: 'Search And Replace', href: '/docs#search-and-replace' },
 		{ name: 'Links', href: '/docs#Links' },
 		{ name: 'Drag Handle', href: '/docs#drag-handle' },
 		{ name: 'Drag Handle Extended', href: '/docs#drag-handle-extended' },
 		{ name: 'Drag Handle Advanced', href: '/docs#drag-handle-advanced' },
-		{ name: 'Math Expression Support', href: '/docs#math-expression-support' },
+		{ name: 'Math Expression Support', href: '/docs#math-expression-support', isNew: true },
 		{ name: 'Commands' },
 		{ name: 'Regular Commands', href: '/docs#regular-commands' },
 		{ name: 'Special Commands', href: '/docs#special-commands' }
@@ -133,12 +136,15 @@
 				variant="link"
 				href={item.href}
 				class={cn(
-					'items-start justify-start',
+					'relative items-start justify-start',
 					item.href && 'text-muted-foreground',
 					active && 'text-foreground/80 font-semibold underline'
 				)}
 			>
 				{item.name}
+				{#if item.isNew}
+					<span class="bg-primary text-background rounded-full px-1 py-0.5 text-xs">New</span>
+				{/if}
 			</Button>
 		{/if}
 	{/each}
