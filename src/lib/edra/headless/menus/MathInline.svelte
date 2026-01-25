@@ -19,12 +19,7 @@
 	});
 
 	function updateLatex() {
-		editor
-			.chain()
-			.setNodeSelection(mathPos)
-			.updateInlineMath({ latex: inputVal })
-			.focus()
-			.run();
+		editor.chain().setNodeSelection(mathPos).updateInlineMath({ latex: inputVal }).focus().run();
 	}
 </script>
 

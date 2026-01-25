@@ -36,6 +36,7 @@ const dependencies = [
 	'@tiptap/extension-bubble-menu',
 	'@tiptap/markdown',
 	'@tiptap/extension-mathematics',
+	'@tiptap/extension-table-of-contents',
 	'@floating-ui/dom',
 	'katex',
 	'lowlight',

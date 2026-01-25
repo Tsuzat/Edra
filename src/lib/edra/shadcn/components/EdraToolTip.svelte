@@ -1,14 +1,14 @@
 <script lang="ts">
-import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-import type { Snippet } from 'svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import type { Snippet } from 'svelte';
 
-interface Props {
-  tooltip: string;
-  children: Snippet<[]>;
-  shortCut?: string;
-}
+	interface Props {
+		tooltip: string;
+		children: Snippet<[]>;
+		shortCut?: string;
+	}
 
-const { tooltip, children, shortCut }: Props = $props();
+	const { tooltip, children, shortCut }: Props = $props();
 </script>
 
 <Tooltip.Provider delayDuration={100}>

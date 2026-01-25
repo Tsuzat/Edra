@@ -75,7 +75,13 @@
 		</button>
 	{:else}
 		<form onsubmit={handleSubmit} class="edra-link-form">
-			<input bind:value={linkInput} required type="url" placeholder="Type or paste a link" class="edra-link-input" />
+			<input
+				bind:value={linkInput}
+				required
+				type="url"
+				placeholder="Type or paste a link"
+				class="edra-link-input"
+			/>
 			<button type="submit" class="edra-command-button" title="Save">
 				<Check class="edra-toolbar-icon" />
 			</button>

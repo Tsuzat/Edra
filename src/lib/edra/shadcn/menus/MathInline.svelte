@@ -1,24 +1,24 @@
 <script lang="ts">
-import { Button } from '$lib/components/ui/button/index.js';
-import { Input } from '$lib/components/ui/input/index.js';
-import CornerDownLeft from '@lucide/svelte/icons/corner-down-left';
-import { type Editor } from '@tiptap/core';
-import BubbleMenu from '../../components/BubbleMenu.svelte';
-import type { ShouldShowProps } from '../../types.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import CornerDownLeft from '@lucide/svelte/icons/corner-down-left';
+	import { type Editor } from '@tiptap/core';
+	import BubbleMenu from '../../components/BubbleMenu.svelte';
+	import type { ShouldShowProps } from '../../types.js';
 
-interface Props {
-  editor: Editor;
-  mathPos: number;
-  mathLatex: string;
-  parentElement?: HTMLElement;
-}
-const { editor, mathPos, mathLatex, parentElement }: Props = $props();
+	interface Props {
+		editor: Editor;
+		mathPos: number;
+		mathLatex: string;
+		parentElement?: HTMLElement;
+	}
+	const { editor, mathPos, mathLatex, parentElement }: Props = $props();
 
-let latex = $derived(mathLatex);
+	let latex = $derived(mathLatex);
 
-function updateLatex() {
-  editor.chain().setNodeSelection(mathPos).updateInlineMath({ latex }).focus().run();
-}
+	function updateLatex() {
+		editor.chain().setNodeSelection(mathPos).updateInlineMath({ latex }).focus().run();
+	}
 </script>
 
 <BubbleMenu

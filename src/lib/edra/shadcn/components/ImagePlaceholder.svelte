@@ -1,44 +1,43 @@
 <script lang="ts">
-import type { NodeViewProps } from '@tiptap/core';
+	import type { NodeViewProps } from '@tiptap/core';
 
-const { editor }: NodeViewProps = $props();
+	const { editor }: NodeViewProps = $props();
 
-import EdraToolTip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
-import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-import { Input } from '$lib/components/ui/input/index.js';
-import * as Popover from '$lib/components/ui/popover/index.js';
-import * as Tabs from '$lib/components/ui/tabs/index.js';
-import Image from '@lucide/svelte/icons/image';
-import Loader from '@lucide/svelte/icons/loader';
-import { toast } from 'svelte-sonner';
-import { NodeViewWrapper } from 'svelte-tiptap';
-import { FileType, isURL } from '../../utils.js';
+	import EdraToolTip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
+	import Image from '@lucide/svelte/icons/image';
+	import Loader from '@lucide/svelte/icons/loader';
+	import { toast } from 'svelte-sonner';
+	import { NodeViewWrapper } from 'svelte-tiptap';
+	import { FileType, isURL } from '../../utils.js';
 
-let open = $state(false);
-let imageUrl = $state('');
-let isUploading = $state(false);
+	let open = $state(false);
+	let imageUrl = $state('');
+	let isUploading = $state(false);
 
-function handleSubmit(e: Event) {
-  e.preventDefault();
-  open = false;
-  editor.chain().focus().setImage({ src: imageUrl }).run();
-}
+	function handleSubmit(e: Event) {
+		e.preventDefault();
+		open = false;
+		editor.chain().focus().setImage({ src: imageUrl }).run();
+	}
 
-
-async function openFileDialog() {
-  isUploading = true;
-  try {
-    const file = await editor.storage.fileDrop.localFileGetter(FileType.IMAGE);
-    if (file) {
-      editor.chain().focus().setImage({ src: file }).run();
-    }
-  } catch (e) {
-    console.error(e);
-    toast.error('Could not process images.');
-  } finally {
-    isUploading = false;
-  }
-}
+	async function openFileDialog() {
+		isUploading = true;
+		try {
+			const file = await editor.storage.fileDrop.localFileGetter(FileType.IMAGE);
+			if (file) {
+				editor.chain().focus().setImage({ src: file }).run();
+			}
+		} catch (e) {
+			console.error(e);
+			toast.error('Could not process images.');
+		} finally {
+			isUploading = false;
+		}
+	}
 </script>
 
 <NodeViewWrapper
@@ -81,7 +80,7 @@ async function openFileDialog() {
 						<Button type="submit">Insert</Button>
 					</form>
 				</Tabs.Content>
-						</Tabs.Root>
+			</Tabs.Root>
 		</Popover.Content>
 	</Popover.Root>
 </NodeViewWrapper>

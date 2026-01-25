@@ -1,85 +1,85 @@
 <script lang="ts">
-import { Button } from '$lib/components/ui/button/index.js';
-import { Input } from '$lib/components/ui/input/index.js';
-import * as Popover from '$lib/components/ui/popover/index.js';
-import { cn } from '$lib/utils.js';
-import ArrowLeft from '@lucide/svelte/icons/arrow-left';
-import ArrowRight from '@lucide/svelte/icons/arrow-right';
-import CaseSensitive from '@lucide/svelte/icons/case-sensitive';
-import ChevronRight from '@lucide/svelte/icons/chevron-right';
-import Replace from '@lucide/svelte/icons/replace';
-import ReplaceAll from '@lucide/svelte/icons/replace-all';
-import Search from '@lucide/svelte/icons/search';
-import type { Editor } from '@tiptap/core';
-import { slide } from 'svelte/transition';
-import EdraToolTip from '../EdraToolTip.svelte';
-import { getKeyboardShortcut } from '$lib/edra/utils.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import { cn } from '$lib/utils.js';
+	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
+	import ArrowRight from '@lucide/svelte/icons/arrow-right';
+	import CaseSensitive from '@lucide/svelte/icons/case-sensitive';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import Replace from '@lucide/svelte/icons/replace';
+	import ReplaceAll from '@lucide/svelte/icons/replace-all';
+	import Search from '@lucide/svelte/icons/search';
+	import type { Editor } from '@tiptap/core';
+	import { slide } from 'svelte/transition';
+	import EdraToolTip from '../EdraToolTip.svelte';
+	import { getKeyboardShortcut } from '$lib/edra/utils.js';
 
-interface Props {
-  editor: Editor;
-}
+	interface Props {
+		editor: Editor;
+	}
 
-const { editor }: Props = $props();
+	const { editor }: Props = $props();
 
-let open = $state(false);
-let showMore = $state(false);
+	let open = $state(false);
+	let showMore = $state(false);
 
-let searchText = $state('');
-let replaceText = $state('');
-let caseSensitive = $state(false);
+	let searchText = $state('');
+	let replaceText = $state('');
+	let caseSensitive = $state(false);
 
-let searchIndex = $derived(editor.storage?.searchAndReplace?.resultIndex);
-let searchCount = $derived(editor.storage?.searchAndReplace?.results.length);
+	let searchIndex = $derived(editor.storage?.searchAndReplace?.resultIndex);
+	let searchCount = $derived(editor.storage?.searchAndReplace?.results.length);
 
-function updateSearchTerm(clearIndex = false) {
-  if (clearIndex) editor.commands.resetIndex();
+	function updateSearchTerm(clearIndex = false) {
+		if (clearIndex) editor.commands.resetIndex();
 
-  editor.commands.setSearchTerm(searchText);
-  editor.commands.setReplaceTerm(replaceText);
-  editor.commands.setCaseSensitive(caseSensitive);
-}
+		editor.commands.setSearchTerm(searchText);
+		editor.commands.setReplaceTerm(replaceText);
+		editor.commands.setCaseSensitive(caseSensitive);
+	}
 
-function goToSelection() {
-  const { results, resultIndex } = editor.storage.searchAndReplace;
-  const position = results[resultIndex];
-  if (!position) return;
-  editor.commands.setTextSelection(position);
-  const { node } = editor.view.domAtPos(editor.state.selection.anchor);
-  if (node instanceof HTMLElement) node.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
+	function goToSelection() {
+		const { results, resultIndex } = editor.storage.searchAndReplace;
+		const position = results[resultIndex];
+		if (!position) return;
+		editor.commands.setTextSelection(position);
+		const { node } = editor.view.domAtPos(editor.state.selection.anchor);
+		if (node instanceof HTMLElement) node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	}
 
-function replace() {
-  editor.commands.replace();
-  goToSelection();
-}
+	function replace() {
+		editor.commands.replace();
+		goToSelection();
+	}
 
-const next = () => {
-  editor.commands.nextSearchResult();
-  goToSelection();
-};
+	const next = () => {
+		editor.commands.nextSearchResult();
+		goToSelection();
+	};
 
-const previous = () => {
-  editor.commands.previousSearchResult();
-  goToSelection();
-};
+	const previous = () => {
+		editor.commands.previousSearchResult();
+		goToSelection();
+	};
 
-const clear = () => {
-  searchText = '';
-  replaceText = '';
-  caseSensitive = false;
-};
+	const clear = () => {
+		searchText = '';
+		replaceText = '';
+		caseSensitive = false;
+	};
 
-const replaceAll = () => editor.commands.replaceAll();
+	const replaceAll = () => editor.commands.replaceAll();
 
-function handleKeyDown(e: KeyboardEvent) {
-  if (e.key === 'Escape' && open) {
-    e.preventDefault();
-    open = false;
-  } else if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
-    e.preventDefault();
-    open = true;
-  }
-}
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.key === 'Escape' && open) {
+			e.preventDefault();
+			open = false;
+		} else if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
+			e.preventDefault();
+			open = true;
+		}
+	}
 </script>
 
 <svelte:document onkeydown={handleKeyDown} />

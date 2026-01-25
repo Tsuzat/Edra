@@ -107,7 +107,7 @@
 						}
 					},
 					// Options for the KaTeX renderer. See here: https://katex.org/docs/options.html
-				katexOptions: {
+					katexOptions: {
 						throwOnError: true, // don't throw an error if the LaTeX code is invalid
 						macros: {
 							'\R': '\mathbb{R}', // add a macro for the real numbers
@@ -130,7 +130,7 @@
 					editor = props.editor;
 				},
 				editable,
-			autofocus
+				autofocus
 			}
 		);
 		editor.setOptions({
@@ -154,9 +154,4 @@
 	<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
 	<ToC {editor} items={tocItems} />
 {/if}
-<div
-	bind:this={element}
-	role="button"
-	tabindex="0"	
-	class={`edra-editor ${className}`}
-></div>
+<div bind:this={element} role="button" tabindex="0" class={`edra-editor ${className}`}></div>

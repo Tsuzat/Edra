@@ -586,7 +586,6 @@ input[type='checkbox']:checked::before {
 	border: 1px solid darkred;
 }
 
-
 /* Drag Handle Styling */
 .drag-handle {
 	position: fixed;
