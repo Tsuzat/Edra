@@ -1,73 +1,97 @@
 <script lang="ts">
-	import { NodeViewWrapper, NodeViewContent } from 'svelte-tiptap';
-	import type { NodeViewProps } from '@tiptap/core';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	const { node, updateAttributes, extension }: NodeViewProps = $props();
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import ChevronDown from '@lucide/svelte/icons/chevron-down';
-	import Check from '@lucide/svelte/icons/check';
-	import Copy from '@lucide/svelte/icons/copy';
+  import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
+  import type { NodeViewProps } from "@tiptap/core";
+  import { NodeViewContent, NodeViewWrapper } from "svelte-tiptap";
 
-	let preRef = $state<HTMLPreElement>();
+  const { editor, node, updateAttributes, extension }: NodeViewProps = $props();
 
-	let isCopying = $state(false);
+  import * as Popover from "$lib/components/ui/popover/index.js";
+  import Check from "@lucide/svelte/icons/check";
+  import Copy from "@lucide/svelte/icons/copy";
+  import * as Command from "$lib/components/ui/command/index.js";
+  import { cn } from "$lib/utils.js";
 
-	const languages: string[] = extension.options.lowlight.listLanguages().sort();
+  let preRef = $state<HTMLPreElement>();
 
-	let defaultLanguage = $state(node.attrs.language);
+  let isCopying = $state(false);
 
-	function copyCode() {
-		if (!preRef) return;
-		isCopying = true;
-		navigator.clipboard.writeText(preRef.innerText);
-		setTimeout(() => {
-			isCopying = false;
-		}, 1000);
-	}
+  const languages: string[] = $derived(
+    extension.options.lowlight.listLanguages().sort()
+  );
+
+  let defaultLanguage = $derived(node.attrs.language ?? "Plain Text");
+
+  $effect(() => {
+    updateAttributes({ language: defaultLanguage });
+  });
+
+  function copyCode() {
+    if (!preRef) return;
+    isCopying = true;
+    navigator.clipboard.writeText(preRef.innerText);
+    setTimeout(() => {
+      isCopying = false;
+    }, 1000);
+  }
 </script>
 
 <NodeViewWrapper class="code-wrapper" draggable={false} spellcheck={false}>
-	<div class="code-wrapper-tile" contenteditable="false">
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger
-				contenteditable="false"
-				class={buttonVariants({
-					variant: 'ghost',
-					size: 'sm',
-					class: 'text-muted-foreground h-4 rounded px-1 py-2 text-xs'
-				})}
-				>{defaultLanguage}
-				<ChevronDown class="!size-2" />
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content class="h-96 w-40 overflow-auto" contenteditable="false">
-				{#each languages as language (language)}
-					<DropdownMenu.Item
-						contenteditable="false"
-						data-current={defaultLanguage === language}
-						class="data-[current=true]:bg-muted"
-						textValue={language}
-						onclick={() => {
-							defaultLanguage = language;
-							updateAttributes({ language: defaultLanguage });
-						}}
-					>
-						<span>{language}</span>
-						{#if defaultLanguage === language}
-							<Check class="ml-auto" />
-						{/if}
-					</DropdownMenu.Item>
-				{/each}
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
-		<Button variant="ghost" class="text-muted-foreground size-4 p-0" onclick={copyCode}>
-			{#if isCopying}
-				<Check class="size-3 text-green-500" />
-			{:else}
-				<Copy class="size-3" />
-			{/if}
-		</Button>
-	</div>
-	<pre bind:this={preRef} draggable={false}>
-		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />
+  <div
+    class="code-wrapper-tile justify-end print:justify-start"
+    contenteditable="false"
+  >
+    <Popover.Root>
+      <Popover.Trigger
+        contenteditable="false"
+        disabled={!editor.isEditable}
+        class={buttonVariants({ variant: "ghost", class: "h-6! p-1 w-fit rounded-sm capitalize text-muted-foreground" })}
+      >
+        {defaultLanguage}
+      </Popover.Trigger>
+      <Popover.Content class="p-0 w-36 max-h-96 text-primary!" 
+      			portalProps={{ disabled: true, to: undefined }}
+      >
+        <Command.Root>
+          <Command.Input placeholder="Search language..." />
+          <Command.List>
+            <Command.Empty>No Language found.</Command.Empty>
+            <Command.Group value="languages">
+              {#each languages as language (language)}
+                <Command.Item
+                  value={language}
+                  onSelect={() => (defaultLanguage = language)}
+                  class="capitalize text-primary"
+                >
+                  <Check
+                    class={cn(
+                      language !== defaultLanguage && "text-transparent"
+                    )}
+                  />
+				  {language}
+                </Command.Item>
+              {/each}
+            </Command.Group>
+          </Command.List>
+        </Command.Root>
+      </Popover.Content>
+    </Popover.Root>
+    <Button
+      variant="ghost"
+      class="text-muted-foreground size-6! rounded-sm p-0.5 print:hidden"
+      onclick={copyCode}
+    >
+      {#if isCopying}
+        <Check class="size-4 text-green-500" />
+      {:else}
+        <Copy class="size-4" />
+      {/if}
+    </Button>
+  </div>
+  <pre bind:this={preRef} draggable={false}>
+		<NodeViewContent
+      as="code"
+      class={`language-${defaultLanguage}`}
+      {...node.attrs}
+    />
 	</pre>
 </NodeViewWrapper>

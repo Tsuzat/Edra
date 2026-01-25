@@ -1,12 +1,10 @@
-import { Editor, Extension } from '@tiptap/core';
-import Suggestion, { type SuggestionProps, type SuggestionKeyDownProps } from '@tiptap/suggestion';
+import { autoUpdate, computePosition, flip, offset, type Placement } from '@floating-ui/dom';
+import { type Editor, Extension } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
-import { computePosition, flip, offset, autoUpdate, type Placement } from '@floating-ui/dom';
-
-import { GROUPS } from './groups.js';
-import SvelteRenderer from '../../svelte-renderer.js';
-
+import Suggestion, { type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
 import type { Component } from 'svelte';
+import SvelteRenderer from '../../svelte-renderer.js';
+import { GROUPS } from './groups.js';
 
 const extensionName = 'slashCommand';
 

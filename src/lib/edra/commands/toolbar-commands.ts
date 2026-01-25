@@ -1,36 +1,36 @@
-import type { EdraToolBarCommands } from './types.js';
-import { isMac } from '../utils.js';
-import Undo from '@lucide/svelte/icons/undo-2';
-import Redo from '@lucide/svelte/icons/redo-2';
+import AlignCenter from '@lucide/svelte/icons/align-center';
+import AlighJustify from '@lucide/svelte/icons/align-justify';
+import AlignLeft from '@lucide/svelte/icons/align-left';
+import AlignRight from '@lucide/svelte/icons/align-right';
+import Audio from '@lucide/svelte/icons/audio-lines';
+import Bold from '@lucide/svelte/icons/bold';
+import Code from '@lucide/svelte/icons/code';
+import IFrame from '@lucide/svelte/icons/code-xml';
 import Heading1 from '@lucide/svelte/icons/heading-1';
 import Heading2 from '@lucide/svelte/icons/heading-2';
 import Heading3 from '@lucide/svelte/icons/heading-3';
 import Heading4 from '@lucide/svelte/icons/heading-4';
-import Link from '@lucide/svelte/icons/link-2';
-import Bold from '@lucide/svelte/icons/bold';
-import Italic from '@lucide/svelte/icons/italic';
-import Underline from '@lucide/svelte/icons/underline';
-import StrikeThrough from '@lucide/svelte/icons/strikethrough';
-import Quote from '@lucide/svelte/icons/quote';
-import Code from '@lucide/svelte/icons/code';
-import Superscript from '@lucide/svelte/icons/superscript';
-import Subscript from '@lucide/svelte/icons/subscript';
-import AlignLeft from '@lucide/svelte/icons/align-left';
-import AlignCenter from '@lucide/svelte/icons/align-center';
-import AlignRight from '@lucide/svelte/icons/align-right';
-import AlighJustify from '@lucide/svelte/icons/align-justify';
-import List from '@lucide/svelte/icons/list';
-import ListOrdered from '@lucide/svelte/icons/list-ordered';
-import ListChecks from '@lucide/svelte/icons/list-checks';
 import Image from '@lucide/svelte/icons/image';
-import Video from '@lucide/svelte/icons/video';
-import Audio from '@lucide/svelte/icons/audio-lines';
-import IFrame from '@lucide/svelte/icons/code-xml';
-import Table from '@lucide/svelte/icons/table';
-import Radical from '@lucide/svelte/icons/radical';
-import SquareRadical from '@lucide/svelte/icons/square-radical';
-import { isTextSelection } from '@tiptap/core';
+import Italic from '@lucide/svelte/icons/italic';
+import Link from '@lucide/svelte/icons/link-2';
+import List from '@lucide/svelte/icons/list';
+import ListChecks from '@lucide/svelte/icons/list-checks';
+import ListOrdered from '@lucide/svelte/icons/list-ordered';
 import Pilcrow from '@lucide/svelte/icons/pilcrow';
+import Quote from '@lucide/svelte/icons/quote';
+import Radical from '@lucide/svelte/icons/radical';
+import Redo from '@lucide/svelte/icons/redo-2';
+import SquareRadical from '@lucide/svelte/icons/square-radical';
+import StrikeThrough from '@lucide/svelte/icons/strikethrough';
+import Subscript from '@lucide/svelte/icons/subscript';
+import Superscript from '@lucide/svelte/icons/superscript';
+import Table from '@lucide/svelte/icons/table';
+import Underline from '@lucide/svelte/icons/underline';
+import Undo from '@lucide/svelte/icons/undo-2';
+import Video from '@lucide/svelte/icons/video';
+import { isTextSelection } from '@tiptap/core';
+import { isMac } from '../utils.js';
+import type { EdraToolBarCommands } from './types.js';
 
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
@@ -68,7 +68,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleHeading({ level: 1 }).run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setHeading({ level: 1 }).run();
 			},
 			clickable: (editor) => {
@@ -86,7 +86,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleHeading({ level: 2 }).run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setHeading({ level: 2 }).run();
 			},
 			clickable: (editor) => {
@@ -104,7 +104,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleHeading({ level: 3 }).run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setHeading({ level: 3 }).run();
 			},
 			clickable: (editor) => {
@@ -122,7 +122,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleHeading({ level: 4 }).run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setHeading({ level: 4 }).run();
 			},
 			clickable: (editor) => {
@@ -160,7 +160,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().setParagraph().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setParagraph().run();
 			},
 			clickable: (editor) => {
@@ -178,7 +178,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleBold().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setMark('bold').run();
 			},
 			clickable: (editor) => {
@@ -196,7 +196,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleItalic().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setMark('italic').run();
 			},
 			clickable: (editor) => {
@@ -214,7 +214,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleUnderline().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setMark('underline').run();
 			},
 			clickable: (editor) => {
@@ -232,7 +232,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleStrike().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).setMark('strike').run();
 			},
 			clickable: (editor) => {
@@ -250,7 +250,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleBlockquote().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleBlockquote().run();
 			},
 			clickable: (editor) => {
@@ -268,7 +268,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleCode().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleCodeBlock().run();
 			},
 			clickable: (editor) => {
@@ -318,6 +318,9 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleTextAlign('left').run();
 			},
+			turnInto: (editor, node, pos) => {
+				editor.chain().setNodeSelection(pos).toggleTextAlign('left').run();
+			},
 			clickable: (editor) => {
 				return editor.can().toggleTextAlign('left');
 			},
@@ -330,6 +333,9 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}E`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleTextAlign('center').run();
+			},
+			turnInto: (editor, node, pos) => {
+				editor.chain().setNodeSelection(pos).toggleTextAlign('center').run();
 			},
 			clickable: (editor) => {
 				return editor.can().toggleTextAlign('center');
@@ -344,6 +350,9 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleTextAlign('right').run();
 			},
+			turnInto: (editor, node, pos) => {
+				editor.chain().setNodeSelection(pos).toggleTextAlign('right').run();
+			},
 			clickable: (editor) => {
 				return editor.can().toggleTextAlign('right');
 			},
@@ -356,6 +365,9 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			shortCut: `${isMac ? '⌘⇧' : 'Ctrl+Shift+'}J`,
 			onClick: (editor) => {
 				editor.chain().focus().toggleTextAlign('justify').run();
+			},
+			turnInto: (editor, node, pos) => {
+				editor.chain().setNodeSelection(pos).toggleTextAlign('justify').run();
 			},
 			clickable: (editor) => {
 				return editor.can().toggleTextAlign('justify');
@@ -372,7 +384,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleBulletList().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleBulletList().run();
 			},
 			isActive: (editor) => editor.isActive('bulletList')
@@ -385,7 +397,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleOrderedList().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleOrderedList().run();
 			},
 			clickable: (editor) => {
@@ -403,7 +415,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 			onClick: (editor) => {
 				editor.chain().focus().toggleTaskList().run();
 			},
-			turnInto: (editor, pos) => {
+			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleTaskList().run();
 			},
 			clickable: (editor) => {

@@ -1,7 +1,7 @@
 import { Extension } from '@tiptap/core';
+import { Fragment, type Node, Slice } from '@tiptap/pm/model';
 import { NodeSelection, Plugin, PluginKey, TextSelection } from '@tiptap/pm/state';
-import { Fragment, Slice, Node } from '@tiptap/pm/model';
-import { EditorView } from '@tiptap/pm/view';
+import type { EditorView } from '@tiptap/pm/view';
 import { serializeForClipboard } from './ClipboardSerializer.js';
 
 export interface GlobalDragHandleOptions {
@@ -279,11 +279,11 @@ export function DragHandlePlugin(options: GlobalDragHandleOptions & { pluginKey:
 					}
 
 					const compStyle = window.getComputedStyle(node);
-					const parsedLineHeight = parseInt(compStyle.lineHeight, 10);
+					const parsedLineHeight = Number.parseInt(compStyle.lineHeight, 10);
 					const lineHeight = isNaN(parsedLineHeight)
-						? parseInt(compStyle.fontSize) * 1.2
+						? Number.parseInt(compStyle.fontSize) * 1.2
 						: parsedLineHeight;
-					const paddingTop = parseInt(compStyle.paddingTop, 10);
+					const paddingTop = Number.parseInt(compStyle.paddingTop, 10);
 
 					const rect = absoluteRect(node);
 

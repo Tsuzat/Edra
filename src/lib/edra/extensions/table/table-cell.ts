@@ -36,7 +36,7 @@ export const TableCell = Node.create<TableCellOptions>({
 				default: 1,
 				parseHTML: (element) => {
 					const colspan = element.getAttribute('colspan');
-					const value = colspan ? parseInt(colspan, 10) : 1;
+					const value = colspan ? Number.parseInt(colspan, 10) : 1;
 
 					return value;
 				}
@@ -45,7 +45,7 @@ export const TableCell = Node.create<TableCellOptions>({
 				default: 1,
 				parseHTML: (element) => {
 					const rowspan = element.getAttribute('rowspan');
-					const value = rowspan ? parseInt(rowspan, 10) : 1;
+					const value = rowspan ? Number.parseInt(rowspan, 10) : 1;
 
 					return value;
 				}
@@ -54,7 +54,7 @@ export const TableCell = Node.create<TableCellOptions>({
 				default: null,
 				parseHTML: (element) => {
 					const colwidth = element.getAttribute('colwidth');
-					const value = colwidth ? [parseInt(colwidth, 10)] : null;
+					const value = colwidth ? [Number.parseInt(colwidth, 10)] : null;
 
 					return value;
 				}
@@ -78,10 +78,12 @@ export const TableCell = Node.create<TableCellOptions>({
 
 						const { doc, selection } = state;
 						const decorations: Decoration[] = [];
-						const cells = getCellsInColumn(0)(selection);
+						const firstColCells = getCellsInColumn(0)(selection);
+						// const allCells = getCellsInTable(selection);
 
-						if (cells) {
-							cells.forEach(({ pos }: { pos: number }, index: number) => {
+						// Row grips (left edge) — appear for first column cells
+						if (firstColCells) {
+							firstColCells.forEach(({ pos }: { pos: number }, index: number) => {
 								decorations.push(
 									Decoration.widget(pos + 1, () => {
 										const rowSelected = isRowSelected(index)(selection);
@@ -95,13 +97,17 @@ export const TableCell = Node.create<TableCellOptions>({
 											className += ' first';
 										}
 
-										if (index === cells.length - 1) {
+										if (index === firstColCells.length - 1) {
 											className += ' last';
 										}
 
 										const grip = document.createElement('a');
 
 										grip.className = className;
+										grip.setAttribute('role', 'button');
+										grip.setAttribute('aria-label', 'Select row');
+										grip.setAttribute('tabindex', '0');
+										grip.dataset.rowIndex = String(index);
 										grip.addEventListener('mousedown', (event) => {
 											event.preventDefault();
 											event.stopImmediatePropagation();
@@ -115,7 +121,184 @@ export const TableCell = Node.create<TableCellOptions>({
 							});
 						}
 
+						// Cell grips — small handles inside each cell for single-cell selection
+						// if (allCells) {
+						// 	allCells.forEach(({ pos }: { pos: number }) => {
+						// 		decorations.push(
+						// 			Decoration.widget(pos + 1, () => {
+						// 				const grip = document.createElement('a');
+						// 				grip.className = 'grip-cell';
+						// 				grip.setAttribute('role', 'button');
+						// 				grip.setAttribute('aria-label', 'Select cell');
+						// 				grip.setAttribute('tabindex', '0');
+						// 				grip.addEventListener('mousedown', (event) => {
+						// 					event.preventDefault();
+						// 					event.stopImmediatePropagation();
+
+						// 					const tr = this.editor.state.tr;
+						// 					const $cell = tr.doc.resolve(pos);
+						// 					// Select just this cell
+						// 					tr.setSelection(new CellSelection($cell, $cell));
+						// 					this.editor.view.dispatch(tr);
+						// 				});
+
+						// 				return grip;
+						// 			})
+						// 		);
+						// 	});
+						// }
+
+						// Add-row "+" button — anchored to the last row (first column)
+						if (firstColCells && firstColCells.length > 0) {
+							const lastRowCell = firstColCells[firstColCells.length - 1];
+							decorations.push(
+								Decoration.widget(lastRowCell.pos + 1, () => {
+									const btn = document.createElement('button');
+									btn.className = 'add-row-btn';
+									btn.type = 'button';
+									btn.setAttribute('aria-label', 'Add row');
+									btn.setAttribute('title', 'Add Row After');
+									btn.textContent = '+';
+									btn.addEventListener('mousedown', (event) => {
+										event.preventDefault();
+										event.stopImmediatePropagation();
+										// Select last row, then add after
+										this.editor.view.dispatch(
+											selectRow(firstColCells.length - 1)(this.editor.state.tr)
+										);
+										this.editor.chain().focus().addRowAfter().run();
+									});
+									return btn;
+								})
+							);
+						}
+
 						return DecorationSet.create(doc, decorations);
+					}
+				}
+			}),
+			// Interaction plugin to toggle visibility of row grips based on hover/click
+			new Plugin({
+				props: {
+					handleDOMEvents: {
+						mousemove: (view, event) => {
+							const target = event.target as HTMLElement;
+							const cell = target.closest('td, th');
+							const table = target.closest('table');
+							if (!cell || !table) return false;
+							const rowIndex = (cell.parentElement as HTMLTableRowElement).rowIndex;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g, idx) => {
+								if (idx === rowIndex) g.classList.add('show-row-grip');
+								else g.classList.remove('show-row-grip');
+							});
+							// Toggle add-row visibility only for last row hover
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) {
+								const lastIndex = table.rows.length ? table.rows.length - 1 : -1;
+								if (rowIndex === lastIndex) wrapper.classList.add('last-row-hover');
+								else wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						},
+						focusin: (view, event) => {
+							const target = event.target as HTMLElement;
+							const cell = target.closest('td, th');
+							const table = target.closest('table');
+							if (!cell || !table) return false;
+							const rowIndex = (cell.parentElement as HTMLTableRowElement).rowIndex;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g, idx) => {
+								if (idx === rowIndex) g.classList.add('show-row-grip');
+								else g.classList.remove('show-row-grip');
+							});
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) {
+								const lastIndex = table.rows.length ? table.rows.length - 1 : -1;
+								if (rowIndex === lastIndex) wrapper.classList.add('last-row-hover');
+								else wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						},
+						mousedown: (view, event) => {
+							const target = event.target as HTMLElement;
+							const cell = target.closest('td, th');
+							const table = target.closest('table');
+							if (!cell || !table) return false;
+							const rowIndex = (cell.parentElement as HTMLTableRowElement).rowIndex;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g, idx) => {
+								if (idx === rowIndex) g.classList.add('show-row-grip');
+								else g.classList.remove('show-row-grip');
+							});
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) {
+								const lastIndex = table.rows.length ? table.rows.length - 1 : -1;
+								if (rowIndex === lastIndex) wrapper.classList.add('last-row-hover');
+								else wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						},
+						mouseleave: (view, event) => {
+							const table = (event.target as HTMLElement).closest('table');
+							if (!table) return false;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g) => g.classList.remove('show-row-grip'));
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) wrapper.classList.remove('last-row-hover');
+							return false;
+						},
+						mouseout: (view, event) => {
+							const target = event.target as HTMLElement;
+							const table = target.closest('table');
+							const to = (event as MouseEvent).relatedTarget as HTMLElement | null;
+							if (!table) return false;
+							if (!to || !to.closest('table') || to.closest('table') !== table) {
+								const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+								grips.forEach((g) => g.classList.remove('show-row-grip'));
+								const wrapper = table.closest('.tableWrapper');
+								if (wrapper) wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						},
+						touchstart: (view, event) => {
+							const target = (event as TouchEvent).target as HTMLElement;
+							const cell = target.closest('td, th');
+							const table = target.closest('table');
+							if (!cell || !table) return false;
+							const rowIndex = (cell.parentElement as HTMLTableRowElement).rowIndex;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g, idx) => {
+								if (idx === rowIndex) g.classList.add('show-row-grip');
+								else g.classList.remove('show-row-grip');
+							});
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) {
+								const lastIndex = table.rows.length ? table.rows.length - 1 : -1;
+								if (rowIndex === lastIndex) wrapper.classList.add('last-row-hover');
+								else wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						},
+						touchmove: (view, event) => {
+							const target = (event as TouchEvent).target as HTMLElement;
+							const cell = target.closest('td, th');
+							const table = target.closest('table');
+							if (!cell || !table) return false;
+							const rowIndex = (cell.parentElement as HTMLTableRowElement).rowIndex;
+							const grips = table.querySelectorAll<HTMLAnchorElement>('a.grip-row');
+							grips.forEach((g, idx) => {
+								if (idx === rowIndex) g.classList.add('show-row-grip');
+								else g.classList.remove('show-row-grip');
+							});
+							const wrapper = table.closest('.tableWrapper');
+							if (wrapper) {
+								const lastIndex = table.rows.length ? table.rows.length - 1 : -1;
+								if (rowIndex === lastIndex) wrapper.classList.add('last-row-hover');
+								else wrapper.classList.remove('last-row-hover');
+							}
+							return false;
+						}
 					}
 				}
 			})

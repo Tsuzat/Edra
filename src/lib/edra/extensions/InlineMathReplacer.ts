@@ -6,7 +6,7 @@ export const InlineMathReplacer = InlineMath.extend({
 	addInputRules() {
 		return [
 			textInputRule({
-				find: /\$\$([^$]+)\$\$/,
+				find: /\$\$([^$]+)\$\$$/,
 				replace: ({ match, commands }) => {
 					const latex = match[1];
 					// Insert the inline math node with the LaTeX content

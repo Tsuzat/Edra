@@ -2,14 +2,61 @@ import type { Content, Editor } from '@tiptap/core';
 import type { EditorState } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 import type { Snippet } from 'svelte';
+import type { FileType } from './utils.js';
+export type { Content, Editor };
 
 export interface EdraEditorProps {
+	/**
+	 * Initial content to be set for editor
+	 */
 	content?: Content;
+	/**
+	 * Initial State of the editor
+	 */
 	editable?: boolean;
+	/**
+	 * Bindable editor instance
+	 */
 	editor?: Editor;
+	/**
+	 * Bindable Editor HTMLElement instance
+	 */
+	element?: HTMLElement;
+	/**
+	 * Let's editor have auto focus when Initialed
+	 */
 	autofocus?: boolean;
+	/**
+	 * Call back when editor content changes
+	 * @returns
+	 */
 	onUpdate?: () => void;
+	/**
+	 * Optional class for editor
+	 */
 	class?: string;
+	/**
+	 * Should spell check be done
+	 */
+	spellcheck?: boolean;
+	/**
+	 * Use this to upload or process a file once it's selected returning final file source
+	 * @param file Current File Path from System
+	 * @returns Promise<string> - Final Path of file
+	 */
+	onFileSelect?: (file: string) => Promise<string>;
+	/**
+	 * Runs when a file is dropped or pasted on editor returning final file source
+	 * @param file File
+	 * @returns finalPath string
+	 */
+	onDropOrPaste?: (file: File) => Promise<string>;
+	/**
+	 * Get all the files in related to fileType
+	 * @param fileType
+	 * @returns files - string[]
+	 */
+	getAssets?: (fileType: FileType) => Promise<string[]>;
 }
 
 export interface EdraToolbarProps {

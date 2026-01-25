@@ -1,10 +1,13 @@
-import { SvelteNodeViewRenderer } from 'svelte-tiptap';
-import { Video } from './VideoExtension.js';
 import type { NodeViewProps } from '@tiptap/core';
 import type { Component } from 'svelte';
+import { SvelteNodeViewRenderer } from 'svelte-tiptap';
+import { Video } from './VideoExtension.js';
 
-export const VideoExtended = (content: Component<NodeViewProps>) =>
-	Video.extend({
+export const VideoExtended = (
+	content: Component<NodeViewProps>,
+	onDrop?: (file: File) => Promise<string>
+) =>
+	Video(onDrop).extend({
 		addAttributes() {
 			return {
 				src: {

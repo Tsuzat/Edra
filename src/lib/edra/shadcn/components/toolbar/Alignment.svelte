@@ -1,53 +1,52 @@
 <script lang="ts">
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import commands from '../../../commands/toolbar-commands.js';
-	import type { Editor } from '@tiptap/core';
-	import AlignLeft from '@lucide/svelte/icons/align-left';
-	import EdraToolTip from '../EdraToolTip.svelte';
-	import ChevronDown from '@lucide/svelte/icons/chevron-down';
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
+import commands from '$lib/edra/commands/toolbar-commands.js';
+import { buttonVariants } from '$lib/components/ui/button/index.js';
+// import * as Select from '@lib/components/ui/select';
+import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+import { cn } from '$lib/utils.js';
+import AlignLeft from '@lucide/svelte/icons/align-left';
+import ChevronDown from '@lucide/svelte/icons/chevron-down';
+import type { Editor } from '@tiptap/core';
+import EdraToolTip from '../EdraToolTip.svelte';
 
-	interface Props {
-		editor: Editor;
-	}
-	const { editor }: Props = $props();
+interface Props {
+  editor: Editor;
+}
 
-	const alignments = commands['alignment'];
+const { editor }: Props = $props();
 
-	const isActive = $derived.by(() => {
-		return alignments.find((alignment) => alignment.isActive?.(editor)) !== undefined;
-	});
+const alignments = commands['alignment'];
 
-	const AlignMentIcon = $derived.by(() => {
-		const a = alignments.find((alignment) => alignment.isActive?.(editor));
-		if (a) return a.icon;
-		else return AlignLeft;
-	});
+const isActive = $derived.by(() => {
+  return alignments.find((h) => h.isActive?.(editor)) !== undefined;
+});
+
+const AlignmentIcon = $derived.by(() => {
+  const h = alignments.find((h) => h.isActive?.(editor));
+  return h ? h.icon : AlignLeft;
+});
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger>
-		<EdraToolTip tooltip="Alignment">
-			<div
-				class={buttonVariants({
-					variant: 'ghost',
-					size: 'icon',
-					class: cn('gap-0')
-				})}
-				class:bg-muted={isActive}
-			>
-				<AlignMentIcon />
-				<ChevronDown class="text-muted-foreground !size-2" />
-			</div>
-		</EdraToolTip>
-	</DropdownMenu.Trigger>
-	<DropdownMenu.Content portalProps={{ disabled: true, to: undefined }}>
+	<EdraToolTip tooltip="Alignment">
+		<DropdownMenu.Trigger
+			class={buttonVariants({
+				variant: 'ghost',
+				size: 'icon',
+				class: cn('gap-0 p-0', 'border-0 ring-0', isActive && 'bg-muted')
+			})}
+		>
+			<AlignmentIcon class="stroke-primary size-4!" />
+			<ChevronDown class="text-muted-foreground size-2!" />
+		</DropdownMenu.Trigger>
+	</EdraToolTip>
+	<DropdownMenu.Content portalProps={{ to: document.getElementById('nota-editor') ?? 'undefined' }}>
+		<DropdownMenu.Label>Alignments</DropdownMenu.Label>
 		{#each alignments as alignment (alignment)}
 			{@const Icon = alignment.icon}
 			<DropdownMenu.Item onclick={() => alignment.onClick?.(editor)}>
 				<Icon />
-				<span>{alignment.tooltip}</span>
+				{alignment.tooltip}
 				<DropdownMenu.Shortcut>
 					{alignment.shortCut}
 				</DropdownMenu.Shortcut>

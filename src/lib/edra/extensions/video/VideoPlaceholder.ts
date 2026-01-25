@@ -1,4 +1,10 @@
-import { Editor, Node, mergeAttributes, type CommandProps, type NodeViewProps } from '@tiptap/core';
+import {
+	type CommandProps,
+	type Editor,
+	mergeAttributes,
+	Node,
+	type NodeViewProps
+} from '@tiptap/core';
 import type { Component } from 'svelte';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 

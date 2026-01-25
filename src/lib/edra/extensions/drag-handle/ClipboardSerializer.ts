@@ -1,5 +1,5 @@
-import { Slice } from '@tiptap/pm/model';
-import { EditorView } from '@tiptap/pm/view';
+import type { Slice } from '@tiptap/pm/model';
+import type { EditorView } from '@tiptap/pm/view';
 import * as pmView from '@tiptap/pm/view';
 
 function getPmView() {

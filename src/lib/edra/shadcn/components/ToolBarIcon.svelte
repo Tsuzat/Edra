@@ -1,16 +1,16 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
-	import type { EdraToolBarCommands } from '../../commands/types.js';
-	import type { Editor } from '@tiptap/core';
-	import EdraToolTip from './EdraToolTip.svelte';
-	import { cn } from '$lib/utils.js';
+import { Button } from '$lib/components/ui/button/index.js';
+import { cn } from '$lib/utils.js';
+import type { Editor } from '@tiptap/core';
+import type { EdraToolBarCommands } from '../../commands/types.js';
+import EdraToolTip from './EdraToolTip.svelte';
 
-	interface Props {
-		editor: Editor;
-		command: EdraToolBarCommands;
-	}
+interface Props {
+  editor: Editor;
+  command: EdraToolBarCommands;
+}
 
-	const { editor, command }: Props = $props();
+const { editor, command }: Props = $props();
 </script>
 
 <EdraToolTip tooltip={command.tooltip ?? ''} shortCut={command.shortCut ?? ''}>

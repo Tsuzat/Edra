@@ -1,49 +1,45 @@
 <script lang="ts">
-	import type { Editor } from '@tiptap/core';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import Heading from '@lucide/svelte/icons/heading';
-	import ChevronDown from '@lucide/svelte/icons/chevron-down';
-	import commands from '../../../commands/toolbar-commands.js';
-	import { cn } from '$lib/utils.js';
-	import EdraToolTip from '../EdraToolTip.svelte';
-	import Paragraph from '@lucide/svelte/icons/pilcrow';
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
+import { buttonVariants } from '$lib/components/ui/button/index.js';
+import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+import { cn } from '$lib/utils.js';
+import ChevronDown from '@lucide/svelte/icons/chevron-down';
+import Paragraph from '@lucide/svelte/icons/pilcrow';
+import type { Editor } from '@tiptap/core';
+import commands from '../../../commands/toolbar-commands.js';
+import EdraToolTip from '../EdraToolTip.svelte';
 
-	interface Props {
-		editor: Editor;
-	}
+interface Props {
+  editor: Editor;
+}
 
-	const { editor }: Props = $props();
+const { editor }: Props = $props();
 
-	const headings = commands['headings'];
+const headings = commands['headings'];
 
-	const isActive = $derived.by(() => {
-		return headings.find((h) => h.isActive?.(editor)) !== undefined;
-	});
+const isActive = $derived.by(() => {
+  return headings.find((h) => h.isActive?.(editor)) !== undefined;
+});
 
-	const HeadingIcon = $derived.by(() => {
-		const h = headings.find((h) => h.isActive?.(editor));
-		return h ? h.icon : Heading;
-	});
+const HeadingIcon = $derived.by(() => {
+  const h = headings.find((h) => h.isActive?.(editor));
+  return h ? h.icon : Paragraph;
+});
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger>
-		<EdraToolTip tooltip="Headings">
-			<div
-				class={buttonVariants({
-					variant: 'ghost',
-					size: 'icon',
-					class: cn('gap-0')
-				})}
-				class:bg-muted={isActive}
-			>
-				<HeadingIcon />
-				<ChevronDown class="text-muted-foreground !size-2" />
-			</div>
-		</EdraToolTip>
-	</DropdownMenu.Trigger>
-	<DropdownMenu.Content portalProps={{ to: undefined, disabled: true }}>
+	<EdraToolTip tooltip="Headings">
+		<DropdownMenu.Trigger
+			class={buttonVariants({
+				variant: 'ghost',
+				size: 'icon',
+				class: cn('gap-0 p-0', 'border-0 ring-0', isActive && 'bg-muted')
+			})}
+		>
+			<HeadingIcon class="stroke-primary size-4!" />
+			<ChevronDown class="text-muted-foreground size-2!" />
+		</DropdownMenu.Trigger>
+	</EdraToolTip>
+	<DropdownMenu.Content portalProps={{ to: document.getElementById('nota-editor') ?? 'undefined' }}>
 		<DropdownMenu.Item onclick={() => editor.chain().focus().setParagraph().run()}>
 			<Paragraph />
 			<span>Paragraph</span>
@@ -52,7 +48,7 @@
 			{@const Icon = heading.icon}
 			<DropdownMenu.Item onclick={() => heading.onClick?.(editor)}>
 				<Icon />
-				<span>{heading.tooltip}</span>
+				{heading.tooltip}
 			</DropdownMenu.Item>
 		{/each}
 	</DropdownMenu.Content>

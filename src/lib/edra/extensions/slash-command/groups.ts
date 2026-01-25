@@ -1,10 +1,9 @@
-import commands from '../../commands/toolbar-commands.js';
-
-import type { EdraToolBarCommands } from '../../commands/types.js';
-import type { Editor } from '@tiptap/core';
+import Minus from '@lucide/svelte/icons/minus';
 import Quote from '@lucide/svelte/icons/quote';
 import SquareCode from '@lucide/svelte/icons/square-code';
-import Minus from '@lucide/svelte/icons/minus';
+import type { Editor } from '@tiptap/core';
+import commands from '../../commands/toolbar-commands.js';
+import type { EdraToolBarCommands } from '../../commands/types.js';
 
 export interface Group {
 	name: string;

@@ -1,5 +1,5 @@
-import { flushSync, mount, unmount } from 'svelte';
 import type { Editor, NodeViewProps } from '@tiptap/core';
+import { flushSync, mount, unmount } from 'svelte';
 
 interface RendererOptions<P extends Record<string, unknown>> {
 	editor: Editor;

@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { Icon } from '@lucide/svelte';
-	import type { Snippet } from 'svelte';
-	import { NodeViewWrapper } from 'svelte-tiptap';
+import type { Icon } from '@lucide/svelte';
+import type { Snippet } from 'svelte';
+import { NodeViewWrapper } from 'svelte-tiptap';
 
-	interface Props {
-		icon?: typeof Icon;
-		title?: string;
-		onClick?: () => void;
-		class?: string;
-		children?: Snippet<[]>;
-	}
+interface Props {
+  icon?: typeof Icon;
+  title?: string;
+  onClick?: () => void;
+  class?: string;
+  children?: Snippet<[]>;
+}
 
-	const { icon, title, onClick, class: className = '', children }: Props = $props();
+const { icon, title, onClick, class: className = '', children }: Props = $props();
 </script>
 
 <NodeViewWrapper

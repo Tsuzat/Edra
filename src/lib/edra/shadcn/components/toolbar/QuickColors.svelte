@@ -1,32 +1,20 @@
 <script lang="ts">
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import type { Editor } from '@tiptap/core';
-	import ChevronDown from '@lucide/svelte/icons/chevron-down';
-	import { cn } from '$lib/utils.js';
-	import EdraToolTip from '../EdraToolTip.svelte';
+import { quickcolors } from '$lib/edra/utils.js';
+import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+import * as Popover from '$lib/components/ui/popover/index.js';
+import { cn } from '$lib/utils.js';
+import ChevronDown from '@lucide/svelte/icons/chevron-down';
+import type { Editor } from '@tiptap/core';
+import EdraToolTip from '../EdraToolTip.svelte';
 
-	interface Props {
-		class?: string;
-		editor: Editor;
-	}
-	const { class: className = '', editor }: Props = $props();
+interface Props {
+  class?: string;
+  editor: Editor;
+}
+const { class: className = '', editor }: Props = $props();
 
-	const colors = [
-		{ label: 'Default', value: '' },
-		{ label: 'Blue', value: '#0000FF' },
-		{ label: 'Brown', value: '#A52A2A' },
-		{ label: 'Green', value: '#008000' },
-		{ label: 'Grey', value: '#808080' },
-		{ label: 'Orange', value: '#FFA500' },
-		{ label: 'Pink', value: '#FFC0CB' },
-		{ label: 'Purple', value: '#800080' },
-		{ label: 'Red', value: '#FF0000' },
-		{ label: 'Yellow', value: '#FFFF00' }
-	];
-
-	const currentColor = $derived.by(() => editor.getAttributes('textStyle').color);
-	const currentHighlight = $derived.by(() => editor.getAttributes('highlight').color);
+const currentColor = $derived.by(() => editor.getAttributes('textStyle').color);
+const currentHighlight = $derived.by(() => editor.getAttributes('highlight').color);
 </script>
 
 <Popover.Root>
@@ -38,17 +26,17 @@
 					size: 'icon',
 					class: cn('gap-0.5', className)
 				})}
-				style={`color: ${currentColor}; background-color: ${currentHighlight}50;`}
+				style={`color: ${currentColor}; background-color: ${currentHighlight}75;`}
 			>
 				<span>A</span>
-				<ChevronDown class="text-muted-foreground !size-2" />
+				<ChevronDown class="text-muted-foreground size-2!" />
 			</div>
 		</EdraToolTip>
 	</Popover.Trigger>
 	<Popover.Content class="size-fit shadow-lg" portalProps={{ disabled: true, to: undefined }}>
 		<div class="text-muted-foreground my-2 text-xs">Text Colors</div>
 		<div class="grid grid-cols-5 gap-2">
-			{#each colors as color (color)}
+			{#each quickcolors as color (color)}
 				<Button
 					variant="ghost"
 					class={cn(
@@ -75,7 +63,7 @@
 		</div>
 		<div class="text-muted-foreground my-2 text-xs">Highlight Colors</div>
 		<div class="grid grid-cols-5 gap-2">
-			{#each colors as color (color)}
+			{#each quickcolors as color (color)}
 				<Button
 					variant="ghost"
 					class={cn(

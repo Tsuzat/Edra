@@ -1,13 +1,14 @@
 <script lang="ts">
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import type { Snippet } from 'svelte';
-	interface Props {
-		tooltip: string;
-		children: Snippet<[]>;
-		shortCut?: string;
-	}
+import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+import type { Snippet } from 'svelte';
 
-	const { tooltip, children, shortCut }: Props = $props();
+interface Props {
+  tooltip: string;
+  children: Snippet<[]>;
+  shortCut?: string;
+}
+
+const { tooltip, children, shortCut }: Props = $props();
 </script>
 
 <Tooltip.Provider delayDuration={100}>
@@ -17,7 +18,9 @@
 		</Tooltip.Trigger>
 		<Tooltip.Content>
 			<span>{tooltip}</span>
-			<span class="bg-background text-primary rounded font-semibold">{shortCut}</span>
+			{#if shortCut}
+				<span class="bg-background text-primary rounded p-0.5">{shortCut}</span>
+			{/if}
 		</Tooltip.Content>
 	</Tooltip.Root>
 </Tooltip.Provider>

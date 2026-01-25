@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { Extension, type Range, type Dispatch } from '@tiptap/core';
+import { type Dispatch, Extension, type Range } from '@tiptap/core';
+import type { Node as PMNode } from '@tiptap/pm/model';
+import { type EditorState, Plugin, PluginKey, type Transaction } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
-import { Plugin, PluginKey, type EditorState, type Transaction } from '@tiptap/pm/state';
-import { Node as PMNode } from '@tiptap/pm/model';
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {

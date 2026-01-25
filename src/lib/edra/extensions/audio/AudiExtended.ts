@@ -1,10 +1,13 @@
-import { SvelteNodeViewRenderer } from 'svelte-tiptap';
-import { Audio } from './AudioExtension.js';
 import type { NodeViewProps } from '@tiptap/core';
 import type { Component } from 'svelte';
+import { SvelteNodeViewRenderer } from 'svelte-tiptap';
+import { Audio } from './AudioExtension.js';
 
-export const AudioExtended = (content: Component<NodeViewProps>) =>
-	Audio.extend({
+export const AudioExtended = (
+	content: Component<NodeViewProps>,
+	onDrop?: (file: File) => Promise<string>
+) =>
+	Audio(onDrop).extend({
 		addAttributes() {
 			return {
 				src: {
