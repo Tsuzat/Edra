@@ -41,6 +41,8 @@ For installation with headless ui, you can use the following command:
 npx edra@next init headless
 # For PNPM
 pnpm dlx edra@next init headless
+# For Bun
+bunx edra@next init headless
 ```
 
 The above command will copy the `edra` component as folder in `src/lib/components/edra` and install the required dependencies.
@@ -61,9 +63,11 @@ After installing the `svelte-shadcn` and `tailwind-typography` packages, you nee
 
 ```sh
 # For NPM
-npx shadcn-svelte add dropdown-menu button tooltip input popover textarea
+npx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
 # using pnpm
-pnpm dlx shadcn-svelte add dropdown-menu button tooltip input popover textarea
+pnpm dlx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
+# For Bun
+bunx shadcn-svelte add button command dropdown-menu input popover separator tabs textarea tooltip
 ```
 
 After the installation of `svelte-shadcn` components, we can run following
