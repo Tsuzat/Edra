@@ -13,7 +13,7 @@
 	import type { Editor } from '@tiptap/core';
 	import { slide } from 'svelte/transition';
 	import EdraToolTip from '../EdraToolTip.svelte';
-	import { getKeyboardShortcut } from '$lib/edra/utils.js';
+	import { getKeyboardShortcut } from '../../../utils.js';
 
 	interface Props {
 		editor: Editor;

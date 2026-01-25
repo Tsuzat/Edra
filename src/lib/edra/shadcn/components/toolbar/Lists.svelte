@@ -1,5 +1,5 @@
 <script lang="ts">
-	import commands from '$lib/edra/commands/toolbar-commands.js';
+	import commands from '../../../commands/toolbar-commands.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { cn } from '$lib/utils.js';

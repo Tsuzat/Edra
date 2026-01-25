@@ -3,7 +3,6 @@
 
 	const { editor }: NodeViewProps = $props();
 
-	import EdraToolTip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';

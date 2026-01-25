@@ -1,7 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import type { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view';
-import { toast } from 'svelte-sonner';
 import { browser } from '$app/environment';
 
 /**
@@ -39,20 +38,14 @@ export function getHandlePasteImage(onDropOrPaste?: (file: File) => Promise<stri
 		}
 		const file = item.getAsFile();
 		if (file === null || file.size === undefined) return;
-		const id = toast.loading('Processing Pasted Image');
 		onDropOrPaste?.(file)
 			.then((src) => {
 				const node = view.state.schema.nodes.image.create({ src });
 				const transaction = view.state.tr.replaceSelectionWith(node);
 				view.dispatch(transaction);
-				toast.success('Uploaded Successfully', { id, duration: 300 });
 			})
 			.catch((error) => {
 				console.error(error);
-				toast.error('Something went wrong while pasting image', {
-					id,
-					duration: 300
-				});
 			});
 		return true;
 	};
@@ -64,20 +57,14 @@ export function getHandleDropImage(onDropOrPaste?: (file: File) => Promise<strin
 		if (files.length === 0) return;
 		const file = files[0];
 		if (file === null || file.size === undefined) return;
-		const id = toast.loading('Processing Dropped Image');
 		onDropOrPaste?.(file)
 			.then((src) => {
 				const node = view.state.schema.nodes.image.create({ src });
 				const transaction = view.state.tr.replaceSelectionWith(node);
 				view.dispatch(transaction);
-				toast.success('Uploaded Successfully', { id, duration: 300 });
 			})
 			.catch((error) => {
 				console.error(error);
-				toast.error('Something went wrong when handling dropped image', {
-					id,
-					duration: 300
-				});
 			});
 		return true;
 	};

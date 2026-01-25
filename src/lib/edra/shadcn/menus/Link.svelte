@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SimpleTooltip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
+	import SimpleTooltip from '../components/EdraToolTip.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import Check from '@lucide/svelte/icons/check';

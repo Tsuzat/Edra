@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { quickcolors } from '$lib/edra/utils.js';
+	import { quickcolors } from '../../../utils.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { cn } from '$lib/utils.js';

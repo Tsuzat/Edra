@@ -3,7 +3,6 @@
 
 	const { editor }: NodeViewProps = $props();
 
-	import EdraToolTip from '$lib/edra/shadcn/components/EdraToolTip.svelte';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
@@ -12,7 +11,7 @@
 	import Loader from '@lucide/svelte/icons/loader';
 	import { toast } from 'svelte-sonner';
 	import { NodeViewWrapper } from 'svelte-tiptap';
-	import { FileType, isURL } from '../../utils.js';
+	import { FileType } from '../../utils.js';
 
 	let open = $state(false);
 	let imageUrl = $state('');
