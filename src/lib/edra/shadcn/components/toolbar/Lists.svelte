@@ -7,6 +7,7 @@
 	import Minus from '@lucide/svelte/icons/minus';
 	import type { Editor } from '@tiptap/core';
 	import EdraToolTip from '../EdraToolTip.svelte';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -27,7 +28,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<EdraToolTip tooltip="Lists">
+	<EdraToolTip tooltip={strings.toolbar.list.buttonTitle}>
 		<DropdownMenu.Trigger
 			class={buttonVariants({
 				variant: 'ghost',
@@ -44,7 +45,7 @@
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
 	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
-		<DropdownMenu.Label>Lists</DropdownMenu.Label>
+		<DropdownMenu.Label>{strings.toolbar.list.dropdownTitle}</DropdownMenu.Label>
 		{#each lists as list (list)}
 			{@const Icon = list.icon}
 			<DropdownMenu.Item onclick={() => list.onClick?.(editor)}>

@@ -4,6 +4,7 @@ import SquareCode from '@lucide/svelte/icons/square-code';
 import type { Editor } from '@tiptap/core';
 import commands from '../../commands/toolbar-commands.js';
 import type { EdraToolBarCommands } from '../../commands/types.js';
+import strings from '../../strings.js';
 
 export interface Group {
 	name: string;
@@ -14,13 +15,13 @@ export interface Group {
 export const GROUPS: Group[] = [
 	{
 		name: 'format',
-		title: 'Format',
+		title: strings.command.formatGroup,
 		actions: [
 			...commands.headings,
 			{
 				icon: Quote,
 				name: 'blockquote',
-				tooltip: 'Blockquote',
+				tooltip: strings.command.blockQuote,
 				onClick: (editor: Editor) => {
 					editor.chain().focus().setBlockquote().run();
 				}
@@ -28,7 +29,7 @@ export const GROUPS: Group[] = [
 			{
 				icon: SquareCode,
 				name: 'codeBlock',
-				tooltip: 'Code Block',
+				tooltip: strings.command.codeBlock,
 				onClick: (editor: Editor) => {
 					editor.chain().focus().setCodeBlock().run();
 				}
@@ -38,7 +39,7 @@ export const GROUPS: Group[] = [
 	},
 	{
 		name: 'insert',
-		title: 'Insert',
+		title: strings.command.insertGroup,
 		actions: [
 			...commands.media,
 			...commands.table,
@@ -46,7 +47,7 @@ export const GROUPS: Group[] = [
 			{
 				icon: Minus,
 				name: 'horizontalRule',
-				tooltip: 'Horizontal Rule',
+				tooltip: strings.command.horizontalRule,
 				onClick: (editor: Editor) => {
 					editor.chain().focus().setHorizontalRule().run();
 				}

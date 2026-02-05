@@ -1,6 +1,7 @@
 import { Node, nodeInputRule } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { toast } from 'svelte-sonner';
+import strings from '../../strings.js';
 
 export interface VideoOptions {
 	HTMLAttributes: Record<string, unknown>;
@@ -124,14 +125,13 @@ export const Video = (onDrop?: (file: File) => Promise<string>) =>
 								event.preventDefault();
 
 								if (videos.length > 1) {
-									toast.warning('Can not paste multple files at once!', {
-										description:
-											'You can only paste one file at a time. Only the first file will be pasted.'
+									toast.warning(strings.extension.video.multiplePasteWarningTitle, {
+										description: strings.extension.video.multiplePasteWarningDescription
 									});
 								}
 
 								const video = videos[0];
-								const id = toast.loading('Processing Pasted Video');
+								const id = toast.loading(strings.extension.video.pasteProcessing);
 								onDrop?.(video)
 									.then((src) => {
 										const node = schema.nodes.video.create({ src });
@@ -141,7 +141,7 @@ export const Video = (onDrop?: (file: File) => Promise<string>) =>
 									})
 									.catch((err) => {
 										console.error(err);
-										toast.error('Could not handle pasted video', { id });
+										toast.error(strings.extension.video.pasteError, { id });
 									});
 
 								return true;
@@ -167,14 +167,14 @@ export const Video = (onDrop?: (file: File) => Promise<string>) =>
 								const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY });
 
 								if (videos.length > 1) {
-									toast.warning('Can not drop multple files at once!', {
+									toast.warning(strings.extension.video.multipleDropWarningTitle, {
 										description:
-											'You can only drop one file at a time. Only the first file will be processed.'
+											strings.extension.video.multipleDropWarningDescription
 									});
 								}
 
 								const video = videos[0];
-								const id = toast.loading('Processing Dropped Video');
+								const id = toast.loading(strings.extension.video.dropProcessing);
 								onDrop?.(video)
 									.then((src) => {
 										if (coordinates && typeof coordinates.pos === 'number') {
@@ -186,7 +186,7 @@ export const Video = (onDrop?: (file: File) => Promise<string>) =>
 									})
 									.catch((err) => {
 										console.error(err);
-										toast.error('Could not upload video', { id });
+										toast.error(strings.extension.video.dropError, { id });
 									});
 
 								return true;

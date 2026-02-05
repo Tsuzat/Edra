@@ -5,6 +5,7 @@
 	import { type Editor } from '@tiptap/core';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { ShouldShowProps } from '../../types.js';
+	import strings from '../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -44,7 +45,7 @@
 	<Input
 		bind:value={latex}
 		onchange={updateLatex}
-		placeholder="Enter Math Expression"
+		placeholder={strings.menu.math.enterExpressionPlaceholder}
 		class="w-56"
 	/>
 	<Button variant="default" size="icon" onclick={updateLatex}>

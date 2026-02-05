@@ -7,6 +7,7 @@
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import type { Editor } from '@tiptap/core';
 	import EdraToolTip from '../EdraToolTip.svelte';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -27,7 +28,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<EdraToolTip tooltip="Alignment">
+	<EdraToolTip tooltip={strings.toolbar.alignment.buttonTitle}>
 		<DropdownMenu.Trigger
 			class={buttonVariants({
 				variant: 'ghost',
@@ -40,7 +41,7 @@
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
 	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
-		<DropdownMenu.Label>Alignments</DropdownMenu.Label>
+		<DropdownMenu.Label>{strings.toolbar.alignment.dropdownTitle}</DropdownMenu.Label>
 		{#each alignments as alignment (alignment)}
 			{@const Icon = alignment.icon}
 			<DropdownMenu.Item onclick={() => alignment.onClick?.(editor)}>

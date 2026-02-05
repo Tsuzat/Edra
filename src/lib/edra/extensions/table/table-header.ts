@@ -1,6 +1,7 @@
 import { TableHeader as TiptapTableHeader } from '@tiptap/extension-table';
 import { Plugin } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
+import strings from '../../strings.js';
 
 import { getCellsInRow, isColumnSelected, selectColumn } from './utils.js';
 
@@ -68,7 +69,7 @@ export const TableHeader = TiptapTableHeader.extend({
 
 										grip.className = className;
 										grip.setAttribute('role', 'button');
-										grip.setAttribute('aria-label', 'Select column');
+										grip.setAttribute('aria-label', strings.extension.table.selectColumn);
 										grip.setAttribute('tabindex', '0');
 										grip.dataset.colIndex = String(index);
 										grip.addEventListener('mousedown', (event) => {
@@ -90,8 +91,8 @@ export const TableHeader = TiptapTableHeader.extend({
 									const btn = document.createElement('button');
 									btn.className = 'add-column-btn';
 									btn.type = 'button';
-									btn.setAttribute('aria-label', 'Add column');
-									btn.setAttribute('title', 'Add Column After');
+									btn.setAttribute('aria-label', strings.extension.table.addColumn);
+									btn.setAttribute('title', strings.extension.table.addColumnAfter);
 									btn.textContent = '+';
 									btn.addEventListener('mousedown', (event) => {
 										event.preventDefault();

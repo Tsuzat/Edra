@@ -15,6 +15,7 @@ import { Table, TableCell, TableHeader, TableRow } from './extensions/table/inde
 import 'katex/dist/katex.min.css';
 import { Markdown } from '@tiptap/markdown';
 import { InlineMathReplacer } from './extensions/InlineMathReplacer.js';
+import strings from './strings.js';
 
 export default (
 	element?: HTMLElement,
@@ -61,10 +62,10 @@ export default (
 				// Use different placeholders depending on the node type:
 				placeholder: ({ node }) => {
 					if (node.type.name === 'heading') {
-						return 'What’s the title?';
+						return strings.editor.headingPlaceholder;
 					}
 					if (node.type.name === 'paragraph') {
-						return 'Write, press space for AI or / for commands';
+						return strings.editor.paragraphPlaceholder;
 					}
 					return '';
 				}

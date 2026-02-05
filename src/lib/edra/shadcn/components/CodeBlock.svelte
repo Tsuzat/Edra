@@ -10,6 +10,7 @@
 	import Copy from '@lucide/svelte/icons/copy';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { cn } from '$lib/utils.js';
+	import strings from '../../strings.js';
 
 	let preRef = $state<HTMLPreElement>();
 
@@ -17,7 +18,7 @@
 
 	const languages: string[] = $derived(extension.options.lowlight.listLanguages().sort());
 
-	let defaultLanguage = $derived(node.attrs.language ?? 'Plain Text');
+	let defaultLanguage = $derived(node.attrs.language ?? strings.extension.code.plainText);
 
 	$effect(() => {
 		updateAttributes({ language: defaultLanguage });
@@ -52,9 +53,9 @@
 				onCloseAutoFocus={(e) => e.preventDefault()}
 			>
 				<Command.Root>
-					<Command.Input placeholder="Search language..." />
+					<Command.Input placeholder={strings.extension.code.searchLanguagePlaceholder} />
 					<Command.List>
-						<Command.Empty>No Language found.</Command.Empty>
+						<Command.Empty>{strings.extension.code.searchLanguageEmpty}</Command.Empty>
 						<Command.Group value="languages">
 							{#each languages as language (language)}
 								<Command.Item

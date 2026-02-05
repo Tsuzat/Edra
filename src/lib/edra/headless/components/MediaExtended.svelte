@@ -2,6 +2,7 @@
 	import { onDestroy, onMount, type Snippet } from 'svelte';
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
+	import strings from '../../strings.js';
 
 	import AlignCenter from '@lucide/svelte/icons/align-center';
 	import AlignLeft from '@lucide/svelte/icons/align-left';
@@ -150,7 +151,7 @@
 			<div
 				role="button"
 				tabindex="0"
-				aria-label="Resize left"
+				aria-label={strings.extension.media.resizeLeft}
 				class="edra-media-resize-handle edra-media-resize-handle-left"
 				onmousedown={(event: MouseEvent) => {
 					handleResizingPosition(event, 'left');
@@ -165,7 +166,7 @@
 			<div
 				role="button"
 				tabindex="0"
-				aria-label="Resize right"
+				aria-label={strings.extension.media.resizeRight}
 				class="edra-media-resize-handle edra-media-resize-handle-right"
 				onmousedown={(event: MouseEvent) => {
 					handleResizingPosition(event, 'right');
@@ -181,21 +182,21 @@
 				<button
 					class={`edra-toolbar-button ${node.attrs.align === 'left' ? 'active' : ''}`}
 					onclick={() => updateAttributes({ align: 'left' })}
-					title="Align Left"
+					title={strings.extension.media.alignLeft}
 				>
 					<AlignLeft />
 				</button>
 				<button
 					class={`edra-toolbar-button ${node.attrs.align === 'center' ? 'active' : ''}`}
 					onclick={() => updateAttributes({ align: 'center' })}
-					title="Align Center"
+					title={strings.extension.media.alignCenter}
 				>
 					<AlignCenter />
 				</button>
 				<button
 					class={`edra-toolbar-button ${node.attrs.align === 'right' ? 'active' : ''}`}
 					onclick={() => updateAttributes({ align: 'right' })}
-					title="Align Right"
+					title={strings.extension.media.alignRight}
 				>
 					<AlignRight />
 				</button>
@@ -204,7 +205,7 @@
 					onclick={() => {
 						if (caption === null || caption.trim() === '') caption = 'Audio Caption';
 					}}
-					title="Caption"
+					title={strings.extension.media.caption}
 				>
 					<Captions />
 				</button>
@@ -213,7 +214,7 @@
 					onclick={() => {
 						duplicateContent(editor, node);
 					}}
-					title="Duplicate"
+					title={strings.extension.media.duplicate}
 				>
 					<CopyIcon />
 				</button>
@@ -224,7 +225,7 @@
 							width: 'fit-content'
 						});
 					}}
-					title="Full Screen"
+					title={strings.extension.media.fullscreen}
 				>
 					<Fullscreen />
 				</button>
@@ -233,7 +234,7 @@
 					onclick={() => {
 						deleteNode();
 					}}
-					title="Delete"
+					title={strings.extension.media.delete}
 				>
 					<Trash />
 				</button>

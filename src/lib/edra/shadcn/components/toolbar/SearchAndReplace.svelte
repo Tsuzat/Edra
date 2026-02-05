@@ -14,6 +14,7 @@
 	import { slide } from 'svelte/transition';
 	import EdraToolTip from '../EdraToolTip.svelte';
 	import { getKeyboardShortcut } from '../../../utils.js';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -94,7 +95,7 @@
 	}}
 >
 	<Popover.Trigger>
-		<EdraToolTip tooltip="Search and Replace" shortCut={getKeyboardShortcut('F', true)}>
+		<EdraToolTip tooltip={strings.toolbar.searchAndReplace.buttonTitle} shortCut={getKeyboardShortcut('F', true)}>
 			<Button variant="ghost" size="icon">
 				<Search />
 			</Button>
@@ -109,14 +110,14 @@
 			size="icon"
 			class={cn('size-7 transition-transform', showMore && 'bg-muted rotate-90')}
 			onclick={() => (showMore = !showMore)}
-			title="Show More"
+			title={strings.toolbar.searchAndReplace.showMore}
 		>
 			<ChevronRight />
 		</Button>
 		<div class="flex size-full flex-col gap-1">
 			<div class="flex w-full items-center gap-1">
 				<Input
-					placeholder="Search..."
+					placeholder={strings.toolbar.searchAndReplace.searchPlaceholder}
 					bind:value={searchText}
 					oninput={() => updateSearchTerm()}
 					class="w-48"
@@ -124,7 +125,7 @@
 				<span class="text-muted-foreground text-sm"
 					>{searchCount > 0 ? searchIndex + 1 : 0}/{searchCount}
 				</span>
-				<EdraToolTip tooltip="Case Sensitive">
+				<EdraToolTip tooltip={strings.toolbar.searchAndReplace.caseSensitive}>
 					<Button
 						variant="ghost"
 						size="icon"
@@ -137,13 +138,13 @@
 						<CaseSensitive />
 					</Button>
 				</EdraToolTip>
-				<EdraToolTip tooltip="Go to previous">
-					<Button variant="ghost" size="icon" class="size-7" onclick={previous} title="Previous">
+				<EdraToolTip tooltip={strings.toolbar.searchAndReplace.goToPrevious}>
+					<Button variant="ghost" size="icon" class="size-7" onclick={previous} title={strings.toolbar.searchAndReplace.previous}>
 						<ArrowLeft />
 					</Button>
 				</EdraToolTip>
-				<EdraToolTip tooltip="Go to next">
-					<Button variant="ghost" size="icon" class="size-7" onclick={next} title="Next">
+				<EdraToolTip tooltip={strings.toolbar.searchAndReplace.goToNext}>
+					<Button variant="ghost" size="icon" class="size-7" onclick={next} title={strings.toolbar.searchAndReplace.next}>
 						<ArrowRight />
 					</Button>
 				</EdraToolTip>
@@ -151,17 +152,17 @@
 			{#if showMore}
 				<div transition:slide class="flex w-full items-center gap-1">
 					<Input
-						placeholder="Replace..."
+						placeholder={strings.toolbar.searchAndReplace.replacePlaceholder}
 						bind:value={replaceText}
 						oninput={() => updateSearchTerm()}
 						class="w-48"
 					/>
-					<EdraToolTip tooltip="Replace">
+					<EdraToolTip tooltip={strings.toolbar.searchAndReplace.replace}>
 						<Button variant="ghost" size="icon" class="size-7" onclick={replace}>
 							<Replace />
 						</Button>
 					</EdraToolTip>
-					<EdraToolTip tooltip="Replace All">
+					<EdraToolTip tooltip={strings.toolbar.searchAndReplace.replaceAll}>
 						<Button variant="ghost" size="icon" class="size-7" onclick={replaceAll}>
 							<ReplaceAll />
 						</Button>

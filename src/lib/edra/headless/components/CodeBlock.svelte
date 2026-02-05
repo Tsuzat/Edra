@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { NodeViewWrapper, NodeViewContent } from 'svelte-tiptap';
 	import type { NodeViewProps } from '@tiptap/core';
+	import strings from '../../strings.js';
 	const { node, updateAttributes, extension }: NodeViewProps = $props();
 
 	let preRef = $state<HTMLPreElement>();
@@ -35,9 +36,9 @@
 		</select>
 		<button class="code-wrapper-copy" onclick={copyCode}>
 			{#if isCopying}
-				<span class="code-wrapper-copy-text copied">Copied!</span>
+				<span class="code-wrapper-copy-text copied">{strings.extension.code.copied}</span>
 			{:else}
-				<span class="code-wrapper-copy-text">Copy</span>
+				<span class="code-wrapper-copy-text">{strings.extension.code.copy}</span>
 			{/if}
 		</button>
 	</div>

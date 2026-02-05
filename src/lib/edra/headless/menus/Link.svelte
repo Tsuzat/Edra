@@ -2,6 +2,7 @@
 	import type { ShouldShowProps } from '../../types.js';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { Editor } from '@tiptap/core';
+	import strings from '../../strings.js';
 	import Copy from '@lucide/svelte/icons/copy';
 	import Trash from '@lucide/svelte/icons/trash';
 	import Edit from '@lucide/svelte/icons/edit';
@@ -48,7 +49,7 @@
 			{link}
 		</a>
 		<button
-			title="Edit Link"
+			title={strings.menu.link.edit}
 			class="edra-command-button"
 			onclick={() => {
 				isEditing = true;
@@ -58,7 +59,7 @@
 			<Edit class="edra-toolbar-icon" />
 		</button>
 		<button
-			title="Copy Link"
+			title={strings.menu.link.copy}
 			class="edra-command-button"
 			onclick={() => {
 				navigator.clipboard.writeText(link);
@@ -68,7 +69,7 @@
 		</button>
 		<button
 			class="edra-command-button"
-			title="Remove Link"
+			title={strings.menu.link.remove}
 			onclick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()}
 		>
 			<Trash class="edra-toolbar-icon" />
@@ -79,10 +80,10 @@
 				bind:value={linkInput}
 				required
 				type="url"
-				placeholder="Type or paste a link"
+				placeholder={strings.menu.link.enterLinkPlaceholder}
 				class="edra-link-input"
 			/>
-			<button type="submit" class="edra-command-button" title="Save">
+			<button type="submit" class="edra-command-button" title={strings.menu.link.save}>
 				<Check class="edra-toolbar-icon" />
 			</button>
 		</form>

@@ -12,6 +12,7 @@
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { FileType } from '../../utils.js';
 	import { toast } from 'svelte-sonner';
+	import strings from '../../strings.js';
 
 	let open = $state(false);
 	let videoUrl = $state('');
@@ -32,7 +33,7 @@
 			}
 		} catch (e) {
 			console.error(e);
-			toast.error('Could not process videos.');
+			toast.error(strings.extension.video.openError);
 		} finally {
 			isUploading = false;
 		}
@@ -52,13 +53,13 @@
 >
 	{#if isUploading}
 		<Loader class="text-primary animate-spin" />
-		<span>Uploading Video</span>
+		<span>{strings.extension.video.uploadProcessing}</span>
 	{:else}
 		<Video />
-		<span>Insert a video</span>
+		<span>{strings.extension.video.insertPlaceholder}</span>
 	{/if}
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">Open</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.video.openButton}</Popover.Trigger>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -67,16 +68,16 @@
 		>
 			<Tabs.Root value="local">
 				<Tabs.List>
-					<Tabs.Trigger value="local">Upload</Tabs.Trigger>
-					<Tabs.Trigger value="url">Embed Link</Tabs.Trigger>
+					<Tabs.Trigger value="local">{strings.extension.video.uploadTab}</Tabs.Trigger>
+					<Tabs.Trigger value="url">{strings.extension.video.embedLinkTab}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="local" class="py-2">
-					<Button class="w-full" onclick={openFileDialog}>Upload a Video</Button>
+					<Button class="w-full" onclick={openFileDialog}>{strings.extension.video.uploadButton}</Button>
 				</Tabs.Content>
 				<Tabs.Content value="url" class="py-2">
 					<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-						<Input placeholder="Embed Video" bind:value={videoUrl} required type="url" />
-						<Button type="submit">Insert</Button>
+						<Input placeholder={strings.extension.video.embedLinkPlaceholder} bind:value={videoUrl} required type="url" />
+						<Button type="submit">{strings.extension.video.embedLinkButton}</Button>
 					</form>
 				</Tabs.Content>
 			</Tabs.Root>

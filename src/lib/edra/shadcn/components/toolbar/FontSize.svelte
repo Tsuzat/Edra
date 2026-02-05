@@ -5,6 +5,7 @@
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import { Editor } from '@tiptap/core';
 	import EdraToolTip from '../EdraToolTip.svelte';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		class?: string;
@@ -14,12 +15,12 @@
 	const { class: className = '', editor }: Props = $props();
 
 	const FONT_SIZE = [
-		{ label: 'Tiny', value: '0.7rem' },
-		{ label: 'Smaller', value: '0.75rem' },
-		{ label: 'Small', value: '0.9rem' },
-		{ label: 'Default', value: '' },
-		{ label: 'Large', value: '1.25rem' },
-		{ label: 'Extra Large', value: '1.5rem' }
+		{ label: strings.toolbar.font.tiny, value: '0.7rem' },
+		{ label: strings.toolbar.font.smaller, value: '0.75rem' },
+		{ label: strings.toolbar.font.small, value: '0.9rem' },
+		{ label: strings.toolbar.font.default, value: '' },
+		{ label: strings.toolbar.font.large, value: '1.25rem' },
+		{ label: strings.toolbar.font.extraLarge, value: '1.5rem' }
 	];
 
 	let currentSize = $derived.by(() => editor.getAttributes('textStyle').fontSize || '');
@@ -32,7 +33,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<EdraToolTip tooltip="Font Size">
+	<EdraToolTip tooltip={strings.toolbar.font.buttonTitle}>
 		<DropdownMenu.Trigger
 			class={buttonVariants({
 				variant: 'ghost',
@@ -49,7 +50,7 @@
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
 	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
-		<DropdownMenu.Label>Font Size</DropdownMenu.Label>
+		<DropdownMenu.Label>{strings.toolbar.font.dropdownTitle}</DropdownMenu.Label>
 		{#each FONT_SIZE as fontSize (fontSize)}
 			<DropdownMenu.Item
 				onclick={() => {
