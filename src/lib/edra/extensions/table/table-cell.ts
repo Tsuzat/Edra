@@ -1,6 +1,7 @@
 import { mergeAttributes, Node } from '@tiptap/core';
 import { Plugin } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
+import strings from '../../strings.js';
 
 import { getCellsInColumn, isRowSelected, selectRow } from './utils.js';
 
@@ -105,7 +106,7 @@ export const TableCell = Node.create<TableCellOptions>({
 
 										grip.className = className;
 										grip.setAttribute('role', 'button');
-										grip.setAttribute('aria-label', 'Select row');
+										grip.setAttribute('aria-label', strings.extension.table.selectRow);
 										grip.setAttribute('tabindex', '0');
 										grip.dataset.rowIndex = String(index);
 										grip.addEventListener('mousedown', (event) => {
@@ -129,7 +130,7 @@ export const TableCell = Node.create<TableCellOptions>({
 						// 				const grip = document.createElement('a');
 						// 				grip.className = 'grip-cell';
 						// 				grip.setAttribute('role', 'button');
-						// 				grip.setAttribute('aria-label', 'Select cell');
+						// 				grip.setAttribute('aria-label', strings.extension.table.selectCell);
 						// 				grip.setAttribute('tabindex', '0');
 						// 				grip.addEventListener('mousedown', (event) => {
 						// 					event.preventDefault();
@@ -156,8 +157,8 @@ export const TableCell = Node.create<TableCellOptions>({
 									const btn = document.createElement('button');
 									btn.className = 'add-row-btn';
 									btn.type = 'button';
-									btn.setAttribute('aria-label', 'Add row');
-									btn.setAttribute('title', 'Add Row After');
+									btn.setAttribute('aria-label', strings.extension.table.addRow);
+									btn.setAttribute('title', strings.extension.table.addRowAfter);
 									btn.textContent = '+';
 									btn.addEventListener('mousedown', (event) => {
 										event.preventDefault();

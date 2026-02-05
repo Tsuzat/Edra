@@ -17,6 +17,7 @@
 	import { onMount } from 'svelte';
 	import commands from '../commands/toolbar-commands.js';
 	import { quickcolors } from '../utils.js';
+	import strings from '../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -128,7 +129,7 @@
 	</Button>
 	<DropdownMenu.Root bind:open>
 		<DropdownMenu.Trigger class="sr-only">
-			<span>Drag Handle</span>
+			<span>{strings.dragHandle.title}</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content portalProps={{ to: editorElement ?? undefined }}>
 			<DropdownMenu.Group>
@@ -138,7 +139,7 @@
 				<DropdownMenu.Sub>
 					<DropdownMenu.SubTrigger openDelay={300}>
 						<Repeat2 />
-						Turn Into
+						{strings.dragHandle.turnInto}
 					</DropdownMenu.SubTrigger>
 					<DropdownMenu.SubContent class="max-h-96 overflow-auto duration-300">
 						{#each turnIntoCommand as command (command)}
@@ -162,23 +163,23 @@
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger openDelay={300}>
 					<Palette />
-					Colors
+					{strings.toolbar.color.buttonTitle}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.Content side="right" class="max-h-96 overflow-auto duration-300">
 					<DropdownMenu.Group>
 						<DropdownMenu.Label class="text-muted-foreground text-sm"
-							>Text Colors</DropdownMenu.Label
+							>{strings.toolbar.color.textColor}</DropdownMenu.Label
 						>
 						{#each quickcolors as color (color.label)}
 							<DropdownMenu.Item
 								title={color.label}
 								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
+									if (color.value === '' || color.label === strings.toolbar.color.default)
 										editor.chain().setNodeSelection(currentNodePos).unsetColor().run();
 									else editor.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
 								}}
 							>
-								<span style={`color: ${color.value};`}>A</span>
+								<span style={`color: ${color.value};`}>{strings.toolbar.color.templateCharacter}</span>
 								<span class="capitalize">{color.label}</span>
 							</DropdownMenu.Item>
 						{/each}
@@ -186,14 +187,14 @@
 					<DropdownMenu.Separator />
 					<DropdownMenu.Group>
 						<DropdownMenu.Label class="text-muted-foreground text-sm"
-							>Highlight Color</DropdownMenu.Label
+							>{strings.toolbar.color.highlightColor}</DropdownMenu.Label
 						>
 						<!-- {@const currentHighlight = editor.getAttributes('highlight').color as string} -->
 						{#each quickcolors as color (color.label)}
 							<DropdownMenu.Item
 								title={color.label}
 								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
+									if (color.value === '' || color.label === strings.toolbar.color.default)
 										editor.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
 									else
 										editor
@@ -214,10 +215,10 @@
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger openDelay={300}>
 					<TextAlignCenter />
-					AlignMent
+					{strings.toolbar.alignment.buttonTitle}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
-					<DropdownMenu.Label>Alignments</DropdownMenu.Label>
+					<DropdownMenu.Label>{strings.toolbar.alignment.dropdownTitle}</DropdownMenu.Label>
 					{#each alignments as alignment (alignment)}
 						{@const Icon = alignment.icon}
 						<DropdownMenu.Item
@@ -238,25 +239,25 @@
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={insertNode}>
 				<Plus />
-				Insert Next
+				{strings.dragHandle.insertNext}
 			</DropdownMenu.Item>
 			<DropdownMenu.Item onclick={handleRemoveFormatting}>
 				<RemoveFormatting />
-				Remove Formatting
+				{strings.dragHandle.removeFormatting}
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={handleDuplicate}>
 				<Duplicate />
-				Duplicate
+				{strings.dragHandle.duplicate}
 			</DropdownMenu.Item>
 			<DropdownMenu.Item onclick={handleCopyToClipboard}>
 				<Clipboard />
-				Copy Content
+				{strings.dragHandle.copy}
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={handleDelete}>
 				<Delete class="text-destructive" />
-				Delete Node
+				{strings.dragHandle.delete}
 			</DropdownMenu.Item>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>

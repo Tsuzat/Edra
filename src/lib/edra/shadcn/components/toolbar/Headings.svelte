@@ -7,6 +7,7 @@
 	import type { Editor } from '@tiptap/core';
 	import commands from '../../../commands/toolbar-commands.js';
 	import EdraToolTip from '../EdraToolTip.svelte';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -27,7 +28,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<EdraToolTip tooltip="Headings">
+	<EdraToolTip tooltip={strings.toolbar.heading.buttonTitle}>
 		<DropdownMenu.Trigger
 			class={buttonVariants({
 				variant: 'ghost',
@@ -42,7 +43,7 @@
 	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
 		<DropdownMenu.Item onclick={() => editor.chain().focus().setParagraph().run()}>
 			<Paragraph />
-			<span>Paragraph</span>
+			<span>{strings.command.paragraph}</span>
 		</DropdownMenu.Item>
 		{#each headings as heading (heading)}
 			{@const Icon = heading.icon}

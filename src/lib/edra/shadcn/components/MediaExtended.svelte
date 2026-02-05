@@ -14,6 +14,7 @@
 	import { onDestroy, onMount, type Snippet } from 'svelte';
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { duplicateContent } from '../../utils.js';
+	import strings from '../../strings.js';
 
 	interface MediaExtendedProps extends NodeViewProps {
 		children: Snippet<[]>;
@@ -159,7 +160,7 @@
 			<div
 				role="button"
 				tabindex="0"
-				aria-label="Back"
+				aria-label={strings.extension.media.back}
 				class="absolute inset-y-0 z-20 flex w-5 cursor-col-resize items-center justify-start p-2"
 				style="left: 0px"
 				onmousedown={(event: MouseEvent) => {
@@ -177,7 +178,7 @@
 			<div
 				role="button"
 				tabindex="0"
-				aria-label="Back"
+				aria-label={strings.extension.media.back}
 				class="absolute inset-y-0 z-20 flex w-5 cursor-col-resize items-center justify-end p-2"
 				style="right: 0px"
 				onmousedown={(event: MouseEvent) => {
@@ -202,7 +203,7 @@
 					variant="ghost"
 					class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'left' })}
-					title="Align Left"
+					title={strings.extension.media.alignLeft}
 				>
 					<AlignLeft class="size-4" />
 				</Button>
@@ -210,7 +211,7 @@
 					variant="ghost"
 					class={cn('size-6 p-0', node.attrs.align === 'center' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'center' })}
-					title="Align Center"
+					title={strings.extension.media.alignCenter}
 				>
 					<AlignCenter class="size-4" />
 				</Button>
@@ -218,7 +219,7 @@
 					variant="ghost"
 					class={cn('size-6 p-0', node.attrs.align === 'right' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'right' })}
-					title="Align Right"
+					title={strings.extension.media.alignRight}
 				>
 					<AlignRight class="size-4" />
 				</Button>
@@ -228,7 +229,7 @@
 				>
 					<DropdownMenu.Trigger
 						class={buttonVariants({ variant: 'ghost', class: 'size-6 p-0' })}
-						title="More Options"
+						title={strings.extension.media.moreOptions}
 					>
 						<EllipsisVertical class="size-4" />
 					</DropdownMenu.Trigger>
@@ -237,18 +238,18 @@
 							onclick={() => {
 								if (node.attrs.title === null || node.attrs.title.trim() === '')
 									updateAttributes({
-										title: 'Your Media Caption'
+										title: strings.extension.media.captionPlaceholder
 									});
 							}}
 						>
-							<Captions class="mr-1 size-4" /> Caption
+							<Captions class="mr-1 size-4" /> {strings.extension.media.caption}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
 								duplicateContent(editor, node);
 							}}
 						>
-							<CopyIcon class="mr-1 size-4" /> Duplicate
+							<CopyIcon class="mr-1 size-4" /> {strings.extension.media.duplicate}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
@@ -257,7 +258,7 @@
 								});
 							}}
 						>
-							<Fullscreen class="mr-1 size-4" /> Full Screen
+							<Fullscreen class="mr-1 size-4" /> {strings.extension.media.fullscreen}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
@@ -265,7 +266,7 @@
 							}}
 							class="text-destructive"
 						>
-							<Trash class="mr-1 size-4" /> Delete
+							<Trash class="mr-1 size-4" /> {strings.extension.media.delete}
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>

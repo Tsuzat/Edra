@@ -6,6 +6,7 @@
 	import type { ShouldShowProps } from '../../types.js';
 	import { isColumnGripSelected } from '../../extensions/table/utils.js';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
+	import strings from '../../strings.js';
 	interface Props {
 		editor: Editor;
 	}
@@ -31,21 +32,21 @@
 >
 	<button
 		class="edra-command-button"
-		title="Add Column After"
+		title={strings.extension.table.addColumnAfter}
 		onclick={() => editor.chain().focus().addColumnAfter().run()}
 	>
 		<ArrowRightFromLine class="edra-toolbar-icon" />
 	</button>
 	<button
 		class="edra-command-button"
-		title="Add Column Before"
+		title={strings.extension.table.addColumnBefore}
 		onclick={() => editor.chain().focus().addColumnBefore().run()}
 	>
 		<ArrowLeftFromLine class="edra-toolbar-icon" />
 	</button>
 	<button
 		class="edra-command-button"
-		title="Delete Column"
+		title={strings.extension.table.deleteColumn}
 		onclick={() => editor.chain().focus().deleteColumn().run()}
 	>
 		<Trash class="edra-toolbar-icon" />

@@ -12,6 +12,7 @@
 	import { toast } from 'svelte-sonner';
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { FileType } from '../../utils.js';
+	import strings from '../../strings.js';
 
 	let open = $state(false);
 	let imageUrl = $state('');
@@ -32,7 +33,7 @@
 			}
 		} catch (e) {
 			console.error(e);
-			toast.error('Could not process images.');
+			toast.error(strings.extension.image.openError);
 		} finally {
 			isUploading = false;
 		}
@@ -52,13 +53,13 @@
 >
 	{#if !isUploading}
 		<Image />
-		<span>Insert an Image</span>
+		<span>{strings.extension.image.insertPlaceholder}</span>
 	{:else}
 		<Loader class="text-primary animate-spin" />
-		<span>Uploading Image</span>
+		<span>{strings.extension.image.uploadProcessing}</span>
 	{/if}
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">Open</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.image.openButton}</Popover.Trigger>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -67,16 +68,16 @@
 		>
 			<Tabs.Root value="local">
 				<Tabs.List>
-					<Tabs.Trigger value="local">Upload</Tabs.Trigger>
-					<Tabs.Trigger value="url">Embed Link</Tabs.Trigger>
+					<Tabs.Trigger value="local">{strings.extension.image.uploadTab}</Tabs.Trigger>
+					<Tabs.Trigger value="url">{strings.extension.image.embedLinkTab}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="local" class="py-2">
-					<Button class="w-full" onclick={openFileDialog}>Upload an Image</Button>
+					<Button class="w-full" onclick={openFileDialog}>{strings.extension.image.uploadButton}</Button>
 				</Tabs.Content>
 				<Tabs.Content value="url" class="py-2">
 					<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-						<Input placeholder="Embed Image" bind:value={imageUrl} required type="url" />
-						<Button type="submit">Insert</Button>
+						<Input placeholder={strings.extension.image.embedLinkPlaceholder} bind:value={imageUrl} required type="url" />
+						<Button type="submit">{strings.extension.image.embedLinkButton}</Button>
 					</form>
 				</Tabs.Content>
 			</Tabs.Root>

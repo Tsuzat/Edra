@@ -8,6 +8,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import CodeXml from '@lucide/svelte/icons/code-xml';
 	import { NodeViewWrapper } from 'svelte-tiptap';
+	import strings from '../../strings.js';
 
 	let open = $state(false);
 	let iframUrl = $state('');
@@ -31,9 +32,9 @@
 	onclick={() => (open = true)}
 >
 	<CodeXml />
-	<span>Insert an iframe</span>
+	<span>{strings.extension.iframe.insertPlaceholder}</span>
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">Open</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.iframe.openButton}</Popover.Trigger>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -41,8 +42,8 @@
 			portalProps={{ disabled: true, to: undefined }}
 		>
 			<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-				<Input placeholder="Embed IFrame" bind:value={iframUrl} required type="url" />
-				<Button type="submit" variant="secondary">Insert</Button>
+				<Input placeholder={strings.extension.iframe.embedLinkPlaceholder} bind:value={iframUrl} required type="url" />
+				<Button type="submit" variant="secondary">{strings.extension.iframe.embedLinkButton}</Button>
 			</form>
 		</Popover.Content>
 	</Popover.Root>

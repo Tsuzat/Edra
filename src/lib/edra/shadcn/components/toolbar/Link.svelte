@@ -9,6 +9,7 @@
 	import Link from '@lucide/svelte/icons/link';
 	import type { Editor } from '@tiptap/core';
 	import EdraToolTip from '../EdraToolTip.svelte';
+	import strings from '../../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -31,7 +32,7 @@
 <Popover.Root bind:open>
 	<Popover.Trigger>
 		{@const isActive = editor.isActive('link')}
-		<EdraToolTip tooltip="Link">
+		<EdraToolTip tooltip={strings.toolbar.link.buttonTitle}>
 			<div
 				class={buttonVariants({
 					variant: 'ghost',
@@ -50,8 +51,8 @@
 		class="h-fit w-80 rounded-lg p-0!"
 	>
 		<form class="flex items-center gap-0.5" onsubmit={handleSubmit}>
-			<Input placeholder="Type or paste a link" bind:value required type="url" />
-			<EdraToolTip tooltip="Insert link">
+			<Input placeholder={strings.toolbar.link.insertLinkPlaceholder} bind:value required type="url" />
+			<EdraToolTip tooltip={strings.toolbar.link.insertLink}>
 				<Button type="submit" size="icon">
 					<Check />
 				</Button>

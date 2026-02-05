@@ -3,6 +3,7 @@
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { ShouldShowProps } from '../../types.js';
 	import CornerDownLeft from '@lucide/svelte/icons/corner-down-left';
+	import strings from '../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -36,7 +37,7 @@
 	<input
 		bind:value={inputVal}
 		onchange={updateLatex}
-		placeholder="Enter Math Expression"
+		placeholder={strings.menu.math.enterExpressionPlaceholder}
 		class="edra-math-input-inline"
 	/>
 	<button class="edra-command-button" onclick={updateLatex} title="Apply">

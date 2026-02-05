@@ -1,6 +1,7 @@
 import { Node, nodeInputRule } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { toast } from 'svelte-sonner';
+import strings from '../../strings.js';
 
 export interface AudioOptions {
 	HTMLAttributes: Record<string, unknown>;
@@ -124,14 +125,13 @@ export const Audio = (onDrop?: (file: File) => Promise<string>) =>
 								event.preventDefault();
 
 								if (audios.length > 1) {
-									toast.warning('Can not paste multple files at once!', {
-										description:
-											'You can only paste one file at a time. Only the first file will be pasted.'
+									toast.warning(strings.extension.audio.multiplePasteWarningTitle, {
+										description: strings.extension.audio.multiplePasteWarningDescription
 									});
 								}
 
 								const audio = audios[0];
-								const id = toast.loading('Processing Pasted Audio');
+								const id = toast.loading(strings.extension.audio.pasteProcessing);
 								onDrop?.(audio)
 									.then((src) => {
 										const node = schema.nodes.audio.create({ src });
@@ -141,7 +141,7 @@ export const Audio = (onDrop?: (file: File) => Promise<string>) =>
 									})
 									.catch((err) => {
 										console.error(err);
-										toast.error('Could not paste audio', { id });
+										toast.error(strings.extension.audio.pasteError, { id });
 									});
 
 								return true;
@@ -167,14 +167,13 @@ export const Audio = (onDrop?: (file: File) => Promise<string>) =>
 								const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY });
 
 								if (audios.length > 1) {
-									toast.warning('Can not drop multple files at once!', {
-										description:
-											'You can only drop one file at a time. Only the first file will be processed.'
+									toast.warning(strings.extension.audio.multipleDropWarningTitle, {
+										description: strings.extension.audio.multipleDropWarningDescription
 									});
 								}
 
 								const audio = audios[0];
-								const id = toast.loading('Processing Dropped Audio');
+								const id = toast.loading(strings.extension.audio.dropProcessing);
 								onDrop?.(audio)
 									.then((src) => {
 										if (coordinates && typeof coordinates.pos === 'number') {
@@ -186,7 +185,7 @@ export const Audio = (onDrop?: (file: File) => Promise<string>) =>
 									})
 									.catch((err) => {
 										console.error(err);
-										toast.error('Could not upload audio', { id });
+										toast.error(strings.extension.audio.dropError, { id });
 									});
 
 								return true;

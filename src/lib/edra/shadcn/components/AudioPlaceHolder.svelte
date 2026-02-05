@@ -12,6 +12,7 @@
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { FileType } from '../../utils.js';
 	import { toast } from 'svelte-sonner';
+	import strings from '../../strings.js';
 
 	let open = $state(false);
 	let audioUrl = $state('');
@@ -42,7 +43,7 @@
 				}
 			} catch (e) {
 				console.error(e);
-				toast.error('Could not process audio files.');
+				toast.error(strings.extension.audio.openError);
 			} finally {
 				isUploading = false;
 			}
@@ -65,13 +66,13 @@
 >
 	{#if isUploading}
 		<Loader class="text-primary animate-spin" />
-		<span>Uploading Audio File</span>
+		<span>{strings.extension.audio.uploadProcessing}</span>
 	{:else}
 		<Audio />
-		<span>Insert an audio</span>
+		<span>{strings.extension.audio.insertPlaceholder}</span>
 	{/if}
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">Open</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.audio.openButton}</Popover.Trigger>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -80,16 +81,16 @@
 		>
 			<Tabs.Root value="local">
 				<Tabs.List>
-					<Tabs.Trigger value="local">Upload</Tabs.Trigger>
-					<Tabs.Trigger value="url">Embed Link</Tabs.Trigger>
+					<Tabs.Trigger value="local">{strings.extension.audio.uploadTab}</Tabs.Trigger>
+					<Tabs.Trigger value="url">{strings.extension.audio.embedLinkTab}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="local" class="py-2">
-					<Button class="w-full" onclick={openFileDialog}>Upload an Audio</Button>
+					<Button class="w-full" onclick={openFileDialog}>{strings.extension.audio.uploadButton}</Button>
 				</Tabs.Content>
 				<Tabs.Content value="url" class="py-2">
 					<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-						<Input placeholder="Embed Audio" bind:value={audioUrl} required type="url" />
-						<Button type="submit">Insert</Button>
+						<Input placeholder={strings.extension.audio.embedLinkPlaceholder} bind:value={audioUrl} required type="url" />
+						<Button type="submit">{strings.extension.audio.embedLinkButton}</Button>
 					</form>
 				</Tabs.Content>
 			</Tabs.Root>

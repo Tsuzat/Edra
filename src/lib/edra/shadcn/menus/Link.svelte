@@ -9,6 +9,7 @@
 	import type { Editor } from '@tiptap/core';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { ShouldShowProps } from '../../types.js';
+	import strings from '../../strings.js';
 
 	interface Props {
 		editor: Editor;
@@ -61,7 +62,7 @@
 		>
 			{link}
 		</Button>
-		<SimpleTooltip tooltip="Edit Link">
+		<SimpleTooltip tooltip={strings.menu.link.edit}>
 			<Button
 				variant="ghost"
 				size="icon"
@@ -73,10 +74,10 @@
 				<Edit />
 			</Button>
 		</SimpleTooltip>
-		<SimpleTooltip tooltip="Copy Link">
+		<SimpleTooltip tooltip={strings.menu.link.copy}>
 			<Button
 				variant="ghost"
-				title="Copy Link"
+				title={strings.menu.link.copy}
 				size="icon"
 				onclick={() => {
 					window.navigator.clipboard.writeText(link);
@@ -85,10 +86,10 @@
 				<Copy />
 			</Button>
 		</SimpleTooltip>
-		<SimpleTooltip tooltip="Remove Link">
+		<SimpleTooltip tooltip={strings.menu.link.remove}>
 			<Button
 				variant="ghost"
-				title="Remove Link"
+				title={strings.menu.link.remove}
 				size="icon"
 				onclick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()}
 			>
@@ -97,8 +98,8 @@
 		</SimpleTooltip>
 	{:else}
 		<form onsubmit={handleSubmit} class="flex max-w-120 items-center gap-0.5">
-			<Input bind:value={linkInput} required type="url" placeholder="Type or paste a link" />
-			<SimpleTooltip tooltip="Set new link">
+			<Input bind:value={linkInput} required type="url" placeholder={strings.menu.link.enterLinkPlaceholder}/>
+			<SimpleTooltip tooltip={strings.menu.link.enterLinkButton}>
 				<Button type="submit" size="icon">
 					<Check />
 				</Button>

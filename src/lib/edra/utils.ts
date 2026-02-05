@@ -2,6 +2,7 @@ import type { Editor } from '@tiptap/core';
 import type { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view';
 import { browser } from '$app/environment';
+import strings from './strings.js';
 
 /**
  * Check if the current browser is in mac or not
@@ -127,16 +128,16 @@ export const isURL = (str: string): boolean => {
 };
 
 export const quickcolors = [
-	{ label: 'Default', value: '' },
-	{ label: 'Blue', value: '#0E0E99' },
-	{ label: 'Brown', value: '#7D0404' },
-	{ label: 'Green', value: '#077507' },
-	{ label: 'Grey', value: '#636262' },
-	{ label: 'Orange', value: '#A34603' },
-	{ label: 'Pink', value: '#DB0762' },
-	{ label: 'Purple', value: '#83069C' },
-	{ label: 'Red', value: '#B30707' },
-	{ label: 'Yellow', value: '#C4C404' }
+	{ label: strings.toolbar.color.default, value: '' },
+	{ label: strings.toolbar.color.blue, value: '#0E0E99' },
+	{ label: strings.toolbar.color.brown, value: '#7D0404' },
+	{ label: strings.toolbar.color.green, value: '#077507' },
+	{ label: strings.toolbar.color.gray, value: '#636262' },
+	{ label: strings.toolbar.color.orange, value: '#A34603' },
+	{ label: strings.toolbar.color.pink, value: '#DB0762' },
+	{ label: strings.toolbar.color.purple, value: '#83069C' },
+	{ label: strings.toolbar.color.red, value: '#B30707' },
+	{ label: strings.toolbar.color.yellow, value: '#C4C404' }
 ];
 
 export enum FileType {
