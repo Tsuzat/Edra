@@ -98,7 +98,12 @@
 		</SimpleTooltip>
 	{:else}
 		<form onsubmit={handleSubmit} class="flex max-w-120 items-center gap-0.5">
-			<Input bind:value={linkInput} required type="url" placeholder={strings.menu.link.enterLinkPlaceholder}/>
+			<Input
+				bind:value={linkInput}
+				required
+				type="url"
+				placeholder={strings.menu.link.enterLinkPlaceholder}
+			/>
 			<SimpleTooltip tooltip={strings.menu.link.enterLinkButton}>
 				<Button type="submit" size="icon">
 					<Check />

@@ -242,14 +242,16 @@
 									});
 							}}
 						>
-							<Captions class="mr-1 size-4" /> {strings.extension.media.caption}
+							<Captions class="mr-1 size-4" />
+							{strings.extension.media.caption}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
 								duplicateContent(editor, node);
 							}}
 						>
-							<CopyIcon class="mr-1 size-4" /> {strings.extension.media.duplicate}
+							<CopyIcon class="mr-1 size-4" />
+							{strings.extension.media.duplicate}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
@@ -258,7 +260,8 @@
 								});
 							}}
 						>
-							<Fullscreen class="mr-1 size-4" /> {strings.extension.media.fullscreen}
+							<Fullscreen class="mr-1 size-4" />
+							{strings.extension.media.fullscreen}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {
@@ -266,7 +269,8 @@
 							}}
 							class="text-destructive"
 						>
-							<Trash class="mr-1 size-4" /> {strings.extension.media.delete}
+							<Trash class="mr-1 size-4" />
+							{strings.extension.media.delete}
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>

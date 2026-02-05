@@ -95,7 +95,10 @@
 	}}
 >
 	<Popover.Trigger>
-		<EdraToolTip tooltip={strings.toolbar.searchAndReplace.buttonTitle} shortCut={getKeyboardShortcut('F', true)}>
+		<EdraToolTip
+			tooltip={strings.toolbar.searchAndReplace.buttonTitle}
+			shortCut={getKeyboardShortcut('F', true)}
+		>
 			<Button variant="ghost" size="icon">
 				<Search />
 			</Button>
@@ -139,12 +142,24 @@
 					</Button>
 				</EdraToolTip>
 				<EdraToolTip tooltip={strings.toolbar.searchAndReplace.goToPrevious}>
-					<Button variant="ghost" size="icon" class="size-7" onclick={previous} title={strings.toolbar.searchAndReplace.previous}>
+					<Button
+						variant="ghost"
+						size="icon"
+						class="size-7"
+						onclick={previous}
+						title={strings.toolbar.searchAndReplace.previous}
+					>
 						<ArrowLeft />
 					</Button>
 				</EdraToolTip>
 				<EdraToolTip tooltip={strings.toolbar.searchAndReplace.goToNext}>
-					<Button variant="ghost" size="icon" class="size-7" onclick={next} title={strings.toolbar.searchAndReplace.next}>
+					<Button
+						variant="ghost"
+						size="icon"
+						class="size-7"
+						onclick={next}
+						title={strings.toolbar.searchAndReplace.next}
+					>
 						<ArrowRight />
 					</Button>
 				</EdraToolTip>

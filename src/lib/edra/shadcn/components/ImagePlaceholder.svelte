@@ -59,7 +59,9 @@
 		<span>{strings.extension.image.uploadProcessing}</span>
 	{/if}
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.image.openButton}</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2"
+			>{strings.extension.image.openButton}</Popover.Trigger
+		>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -72,11 +74,18 @@
 					<Tabs.Trigger value="url">{strings.extension.image.embedLinkTab}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="local" class="py-2">
-					<Button class="w-full" onclick={openFileDialog}>{strings.extension.image.uploadButton}</Button>
+					<Button class="w-full" onclick={openFileDialog}
+						>{strings.extension.image.uploadButton}</Button
+					>
 				</Tabs.Content>
 				<Tabs.Content value="url" class="py-2">
 					<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-						<Input placeholder={strings.extension.image.embedLinkPlaceholder} bind:value={imageUrl} required type="url" />
+						<Input
+							placeholder={strings.extension.image.embedLinkPlaceholder}
+							bind:value={imageUrl}
+							required
+							type="url"
+						/>
 						<Button type="submit">{strings.extension.image.embedLinkButton}</Button>
 					</form>
 				</Tabs.Content>

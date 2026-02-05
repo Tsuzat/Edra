@@ -51,7 +51,12 @@
 		class="h-fit w-80 rounded-lg p-0!"
 	>
 		<form class="flex items-center gap-0.5" onsubmit={handleSubmit}>
-			<Input placeholder={strings.toolbar.link.insertLinkPlaceholder} bind:value required type="url" />
+			<Input
+				placeholder={strings.toolbar.link.insertLinkPlaceholder}
+				bind:value
+				required
+				type="url"
+			/>
 			<EdraToolTip tooltip={strings.toolbar.link.insertLink}>
 				<Button type="submit" size="icon">
 					<Check />

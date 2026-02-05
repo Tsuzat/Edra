@@ -168,8 +168,7 @@ export const Video = (onDrop?: (file: File) => Promise<string>) =>
 
 								if (videos.length > 1) {
 									toast.warning(strings.extension.video.multipleDropWarningTitle, {
-										description:
-											strings.extension.video.multipleDropWarningDescription
+										description: strings.extension.video.multipleDropWarningDescription
 									});
 								}
 

@@ -1,5 +1,5 @@
 <script>
-	import ts from "typescript";
+	import ts, { InferencePriority } from "typescript";
 
 </script>
 # Introduction
@@ -437,7 +437,7 @@ Try it out in [demo](/)
 
 ## File Uploads
 
-`Edra` provides props for uploading files in the editor. You can provide your own implementation on props for that.$bindable
+`Edra` provides props for uploading files in the editor. You can provide your own implementation on props for that
 
 ```ts{h[35-49]%f[$lib/components/edra/types.ts]}
 export interface EdraEditorProps {
@@ -614,6 +614,23 @@ by using `$$` symbol. For example, you can write `$$\sum_{i=1}^n i^2$$` to get a
 
 Moreover, you can insert `inline` or `block` math expression with toolbar or slash-command.
 A specialized menu will appear for editing the LaTeX equation.
+
+Try it out in [demo](/) 
+
+---
+
+## Internationalization
+
+`Edra` component provides a way to internationalize the editor. You can find the
+implementation in [strings.ts](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/strings.ts) file. This extension allows you to have a way to change the language of the editor.
+You can find this file in `$lib/components/edra/strings.ts` in **your project**.
+
+> Note:
+> 
+> This is an example of how to use the `strings` object in your editor component.
+> If you want to implement internationalization in your editor, you'd have to implement
+> your own `strings` object or a function which changes the language of the editor, but the 
+> concept remains the same.
 
 Try it out in [demo](/) 
 

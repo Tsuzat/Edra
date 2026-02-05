@@ -59,7 +59,9 @@
 		<span>{strings.extension.video.insertPlaceholder}</span>
 	{/if}
 	<Popover.Root bind:open>
-		<Popover.Trigger class="sr-only absolute left-1/2">{strings.extension.video.openButton}</Popover.Trigger>
+		<Popover.Trigger class="sr-only absolute left-1/2"
+			>{strings.extension.video.openButton}</Popover.Trigger
+		>
 		<Popover.Content
 			onCloseAutoFocus={(e) => e.preventDefault()}
 			contenteditable={false}
@@ -72,11 +74,18 @@
 					<Tabs.Trigger value="url">{strings.extension.video.embedLinkTab}</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="local" class="py-2">
-					<Button class="w-full" onclick={openFileDialog}>{strings.extension.video.uploadButton}</Button>
+					<Button class="w-full" onclick={openFileDialog}
+						>{strings.extension.video.uploadButton}</Button
+					>
 				</Tabs.Content>
 				<Tabs.Content value="url" class="py-2">
 					<form onsubmit={handleSubmit} class="flex flex-col gap-2">
-						<Input placeholder={strings.extension.video.embedLinkPlaceholder} bind:value={videoUrl} required type="url" />
+						<Input
+							placeholder={strings.extension.video.embedLinkPlaceholder}
+							bind:value={videoUrl}
+							required
+							type="url"
+						/>
 						<Button type="submit">{strings.extension.video.embedLinkButton}</Button>
 					</form>
 				</Tabs.Content>

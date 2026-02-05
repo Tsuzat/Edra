@@ -113,11 +113,12 @@
 		{ name: 'Table of Contents', href: '/docs#table-of-contents', isNew: true },
 		{ name: 'File Uploads', href: '/docs#file-uploads', isNew: true },
 		{ name: 'Search And Replace', href: '/docs#search-and-replace' },
-		{ name: 'Links', href: '/docs#Links' },
+		{ name: 'Links', href: '/docs#links' },
 		{ name: 'Drag Handle', href: '/docs#drag-handle' },
 		{ name: 'Drag Handle Extended', href: '/docs#drag-handle-extended' },
 		{ name: 'Drag Handle Advanced', href: '/docs#drag-handle-advanced' },
 		{ name: 'Math Expression Support', href: '/docs#math-expression-support', isNew: true },
+		{ name: 'Internationalization', href: '/docs#internationalization', isNew: true },
 		{ name: 'Commands' },
 		{ name: 'Regular Commands', href: '/docs#regular-commands' },
 		{ name: 'Special Commands', href: '/docs#special-commands' }

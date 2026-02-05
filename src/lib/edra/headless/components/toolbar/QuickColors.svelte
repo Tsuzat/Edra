@@ -50,7 +50,9 @@
 >
 	<option value="" label={strings.toolbar.color.default}></option>
 	{#each colors as color (color)}
-		<option value={color.value} label={color.label}>{strings.toolbar.color.templateCharacter}</option>
+		<option value={color.value} label={color.label}
+			>{strings.toolbar.color.templateCharacter}</option
+		>
 	{/each}
 </select>
 

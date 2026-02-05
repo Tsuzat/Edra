@@ -179,7 +179,9 @@
 									else editor.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
 								}}
 							>
-								<span style={`color: ${color.value};`}>{strings.toolbar.color.templateCharacter}</span>
+								<span style={`color: ${color.value};`}
+									>{strings.toolbar.color.templateCharacter}</span
+								>
 								<span class="capitalize">{color.label}</span>
 							</DropdownMenu.Item>
 						{/each}

@@ -72,7 +72,9 @@
 			clear();
 			updateSearchTerm();
 		}}
-		title={show ? strings.toolbar.searchAndReplace.goBack : strings.toolbar.searchAndReplace.searchAndReplace}
+		title={show
+			? strings.toolbar.searchAndReplace.goBack
+			: strings.toolbar.searchAndReplace.searchAndReplace}
 	>
 		{#if show}
 			<ArrowLeft class="edra-toolbar-icon" />
@@ -82,7 +84,11 @@
 	</button>
 	{#if show}
 		<div class="edra-search-and-replace-content">
-			<input placeholder={strings.toolbar.searchAndReplace.searchPlaceholder} bind:value={searchText} oninput={() => updateSearchTerm()} />
+			<input
+				placeholder={strings.toolbar.searchAndReplace.searchPlaceholder}
+				bind:value={searchText}
+				oninput={() => updateSearchTerm()}
+			/>
 			<span>{searchCount > 0 ? searchIndex + 1 : 0}/{searchCount}</span>
 			<button
 				class="edra-command-button"
@@ -95,19 +101,39 @@
 			>
 				<CaseSensitive class="edra-toolbar-icon" />
 			</button>
-			<button class="edra-command-button" onclick={previous} title={strings.toolbar.searchAndReplace.previous}>
+			<button
+				class="edra-command-button"
+				onclick={previous}
+				title={strings.toolbar.searchAndReplace.previous}
+			>
 				<ArrowLeft class="edra-toolbar-icon" />
 			</button>
-			<button class="edra-command-button" onclick={next} title={strings.toolbar.searchAndReplace.next}>
+			<button
+				class="edra-command-button"
+				onclick={next}
+				title={strings.toolbar.searchAndReplace.next}
+			>
 				<ArrowRight class="edra-toolbar-icon" />
 			</button>
 			<span class="separator"></span>
 
-			<input placeholder={strings.toolbar.searchAndReplace.replacePlaceholder} bind:value={replaceText} oninput={() => updateSearchTerm()} />
-			<button class="edra-command-button" onclick={replace} title={strings.toolbar.searchAndReplace.replace}>
+			<input
+				placeholder={strings.toolbar.searchAndReplace.replacePlaceholder}
+				bind:value={replaceText}
+				oninput={() => updateSearchTerm()}
+			/>
+			<button
+				class="edra-command-button"
+				onclick={replace}
+				title={strings.toolbar.searchAndReplace.replace}
+			>
 				<Replace class="edra-toolbar-icon" />
 			</button>
-			<button class="edra-command-button" onclick={replaceAll} title={strings.toolbar.searchAndReplace.replaceAll}>
+			<button
+				class="edra-command-button"
+				onclick={replaceAll}
+				title={strings.toolbar.searchAndReplace.replaceAll}
+			>
 				<ReplaceAll class="edra-toolbar-icon" />
 			</button>
 		</div>
