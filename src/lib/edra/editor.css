@@ -179,7 +179,7 @@ ul[data-type='taskList'] li[data-checked='true'] div {
 	text-decoration: line-through;
 }
 
-input[type='checkbox'] {
+.edra-editor input[type='checkbox'] {
 	position: relative;
 	top: 0rem;
 	display: grid;
@@ -195,15 +195,15 @@ input[type='checkbox'] {
 	border-radius: 0.25rem;
 }
 
-input[type='checkbox']:hover {
+.edra-editor input[type='checkbox']:hover {
 	background-color: color-mix(in srgb, var(--muted) 50%, transparent);
 }
 
-input[type='checkbox']:active {
+.edra-editor input[type='checkbox']:active {
 	background-color: var(--muted);
 }
 
-input[type='checkbox']::before {
+.edra-editor input[type='checkbox']::before {
 	width: 0.75rem;
 	height: 0.75rem;
 	padding: 0.25rem;
@@ -216,11 +216,11 @@ input[type='checkbox']::before {
 	transition: 200ms transform ease-in-out;
 }
 
-input[type='checkbox']:checked {
+.edra-editor input[type='checkbox']:checked {
 	background-color: var(--secondary-foreground);
 }
 
-input[type='checkbox']:checked::before {
+.edra-editor input[type='checkbox']:checked::before {
 	transform: scale(1);
 }
 
