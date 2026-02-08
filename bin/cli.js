@@ -62,7 +62,7 @@ async function installDependencies() {
 			installCommand = `npm install ${dependencies.join(' ')} --legacy-peer-deps`;
 			break;
 		case 'pnpm':
-			installCommand = `pnpm add ${dependencies.join(' ')} --legacy-peer-deps`;
+			installCommand = `pnpm add ${dependencies.join(' ')} --strict-peer-dependencies=false`;
 			break;
 		case 'yarn':
 			installCommand = `yarn add ${dependencies.join(' ')}`;
