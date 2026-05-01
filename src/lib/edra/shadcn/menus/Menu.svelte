@@ -2,7 +2,10 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { cn } from '$lib/utils.js';
 	import { isTextSelection } from '@tiptap/core';
-	import commands from '../../commands/toolbar-commands.js';
+	import commands, {
+		MARKDOWN_COMMAND_GROUPS,
+		MARKDOWN_EXCLUDED_COMMANDS
+	} from '../../commands/toolbar-commands.js';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { EdraToolbarProps, ShouldShowProps } from '../../types.js';
 	import ToolBarIcon from '../components/ToolBarIcon.svelte';
@@ -17,10 +20,15 @@
 		editor,
 		class: className,
 		excludedCommands = ['undo-redo', 'media', 'table', 'math'],
-		children
+		children,
+		markdown = false
 	}: EdraToolbarProps = $props();
 
-	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
+	const markdownAllowedGroups = new Set<string>(MARKDOWN_COMMAND_GROUPS);
+	const toolbarCommands = Object.keys(commands).filter(
+		(key) =>
+			!excludedCommands?.includes(key) && (!markdown || markdownAllowedGroups.has(key))
+	);
 
 	function shouldShow(props: ShouldShowProps) {
 		if (!props.editor.isEditable) return false;
@@ -102,15 +110,17 @@
 	{#if children}
 		{@render children()}
 	{:else}
-		{#each toolbarCommands.filter((c) => !excludedCommands?.includes(c)) as cmd (cmd)}
+		{#each toolbarCommands as cmd (cmd)}
 			{#if cmd === 'headings'}
 				<Headings {editor} />
 			{:else if cmd === 'alignment'}
-				<Alignment {editor} />
+				{#if !markdown}<Alignment {editor} />{/if}
 			{:else if cmd === 'lists'}
 				<Lists {editor} />
 			{:else}
-				{@const commandGroup = commands[cmd]}
+				{@const commandGroup = commands[cmd].filter(
+					(c) => !markdown || !MARKDOWN_EXCLUDED_COMMANDS.has(c.name)
+				)}
 				{#each commandGroup as command (command)}
 					{#if command.name === 'link'}
 						<Link {editor} />
@@ -122,8 +132,10 @@
 				{/each}
 			{/if}
 		{/each}
-		<ToolBarIcon {editor} command={commands.math[0]} />
-		<FontSize {editor} />
-		<QuickColors {editor} />
+		{#if !markdown}
+			<ToolBarIcon {editor} command={commands.math[0]} />
+			<FontSize {editor} />
+			<QuickColors {editor} />
+		{/if}
 	{/if}
 </BubbleMenu>

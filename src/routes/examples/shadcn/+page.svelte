@@ -36,7 +36,7 @@
 	}
 </script>
 
-<div class="mx-auto w-7xl px-4">
+<div class="mx-auto w-full max-w-7xl px-4">
 	{#if editor && showToolBar}
 		<div class="rounded-t border-x border-t p-1">
 			<!-- Default Edra toolbar -->

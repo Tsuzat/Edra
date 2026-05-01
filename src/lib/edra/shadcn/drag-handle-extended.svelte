@@ -15,15 +15,19 @@
 	import type { Node } from '@tiptap/pm/model';
 	import { NodeSelection } from '@tiptap/pm/state';
 	import { onMount } from 'svelte';
-	import commands from '../commands/toolbar-commands.js';
+	import commands, {
+		MARKDOWN_COMMAND_GROUPS,
+		MARKDOWN_EXCLUDED_COMMANDS
+	} from '../commands/toolbar-commands.js';
 	import { quickcolors } from '../utils.js';
 	import strings from '../strings.js';
 
 	interface Props {
 		editor: Editor;
+		markdown?: boolean;
 	}
 
-	const { editor }: Props = $props();
+	const { editor, markdown = false }: Props = $props();
 
 	const alignments = commands['alignment'];
 
@@ -34,9 +38,11 @@
 	const pluginKey = 'globalDragHandle';
 	let element = $state(document.createElement('div'));
 
-	const turnIntoCommand = Object.values(commands)
-		.flat()
-		.filter((c) => c.turnInto !== undefined);
+	const markdownAllowedGroups = new Set<string>(MARKDOWN_COMMAND_GROUPS);
+	const turnIntoCommand = Object.entries(commands)
+		.filter(([group]) => !markdown || markdownAllowedGroups.has(group))
+		.flatMap(([, cmds]) => cmds)
+		.filter((c) => c.turnInto !== undefined && (!markdown || !MARKDOWN_EXCLUDED_COMMANDS.has(c.name)));
 	let editorElement: HTMLElement | null = $state(null);
 
 	onMount(() => {
@@ -160,84 +166,86 @@
 					</DropdownMenu.SubContent>
 				</DropdownMenu.Sub>
 			</DropdownMenu.Group>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger openDelay={300}>
-					<Palette />
-					{strings.toolbar.color.buttonTitle}
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.Content side="right" class="max-h-96 overflow-auto duration-300">
-					<DropdownMenu.Group>
-						<DropdownMenu.Label class="text-muted-foreground text-sm"
-							>{strings.toolbar.color.textColor}</DropdownMenu.Label
-						>
-						{#each quickcolors as color (color.label)}
-							<DropdownMenu.Item
-								title={color.label}
-								onclick={() => {
-									if (color.value === '' || color.label === strings.toolbar.color.default)
-										editor.chain().setNodeSelection(currentNodePos).unsetColor().run();
-									else editor.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
-								}}
+			{#if !markdown}
+				<DropdownMenu.Sub>
+					<DropdownMenu.SubTrigger openDelay={300}>
+						<Palette />
+						{strings.toolbar.color.buttonTitle}
+					</DropdownMenu.SubTrigger>
+					<DropdownMenu.Content side="right" class="max-h-96 overflow-auto duration-300">
+						<DropdownMenu.Group>
+							<DropdownMenu.Label class="text-muted-foreground text-sm"
+								>{strings.toolbar.color.textColor}</DropdownMenu.Label
 							>
-								<span style={`color: ${color.value};`}
-									>{strings.toolbar.color.templateCharacter}</span
+							{#each quickcolors as color (color.label)}
+								<DropdownMenu.Item
+									title={color.label}
+									onclick={() => {
+										if (color.value === '' || color.label === strings.toolbar.color.default)
+											editor.chain().setNodeSelection(currentNodePos).unsetColor().run();
+										else editor.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
+									}}
 								>
-								<span class="capitalize">{color.label}</span>
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
-					<DropdownMenu.Separator />
-					<DropdownMenu.Group>
-						<DropdownMenu.Label class="text-muted-foreground text-sm"
-							>{strings.toolbar.color.highlightColor}</DropdownMenu.Label
-						>
-						<!-- {@const currentHighlight = editor.getAttributes('highlight').color as string} -->
-						{#each quickcolors as color (color.label)}
+									<span style={`color: ${color.value};`}
+										>{strings.toolbar.color.templateCharacter}</span
+									>
+									<span class="capitalize">{color.label}</span>
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.Group>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Group>
+							<DropdownMenu.Label class="text-muted-foreground text-sm"
+								>{strings.toolbar.color.highlightColor}</DropdownMenu.Label
+							>
+							<!-- {@const currentHighlight = editor.getAttributes('highlight').color as string} -->
+							{#each quickcolors as color (color.label)}
+								<DropdownMenu.Item
+									title={color.label}
+									onclick={() => {
+										if (color.value === '' || color.label === strings.toolbar.color.default)
+											editor.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
+										else
+											editor
+												.chain()
+												.setNodeSelection(currentNodePos)
+												.setHighlight({ color: color.value })
+												.run();
+									}}
+								>
+									<span class="size-4 rounded-full border" style={`background-color: ${color.value};`}
+									></span>
+									<span class="capitalize">{color.label}</span>
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.Group>
+					</DropdownMenu.Content>
+				</DropdownMenu.Sub>
+				<DropdownMenu.Sub>
+					<DropdownMenu.SubTrigger openDelay={300}>
+						<TextAlignCenter />
+						{strings.toolbar.alignment.buttonTitle}
+					</DropdownMenu.SubTrigger>
+					<DropdownMenu.SubContent>
+						<DropdownMenu.Label>{strings.toolbar.alignment.dropdownTitle}</DropdownMenu.Label>
+						{#each alignments as alignment (alignment)}
+							{@const Icon = alignment.icon}
 							<DropdownMenu.Item
-								title={color.label}
 								onclick={() => {
-									if (color.value === '' || color.label === strings.toolbar.color.default)
-										editor.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
-									else
-										editor
-											.chain()
-											.setNodeSelection(currentNodePos)
-											.setHighlight({ color: color.value })
-											.run();
+									if (currentNode && currentNodePos)
+										alignment.turnInto?.(editor, currentNode, currentNodePos);
 								}}
 							>
-								<span class="size-4 rounded-full border" style={`background-color: ${color.value};`}
-								></span>
-								<span class="capitalize">{color.label}</span>
+								<Icon />
+								{alignment.tooltip}
+								<DropdownMenu.Shortcut>
+									{alignment.shortCut}
+								</DropdownMenu.Shortcut>
 							</DropdownMenu.Item>
 						{/each}
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Sub>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger openDelay={300}>
-					<TextAlignCenter />
-					{strings.toolbar.alignment.buttonTitle}
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.SubContent>
-					<DropdownMenu.Label>{strings.toolbar.alignment.dropdownTitle}</DropdownMenu.Label>
-					{#each alignments as alignment (alignment)}
-						{@const Icon = alignment.icon}
-						<DropdownMenu.Item
-							onclick={() => {
-								if (currentNode && currentNodePos)
-									alignment.turnInto?.(editor, currentNode, currentNodePos);
-							}}
-						>
-							<Icon />
-							{alignment.tooltip}
-							<DropdownMenu.Shortcut>
-								{alignment.shortCut}
-							</DropdownMenu.Shortcut>
-						</DropdownMenu.Item>
-					{/each}
-				</DropdownMenu.SubContent>
-			</DropdownMenu.Sub>
+					</DropdownMenu.SubContent>
+				</DropdownMenu.Sub>
+			{/if}
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={insertNode}>
 				<Plus />

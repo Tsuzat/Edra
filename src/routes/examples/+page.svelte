@@ -8,10 +8,10 @@
 
 <div>
 	<h1 class="my-8 animate-bounce text-center text-4xl font-bold">Explore the examples</h1>
-	<div class="flex flex-col items-center justify-center gap-8 sm:flex-row">
-		<a href="/examples/headless">
+	<div class="flex flex-wrap justify-center gap-8 px-4">
+		<a href="/examples/headless" style="display:block;width:320px;height:160px;flex-shrink:0">
 			<MagicCard
-				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#0277bd9e]"
+				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#0277bd9e]"
 				gradientColor="#0277bd25"
 				gradientSize={200}
 				gradientOpacity={0.5}
@@ -24,9 +24,9 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/shadcn">
+		<a href="/examples/shadcn" style="display:block;width:320px;height:160px;flex-shrink:0">
 			<MagicCard
-				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#eb4f279e]"
+				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#eb4f279e]"
 				gradientColor="#eb4f2725"
 				gradientSize={200}
 				gradientOpacity={0.5}
@@ -39,9 +39,9 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/shadcn/markdown">
+		<a href="/examples/shadcn/markdown" style="display:block;width:320px;height:160px;flex-shrink:0">
 			<MagicCard
-				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#7c3aed9e]"
+				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#7c3aed9e]"
 				gradientColor="#7c3aed25"
 				gradientSize={200}
 				gradientOpacity={0.5}
@@ -61,9 +61,9 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/notion">
+		<a href="/examples/notion" style="display:block;width:320px;height:160px;flex-shrink:0">
 			<MagicCard
-				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300"
+				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300"
 				gradientSize={200}
 				gradientOpacity={0.5}
 			>

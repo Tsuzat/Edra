@@ -17,6 +17,7 @@
 	let open = $state(false);
 	let imageUrl = $state('');
 	let isUploading = $state(false);
+	let fileInput = $state<HTMLInputElement | null>(null);
 
 	function handleSubmit(e: Event) {
 		e.preventDefault();
@@ -30,12 +31,36 @@
 			const file = await editor.storage.fileDrop.localFileGetter(FileType.IMAGE);
 			if (file) {
 				editor.chain().focus().setImage({ src: file }).run();
+				return;
 			}
+		} catch (e) {
+			console.error(e);
+		}
+		// Fall back to native file picker
+		fileInput?.click();
+		isUploading = false;
+	}
+
+	async function handleNativeFile(e: Event) {
+		const input = e.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) return;
+		isUploading = true;
+		try {
+			const dataUrl = await new Promise<string>((resolve, reject) => {
+				const reader = new FileReader();
+				reader.onload = () => resolve(reader.result as string);
+				reader.onerror = reject;
+				reader.readAsDataURL(file);
+			});
+			const src = await editor.storage.fileDrop.handler(dataUrl);
+			editor.chain().focus().setImage({ src }).run();
 		} catch (e) {
 			console.error(e);
 			toast.error(strings.extension.image.openError);
 		} finally {
 			isUploading = false;
+			input.value = '';
 		}
 	}
 </script>
@@ -51,6 +76,13 @@
 	draggable={true}
 	onclick={() => (open = true)}
 >
+	<input
+		bind:this={fileInput}
+		type="file"
+		accept="image/*"
+		class="sr-only"
+		onchange={handleNativeFile}
+	/>
 	{#if !isUploading}
 		<Image />
 		<span>{strings.extension.image.insertPlaceholder}</span>

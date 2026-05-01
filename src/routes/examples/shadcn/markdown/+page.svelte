@@ -45,13 +45,13 @@
 	}
 </script>
 
-<div class="mx-auto w-7xl px-4">
+<div class="mx-auto w-full max-w-7xl px-4">
 	{#if editor}
 		<div class="rounded-t border-x border-t p-1">
 			<EdraToolBar {editor} markdown />
 		</div>
-		<EdraBubbleMenu {editor} class="bg-popover" />
-		<DragHandle {editor} />
+		<EdraBubbleMenu {editor} class="bg-popover" markdown />
+		<DragHandle {editor} markdown />
 	{/if}
 	<div class="h-[30rem] overflow-y-scroll border pr-2 pl-6">
 		<EdraEditor bind:editor {content} {onUpdate} markdown />
