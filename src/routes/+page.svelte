@@ -2,31 +2,55 @@
 	import { browser } from '$app/environment';
 	import Particles from '$lib/components/custom/Particles.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { EdraEditor, EdraToolBar, EdraDragHandleExtended } from '$lib/edra/shadcn/index.js';
+	import {
+		EdraEditor,
+		EdraToolBar,
+		EdraDragHandleExtended,
+		EdraBubbleMenu
+	} from '$lib/edra/shadcn/index.js';
 	import { Editor, type Content } from '@tiptap/core';
-	let editor = $state<Editor>();
-	let content = $state<Content>();
 	import Docs from '@lucide/svelte/icons/file-text';
 	import Github from '@lucide/svelte/icons/github';
 	import Coffee from '@lucide/svelte/icons/coffee';
 	import defaultContent from '$lib/default_content.js';
+	import { getMarkdown } from '$lib/edra/utils.js';
+
+	let editor = $state<Editor>();
+	let content = $state<Content>();
+
+	let mdEditor = $state<Editor>();
+	let mdContent = $state<Content>();
+
+	const MD_DEFAULT: Content = `<h1>Markdown mode</h1>
+<p>This editor outputs clean Markdown via <code>getMarkdown(editor)</code>.</p>
+<ul>
+  <li><p><strong>Bold</strong>, <em>italic</em>, <s>strike</s>, <code>inline code</code></p></li>
+  <li><p>Bullet, ordered, and task lists</p></li>
+  <li><p>Blockquotes, code blocks, tables, images</p></li>
+</ul>`;
 
 	if (browser) {
 		const rawContent = localStorage.getItem('edra-content');
-		if (rawContent) {
-			content = JSON.parse(rawContent);
-		} else {
-			content = defaultContent;
-		}
+		content = rawContent ? JSON.parse(rawContent) : defaultContent;
+
+		const rawMd = localStorage.getItem('edra-md-content');
+		mdContent = rawMd ? JSON.parse(rawMd) : MD_DEFAULT;
 	}
 
 	$effect(() => {
-		console.log('[DEBUG]', content);
 		localStorage.setItem('edra-content', JSON.stringify(content));
+	});
+
+	$effect(() => {
+		if (mdContent) localStorage.setItem('edra-md-content', JSON.stringify(mdContent));
 	});
 
 	function onUpdate() {
 		content = editor?.getJSON();
+	}
+
+	function onMdUpdate() {
+		mdContent = mdEditor?.getJSON();
 	}
 </script>
 
@@ -60,6 +84,7 @@
 		</Button>
 	</div>
 
+	<!-- Standard rich text editor -->
 	<div class="bg-background z-50 mt-12 size-full max-w-5xl rounded-md border border-dashed">
 		{#if editor && !editor.isDestroyed}
 			<EdraToolBar
@@ -73,6 +98,26 @@
 			{content}
 			class="h-120 max-h-screen w-full overflow-y-scroll px-10 pt-4"
 			{onUpdate}
+		/>
+	</div>
+
+	<!-- Markdown editor -->
+	<div class="bg-background z-50 size-full max-w-5xl rounded-md border border-dashed">
+		{#if mdEditor && !mdEditor.isDestroyed}
+			<EdraToolBar
+				class="bg-secondary/50 flex w-full items-center overflow-x-auto border-b border-dashed p-0.5"
+				editor={mdEditor}
+				markdown
+			/>
+			<EdraBubbleMenu editor={mdEditor} class="bg-popover" markdown />
+			<EdraDragHandleExtended editor={mdEditor} markdown />
+		{/if}
+		<EdraEditor
+			bind:editor={mdEditor}
+			content={mdContent}
+			class="h-120 max-h-screen w-full overflow-y-scroll px-10 pt-4"
+			onUpdate={onMdUpdate}
+			markdown
 		/>
 	</div>
 </main>
