@@ -39,7 +39,7 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/markdown">
+		<a href="/examples/shadcn/markdown">
 			<MagicCard
 				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#7c3aed9e]"
 				gradientColor="#7c3aed25"
@@ -47,10 +47,17 @@
 				gradientOpacity={0.5}
 			>
 				<div
-					class="flex items-center justify-center gap-1.5 font-semibold transition-all duration-500 group-hover:text-[#7c3aed]"
+					class="flex flex-col items-center justify-center gap-0.5 font-semibold transition-all duration-500 group-hover:text-[#7c3aed]"
 				>
-					<FileText class="mt-1.5 size-10" />
-					Markdown
+					<div class="flex items-center justify-center gap-1.5">
+						<FileText class="size-10" />
+						Markdown
+					</div>
+					<div class="text-muted-foreground text-xs">
+						<a href="/examples/shadcn/markdown" class="hover:underline">shadcn</a>
+						·
+						<a href="/examples/headless/markdown" class="hover:underline">headless</a>
+					</div>
 				</div>
 			</MagicCard>
 		</a>
