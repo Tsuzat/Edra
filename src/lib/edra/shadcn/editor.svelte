@@ -54,6 +54,7 @@
 		content,
 		element = $bindable<HTMLElement>(),
 		onUpdate,
+		oneditor,
 		autofocus = false,
 		class: className,
 		spellcheck = true,
@@ -80,68 +81,58 @@
 			TableOfContents.configure({
 				getIndex: getHierarchicalIndexes,
 				scrollParent: () => element || window
+			}),
+			VideoPlaceholder(VideoPlaceHolderComp),
+			VideoExtended(VideoExtendedComp, onDropOrPaste),
+			AudioPlaceholder(AudioPlaceHolderComp),
+			AudioExtended(AudioExtendedComp, onDropOrPaste),
+			IFramePlaceholder(IFramePlaceHolderComp),
+			IFrameExtended(IFrameExtendedComp),
+			Mathematics.configure({
+				blockOptions: {
+					onClick: (node, pos) => {
+						blockMathPos = pos;
+						blockMathLatex = node.attrs.latex;
+					}
+				},
+				inlineOptions: {
+					onClick: (node, pos) => {
+						inlineMathPos = pos;
+						inlineMathLatex = node.attrs.latex;
+					}
+				},
+				katexOptions: {
+					throwOnError: true,
+					macros: {
+						'\\R': '\\mathbb{R}',
+						'\\N': '\\mathbb{N}'
+					}
+				}
 			})
 		];
 
-		if (!markdown) {
-			flavorExtensions.push(
-				VideoPlaceholder(VideoPlaceHolderComp),
-				VideoExtended(VideoExtendedComp, onDropOrPaste),
-				AudioPlaceholder(AudioPlaceHolderComp),
-				AudioExtended(AudioExtendedComp, onDropOrPaste),
-				IFramePlaceholder(IFramePlaceHolderComp),
-				IFrameExtended(IFrameExtendedComp),
-				Mathematics.configure({
-					blockOptions: {
-						onClick: (node, pos) => {
-							blockMathPos = pos;
-							blockMathLatex = node.attrs.latex;
-						}
-					},
-					inlineOptions: {
-						onClick: (node, pos) => {
-							inlineMathPos = pos;
-							inlineMathLatex = node.attrs.latex;
-						}
-					},
-					katexOptions: {
-						throwOnError: true,
-						macros: {
-							'\\R': '\\mathbb{R}',
-							'\\N': '\\mathbb{N}'
-						}
-					}
-				})
-			);
-		}
-
-		editor = initEditor(
-			element,
-			content,
-			flavorExtensions,
-			{
-				onUpdate,
-				onTransaction(props) {
-					editor = undefined;
-					editor = props.editor;
-				},
-				onContentError: (error) => {
-					toast.error('Unable to load the content', {
-						description: 'The content of this page might be corrupted.'
-					});
-					console.error(error);
-				},
-				editable,
-				autofocus
+		editor = initEditor(element, content, flavorExtensions, {
+			onUpdate,
+			onTransaction(props) {
+				editor = undefined;
+				editor = props.editor;
 			},
-			markdown
-		);
+			onContentError: (error) => {
+				toast.error('Unable to load the content', {
+					description: 'The content of this page might be corrupted.'
+				});
+				console.error(error);
+			},
+			editable,
+			autofocus
+		});
 		editor.setOptions({
 			editorProps: {
 				handlePaste: getHandlePasteImage(onDropOrPaste),
 				handleDrop: getHandleDropImage(onDropOrPaste)
 			}
 		});
+		oneditor?.(editor);
 	});
 
 	onDestroy(() => {
@@ -153,15 +144,13 @@
 	<Link {editor} parentElement={element} />
 	<TableCol {editor} parentElement={element} />
 	<TableRow {editor} parentElement={element} />
-	{#if !markdown}
-		<Math {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} parentElement={element} />
-		<MathInline
-			{editor}
-			mathPos={inlineMathPos}
-			mathLatex={inlineMathLatex}
-			parentElement={element}
-		/>
-	{/if}
+	<Math {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} parentElement={element} />
+	<MathInline
+		{editor}
+		mathPos={inlineMathPos}
+		mathLatex={inlineMathLatex}
+		parentElement={element}
+	/>
 {/if}
 
 <div

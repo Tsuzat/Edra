@@ -1,104 +1,59 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { Editor } from '@tiptap/core';
-	import { EdraEditor, EdraToolBar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import type { Content, Editor } from '@tiptap/core';
+	import {
+		EdraEditor,
+		EdraToolBar,
+		EdraBubbleMenu,
+		EdraDragHandleExtended as DragHandle
+	} from '$lib/edra/shadcn/index.js';
 	import { getMarkdown } from '$lib/edra/utils.js';
-	import Copy from '@lucide/svelte/icons/copy';
-	import Check from '@lucide/svelte/icons/check';
 
-	const STORAGE_KEY = 'edra-markdown-content';
-	const DEFAULT_CONTENT = `# Markdown mode
+	const STORAGE_KEY = 'edra-shadcn-markdown-content';
+	const DEFAULT_CONTENT: Content = `<h1>Markdown mode</h1>
+<p>This editor is constrained to features that round-trip cleanly to Markdown.</p>
+<h2>What's supported</h2>
+<ul>
+	<li><p><strong>Bold</strong>, <em>italic</em>, <s>strike</s>, <code>inline code</code></p></li>
+	<li><p>Bullet, ordered, and task lists</p></li>
+	<li><p>Blockquotes, code blocks, tables, images</p></li>
+	<li><p>Slash menu — type <code>/</code> to insert</p></li>
+</ul>
+<blockquote><p>Try editing this content. Read the output with <code>getMarkdown(editor)</code>.</p></blockquote>`;
 
-This editor is constrained to features that round-trip cleanly to Markdown.
-
-## What's supported
-
-- **Bold**, *italic*, ~~strike~~, \`inline code\`
-- [Links](https://tiptap.dev)
-- Bullet, ordered, and task lists
-- Blockquotes, code blocks, tables, images
-- Slash menu — type \`/\` to insert
-
-> Try editing this content. The Markdown output updates live on the right.
-`;
-
-	let initialContent = browser
-		? (localStorage.getItem(STORAGE_KEY) ?? DEFAULT_CONTENT)
-		: DEFAULT_CONTENT;
-
+	let content = $state<Content>(DEFAULT_CONTENT);
 	let editor = $state<Editor>();
-	let md = $state(initialContent);
-	let copied = $state(false);
 
-	function onUpdate() {
-		if (!editor) return;
-		md = getMarkdown(editor);
-		if (browser) localStorage.setItem(STORAGE_KEY, md);
+	if (browser) {
+		const saved = localStorage.getItem(STORAGE_KEY);
+		if (saved) {
+			try {
+				content = JSON.parse(saved);
+			} catch {
+				content = DEFAULT_CONTENT;
+			}
+		}
 	}
 
-	$effect(() => {
-		if (editor && md === initialContent) md = getMarkdown(editor);
-	});
-
-	async function copyMarkdown() {
-		await navigator.clipboard.writeText(md);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
+	function onUpdate() {
+		if (!editor || !browser) return;
+		content = editor.getJSON();
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+		// Markdown output is also available:
+		// const md = getMarkdown(editor);
+		console.debug('[markdown]', getMarkdown(editor));
 	}
 </script>
 
-<div class="mx-auto w-full max-w-7xl px-4 py-8">
-	<div class="mb-6">
-		<h1 class="text-2xl font-bold tracking-tight">Markdown editor</h1>
-		<p class="text-muted-foreground mt-1 text-sm">
-			Pass <code class="bg-muted rounded px-1 py-0.5 text-xs">markdown</code> to
-			<code class="bg-muted rounded px-1 py-0.5 text-xs">&lt;EdraEditor /&gt;</code> and
-			<code class="bg-muted rounded px-1 py-0.5 text-xs">&lt;EdraToolBar /&gt;</code> to restrict
-			the editor to features supported by Markdown. Read the output with
-			<code class="bg-muted rounded px-1 py-0.5 text-xs">getMarkdown(editor)</code>.
-		</p>
-	</div>
-
-	<div class="grid gap-4 lg:grid-cols-2">
-		<div class="bg-background overflow-hidden rounded-lg border shadow-sm">
-			<div class="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
-				<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-					Editor
-				</span>
-				{#if editor}
-					<EdraToolBar
-						{editor}
-						markdown
-						class="bg-background flex flex-wrap items-center gap-0.5 rounded border p-1"
-					/>
-				{/if}
-			</div>
-			{#if editor}
-				<EdraBubbleMenu {editor} class="bg-popover" />
-			{/if}
-			<div class="h-[32rem] overflow-y-auto px-6 py-4">
-				<EdraEditor bind:editor content={initialContent} {onUpdate} markdown autofocus />
-			</div>
+<div class="mx-auto w-7xl px-4">
+	{#if editor}
+		<div class="rounded-t border-x border-t p-1">
+			<EdraToolBar {editor} markdown />
 		</div>
-
-		<div class="bg-background overflow-hidden rounded-lg border shadow-sm">
-			<div class="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
-				<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-					Markdown output
-				</span>
-				<Button variant="ghost" size="sm" class="h-7 gap-1.5 text-xs" onclick={copyMarkdown}>
-					{#if copied}
-						<Check class="size-3.5" />
-						Copied
-					{:else}
-						<Copy class="size-3.5" />
-						Copy
-					{/if}
-				</Button>
-			</div>
-			<pre
-				class="text-foreground bg-muted/10 m-0 h-[32rem] overflow-auto px-6 py-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">{md}</pre>
-		</div>
+		<EdraBubbleMenu {editor} class="bg-popover" />
+		<DragHandle {editor} />
+	{/if}
+	<div class="h-[30rem] overflow-y-scroll border pr-2 pl-6">
+		<EdraEditor bind:editor {content} {onUpdate} markdown />
 	</div>
 </div>

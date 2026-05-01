@@ -21,8 +21,7 @@ export default (
 	element?: HTMLElement,
 	content?: Content,
 	extensions?: Extensions,
-	options?: Partial<EditorOptions>,
-	markdown?: boolean
+	options?: Partial<EditorOptions>
 ) => {
 	const baseStarterKit = StarterKit.configure({
 		orderedList: {
@@ -47,9 +46,7 @@ export default (
 				rel: 'noopener noreferrer nofollow'
 			}
 		},
-		codeBlock: false,
-		// Underline has no representation in standard Markdown.
-		...(markdown ? { underline: false } : {})
+		codeBlock: false
 	});
 
 	const placeholder = Placeholder.configure({
@@ -65,58 +62,41 @@ export default (
 		}
 	});
 
-	const baseExtensions: Extensions = markdown
-		? [
-				baseStarterKit,
-				CharacterCount,
-				placeholder,
-				Typography,
-				TaskList,
-				TaskItem.configure({ nested: true }),
-				SearchAndReplace,
-				AutoJoiner,
-				Table,
-				TableHeader,
-				TableRow,
-				TableCell,
-				Markdown
-			]
-		: [
-				baseStarterKit,
-				CharacterCount,
-				Highlight.configure({
-					multicolor: true
-				}),
-				placeholder,
-				Color,
-				Subscript,
-				Superscript,
-				Typography,
-				ColorHighlighter,
-				TextStyle,
-				FontSize,
-				TextAlign.configure({
-					types: ['heading', 'paragraph']
-				}),
-				TaskList,
-				TaskItem.configure({
-					nested: true
-				}),
-				SearchAndReplace,
-				AutoJoiner,
-				Table,
-				TableHeader,
-				TableRow,
-				TableCell,
-				InlineMathReplacer,
-				Markdown
-			];
+	const baseExtensions: Extensions = [
+		baseStarterKit,
+		CharacterCount,
+		Highlight.configure({
+			multicolor: true
+		}),
+		placeholder,
+		Color,
+		Subscript,
+		Superscript,
+		Typography,
+		ColorHighlighter,
+		TextStyle,
+		FontSize,
+		TextAlign.configure({
+			types: ['heading', 'paragraph']
+		}),
+		TaskList,
+		TaskItem.configure({
+			nested: true
+		}),
+		SearchAndReplace,
+		AutoJoiner,
+		Table,
+		TableHeader,
+		TableRow,
+		TableCell,
+		InlineMathReplacer,
+		Markdown
+	];
 
 	const editor = new Editor({
 		element,
 		content,
 		extensions: [...baseExtensions, ...(extensions ?? [])],
-		...(markdown ? { contentType: 'markdown' as const } : {}),
 		...options
 	});
 

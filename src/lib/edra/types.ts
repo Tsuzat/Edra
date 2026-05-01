@@ -54,6 +54,13 @@ export interface EdraEditorProps {
 	 */
 	onDropOrPaste?: (file: File) => Promise<string>;
 	/**
+	 * Callback fired once the editor instance is created. Useful as an
+	 * alternative to `bind:editor` when binding via `$state` does not
+	 * propagate (e.g. when reactivity tracking is not established before
+	 * the editor mounts).
+	 */
+	oneditor?: (editor: Editor) => void;
+	/**
 	 * Restrict the editor to features that round-trip cleanly to Markdown.
 	 * Disables non-MD extensions (math, video, audio, iframe, underline,
 	 * super/subscript, alignment, font size, colors) and shows a simplified

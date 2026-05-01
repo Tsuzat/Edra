@@ -61,6 +61,7 @@
 		editable = true,
 		content,
 		onUpdate,
+		oneditor,
 		autofocus = false,
 		class: className,
 		onFileSelect,
@@ -91,62 +92,52 @@
 					tocItems = indexes;
 				},
 				scrollParent: () => element || window
+			}),
+			VideoPlaceholder(VideoPlaceHolderComp),
+			VideoExtended(VideoExtendedComp, onDropOrPaste),
+			AudioPlaceholder(AudioPlaceHolderComp),
+			AudioExtended(AudioExtendedComp, onDropOrPaste),
+			IFramePlaceholder(IFramePlaceHolderComp),
+			IFrameExtended(IFrameExtendedComp),
+			Mathematics.configure({
+				blockOptions: {
+					onClick: (node, pos) => {
+						blockMathPos = pos;
+						blockMathLatex = node.attrs.latex;
+					}
+				},
+				inlineOptions: {
+					onClick: (node, pos) => {
+						inlineMathPos = pos;
+						inlineMathLatex = node.attrs.latex;
+					}
+				},
+				katexOptions: {
+					throwOnError: true,
+					macros: {
+						'\\R': '\\mathbb{R}',
+						'\\N': '\\mathbb{N}'
+					}
+				}
 			})
 		];
 
-		if (!markdown) {
-			flavorExtensions.push(
-				VideoPlaceholder(VideoPlaceHolderComp),
-				VideoExtended(VideoExtendedComp, onDropOrPaste),
-				AudioPlaceholder(AudioPlaceHolderComp),
-				AudioExtended(AudioExtendedComp, onDropOrPaste),
-				IFramePlaceholder(IFramePlaceHolderComp),
-				IFrameExtended(IFrameExtendedComp),
-				Mathematics.configure({
-					blockOptions: {
-						onClick: (node, pos) => {
-							blockMathPos = pos;
-							blockMathLatex = node.attrs.latex;
-						}
-					},
-					inlineOptions: {
-						onClick: (node, pos) => {
-							inlineMathPos = pos;
-							inlineMathLatex = node.attrs.latex;
-						}
-					},
-					katexOptions: {
-						throwOnError: true,
-						macros: {
-							'\\R': '\\mathbb{R}',
-							'\\N': '\\mathbb{N}'
-						}
-					}
-				})
-			);
-		}
-
-		editor = initEditor(
-			element,
-			content,
-			flavorExtensions,
-			{
-				onUpdate,
-				onTransaction(props) {
-					editor = undefined;
-					editor = props.editor;
-				},
-				editable,
-				autofocus
+		editor = initEditor(element, content, flavorExtensions, {
+			onUpdate,
+			onTransaction(props) {
+				editor = undefined;
+				editor = props.editor;
 			},
-			markdown
-		);
+			editable,
+			autofocus
+		});
 		editor.setOptions({
 			editorProps: {
 				handlePaste: getHandlePasteImage(onDropOrPaste),
 				handleDrop: getHandleDropImage(onDropOrPaste)
 			}
 		});
+		oneditor?.(editor);
 	});
 
 	onDestroy(() => {
@@ -158,10 +149,8 @@
 	<Link {editor} />
 	<TableCol {editor} />
 	<TableRow {editor} />
-	{#if !markdown}
-		<MathMenu {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} />
-		<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
-	{/if}
+	<MathMenu {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} />
+	<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
 	<ToC {editor} items={tocItems} />
 {/if}
 <div bind:this={element} role="button" tabindex="0" class={`edra-editor ${className}`}></div>
