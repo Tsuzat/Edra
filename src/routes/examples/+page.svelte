@@ -8,8 +8,8 @@
 
 <div>
 	<h1 class="my-8 animate-bounce text-center text-4xl font-bold">Explore the examples</h1>
-	<div class="flex flex-wrap justify-center gap-8 px-4">
-		<a href="/examples/headless" style="display:block;width:320px;height:160px;flex-shrink:0">
+	<div class="mx-auto grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 xl:grid-cols-4">
+		<a href="/examples/headless" style="display:block;height:160px">
 			<MagicCard
 				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#0277bd9e]"
 				gradientColor="#0277bd25"
@@ -24,7 +24,7 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/shadcn" style="display:block;width:320px;height:160px;flex-shrink:0">
+		<a href="/examples/shadcn" style="display:block;height:160px">
 			<MagicCard
 				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#eb4f279e]"
 				gradientColor="#eb4f2725"
@@ -39,7 +39,7 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/shadcn/markdown" style="display:block;width:320px;height:160px;flex-shrink:0">
+		<a href="/examples/shadcn/markdown" style="display:block;height:160px">
 			<MagicCard
 				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#7c3aed9e]"
 				gradientColor="#7c3aed25"
@@ -61,7 +61,7 @@
 				</div>
 			</MagicCard>
 		</a>
-		<a href="/examples/notion" style="display:block;width:320px;height:160px;flex-shrink:0">
+		<a href="/examples/notion" style="display:block;height:160px">
 			<MagicCard
 				class="group cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300"
 				gradientSize={200}
