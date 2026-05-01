@@ -40,7 +40,7 @@
 			<ChevronDown class="text-muted-foreground size-2!" />
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
-	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
+	<DropdownMenu.Content>
 		<DropdownMenu.Label>{strings.toolbar.alignment.dropdownTitle}</DropdownMenu.Label>
 		{#each alignments as alignment (alignment)}
 			{@const Icon = alignment.icon}

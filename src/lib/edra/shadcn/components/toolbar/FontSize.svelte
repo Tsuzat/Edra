@@ -49,7 +49,7 @@
 			<ChevronDown class="text-muted-foreground size-2!" />
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
-	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
+	<DropdownMenu.Content>
 		<DropdownMenu.Label>{strings.toolbar.font.dropdownTitle}</DropdownMenu.Label>
 		{#each FONT_SIZE as fontSize (fontSize)}
 			<DropdownMenu.Item

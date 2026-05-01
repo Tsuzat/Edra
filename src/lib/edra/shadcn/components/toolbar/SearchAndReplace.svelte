@@ -104,10 +104,7 @@
 			</Button>
 		</EdraToolTip>
 	</Popover.Trigger>
-	<Popover.Content
-		class="flex w-fit items-center gap-1 p-2"
-		portalProps={{ disabled: true, to: undefined }}
-	>
+	<Popover.Content class="flex w-fit items-center gap-1 p-2">
 		<Button
 			variant="ghost"
 			size="icon"

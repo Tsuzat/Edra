@@ -34,7 +34,7 @@
 			</div>
 		</EdraToolTip>
 	</Popover.Trigger>
-	<Popover.Content class="size-fit shadow-lg" portalProps={{ disabled: true, to: undefined }}>
+	<Popover.Content class="size-fit shadow-lg">
 		<div class="text-muted-foreground my-2 text-xs">{strings.toolbar.color.textColors}</div>
 		<div class="grid grid-cols-5 gap-2">
 			{#each quickcolors as color (color)}

@@ -40,7 +40,7 @@
 			<ChevronDown class="text-muted-foreground size-2!" />
 		</DropdownMenu.Trigger>
 	</EdraToolTip>
-	<DropdownMenu.Content portalProps={{ to: document.getElementById('edra-editor') ?? 'undefined' }}>
+	<DropdownMenu.Content>
 		<DropdownMenu.Item onclick={() => editor.chain().focus().setParagraph().run()}>
 			<Paragraph />
 			<span>{strings.command.paragraph}</span>
