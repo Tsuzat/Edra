@@ -11,9 +11,9 @@ customizable and extensible, allowing developers to create their own custom edit
 The main goal of Edra is to provide a **baseline** with minimum to no pre-configured components, yet highly customizable and extensible.
 
 > Note:
-> 
+>
 > **Why is edra a component based library?**
-> 
+>
 > The main reason for this library is to provide the full control over the editor, allowing developers
 > to create their own custom editors with ease. This is achieved by using the powerful
 > [Tiptap](https://tiptap.dev/) library, which provides a rich set of features and customization options.
@@ -52,12 +52,12 @@ The above command will copy the `edra` component as folder in `src/lib/component
 ## Installation with shadcn ui
 
 > Warning:
-> 
+>
 > The **shadcn** ui flavor have some prerequisites, so please read the following instructions carefully.
 
 ### Prerequisites
 
-The `shacn` ui based components usages the [svelte-shadcn](https://next.shadcn-svelte.com/) and [tailwind-typography](https://github.com/tailwindlabs/tailwindcss-typography) packages. You can find their respective installation guides in their documentation.
+The `shacn` ui based components usages the [svelte-shadcn](https://shadcn-svelte.com/) and [tailwind-typography](https://github.com/tailwindlabs/tailwindcss-typography) packages. You can find their respective installation guides in their documentation.
 
 After installing the `svelte-shadcn` and `tailwind-typography` packages, you need to add the following `svelte-shadcn` components in your project.
 
@@ -162,7 +162,7 @@ export interface EdraToolbarProps {
 - `markdown?: boolean` Render only the Markdown-compatible subset of toolbar commands. See [Markdown Mode](/docs#markdown-mode).
 
 > Warning:
-> 
+>
 > If children components are passed to the `<EdraToolbar>` it will override the default set of toolbar commands.
 
 ### BubbleMenu `<EdraBubbleMenu {editor} />`
@@ -170,11 +170,11 @@ export interface EdraToolbarProps {
 The `<EdraBubbleMenu>` component provides a floating formatting toolbar that appears when the user selects text within the editor. It gives quick access to inline formatting options like bold, italic, and code, and can be extended with custom components or actions using children.
 
 > Info:
-> 
+>
 > The `<EdraBubbleMenu>` follows the same props as `<EdraToolbar>`, allowing you to customize its appearance and functionality.
 
 > Warning:
-> 
+>
 > If children components are passed to the `<EdraBubbleMenu>` it will override the default set of toolbar commands.
 
 ---
@@ -229,7 +229,7 @@ A simple setup using the default Edra editor, toolbar, and bubble menu.
 Explore more examples in github [here](https://github.com/Tsuzat/Edra/tree/main/src/routes/examples).
 
 > Warning:
-> 
+>
 > You must need to create an editor instance, if you want to use `EdraToolBar` and/or `EdraBubbleMenu` component.
 
 ---
@@ -330,11 +330,11 @@ It is a powerful feature that allows you to add custom commands to the editor,
 which can be used to perform various actions, like inserting `images`, `videos`, `audios`, `tables`, `code blocks`, etc. You can use in by pressing the `/` key and then simply start typing the command name.
 
 > Note:
-> 
+>
 > You can use `ArrowDown`, `crtl+j` or `cmd+j`, `Tabs` to navigate down
 > and `ArrowUp`, `ctrl+k` or `cmd+k` to navigate up. Use `enter` to select the command.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -348,10 +348,10 @@ The `Edra` comes with `Notion` like bubble menus. There are basically 4 bubble m
 4. Table Col Menu: Provides table column related actions like insert, delete, etc.
 
 > Info:
-> 
+>
 > You need to use the `EdraBubbleMenu` component to enable the bubble menu in the editor.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -363,7 +363,7 @@ In `shadcn` ui, you'll find a dropdown menu in the editor toolbar.
 
 In either case, you can change the font size of any text in the editor.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -375,7 +375,7 @@ placeholder as per your liking in `$lib/components/edra/editor.ts` file in **you
 
 You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/editor.ts).
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -386,16 +386,16 @@ Try it out in [demo](/)
 You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/onedark.css).
 
 > Info:
-> 
+>
 > By default, tiptap does not provide a way to select the language or to copy the code.
 > We have extended this functionality in `Edra` to better UX.
 
 > Warning:
-> 
+>
 > We use `html .dark` css selector to apply the `dark` mode theme to the code block.
 > If you feel like to change the css selector, you need to change it in `onedark.css` file.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -419,13 +419,13 @@ editor.setOptions({
 ```
 
 > Info:
-> 
+>
 > **What if I want to process the pasted image?**
 > You may want to do some additional processing when user pastes an image.
 > For that you can modify the `getHandlePaste` function in `$lib/components/edra/utils.ts` file in **your project**.
 > You can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/utils.ts).
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -436,10 +436,10 @@ You can add a **video link or select an video from your local machine** and add 
 `Edra` provides a `VideoPlaceholder` component which let's you put a placeholder for future references.
 
 > Warning:
-> 
+>
 > You can not paste a video in editor from clipboard. You need to upload the video from your local machine, or provide a link to the video.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -450,10 +450,10 @@ You can add an **audio link or select an audio from your local machine** and add
 `Edra` provides an `AudioPlaceholder` component which let's you put a placeholder for future references.
 
 > Warning:
-> 
+>
 > You can not paste an audio in editor from clipboard. You need to upload the audio from your local machine, or provide a link to the audio.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -464,10 +464,10 @@ Similar to `ImageExtended` and `VideoExtended`, you can add an iframe with a sou
 `Edra` provides an `IFramePlaceholder` component which let's you put a placeholder for future references.
 
 > Warning:
-> 
+>
 > You can only add the iframe with a source url. You can not paste an iframe in editor from clipboard.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -478,10 +478,10 @@ the `table` button in `EdraToolbar` or by using `SlashCommand` or `/table`.
 By Default, a table with 3 columns and 3 rows will be added. Furthermore, you can insert _after, before or delete a column or row_.
 
 > Error:
-> 
+>
 > If you click the `table` button in `EdraToolbar` or use it from `SlashCommand`, while being focused on the `table` in the editor, the current table will be deleted.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -494,7 +494,7 @@ for headings and generates a navigational list.
 In the `headless` version, the `<ToC />` component is rendered inside the editor wrapper, providing
 a floating navigation on the right side.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -556,14 +556,14 @@ export interface EdraEditorProps {
 ```
 
 > Info:
-> 
+>
 > The `onDropOrPaste` callback let's you process the dropped or pasted file.
 > You can use it to upload the file to your server, or process it in any way you want.
-> 
+>
 > The `onFileSelect` callback let's you select a file from system.
 > You can use it to upload the file to your server, or process it in any way you want.
 >
-> 
+>
 > Note that, you must return a valid media or file source to be set as content source. e.g.
 > After uploading the image, just return the image source url.
 >
@@ -576,7 +576,7 @@ export interface EdraEditorProps {
 
 You can also _replace_ the current text or _replace all_ the text in the editor by using the `replace` button in the `EdraToolbar`.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -600,7 +600,7 @@ Link.configure({
 })
 ```
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -611,10 +611,10 @@ You can drag a node and drop it in anywhere in the **editor**.
 You can find the _drag handle_ component in `$lib/components/edra/components/DragHandle.svelte` file in **your project** and you can also find the same file here in [github](https://github.com/Tsuzat/Edra/blob/next/src/lib/edra/components/DragHandle.svelte).
 
 > Warning:
-> 
+>
 > You must import the `DragHandle` component in your editor component to use it.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -624,10 +624,10 @@ Try it out in [demo](/)
 You can explore it by clicking in drag handle in demo.
 
 > Note:
-> 
+>
 > You must import the `DragHandleExtended` (or `EdraDragHandleExtended`) component in your editor component to use it. This component is only available in `shadcn` ui flavor.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -678,7 +678,7 @@ by using `$$` symbol. For example, you can write `$$\sum_{i=1}^n i^2$$` to get a
 Moreover, you can insert `inline` or `block` math expression with toolbar or slash-command.
 A specialized menu will appear for editing the LaTeX equation.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
@@ -689,13 +689,13 @@ implementation in [strings.ts](https://github.com/Tsuzat/Edra/blob/next/src/lib/
 You can find this file in `$lib/components/edra/strings.ts` in **your project**.
 
 > Note:
-> 
+>
 > This is an example of how to use the `strings` object in your editor component.
 > If you want to implement internationalization in your editor, you'd have to implement
-> your own `strings` object or a function which changes the language of the editor, but the 
+> your own `strings` object or a function which changes the language of the editor, but the
 > concept remains the same.
 
-Try it out in [demo](/) 
+Try it out in [demo](/)
 
 ---
 
