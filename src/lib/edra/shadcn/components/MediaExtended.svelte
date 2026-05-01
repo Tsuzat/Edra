@@ -15,6 +15,7 @@
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { duplicateContent } from '../../utils.js';
 	import strings from '../../strings.js';
+	import EdraToolTip from './EdraToolTip.svelte';
 
 	interface MediaExtendedProps extends NodeViewProps {
 		children: Snippet<[]>;
@@ -196,93 +197,116 @@
 				></div>
 			</div>
 			{/if}
-			<div
-				class={cn(
-					'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded border p-1 opacity-0 backdrop-blur-sm transition-opacity',
-					!resizing && 'group-hover:opacity-100',
-					openedMore && 'opacity-100'
-				)}
-			>
-				{#if !markdown}
-				<Button
-					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'left' })}
-					title={strings.extension.media.alignLeft}
+			{#if markdown}
+				<div
+					class={cn(
+						'bg-background/50 absolute -top-2 left-1/2 flex -translate-x-1/2 items-center gap-0.5 rounded border p-1 opacity-0 backdrop-blur-sm transition-opacity',
+						!resizing && 'group-hover:opacity-100'
+					)}
 				>
-					<AlignLeft class="size-4" />
-				</Button>
-				<Button
-					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'center' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'center' })}
-					title={strings.extension.media.alignCenter}
-				>
-					<AlignCenter class="size-4" />
-				</Button>
-				<Button
-					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'right' && 'bg-muted')}
-					onclick={() => updateAttributes({ align: 'right' })}
-					title={strings.extension.media.alignRight}
-				>
-					<AlignRight class="size-4" />
-				</Button>
-				{/if}
-				<DropdownMenu.Root
-					bind:open={openedMore}
-					onOpenChange={(value: boolean) => (openedMore = value)}
-				>
-					<DropdownMenu.Trigger
-						class={buttonVariants({ variant: 'ghost', class: 'size-6 p-0' })}
-						title={strings.extension.media.moreOptions}
-					>
-						<EllipsisVertical class="size-4" />
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content align="start" alignOffset={-90} class="mt-1 overflow-auto text-sm">
-						<DropdownMenu.Item
+					<EdraToolTip tooltip={strings.extension.media.caption}>
+						<button
+							class="hover:bg-accent text-muted-foreground flex size-6 cursor-default items-center justify-center rounded-sm [&_svg]:size-3.5"
 							onclick={() => {
 								if (node.attrs.title === null || node.attrs.title.trim() === '')
-									updateAttributes({
-										title: strings.extension.media.captionPlaceholder
-									});
+									updateAttributes({ title: strings.extension.media.captionPlaceholder });
 							}}
 						>
-							<Captions class="mr-1 size-4" />
-							{strings.extension.media.caption}
-						</DropdownMenu.Item>
-						<DropdownMenu.Item
-							onclick={() => {
-								duplicateContent(editor, node);
-							}}
+							<Captions />
+						</button>
+					</EdraToolTip>
+					<EdraToolTip tooltip={strings.extension.media.duplicate}>
+						<button
+							class="hover:bg-accent text-muted-foreground flex size-6 cursor-default items-center justify-center rounded-sm [&_svg]:size-3.5"
+							onclick={() => duplicateContent(editor, node)}
 						>
-							<CopyIcon class="mr-1 size-4" />
-							{strings.extension.media.duplicate}
-						</DropdownMenu.Item>
-						{#if !markdown}
-						<DropdownMenu.Item
-							onclick={() => {
-								updateAttributes({
-									width: '100%'
-								});
-							}}
+							<CopyIcon />
+						</button>
+					</EdraToolTip>
+					<EdraToolTip tooltip={strings.extension.media.delete}>
+						<button
+							class="hover:bg-destructive/10 dark:hover:bg-destructive/20 text-destructive flex size-6 cursor-default items-center justify-center rounded-sm [&_svg]:size-3.5"
+							onclick={() => deleteNode()}
 						>
-							<Fullscreen class="mr-1 size-4" />
-							{strings.extension.media.fullscreen}
-						</DropdownMenu.Item>
-						{/if}
-						<DropdownMenu.Item
-							onclick={() => {
-								deleteNode();
-							}}
-							class="text-destructive"
+							<Trash />
+						</button>
+					</EdraToolTip>
+				</div>
+			{:else}
+				<div
+					class={cn(
+						'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded border p-1 opacity-0 backdrop-blur-sm transition-opacity',
+						!resizing && 'group-hover:opacity-100',
+						openedMore && 'opacity-100'
+					)}
+				>
+					<Button
+						variant="ghost"
+						class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
+						onclick={() => updateAttributes({ align: 'left' })}
+						title={strings.extension.media.alignLeft}
+					>
+						<AlignLeft class="size-4" />
+					</Button>
+					<Button
+						variant="ghost"
+						class={cn('size-6 p-0', node.attrs.align === 'center' && 'bg-muted')}
+						onclick={() => updateAttributes({ align: 'center' })}
+						title={strings.extension.media.alignCenter}
+					>
+						<AlignCenter class="size-4" />
+					</Button>
+					<Button
+						variant="ghost"
+						class={cn('size-6 p-0', node.attrs.align === 'right' && 'bg-muted')}
+						onclick={() => updateAttributes({ align: 'right' })}
+						title={strings.extension.media.alignRight}
+					>
+						<AlignRight class="size-4" />
+					</Button>
+					<DropdownMenu.Root
+						bind:open={openedMore}
+						onOpenChange={(value: boolean) => (openedMore = value)}
+					>
+						<DropdownMenu.Trigger
+							class={buttonVariants({ variant: 'ghost', class: 'size-6 p-0' })}
+							title={strings.extension.media.moreOptions}
 						>
-							<Trash class="mr-1 size-4" />
-							{strings.extension.media.delete}
-						</DropdownMenu.Item>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-			</div>
+							<EllipsisVertical class="size-4" />
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content align="start" alignOffset={-90} class="mt-1 overflow-auto text-sm">
+							<DropdownMenu.Item
+								onclick={() => {
+									if (node.attrs.title === null || node.attrs.title.trim() === '')
+										updateAttributes({
+											title: strings.extension.media.captionPlaceholder
+										});
+								}}
+							>
+								<Captions class="mr-1 size-4" />
+								{strings.extension.media.caption}
+							</DropdownMenu.Item>
+							<DropdownMenu.Item onclick={() => duplicateContent(editor, node)}>
+								<CopyIcon class="mr-1 size-4" />
+								{strings.extension.media.duplicate}
+							</DropdownMenu.Item>
+							<DropdownMenu.Item
+								onclick={() => updateAttributes({ width: '100%' })}
+							>
+								<Fullscreen class="mr-1 size-4" />
+								{strings.extension.media.fullscreen}
+							</DropdownMenu.Item>
+							<DropdownMenu.Item
+								onclick={() => deleteNode()}
+								class="text-destructive"
+							>
+								<Trash class="mr-1 size-4" />
+								{strings.extension.media.delete}
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				</div>
+			{/if}
 		{/if}
 	</div>
 </NodeViewWrapper>
