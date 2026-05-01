@@ -73,7 +73,7 @@
 				}
 			}),
 			ImagePlaceholder(ImagePlaceholderComp),
-			ImageExtended(ImageExtendedComp),
+			ImageExtended(ImageExtendedComp, markdown),
 			slashcommand(SlashCommandList, markdown),
 			FileDrop.configure({
 				handler: onFileSelect

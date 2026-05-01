@@ -3,8 +3,14 @@ import Image, { type ImageOptions } from '@tiptap/extension-image';
 import type { Component } from 'svelte';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-export const ImageExtended = (component: Component<NodeViewProps>): Node<ImageOptions, unknown> => {
+export const ImageExtended = (
+	component: Component<NodeViewProps>,
+	markdown = false
+): Node<ImageOptions, unknown> => {
 	return Image.extend({
+		addStorage() {
+			return { markdown };
+		},
 		addAttributes() {
 			return {
 				src: {

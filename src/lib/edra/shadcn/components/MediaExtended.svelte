@@ -36,6 +36,8 @@
 
 	let nodeRef = $state<HTMLElement>();
 
+	const markdown = $derived(!!editor.storage.image?.markdown);
+
 	let resizing = $state(false);
 	let resizingInitialWidthPercent = $state(0);
 	let resizingInitialMouseX = $state(0);
@@ -157,6 +159,7 @@
 			/>
 		{/if}
 		{#if editor.isEditable}
+			{#if !markdown}
 			<div
 				role="button"
 				tabindex="0"
@@ -192,6 +195,7 @@
 					class="bg-muted z-20 h-16 w-1 rounded-xl border opacity-0 transition-all group-hover:opacity-100"
 				></div>
 			</div>
+			{/if}
 			<div
 				class={cn(
 					'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded border p-1 opacity-0 backdrop-blur-sm transition-opacity',
@@ -199,6 +203,7 @@
 					openedMore && 'opacity-100'
 				)}
 			>
+				{#if !markdown}
 				<Button
 					variant="ghost"
 					class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
@@ -223,6 +228,7 @@
 				>
 					<AlignRight class="size-4" />
 				</Button>
+				{/if}
 				<DropdownMenu.Root
 					bind:open={openedMore}
 					onOpenChange={(value: boolean) => (openedMore = value)}
@@ -253,6 +259,7 @@
 							<CopyIcon class="mr-1 size-4" />
 							{strings.extension.media.duplicate}
 						</DropdownMenu.Item>
+						{#if !markdown}
 						<DropdownMenu.Item
 							onclick={() => {
 								updateAttributes({
@@ -263,6 +270,7 @@
 							<Fullscreen class="mr-1 size-4" />
 							{strings.extension.media.fullscreen}
 						</DropdownMenu.Item>
+						{/if}
 						<DropdownMenu.Item
 							onclick={() => {
 								deleteNode();
