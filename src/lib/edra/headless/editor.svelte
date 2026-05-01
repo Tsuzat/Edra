@@ -21,6 +21,7 @@
 	import { IFrameExtended } from '../extensions/iframe/IFrameExtended.js';
 	import IFramePlaceHolderComp from './components/IFramePlaceHolder.svelte';
 	import IFrameExtendedComp from './components/IFrameExtended.svelte';
+	import type { Extensions } from '@tiptap/core';
 	import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 	import { all, createLowlight } from 'lowlight';
 	import { SvelteNodeViewRenderer } from 'svelte-tiptap';
@@ -64,36 +65,44 @@
 		class: className,
 		onFileSelect,
 		onDropOrPaste,
-		getAssets
-	}: EdraEditorProps = $props();
+		getAssets,
+		markdown = false
+	}: EdraEditorProps & { getAssets?: unknown } = $props();
 
 	onMount(() => {
-		editor = initEditor(
-			element,
-			content,
-			[
-				CodeBlockLowlight.configure({
-					lowlight
-				}).extend({
-					addNodeView() {
-						return SvelteNodeViewRenderer(CodeBlock);
-					}
-				}),
-				ImagePlaceholder(ImagePlaceholderComp),
-				ImageExtended(ImageExtendedComp),
+		const flavorExtensions: Extensions = [
+			CodeBlockLowlight.configure({
+				lowlight
+			}).extend({
+				addNodeView() {
+					return SvelteNodeViewRenderer(CodeBlock);
+				}
+			}),
+			ImagePlaceholder(ImagePlaceholderComp),
+			ImageExtended(ImageExtendedComp),
+			slashcommand(SlashCommandList, markdown),
+			FileDrop.configure({
+				handler: onFileSelect,
+				assetsGetter: getAssets
+			}),
+			TableOfContents.configure({
+				getIndex: getHierarchicalIndexes,
+				onUpdate: (indexes) => {
+					tocItems = indexes;
+				},
+				scrollParent: () => element || window
+			})
+		];
+
+		if (!markdown) {
+			flavorExtensions.push(
 				VideoPlaceholder(VideoPlaceHolderComp),
 				VideoExtended(VideoExtendedComp, onDropOrPaste),
 				AudioPlaceholder(AudioPlaceHolderComp),
 				AudioExtended(AudioExtendedComp, onDropOrPaste),
 				IFramePlaceholder(IFramePlaceHolderComp),
 				IFrameExtended(IFrameExtendedComp),
-				slashcommand(SlashCommandList),
-				FileDrop.configure({
-					handler: onFileSelect,
-					assetsGetter: getAssets
-				}),
 				Mathematics.configure({
-					// Options for the block math node
 					blockOptions: {
 						onClick: (node, pos) => {
 							blockMathPos = pos;
@@ -106,23 +115,21 @@
 							inlineMathLatex = node.attrs.latex;
 						}
 					},
-					// Options for the KaTeX renderer. See here: https://katex.org/docs/options.html
 					katexOptions: {
-						throwOnError: true, // don't throw an error if the LaTeX code is invalid
+						throwOnError: true,
 						macros: {
-							'\R': '\mathbb{R}', // add a macro for the real numbers
-							'\N': '\mathbb{N}' // add a macro for the natural numbers
+							'\\R': '\\mathbb{R}',
+							'\\N': '\\mathbb{N}'
 						}
 					}
-				}),
-				TableOfContents.configure({
-					getIndex: getHierarchicalIndexes,
-					onUpdate: (indexes) => {
-						tocItems = indexes;
-					},
-					scrollParent: () => element || window
 				})
-			],
+			);
+		}
+
+		editor = initEditor(
+			element,
+			content,
+			flavorExtensions,
 			{
 				onUpdate,
 				onTransaction(props) {
@@ -131,7 +138,8 @@
 				},
 				editable,
 				autofocus
-			}
+			},
+			markdown
 		);
 		editor.setOptions({
 			editorProps: {
@@ -150,8 +158,10 @@
 	<Link {editor} />
 	<TableCol {editor} />
 	<TableRow {editor} />
-	<MathMenu {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} />
-	<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
+	{#if !markdown}
+		<MathMenu {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} />
+		<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
+	{/if}
 	<ToC {editor} items={tocItems} />
 {/if}
 <div bind:this={element} role="button" tabindex="0" class={`edra-editor ${className}`}></div>

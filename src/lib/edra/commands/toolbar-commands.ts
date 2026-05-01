@@ -33,6 +33,32 @@ import { isMac } from '../utils.js';
 import type { EdraToolBarCommands } from './types.js';
 import strings from '../strings.js';
 
+/**
+ * Toolbar command groups that round-trip cleanly to Markdown.
+ * Used by the toolbars when `markdown` prop is set.
+ */
+export const MARKDOWN_COMMAND_GROUPS = [
+	'undo-redo',
+	'headings',
+	'text-formatting',
+	'lists',
+	'media',
+	'table'
+] as const;
+
+/**
+ * Individual command names within otherwise-MD-compatible groups that have
+ * no representation in standard Markdown / GFM.
+ */
+export const MARKDOWN_EXCLUDED_COMMANDS = new Set<string>([
+	'underline',
+	'superscript',
+	'subscript',
+	'video-placeholder',
+	'audio-placeholder',
+	'iframe-placeholder'
+]);
+
 const commands: Record<string, EdraToolBarCommands[]> = {
 	'undo-redo': [
 		{

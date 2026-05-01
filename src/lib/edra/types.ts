@@ -53,6 +53,14 @@ export interface EdraEditorProps {
 	 * @returns finalPath string
 	 */
 	onDropOrPaste?: (file: File) => Promise<string>;
+	/**
+	 * Restrict the editor to features that round-trip cleanly to Markdown.
+	 * Disables non-MD extensions (math, video, audio, iframe, underline,
+	 * super/subscript, alignment, font size, colors) and shows a simplified
+	 * toolbar. Markdown output is available via `editor.storage.markdown.getMarkdown()`
+	 * or the `getMarkdown(editor)` helper.
+	 */
+	markdown?: boolean;
 }
 
 export interface EdraToolbarProps {
@@ -60,6 +68,10 @@ export interface EdraToolbarProps {
 	class?: string;
 	excludedCommands?: string[];
 	children?: Snippet<[]>;
+	/**
+	 * Render only the Markdown-compatible subset of toolbar commands.
+	 */
+	markdown?: boolean;
 }
 
 export interface ShouldShowProps {

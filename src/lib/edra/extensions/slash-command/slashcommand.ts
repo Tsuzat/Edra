@@ -4,7 +4,7 @@ import { PluginKey } from '@tiptap/pm/state';
 import Suggestion, { type SuggestionKeyDownProps, type SuggestionProps } from '@tiptap/suggestion';
 import type { Component } from 'svelte';
 import SvelteRenderer from '../../svelte-renderer.js';
-import { GROUPS } from './groups.js';
+import { GROUPS, MARKDOWN_GROUPS } from './groups.js';
 
 const extensionName = 'slashCommand';
 
@@ -21,7 +21,7 @@ const popup: PopupState = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (menuList: Component<any, any, ''>): Extension =>
+export default (menuList: Component<any, any, ''>, markdown = false): Extension =>
 	Extension.create({
 		name: extensionName,
 
@@ -78,7 +78,8 @@ export default (menuList: Component<any, any, ''>): Extension =>
 						view.focus();
 					},
 					items: ({ query }: { query: string }) => {
-						const withFilteredCommands = GROUPS.map((group) => ({
+						const sourceGroups = markdown ? MARKDOWN_GROUPS : GROUPS;
+						const withFilteredCommands = sourceGroups.map((group) => ({
 							...group,
 							commands: group.actions.filter((item) => {
 								const labelNormalized = item.tooltip!.toLowerCase().trim();

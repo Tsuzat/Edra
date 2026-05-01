@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
 	import { slide } from 'svelte/transition';
-	import commands from '../commands/toolbar-commands.js';
+	import commands, {
+		MARKDOWN_COMMAND_GROUPS,
+		MARKDOWN_EXCLUDED_COMMANDS
+	} from '../commands/toolbar-commands.js';
 	import type { EdraToolbarProps } from '../types.js';
 	import ToolBarIcon from './components/ToolBarIcon.svelte';
 	import Alignment from './components/toolbar/Alignment.svelte';
@@ -12,9 +14,20 @@
 	import Lists from './components/toolbar/Lists.svelte';
 	import QuickColors from './components/toolbar/QuickColors.svelte';
 
-	const { editor, class: className, excludedCommands, children }: EdraToolbarProps = $props();
+	const {
+		editor,
+		class: className,
+		excludedCommands,
+		children,
+		markdown = false
+	}: EdraToolbarProps = $props();
 
-	const toolbarCommands = Object.keys(commands).filter((key) => !excludedCommands?.includes(key));
+	const allowedGroups = markdown
+		? (MARKDOWN_COMMAND_GROUPS as readonly string[])
+		: Object.keys(commands);
+	const toolbarCommands = allowedGroups.filter(
+		(key) => key in commands && !excludedCommands?.includes(key)
+	);
 </script>
 
 <div
@@ -35,9 +48,20 @@
 			{:else if cmd === 'lists'}
 				<Lists {editor} />
 			{:else if ['media', 'table'].includes(cmd)}
-				<span></span>
+				{@const commandGroup = commands[cmd].filter(
+					(c) => !markdown || !MARKDOWN_EXCLUDED_COMMANDS.has(c.name)
+				)}
+				{#if markdown}
+					{#each commandGroup as command (command)}
+						<ToolBarIcon {editor} {command} />
+					{/each}
+				{:else}
+					<span></span>
+				{/if}
 			{:else}
-				{@const commandGroup = commands[cmd]}
+				{@const commandGroup = commands[cmd].filter(
+					(c) => !markdown || !MARKDOWN_EXCLUDED_COMMANDS.has(c.name)
+				)}
 				{#each commandGroup as command (command)}
 					{#if command.name === 'link'}
 						<Link {editor} />
@@ -49,7 +73,9 @@
 				{/each}
 			{/if}
 		{/each}
-		<FontSize {editor} />
-		<QuickColors {editor} />
+		{#if !markdown}
+			<FontSize {editor} />
+			<QuickColors {editor} />
+		{/if}
 	{/if}
 </div>

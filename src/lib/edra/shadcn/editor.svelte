@@ -6,6 +6,7 @@
 	import '../editor.css';
 	import './style.css';
 	import '../onedark.css';
+	import type { Extensions } from '@tiptap/core';
 	import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 	import Mathematics from '@tiptap/extension-mathematics';
 	import TableOfContents, { getHierarchicalIndexes } from '@tiptap/extension-table-of-contents';
@@ -57,35 +58,40 @@
 		class: className,
 		spellcheck = true,
 		onFileSelect,
-		onDropOrPaste
+		onDropOrPaste,
+		markdown = false
 	}: EdraEditorProps = $props();
 
 	onMount(() => {
-		editor = initEditor(
-			element,
-			content,
-			[
-				CodeBlockLowlight.configure({
-					lowlight
-				}).extend({
-					addNodeView() {
-						return SvelteNodeViewRenderer(CodeBlock);
-					}
-				}),
-				ImagePlaceholder(ImagePlaceholderComp),
-				ImageExtended(ImageExtendedComp),
+		const flavorExtensions: Extensions = [
+			CodeBlockLowlight.configure({
+				lowlight
+			}).extend({
+				addNodeView() {
+					return SvelteNodeViewRenderer(CodeBlock);
+				}
+			}),
+			ImagePlaceholder(ImagePlaceholderComp),
+			ImageExtended(ImageExtendedComp),
+			slashcommand(SlashCommandList, markdown),
+			FileDrop.configure({
+				handler: onFileSelect
+			}),
+			TableOfContents.configure({
+				getIndex: getHierarchicalIndexes,
+				scrollParent: () => element || window
+			})
+		];
+
+		if (!markdown) {
+			flavorExtensions.push(
 				VideoPlaceholder(VideoPlaceHolderComp),
 				VideoExtended(VideoExtendedComp, onDropOrPaste),
 				AudioPlaceholder(AudioPlaceHolderComp),
 				AudioExtended(AudioExtendedComp, onDropOrPaste),
 				IFramePlaceholder(IFramePlaceHolderComp),
 				IFrameExtended(IFrameExtendedComp),
-				slashcommand(SlashCommandList),
-				FileDrop.configure({
-					handler: onFileSelect
-				}),
 				Mathematics.configure({
-					// Options for the block math node
 					blockOptions: {
 						onClick: (node, pos) => {
 							blockMathPos = pos;
@@ -98,20 +104,21 @@
 							inlineMathLatex = node.attrs.latex;
 						}
 					},
-					// Options for the KaTeX renderer. See here: https://katex.org/docs/options.html
 					katexOptions: {
-						throwOnError: true, // don't throw an error if the LaTeX code is invalid
+						throwOnError: true,
 						macros: {
-							'\\R': '\\mathbb{R}', // add a macro for the real numbers
-							'\\N': '\\mathbb{N}' // add a macro for the natural numbers
+							'\\R': '\\mathbb{R}',
+							'\\N': '\\mathbb{N}'
 						}
 					}
-				}),
-				TableOfContents.configure({
-					getIndex: getHierarchicalIndexes,
-					scrollParent: () => element || window
 				})
-			],
+			);
+		}
+
+		editor = initEditor(
+			element,
+			content,
+			flavorExtensions,
 			{
 				onUpdate,
 				onTransaction(props) {
@@ -126,7 +133,8 @@
 				},
 				editable,
 				autofocus
-			}
+			},
+			markdown
 		);
 		editor.setOptions({
 			editorProps: {
@@ -145,13 +153,15 @@
 	<Link {editor} parentElement={element} />
 	<TableCol {editor} parentElement={element} />
 	<TableRow {editor} parentElement={element} />
-	<Math {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} parentElement={element} />
-	<MathInline
-		{editor}
-		mathPos={inlineMathPos}
-		mathLatex={inlineMathLatex}
-		parentElement={element}
-	/>
+	{#if !markdown}
+		<Math {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} parentElement={element} />
+		<MathInline
+			{editor}
+			mathPos={inlineMathPos}
+			mathLatex={inlineMathLatex}
+			parentElement={element}
+		/>
+	{/if}
 {/if}
 
 <div

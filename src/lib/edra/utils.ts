@@ -5,6 +5,15 @@ import { browser } from '$app/environment';
 import strings from './strings.js';
 
 /**
+ * Serialize the editor's current document to Markdown.
+ * Companion to `editor.getJSON()` and `editor.getHTML()`.
+ */
+export function getMarkdown(editor: Editor): string {
+	const md = editor.storage.markdown as { getMarkdown?: () => string } | undefined;
+	return md?.getMarkdown?.() ?? '';
+}
+
+/**
  * Check if the current browser is in mac or not
  */
 export const isMac = browser

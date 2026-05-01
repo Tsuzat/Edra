@@ -2,7 +2,7 @@ import Minus from '@lucide/svelte/icons/minus';
 import Quote from '@lucide/svelte/icons/quote';
 import SquareCode from '@lucide/svelte/icons/square-code';
 import type { Editor } from '@tiptap/core';
-import commands from '../../commands/toolbar-commands.js';
+import commands, { MARKDOWN_EXCLUDED_COMMANDS } from '../../commands/toolbar-commands.js';
 import type { EdraToolBarCommands } from '../../commands/types.js';
 import strings from '../../strings.js';
 
@@ -55,5 +55,15 @@ export const GROUPS: Group[] = [
 		]
 	}
 ];
+
+/**
+ * Slash-command groups restricted to Markdown-compatible actions.
+ */
+export const MARKDOWN_GROUPS: Group[] = GROUPS.map((group) => ({
+	...group,
+	actions: group.actions.filter(
+		(action) => !MARKDOWN_EXCLUDED_COMMANDS.has(action.name) && action.name !== 'mathematics'
+	)
+})).filter((group) => group.actions.length > 0);
 
 export default GROUPS;
