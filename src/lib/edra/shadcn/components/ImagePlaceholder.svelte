@@ -53,7 +53,8 @@
 				reader.onerror = reject;
 				reader.readAsDataURL(file);
 			});
-			const src = await editor.storage.fileDrop.handler(dataUrl);
+			const handler = editor.storage.fileDrop.handler;
+			const src = handler ? await handler(dataUrl) : dataUrl;
 			editor.chain().focus().setImage({ src }).run();
 		} catch (e) {
 			console.error(e);
