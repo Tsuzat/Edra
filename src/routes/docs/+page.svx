@@ -117,6 +117,7 @@ export interface EdraEditorProps {
 	onFileSelect?: (file: string) => Promise<string>;
 	onDropOrPaste?: (file: File) => Promise<string>;
 	getAssets?: (fileType: FileType) => Promise<string[]>;
+	markdown?: boolean;
 }
 ```
 
@@ -133,6 +134,7 @@ export interface EdraEditorProps {
 - `onFileSelect?` Use this to upload or process a file once it's selected returning final file source.
 - `onDropOrPaste?` Runs when a file is dropped or pasted on editor returning final file source.
 - `getAssets?` Get all the files in related to fileType.
+- `markdown?: boolean` Restrict the editor to features that round-trip cleanly to Markdown. See [Markdown Mode](/docs#markdown-mode).
 
 <br />
 
@@ -147,6 +149,7 @@ export interface EdraToolbarProps {
 	class?: string;
 	excludedCommands?: string[];
 	children?: Snippet<[]>;
+	markdown?: boolean;
 }
 ```
 
@@ -156,6 +159,7 @@ export interface EdraToolbarProps {
 - `editor?: Editor` Bindable property to pass the editor instance to the `Edra` component.
 - `excludedCommands?: string[]` An array of command names to exclude from the toolbar. This allows you to customize which commands are shown.
 - `children?` Allows for components to be passed directly to the toolbar (e.g., `<FontSize {editor} />`).
+- `markdown?: boolean` Render only the Markdown-compatible subset of toolbar commands. See [Markdown Mode](/docs#markdown-mode).
 
 > Warning:
 > 
@@ -183,6 +187,7 @@ Below are example use cases for Shadcn and Headless:
 - [Shadcn Advanced Example](/docs#shadcn-advanced-example)
 - [Headless Basic Example](/docs#headless-basic-example)
 - [Headless Advanced Example](/docs#headless-advanced-example)
+- [Markdown Example](/examples/markdown)
 
 ### Shadcn Basic Example
 
@@ -257,6 +262,64 @@ function onUpdate() {
 	saveContent(myOutput);
 }
 ```
+
+---
+
+## Markdown Output
+
+`Edra` ships with the [`@tiptap/markdown`](https://www.npmjs.com/package/@tiptap/markdown) extension preconfigured, so you can serialize the editor's content to Markdown alongside the JSON and HTML outputs. Use the `getMarkdown(editor)` helper:
+
+```ts{h[2]%f[my-editor.svelte]}
+import { getMarkdown } from '$lib/components/edra/utils';
+
+function onUpdate() {
+	const myOutput = getMarkdown(editor);
+	// save the output in your preferred way
+	saveContent(myOutput);
+}
+```
+
+> Info:
+>
+> Markdown output works in both the default editor and `markdown` mode. In the default editor, content that has no Markdown representation (text color, font size, math, etc.) will be dropped during serialization. Use [Markdown Mode](/docs#markdown-mode) when you want the editor itself to only allow features that survive a round-trip.
+
+---
+
+## Markdown Mode
+
+Pass `markdown` to `<EdraEditor>` and `<EdraToolBar>` to constrain the editor to features that round-trip cleanly to Markdown / GFM. This is the right mode when Markdown is the source of truth for the document — for example, when editing files in a content repo or generating user-authored Markdown for an LLM.
+
+```svelte{f[my-markdown-editor.svelte]}
+<script lang="ts">
+	import type { Editor } from '@tiptap/core';
+	import { EdraEditor, EdraToolBar } from '$lib/components/edra/shadcn';
+	import { getMarkdown } from '$lib/components/edra/utils';
+
+	let editor = $state<Editor>();
+	let md = $state('# Hello');
+
+	function onUpdate() {
+		if (editor) md = getMarkdown(editor);
+	}
+</script>
+
+{#if editor}
+	<EdraToolBar {editor} markdown />
+{/if}
+<EdraEditor bind:editor content={md} {onUpdate} markdown />
+```
+
+When `markdown` is set:
+
+- **Toolbar** is filtered to Markdown-compatible commands only — undo/redo, headings, link, paragraph, bold, italic, strike, blockquote, inline code, bullet/ordered/task lists, table, and image. Search and replace stays available.
+- **Slash menu** mirrors the same restriction.
+- **Extensions** for non-Markdown features are not loaded: `Mathematics`, video / audio / iframe placeholders, `Highlight`, `Color`, `FontSize`, `TextAlign`, `Subscript`, `Superscript`, and `underline`. Pasted content with these features will be stripped, so what you see in the editor matches what `getMarkdown(editor)` produces.
+
+> Note:
+>
+> The `markdown` flag does not change the shape of `editor.getJSON()` or `editor.getHTML()` — those continue to work as usual. It only restricts which extensions and toolbar commands are active.
+
+Try it out in the [Markdown example](/examples/markdown).
 
 ---
 

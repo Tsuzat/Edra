@@ -3,6 +3,7 @@
 	import CSSSvg from '$lib/static/images/css.svg';
 	import ShadCN from '$lib/static/images/shad-cn.svg';
 	import Notion from '$lib/static/images/notion.svg';
+	import FileText from '@lucide/svelte/icons/file-text';
 </script>
 
 <div>
@@ -35,6 +36,21 @@
 				>
 					<img src={ShadCN} alt="svelte_logo" class="mt-1.5 size-10" />
 					ShadCN
+				</div>
+			</MagicCard>
+		</a>
+		<a href="/examples/markdown">
+			<MagicCard
+				class="group !h-40 !w-80 cursor-pointer flex-col items-center justify-center text-4xl whitespace-nowrap shadow-2xl transition-all duration-300 hover:border-[#7c3aed9e]"
+				gradientColor="#7c3aed25"
+				gradientSize={200}
+				gradientOpacity={0.5}
+			>
+				<div
+					class="flex items-center justify-center gap-1.5 font-semibold transition-all duration-500 group-hover:text-[#7c3aed]"
+				>
+					<FileText class="mt-1.5 size-10" />
+					Markdown
 				</div>
 			</MagicCard>
 		</a>

@@ -99,6 +99,8 @@
 		{ name: 'Output' },
 		{ name: 'JSON Output', href: '/docs#json-output' },
 		{ name: 'HTML Output', href: '/docs#html-output' },
+		{ name: 'Markdown Output', href: '/docs#markdown-output', isNew: true },
+		{ name: 'Markdown Mode', href: '/docs#markdown-mode', isNew: true },
 		{ name: 'Features' },
 		{ name: 'Slash Command', href: '/docs#slash-command' },
 		{ name: 'Bubble Menu', href: '/docs#bubble-menu' },

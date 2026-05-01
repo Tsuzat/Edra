@@ -9,6 +9,8 @@ import strings from './strings.js';
  * Companion to `editor.getJSON()` and `editor.getHTML()`.
  */
 export function getMarkdown(editor: Editor): string {
+	const e = editor as Editor & { getMarkdown?: () => string };
+	if (typeof e.getMarkdown === 'function') return e.getMarkdown();
 	const md = editor.storage.markdown as { getMarkdown?: () => string } | undefined;
 	return md?.getMarkdown?.() ?? '';
 }

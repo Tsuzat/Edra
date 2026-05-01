@@ -1,44 +1,104 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { Content, Editor } from '@tiptap/core';
+	import type { Editor } from '@tiptap/core';
 	import { EdraEditor, EdraToolBar, EdraBubbleMenu } from '$lib/edra/shadcn/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { getMarkdown } from '$lib/edra/utils.js';
+	import Copy from '@lucide/svelte/icons/copy';
+	import Check from '@lucide/svelte/icons/check';
 
-	let content = $state<Content>('# Hello Markdown\n\nType `/` for the slash menu.');
+	const STORAGE_KEY = 'edra-markdown-content';
+	const DEFAULT_CONTENT = `# Markdown mode
+
+This editor is constrained to features that round-trip cleanly to Markdown.
+
+## What's supported
+
+- **Bold**, *italic*, ~~strike~~, \`inline code\`
+- [Links](https://tiptap.dev)
+- Bullet, ordered, and task lists
+- Blockquotes, code blocks, tables, images
+- Slash menu — type \`/\` to insert
+
+> Try editing this content. The Markdown output updates live on the right.
+`;
+
+	let initialContent = browser
+		? (localStorage.getItem(STORAGE_KEY) ?? DEFAULT_CONTENT)
+		: DEFAULT_CONTENT;
+
 	let editor = $state<Editor>();
-	let md = $state<string>('');
-
-	if (browser) {
-		const stored = localStorage.getItem('edra-markdown-content');
-		if (stored !== null) content = stored;
-	}
+	let md = $state(initialContent);
+	let copied = $state(false);
 
 	function onUpdate() {
 		if (!editor) return;
 		md = getMarkdown(editor);
-		content = md;
-		localStorage.setItem('edra-markdown-content', md);
+		if (browser) localStorage.setItem(STORAGE_KEY, md);
 	}
 
 	$effect(() => {
-		if (editor && !md) md = getMarkdown(editor);
+		if (editor && md === initialContent) md = getMarkdown(editor);
 	});
+
+	async function copyMarkdown() {
+		await navigator.clipboard.writeText(md);
+		copied = true;
+		setTimeout(() => (copied = false), 1500);
+	}
 </script>
 
-<div class="mx-auto grid w-7xl gap-4 px-4 py-4 lg:grid-cols-2">
-	<div>
-		{#if editor}
-			<div class="rounded-t border-x border-t p-1">
-				<EdraToolBar {editor} markdown />
-			</div>
-			<EdraBubbleMenu {editor} class="bg-popover" />
-		{/if}
-		<div class="h-[30rem] overflow-y-scroll border pr-2 pl-6">
-			<EdraEditor bind:editor {content} {onUpdate} markdown />
-		</div>
+<div class="mx-auto w-full max-w-7xl px-4 py-8">
+	<div class="mb-6">
+		<h1 class="text-2xl font-bold tracking-tight">Markdown editor</h1>
+		<p class="text-muted-foreground mt-1 text-sm">
+			Pass <code class="bg-muted rounded px-1 py-0.5 text-xs">markdown</code> to
+			<code class="bg-muted rounded px-1 py-0.5 text-xs">&lt;EdraEditor /&gt;</code> and
+			<code class="bg-muted rounded px-1 py-0.5 text-xs">&lt;EdraToolBar /&gt;</code> to restrict
+			the editor to features supported by Markdown. Read the output with
+			<code class="bg-muted rounded px-1 py-0.5 text-xs">getMarkdown(editor)</code>.
+		</p>
 	</div>
-	<div>
-		<div class="text-muted-foreground border-b p-2 text-sm">Markdown output</div>
-		<pre class="bg-muted/25 h-[32rem] overflow-auto border p-4 text-xs">{md}</pre>
+
+	<div class="grid gap-4 lg:grid-cols-2">
+		<div class="bg-background overflow-hidden rounded-lg border shadow-sm">
+			<div class="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
+				<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+					Editor
+				</span>
+				{#if editor}
+					<EdraToolBar
+						{editor}
+						markdown
+						class="bg-background flex flex-wrap items-center gap-0.5 rounded border p-1"
+					/>
+				{/if}
+			</div>
+			{#if editor}
+				<EdraBubbleMenu {editor} class="bg-popover" />
+			{/if}
+			<div class="h-[32rem] overflow-y-auto px-6 py-4">
+				<EdraEditor bind:editor content={initialContent} {onUpdate} markdown autofocus />
+			</div>
+		</div>
+
+		<div class="bg-background overflow-hidden rounded-lg border shadow-sm">
+			<div class="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
+				<span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+					Markdown output
+				</span>
+				<Button variant="ghost" size="sm" class="h-7 gap-1.5 text-xs" onclick={copyMarkdown}>
+					{#if copied}
+						<Check class="size-3.5" />
+						Copied
+					{:else}
+						<Copy class="size-3.5" />
+						Copy
+					{/if}
+				</Button>
+			</div>
+			<pre
+				class="text-foreground bg-muted/10 m-0 h-[32rem] overflow-auto px-6 py-4 font-mono text-sm leading-relaxed whitespace-pre-wrap">{md}</pre>
+		</div>
 	</div>
 </div>

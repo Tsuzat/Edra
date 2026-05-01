@@ -116,6 +116,7 @@ export default (
 		element,
 		content,
 		extensions: [...baseExtensions, ...(extensions ?? [])],
+		...(markdown ? { contentType: 'markdown' as const } : {}),
 		...options
 	});
 
