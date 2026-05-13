@@ -1,0 +1,406 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry.json",
+	"name": "edra",
+	"homepage": "https://edra.tsuzat.com",
+	"items": [
+		{
+			"name": "edra-shadcn",
+			"type": "registry:block",
+			"title": "Edra (shadcn-svelte)",
+			"description": "A feature-rich Tiptap editor built with shadcn-svelte components. Includes toolbar, bubble menu, drag handle, slash commands, image/video/audio/iframe embeds, math, tables, and more.",
+			"dependencies": [
+				"@tiptap/core",
+				"@tiptap/extension-bubble-menu",
+				"@tiptap/extension-code-block-lowlight",
+				"@tiptap/extension-highlight",
+				"@tiptap/extension-image",
+				"@tiptap/extension-list",
+				"@tiptap/extension-mathematics",
+				"@tiptap/extension-subscript",
+				"@tiptap/extension-superscript",
+				"@tiptap/extension-table",
+				"@tiptap/extension-table-of-contents",
+				"@tiptap/extension-text-align",
+				"@tiptap/extension-text-style",
+				"@tiptap/extension-typography",
+				"@tiptap/extension-drag-handle",
+				"@tiptap/extensions",
+				"@tiptap/markdown",
+				"@tiptap/pm",
+				"@tiptap/starter-kit",
+				"@tiptap/suggestion",
+				"@floating-ui/dom",
+				"@lucide/svelte",
+				"katex",
+				"lowlight",
+				"svelte-sonner",
+				"svelte-tiptap",
+				"tiptap-extension-auto-joiner"
+			],
+			"registryDependencies": [
+				"button",
+				"command",
+				"dropdown-menu",
+				"input",
+				"popover",
+				"separator",
+				"tabs",
+				"textarea",
+				"tooltip"
+			],
+			"docs": "After installing, add <Toaster /> from svelte-sonner to your root layout for toast notifications. Import the editor with: import { EdraEditor, EdraToolBar, EdraBubbleMenu, EdraDragHandleExtended } from '$lib/components/edra/shadcn/index.js'",
+			"files": [
+				{
+					"path": "src/lib/edra/editor.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/editor.ts"
+				},
+				{
+					"path": "src/lib/edra/editor.css",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/editor.css"
+				},
+				{
+					"path": "src/lib/edra/onedark.css",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/onedark.css"
+				},
+				{
+					"path": "src/lib/edra/strings.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/strings.ts"
+				},
+				{
+					"path": "src/lib/edra/svelte-renderer.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/svelte-renderer.ts"
+				},
+				{
+					"path": "src/lib/edra/types.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/types.ts"
+				},
+				{
+					"path": "src/lib/edra/utils.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/utils.ts"
+				},
+				{
+					"path": "src/lib/edra/commands/index.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/commands/index.ts"
+				},
+				{
+					"path": "src/lib/edra/commands/toolbar-commands.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/commands/toolbar-commands.ts"
+				},
+				{
+					"path": "src/lib/edra/commands/types.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/commands/types.ts"
+				},
+				{
+					"path": "src/lib/edra/components/BubbleMenu.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/components/BubbleMenu.svelte"
+				},
+				{
+					"path": "src/lib/edra/components/DragHandle.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/components/DragHandle.svelte"
+				},
+				{
+					"path": "src/lib/edra/components/MediaPlaceHolder.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/components/MediaPlaceHolder.svelte"
+				},
+				{
+					"path": "src/lib/edra/extensions/ColorHighlighter.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/ColorHighlighter.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/FindAndReplace.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/FindAndReplace.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/HandleFileDrop.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/HandleFileDrop.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/InlineMathReplacer.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/InlineMathReplacer.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/audio/AudiExtended.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/audio/AudiExtended.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/audio/AudioExtension.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/audio/AudioExtension.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/audio/AudioPlaceholder.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/audio/AudioPlaceholder.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/drag-handle/ClipboardSerializer.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/drag-handle/ClipboardSerializer.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/drag-handle/index.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/drag-handle/index.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/iframe/IFrame.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/iframe/IFrame.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/iframe/IFrameExtended.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/iframe/IFrameExtended.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/iframe/IFramePlaceholder.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/iframe/IFramePlaceholder.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/image/ImageExtended.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/image/ImageExtended.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/image/ImagePlaceholder.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/image/ImagePlaceholder.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/slash-command/groups.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/slash-command/groups.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/slash-command/slashcommand.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/slash-command/slashcommand.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/index.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/index.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/table-cell.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/table-cell.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/table-header.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/table-header.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/table-row.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/table-row.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/table.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/table.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/table/utils.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/table/utils.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/video/VideoExtended.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/video/VideoExtended.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/video/VideoExtension.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/video/VideoExtension.ts"
+				},
+				{
+					"path": "src/lib/edra/extensions/video/VideoPlaceholder.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/extensions/video/VideoPlaceholder.ts"
+				},
+				{
+					"path": "src/lib/edra/shadcn/style.css",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/style.css"
+				},
+				{
+					"path": "src/lib/edra/shadcn/index.ts",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/index.ts"
+				},
+				{
+					"path": "src/lib/edra/shadcn/editor.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/editor.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/toolbar.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/toolbar.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/drag-handle-extended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/drag-handle-extended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/AudioExtended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/AudioExtended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/AudioPlaceHolder.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/AudioPlaceHolder.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/CodeBlock.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/CodeBlock.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/EdraToolTip.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/EdraToolTip.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/IFrameExtended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/IFrameExtended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/IFramePlaceHolder.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/IFramePlaceHolder.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/ImageExtended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/ImageExtended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/ImagePlaceholder.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/ImagePlaceholder.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/MediaExtended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/MediaExtended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/SlashCommandList.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/SlashCommandList.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/ToC.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/ToC.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/ToolBarIcon.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/ToolBarIcon.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/VideoExtended.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/VideoExtended.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/VideoPlaceholder.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/VideoPlaceholder.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/Alignment.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/Alignment.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/FontSize.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/FontSize.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/Headings.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/Headings.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/Link.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/Link.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/Lists.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/Lists.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/QuickColors.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/QuickColors.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/toolbar/SearchAndReplace.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/components/toolbar/SearchAndReplace.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/Link.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/Link.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/Math.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/Math.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/MathInline.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/MathInline.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/Menu.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/Menu.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/TableCol.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/TableCol.svelte"
+				},
+				{
+					"path": "src/lib/edra/shadcn/menus/TableRow.svelte",
+					"type": "registry:file",
+					"target": "src/lib/components/edra/shadcn/menus/TableRow.svelte"
+				}
+			]
+		}
+	]
+}

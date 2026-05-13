@@ -1,0 +1,49 @@
+[
+	{
+		"name": "edra-shadcn",
+		"title": "Edra (shadcn-svelte)",
+		"type": "registry:block",
+		"description": "A feature-rich Tiptap editor built with shadcn-svelte components. Includes toolbar, bubble menu, drag handle, slash commands, image/video/audio/iframe embeds, math, tables, and more.",
+		"dependencies": [
+			"@tiptap/core",
+			"@tiptap/extension-bubble-menu",
+			"@tiptap/extension-code-block-lowlight",
+			"@tiptap/extension-highlight",
+			"@tiptap/extension-image",
+			"@tiptap/extension-list",
+			"@tiptap/extension-mathematics",
+			"@tiptap/extension-subscript",
+			"@tiptap/extension-superscript",
+			"@tiptap/extension-table",
+			"@tiptap/extension-table-of-contents",
+			"@tiptap/extension-text-align",
+			"@tiptap/extension-text-style",
+			"@tiptap/extension-typography",
+			"@tiptap/extension-drag-handle",
+			"@tiptap/extensions",
+			"@tiptap/markdown",
+			"@tiptap/pm",
+			"@tiptap/starter-kit",
+			"@tiptap/suggestion",
+			"@floating-ui/dom",
+			"@lucide/svelte",
+			"katex",
+			"lowlight",
+			"svelte-sonner",
+			"svelte-tiptap",
+			"tiptap-extension-auto-joiner"
+		],
+		"registryDependencies": [
+			"button",
+			"command",
+			"dropdown-menu",
+			"input",
+			"popover",
+			"separator",
+			"tabs",
+			"textarea",
+			"tooltip"
+		],
+		"relativeUrl": "edra-shadcn.json"
+	}
+]

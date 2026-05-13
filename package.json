@@ -18,7 +18,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"registry:build": "shadcn-svelte registry build"
 	},
 	"bin": {
 		"edra": "./bin/cli.js"
@@ -84,6 +85,7 @@
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"publint": "^0.3.16",
+		"shadcn-svelte": "^1.2.7",
 		"shiki": "^3.20.0",
 		"svelte": "^5.46.0",
 		"svelte-check": "^4.3.4",
