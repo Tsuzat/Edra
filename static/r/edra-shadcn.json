@@ -55,13 +55,7 @@
 		"author": "Tsuzat"
 	},
 	"css": {
-		".tiptap a": {
-			"color": "var(--color-primary)",
-			"text-decoration": "underline"
-		}
-	},
-	"cssVars": {
-		"light": {
+		":root": {
 			"--border-color": "var(--muted)",
 			"--border-color-hover": "var(--muted-foreground)",
 			"--blockquote-border": "var(--border)",
@@ -77,8 +71,12 @@
 			"--search-result-bg": "yellow",
 			"--search-result-current-bg": "orange"
 		},
-		"dark": {
+		".dark": {
 			"--codeblock-bg": "color-mix(in oklch, var(--muted) 30%, transparent)"
+		},
+		".tiptap a": {
+			"color": "var(--color-primary)",
+			"text-decoration": "underline"
 		}
 	},
 	"files": [
