@@ -46,7 +46,7 @@ export default (
 					autolink: true,
 					linkOnPaste: true,
 					HTMLAttributes: {
-						target: '_tab',
+						target: '_blank',
 						rel: 'noopener noreferrer nofollow'
 					}
 				},

@@ -502,7 +502,7 @@ const commands: Record<string, EdraToolBarCommands[]> = {
 		},
 		{
 			icon: SquareRadical,
-			name: 'mathematics',
+			name: 'blockMathematics',
 			tooltip: strings.command.blockExpression,
 			onClick: (editor) => {
 				const latex = 'a^2 + b^2 = c^2';

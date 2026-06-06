@@ -37,7 +37,9 @@
 		props.command(command);
 	};
 
-	function handleKeyDown(e: KeyboardEvent) {
+	// Exported so the Suggestion plugin's onKeyDown can delegate here
+	// instead of using a global <svelte:window> listener.
+	export function handleKeyDown(e: KeyboardEvent): boolean {
 		if (e.key === 'ArrowDown' || ((e.ctrlKey || e.metaKey) && e.key === 'j') || e.key === 'Tab') {
 			e.preventDefault();
 			if (!props.items.length) {
@@ -90,8 +92,6 @@
 		return false;
 	}
 </script>
-
-<svelte:window onkeydown={handleKeyDown} />
 
 {#if items.length}
 	<div

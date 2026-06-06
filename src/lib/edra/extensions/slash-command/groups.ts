@@ -2,22 +2,22 @@ import Minus from '@lucide/svelte/icons/minus';
 import Quote from '@lucide/svelte/icons/quote';
 import SquareCode from '@lucide/svelte/icons/square-code';
 import type { Editor } from '@tiptap/core';
-import commands from '../../commands/toolbar-commands.js';
+import toolbarCommands from '../../commands/toolbar-commands.js';
 import type { EdraToolBarCommands } from '../../commands/types.js';
 import strings from '../../strings.js';
 
 export interface Group {
 	name: string;
 	title: string;
-	actions: EdraToolBarCommands[];
+	commands: EdraToolBarCommands[];
 }
 
 export const GROUPS: Group[] = [
 	{
 		name: 'format',
 		title: strings.command.formatGroup,
-		actions: [
-			...commands.headings,
+		commands: [
+			...toolbarCommands.headings,
 			{
 				icon: Quote,
 				name: 'blockquote',
@@ -34,16 +34,16 @@ export const GROUPS: Group[] = [
 					editor.chain().focus().setCodeBlock().run();
 				}
 			},
-			...commands.lists
+			...toolbarCommands.lists
 		]
 	},
 	{
 		name: 'insert',
 		title: strings.command.insertGroup,
-		actions: [
-			...commands.media,
-			...commands.table,
-			...commands.math,
+		commands: [
+			...toolbarCommands.media,
+			...toolbarCommands.table,
+			...toolbarCommands.math,
 			{
 				icon: Minus,
 				name: 'horizontalRule',
