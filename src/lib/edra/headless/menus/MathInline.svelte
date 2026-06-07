@@ -7,20 +7,14 @@
 
 	interface Props {
 		editor: Editor;
-		mathPos: number;
-		mathLatex: string;
 	}
 
-	const { editor, mathPos, mathLatex }: Props = $props();
+	const { editor }: Props = $props();
 
-	let inputVal = $state(mathLatex);
-
-	$effect(() => {
-		inputVal = mathLatex;
-	});
+	let inputVal = $derived(editor.getAttributes('inlineMath').latex);
 
 	function updateLatex() {
-		editor.chain().setNodeSelection(mathPos).updateInlineMath({ latex: inputVal }).focus().run();
+		editor.commands.updateInlineMath({ latex: inputVal });
 	}
 </script>
 
@@ -46,18 +40,8 @@
 </BubbleMenu>
 
 <style>
-	.edra-bubble-menu-math-inline {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: white;
-		border: 1px solid #ccc;
-		padding: 0.5rem;
-		border-radius: 0.5rem;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
 	.edra-math-input-inline {
-		width: 200px;
+		width: 250px;
 		padding: 0.5rem;
 		border: 1px solid #ddd;
 		border-radius: 0.25rem;

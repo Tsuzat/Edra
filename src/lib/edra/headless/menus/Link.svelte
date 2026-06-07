@@ -4,9 +4,11 @@
 	import type { Editor } from '@tiptap/core';
 	import strings from '../../strings.js';
 	import Copy from '@lucide/svelte/icons/copy';
-	import Trash from '@lucide/svelte/icons/trash';
-	import Edit from '@lucide/svelte/icons/edit';
+	import Trash2 from '@lucide/svelte/icons/trash-2';
+	import Edit from '@lucide/svelte/icons/pen';
 	import Check from '@lucide/svelte/icons/check';
+	import LinkIcon from '@lucide/svelte/icons/link';
+	import { slide } from 'svelte/transition';
 
 	interface Props {
 		editor: Editor;
@@ -45,15 +47,20 @@
 	}}
 >
 	{#if !isEditing}
-		<a href={link} target="_blank" class="edra-link-preview">
-			{link}
+		<a
+			href={link}
+			target="_blank"
+			title={strings.menu.link.open}
+			class="edra-command-button"
+		>
+			<LinkIcon class="edra-toolbar-icon" />
 		</a>
 		<button
 			title={strings.menu.link.edit}
 			class="edra-command-button"
 			onclick={() => {
 				isEditing = true;
-				// editor.commands.blur(); // Optional
+				editor.commands.blur();
 			}}
 		>
 			<Edit class="edra-toolbar-icon" />
@@ -72,10 +79,14 @@
 			title={strings.menu.link.remove}
 			onclick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()}
 		>
-			<Trash class="edra-toolbar-icon" />
+			<Trash2 class="edra-toolbar-icon" />
 		</button>
 	{:else}
-		<form onsubmit={handleSubmit} class="edra-link-form">
+		<form
+			transition:slide={{ axis: 'x' }}
+			onsubmit={handleSubmit}
+			class="edra-link-form"
+		>
 			<input
 				bind:value={linkInput}
 				required

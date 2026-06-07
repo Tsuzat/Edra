@@ -43,12 +43,6 @@
 
 	const lowlight = createLowlight(all);
 
-	let blockMathPos = $state(0);
-	let blockMathLatex = $state('');
-
-	let inlineMathPos = $state(0);
-	let inlineMathLatex = $state('');
-
 	let tocItems = $state<TableOfContentData>();
 
 	/**
@@ -93,19 +87,6 @@
 					assetsGetter: getAssets
 				}),
 				Mathematics.configure({
-					// Options for the block math node
-					blockOptions: {
-						onClick: (node, pos) => {
-							blockMathPos = pos;
-							blockMathLatex = node.attrs.latex;
-						}
-					},
-					inlineOptions: {
-						onClick: (node, pos) => {
-							inlineMathPos = pos;
-							inlineMathLatex = node.attrs.latex;
-						}
-					},
 					// Options for the KaTeX renderer. See here: https://katex.org/docs/options.html
 					katexOptions: {
 						throwOnError: true, // don't throw an error if the LaTeX code is invalid
@@ -150,8 +131,8 @@
 	<Link {editor} />
 	<TableCol {editor} />
 	<TableRow {editor} />
-	<MathMenu {editor} mathPos={blockMathPos} mathLatex={blockMathLatex} />
-	<MathInline {editor} mathPos={inlineMathPos} mathLatex={inlineMathLatex} />
+	<MathMenu {editor} />
+	<MathInline {editor} />
 	<ToC {editor} items={tocItems} />
 {/if}
 <div bind:this={element} role="button" tabindex="0" class={`edra-editor ${className}`}></div>

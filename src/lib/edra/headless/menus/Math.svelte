@@ -6,22 +6,15 @@
 
 	interface Props {
 		editor: Editor;
-		mathPos: number;
-		mathLatex: string;
 	}
 
-	const { editor, mathPos, mathLatex }: Props = $props();
+	const { editor }: Props = $props();
 
-	let textareaVal = $derived(mathLatex);
-
-	$effect(() => {
-		textareaVal = mathLatex;
-	});
+	let textareaVal = $derived(editor.getAttributes('blockMath').latex || '');
 
 	function updateLatex() {
 		editor.commands.updateBlockMath({
-			latex: textareaVal,
-			pos: mathPos
+			latex: textareaVal
 		});
 	}
 </script>
