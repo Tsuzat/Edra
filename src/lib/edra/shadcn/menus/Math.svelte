@@ -7,19 +7,16 @@
 
 	interface Props {
 		editor: Editor;
-		mathPos: number;
-		mathLatex: string;
 		parentElement?: HTMLElement;
 	}
 
-	const { editor, mathPos, mathLatex, parentElement }: Props = $props();
+	const { editor, parentElement }: Props = $props();
 
-	let latex = $derived(mathLatex);
+	let latex = $derived(editor.getAttributes('blockMath').latex || '');
 
 	function updateLatex() {
 		editor.commands.updateBlockMath({
-			latex: latex,
-			pos: mathPos
+			latex: latex
 		});
 	}
 </script>

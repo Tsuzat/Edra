@@ -152,6 +152,7 @@ const strings = {
 	},
 	menu: {
 		link: {
+			open: 'Open Link',
 			edit: 'Edit Link',
 			copy: 'Copy Link',
 			remove: 'Remove Link',

@@ -4,12 +4,14 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import Check from '@lucide/svelte/icons/check';
 	import Copy from '@lucide/svelte/icons/copy';
-	import Edit from '@lucide/svelte/icons/edit';
-	import Trash from '@lucide/svelte/icons/trash';
+	import Edit from '@lucide/svelte/icons/pen';
+	import Trash2 from '@lucide/svelte/icons/trash-2';
 	import type { Editor } from '@tiptap/core';
 	import BubbleMenu from '../../components/BubbleMenu.svelte';
 	import type { ShouldShowProps } from '../../types.js';
 	import strings from '../../strings.js';
+	import { Link } from '@lucide/svelte';
+	import { slide } from 'svelte/transition';
 
 	interface Props {
 		editor: Editor;
@@ -54,18 +56,22 @@
 	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border p-0!"
 >
 	{#if !isEditing}
-		<Button
-			variant="link"
-			href={link}
-			class="max-w-120 truncate overflow-hidden p-1 text-ellipsis underline"
-			target="_blank"
-		>
-			{link}
-		</Button>
+		<SimpleTooltip tooltip={strings.menu.link.open}>
+			<Button
+				variant="ghost"
+				title={strings.menu.link.open}
+				size="icon"
+				href={link}
+				target="_blank"
+			>
+				<Link />
+			</Button>
+		</SimpleTooltip>
 		<SimpleTooltip tooltip={strings.menu.link.edit}>
 			<Button
 				variant="ghost"
 				size="icon"
+				title={strings.menu.link.edit}
 				onclick={() => {
 					isEditing = true;
 					editor.commands.blur();
@@ -93,11 +99,15 @@
 				size="icon"
 				onclick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()}
 			>
-				<Trash />
+				<Trash2 />
 			</Button>
 		</SimpleTooltip>
 	{:else}
-		<form onsubmit={handleSubmit} class="flex max-w-120 items-center gap-0.5">
+		<form
+			transition:slide={{ axis: 'x' }}
+			onsubmit={handleSubmit}
+			class="flex w-96 items-center gap-0.5"
+		>
 			<Input
 				bind:value={linkInput}
 				required

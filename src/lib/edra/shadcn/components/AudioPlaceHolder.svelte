@@ -35,18 +35,10 @@
 				editor.chain().focus().setAudio(file).run();
 			}
 		} catch (e) {
-			isUploading = true;
-			try {
-				const file = await editor.storage.fileDrop.localFileGetter(FileType.AUDIO);
-				if (file) {
-					editor.chain().focus().setAudio(file).run();
-				}
-			} catch (e) {
-				console.error(e);
-				toast.error(strings.extension.audio.openError);
-			} finally {
-				isUploading = false;
-			}
+			console.error(e);
+			toast.error(strings.extension.audio.openError);
+		} finally {
+			isUploading = false;
 		}
 	}
 </script>

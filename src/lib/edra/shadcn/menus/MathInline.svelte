@@ -9,16 +9,14 @@
 
 	interface Props {
 		editor: Editor;
-		mathPos: number;
-		mathLatex: string;
 		parentElement?: HTMLElement;
 	}
-	const { editor, mathPos, mathLatex, parentElement }: Props = $props();
+	const { editor, parentElement }: Props = $props();
 
-	let latex = $derived(mathLatex);
+	let latex = $derived(editor.getAttributes('inlineMath').latex);
 
 	function updateLatex() {
-		editor.chain().setNodeSelection(mathPos).updateInlineMath({ latex }).focus().run();
+		editor.commands.updateInlineMath({ latex });
 	}
 </script>
 
@@ -46,7 +44,7 @@
 		bind:value={latex}
 		onchange={updateLatex}
 		placeholder={strings.menu.math.enterExpressionPlaceholder}
-		class="w-56"
+		class="w-64"
 	/>
 	<Button variant="default" size="icon" onclick={updateLatex}>
 		<CornerDownLeft />

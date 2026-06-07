@@ -12,7 +12,7 @@
 
 	const { editor, mathPos, mathLatex }: Props = $props();
 
-	let textareaVal = $state(mathLatex);
+	let textareaVal = $derived(mathLatex);
 
 	$effect(() => {
 		textareaVal = mathLatex;

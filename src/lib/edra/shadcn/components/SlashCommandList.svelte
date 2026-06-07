@@ -14,7 +14,7 @@
 	let selectedGroupIndex = $state<number>(0);
 	let selectedCommandIndex = $state<number>(0);
 
-	const items = $derived.by(() => props.items);
+	const items = $derived(props.items);
 
 	$effect(() => {
 		if (items) {

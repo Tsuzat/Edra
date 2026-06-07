@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
 	import { cn } from '$lib/utils.js';
 	import { isTextSelection } from '@tiptap/core';
 	import commands from '../../commands/toolbar-commands.js';
