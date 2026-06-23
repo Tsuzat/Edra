@@ -53,7 +53,7 @@
 			side="left"
 			sideOffset={-24}
 			align="start"
-			class="data-[side=left]:slide-in-from-right-56 fade-in-50 bg-popover flex max-h-120 min-h-8 max-w-56 flex-col gap-1.5 overflow-auto border duration-300"
+			class="data-[side=left]:slide-in-from-right-30 fade-in-50 bg-popover flex max-h-120 min-h-8 max-w-56 flex-col gap-1.5 overflow-auto border duration-300"
 			arrowClasses="hidden"
 			strategy="absolute"
 		>
