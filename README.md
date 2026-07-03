@@ -1,47 +1,65 @@
-# Edra
+# Svelte library
 
-![waka-api](https://waka-api.dev-tsuzat.workers.dev/Edra)
+Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
 
-> Best Rich Text Editor, made for **Svelte Developers** with **Tiptap**
+Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
 
-Edra is a rich text editor made with Tiptap for Svelte Developers with extensibility and proper data output. It Focuses on ease of use and **copied to your project as an component**, with a beautiful default UI.
+## Creating a project
 
-<img width="1023" alt="Screenshot 2025-06-03 at 1 13 31 PM" src="https://github.com/user-attachments/assets/b85e6e3f-28a4-439e-91ed-bc7fc9fddcc2" />
+If you're seeing this, you've probably already done this step. Congrats!
 
-## Features
+```sh
+# create a new project in the current directory
+npx sv create
 
-- **Rich Text** Editing with markdown shortcuts
-- **Rich text** formatting like bold, italic, underline, strikethrough, superscript, subscript, textcolor, highlight, quickcolor, etc.
-- **Highlighter** and **Text Color** Picker (Pick any color from the color visualizer)
-- **Quickcolor** (Quickly pick a color from the color visualizer)
-- **Table** (Create tables with ease and add, delete, merge, split rows, cells and columns)
-- **Images** (Add images with url or pick from your device) with features like resize, align and caption
-- **Videos** (Add videos with url or pick from your device) with features like resize, align and caption
-- **Audio** (Add audio with url or pick from your device) with features like resize, align and caption
-- **Code Block** (Syntax highlight with lowlight) which supports multiple languages, dark and light mode and copy button
-- **Blockquotes** (Add blockquotes with ease)
-- **Tiptap Typography** (with emojis, color visualizer and special characters)
-- **Links** (Add and remove links with ease)
-- **Lists** (Unordered, ordered, task list)
-- **Search and Replace** (Find and replace text in the editor)
-- **Drag and Drop** (Drag and drop nodes in the editor with auto joiner feature)
-- **Slash Command** (Add headings, tables, images, videos, code blocks etc with ease)
-- **Font Size** (Change the font size of the text)
-- **BubbleMenu** (Add bubble menu with ease for quick editing)
-- **Math and LaTeX** (Add math and latex with ease)
+# create a new project in my-app
+npx sv create my-app
+```
 
-## UI Options
+To recreate this project with the same configuration:
 
-Edra comes with two UI options, one is a `headless` UI and the other is a `shadcn` based UI. It with any option as per your choice and requirements.
+```sh
+# recreate this project
+bun x sv@0.16.1 create --template library --types ts --add prettier eslint vitest="usages:unit,component" tailwindcss="plugins:none" sveltekit-adapter="adapter:vercel" --install bun .
+```
 
-## Documentation
+## Developing
 
-Find the documentation [here](https://edra.tsuzat.com/docs).
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-## Contributing
+```sh
+npm run dev
 
-If you want to contribute to Edra, you can do so by forking the repository and making a pull request. Please make sure to follow the code style and guidelines.
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-## License
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+## Building
+
+To build your library:
+
+```sh
+npm pack
+```
+
+To create a production version of your showcase app:
+
+```sh
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Publishing
+
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+
+To publish your library to [npm](https://www.npmjs.com):
+
+```sh
+npm publish
+```
