@@ -1,3 +1,12 @@
-<h1>Welcome to your library project</h1>
-<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+	import { Tiptap } from '$lib/edra/tiptap/index.js';
+	import { createEditor } from '$lib/edra/shadcn/index.js';
+
+	const editor = createEditor();
+</script>
+
+<div class="border w-3xl mx-auto p-4 rounded-lg min-h-96">
+	<Tiptap {editor}>
+		<Tiptap.Content class="*:outline-none cursor-auto" />
+	</Tiptap>
+</div>

@@ -1,16 +1,23 @@
 import type { EditorOptions } from '@tiptap/core';
+import { browser } from '$app/environment';
 
 import { Editor } from '../Editor.js';
 
 export const useEditor = (options: Partial<EditorOptions> = {}) => {
-	const editor = new Editor(options);
+	let editor: Editor | undefined = undefined;
+
+	if (browser) {
+		editor = new Editor(options);
+	}
 
 	$effect(() => {
 		return () => {
-			const nodes = editor.view.dom?.parentNode;
-			const newEl = nodes?.cloneNode(true) as HTMLElement;
-			nodes?.parentNode?.replaceChild(newEl, nodes);
-			editor.destroy();
+			if (editor) {
+				const nodes = editor.view.dom?.parentNode;
+				const newEl = nodes?.cloneNode(true) as HTMLElement;
+				nodes?.parentNode?.replaceChild(newEl, nodes);
+				editor.destroy();
+			}
 		};
 	});
 

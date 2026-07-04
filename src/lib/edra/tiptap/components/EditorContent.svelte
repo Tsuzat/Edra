@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Editor } from '../Editor.js';
 
-	let { editor }: { editor: Editor | null } = $props();
+	let { editor, class: className }: { editor: Editor | null; class: string } = $props();
 
 	let rootEl: HTMLDivElement | undefined = $state();
 
@@ -16,6 +16,7 @@
 
 		const element = rootEl;
 
+		// eslint-disable-next-line svelte/no-dom-manipulating
 		rootEl.append(...editor.view.dom.parentNode.childNodes);
 
 		editor.setOptions({
@@ -26,4 +27,4 @@
 	});
 </script>
 
-<div bind:this={rootEl} />
+<div bind:this={rootEl} class={className} />

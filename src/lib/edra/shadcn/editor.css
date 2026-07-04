@@ -1,0 +1,7 @@
+.tiptap .is-empty:not(blockquote.is-empty)::before {
+	float: left;
+	height: 0;
+	color: var(--muted-foreground);
+	pointer-events: none;
+	content: attr(data-placeholder);
+}

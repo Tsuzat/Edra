@@ -14,6 +14,7 @@
 	let combinedClass = [decorationClasses, className].filter(Boolean).join(' ') || undefined;
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:element
 	this={as}
 	data-node-view-wrapper=""

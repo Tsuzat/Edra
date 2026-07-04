@@ -3,11 +3,13 @@
 	import { setEditor } from './editorContext.js';
 	import type { Snippet } from 'svelte';
 
-	let { editor, children }: { editor: Editor; children?: Snippet } = $props();
+	let { editor, children }: { editor: Editor | undefined; children?: Snippet } = $props();
 
-	setEditor(editor);
+	if (editor) {
+		setEditor(editor);
+	}
 </script>
 
-{#if children}
+{#if editor && children}
 	{@render children()}
 {/if}
