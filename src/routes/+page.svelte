@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Tiptap, type Content } from '$lib/edra/tiptap/index.js';
-	import { createEditor } from '$lib/edra/shadcn/index.js';
+	import { createEditor, Edra, type Content } from '$lib/edra/shadcn/index.js';
 	import { onMount } from 'svelte';
 
 	const editor = createEditor();
@@ -16,7 +15,7 @@
 </script>
 
 <div class="border w-3xl mx-auto p-4 rounded-lg min-h-96">
-	<Tiptap {editor}>
-		<Tiptap.Content class="*:outline-none cursor-auto" />
-	</Tiptap>
+	<Edra {editor}>
+		<Edra.Content class="*:outline-none cursor-auto" />
+	</Edra>
 </div>

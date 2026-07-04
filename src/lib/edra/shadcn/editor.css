@@ -22,3 +22,129 @@
 	background-color: transparent;
 	border-radius: 0 !important;
 }
+
+/* List Styling */
+
+.tiptap ul,
+.tiptap ol {
+	padding: 0 1rem;
+	margin: 0.5rem;
+}
+
+.tiptap ul li,
+.tiptap ol li {
+	margin: 0.5rem 0;
+}
+
+.tiptap ul li::marker,
+.tiptap ol li::marker {
+	color: var(--muted-foreground);
+}
+
+.tiptap ul li p,
+.tiptap ol li p {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+
+/* Task List Styling */
+.tiptap ul[data-type='taskList'] {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.tiptap ul[data-type='taskList'] li {
+	display: flex;
+	align-items: start;
+	margin: 0.5rem 0 !important;
+}
+
+.tiptap ul[data-type='taskList'] li > label {
+	display: flex;
+	align-items: start;
+	justify-content: start;
+	height: 100%;
+	margin-right: 0.5rem;
+	user-select: none;
+}
+
+.tiptap ul[data-type='taskList'] li > div > p {
+	margin: 0;
+}
+
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+	cursor: pointer;
+}
+
+.tiptap ul[data-type='taskList'] ul[data-type='taskList'] {
+	margin: 0;
+}
+
+.tiptap ul[data-type='taskList'] li[data-checked='true'] div {
+	color: var(--color-primary);
+	text-decoration: line-through;
+}
+
+.tiptap input[type='checkbox'] {
+	position: relative;
+	top: 0.4rem;
+	display: grid;
+	place-content: center;
+	width: 1rem;
+	height: 1rem;
+	margin: 0;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: 1px solid var(--muted-foreground);
+	border-radius: 0.25rem;
+}
+
+.tiptap input[type='checkbox']:hover {
+	background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+
+.tiptap input[type='checkbox']:active {
+	background-color: var(--muted);
+}
+
+.tiptap input[type='checkbox']::before {
+	width: 0.75rem;
+	height: 0.75rem;
+	padding: 0.125rem;
+	color: var(--color-secondary);
+	content: '';
+	box-shadow: inset 1em 1em;
+	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+	transform: scale(0);
+	transform-origin: center;
+	transition: 200ms transform ease-in-out;
+}
+
+.tiptap input[type='checkbox']:checked {
+	background-color: var(--color-secondary-foreground);
+}
+
+.tiptap input[type='checkbox']:checked::before {
+	transform: scale(1);
+}
+
+/* Color Swatches */
+.color {
+	white-space: nowrap;
+}
+
+.color::before {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.1rem;
+	margin-bottom: 0.15rem;
+	vertical-align: middle;
+	content: ' ';
+	background-color: var(--color);
+	border: 1px solid var(--border-color);
+	border-radius: 0.25rem;
+}
