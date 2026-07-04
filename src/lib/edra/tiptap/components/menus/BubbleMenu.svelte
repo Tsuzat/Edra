@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { BubbleMenuPluginProps } from '@tiptap/extension-bubble-menu';
 	import { BubbleMenuPlugin } from '@tiptap/extension-bubble-menu';
-	import type { Editor } from '../../Editor.js';
+	import type { Editor } from '../../Editor.ts';
 
 	let {
 		editor,

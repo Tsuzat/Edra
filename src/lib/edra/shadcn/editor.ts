@@ -9,7 +9,12 @@ import './editor.css';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
 import MediaPlaceholderComp from './components/MediaPlaceHolder.svelte';
 
-export const createEditor = () =>
+export interface EdraEditorProps {
+	onUpdate?: () => void;
+	onFileUpload?: (file: File) => Promise<string>;
+}
+
+export const createEditor = (props?: EdraEditorProps) =>
 	useEditor({
 		extensions: [
 			...extensions,
@@ -21,5 +26,6 @@ export const createEditor = () =>
 				}
 			}),
 			MediaPlaceholder(MediaPlaceholderComp)
-		]
+		],
+		onUpdate: props?.onUpdate
 	});

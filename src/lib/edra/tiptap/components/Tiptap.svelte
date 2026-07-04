@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Editor } from '../Editor.js';
+	import type { Editor } from '../Editor.ts';
 	import { setEditor } from './editorContext.js';
 	import type { Snippet } from 'svelte';
 

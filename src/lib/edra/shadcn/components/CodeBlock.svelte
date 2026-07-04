@@ -16,9 +16,10 @@
 	const languages: string[] = $derived(extension.options.lowlight.listLanguages().sort());
 	let defaultLanguage = $derived(node.attrs.language ?? strings.extension.code.plainText);
 
-	$effect(() => {
-		updateAttributes({ language: defaultLanguage });
-	});
+	const changeLanguage = (language: string) => {
+		updateAttributes({ language: language });
+		defaultLanguage = language;
+	};
 
 	function copyCode() {
 		if (!preRef) return;
@@ -67,7 +68,8 @@
 							{#each languages as language (language)}
 								<Command.Item
 									value={language}
-									onSelect={() => (defaultLanguage = language)}
+									onSelect={() => changeLanguage(language)}
+									onclick={() => changeLanguage(language)}
 									class="text-primary capitalize"
 								>
 									<Check class={cn(language !== defaultLanguage && 'invisible')} />

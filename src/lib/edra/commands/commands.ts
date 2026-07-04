@@ -31,10 +31,10 @@ import Video from '@lucide/svelte/icons/video';
 import { isTextSelection } from '@tiptap/core';
 import { ISMAC } from '../utils.js';
 import strings from '../strings.js';
-import type { Editor } from '../tiptap/index.ts';
+import { type Editor } from '../tiptap/index.ts';
 import type { Icon } from '@lucide/svelte';
 
-export interface EdraCommands {
+export interface EdraCommand {
 	name: string;
 	icon: typeof Icon;
 	tooltip: string;
@@ -45,7 +45,7 @@ export interface EdraCommands {
 	clickable?: (editor: Editor) => boolean;
 }
 
-export const commands: Record<string, EdraCommands[]> = {
+export const commands: Record<string, EdraCommand[]> = {
 	'undo-redo': [
 		{
 			icon: Undo,
