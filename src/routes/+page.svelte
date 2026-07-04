@@ -2,10 +2,11 @@
 	import { createEditor, Edra, type Content } from '$lib/edra/shadcn/index.js';
 	import { onMount } from 'svelte';
 
-	const editor = createEditor();
-
-	editor?.on('update', () => {
+	const onUpdate = () => {
 		localStorage.setItem('edra-content', JSON.stringify(editor.getJSON()));
+	};
+	const editor = createEditor({
+		onUpdate
 	});
 
 	onMount(() => {

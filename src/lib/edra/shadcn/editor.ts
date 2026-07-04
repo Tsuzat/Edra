@@ -27,5 +27,5 @@ export const createEditor = (props?: EdraEditorProps) =>
 			}),
 			MediaPlaceholder(MediaPlaceholderComp)
 		],
-		onUpdate: props?.onUpdate
+		onUpdate: props?.onUpdate || (() => {})
 	});

@@ -12,6 +12,9 @@ import { ColorHighlighter, Table, TableCell, TableHeader, TableRow } from './tip
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Markdown } from '@tiptap/markdown';
 import Mathematics from '@tiptap/extension-mathematics';
+import Audio from '@tiptap/extension-audio';
+import Image from '@tiptap/extension-image';
+import { Video } from './tiptap/extensions/index.ts';
 
 /**
  * Contains all the default extensions the editor uses.
@@ -42,6 +45,9 @@ export default [
 		},
 		codeBlock: false
 	}),
+	Audio,
+	Video,
+	Image,
 	CharacterCount,
 	Highlight.configure({
 		multicolor: true
