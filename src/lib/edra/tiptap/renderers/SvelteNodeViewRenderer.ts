@@ -27,9 +27,9 @@ export interface SvelteNodeViewRendererOptions extends NodeViewRendererOptions {
 }
 
 class SvelteNodeView extends NodeView<any, Editor, SvelteNodeViewRendererOptions> {
-	renderer!: SvelteRenderer;
+	declare renderer: SvelteRenderer;
 
-	decorationClasses!: string;
+	declare decorationClasses: string;
 
 	private cachedExtensionWithSyncedStorage: NodeViewProps['extension'] | null = null;
 

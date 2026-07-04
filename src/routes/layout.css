@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn-svelte/tailwind.css';
-@import '@fontsource-variable/inter';
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/fira-code';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -171,8 +172,11 @@
 	ul > li {
 		@apply mt-2;
 	}
-	code {
+	:not(pre) > code {
 		@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+	}
+	code {
+		font-family: 'Fira Code Variable', monospace;
 	}
 	table {
 		@apply w-full;

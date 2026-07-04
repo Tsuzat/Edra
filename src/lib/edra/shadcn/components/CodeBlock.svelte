@@ -30,21 +30,25 @@
 	}
 </script>
 
-<NodeViewWrapper>
-	<div class="flex items-center justify-end print:justify-start" contenteditable="false">
+<NodeViewWrapper class="bg-muted/20 my-4 rounded-lg group">
+	<div
+		class="flex items-center mx-2 gap-2 justify-between print:justify-start"
+		contenteditable="false"
+	>
 		<Popover.Root>
 			<Popover.Trigger
 				contenteditable="false"
 				disabled={!editor.isEditable}
 				class={buttonVariants({
 					variant: 'ghost',
-					class: 'text-muted-foreground h-6! w-fit rounded-sm p-1 capitalize'
+					size: 'sm',
+					class: 'capitalize text-muted-foreground'
 				})}
 			>
 				{defaultLanguage}
 			</Popover.Trigger>
 			<Popover.Content
-				class="text-primary! max-h-96 w-36 p-0"
+				class="text-primary! max-h-96 w-48 p-0"
 				portalProps={{ disabled: true, to: undefined }}
 				onCloseAutoFocus={(e) => {
 					e.preventDefault();
@@ -66,7 +70,7 @@
 									onSelect={() => (defaultLanguage = language)}
 									class="text-primary capitalize"
 								>
-									<Check class={cn(language !== defaultLanguage && 'text-transparent')} />
+									<Check class={cn(language !== defaultLanguage && 'invisible')} />
 									{language}
 								</Command.Item>
 							{/each}
@@ -77,13 +81,14 @@
 		</Popover.Root>
 		<Button
 			variant="ghost"
-			class="text-muted-foreground size-6! rounded-sm p-0.5 print:hidden"
+			size="icon-xs"
+			class="text-muted-foreground print:hidden transition-opacity group-hover:opacity-100 opacity-0"
 			onclick={copyCode}
 		>
 			{#if isCopying}
-				<Check class="size-4 text-green-500" />
+				<Check class=" text-green-500" />
 			{:else}
-				<Copy class="size-4" />
+				<Copy />
 			{/if}
 		</Button>
 	</div>

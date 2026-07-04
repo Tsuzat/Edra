@@ -5,3 +5,20 @@
 	pointer-events: none;
 	content: attr(data-placeholder);
 }
+
+.tiptap pre {
+	display: flex;
+	height: fit-content;
+	padding: 0 1rem 1rem 1rem;
+	margin: 0;
+	overflow: auto;
+	background-color: transparent;
+}
+
+.tiptap pre code {
+	flex: 1;
+	padding: 0;
+	color: inherit;
+	background-color: transparent;
+	border-radius: 0 !important;
+}
