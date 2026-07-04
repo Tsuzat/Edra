@@ -1,0 +1,29 @@
+{
+	"version": 1,
+	"skills": {
+		"shadcn-svelte": {
+			"source": "huntabyte/shadcn-svelte",
+			"sourceType": "github",
+			"skillPath": "skills/shadcn-svelte/SKILL.md",
+			"computedHash": "e2cc56b65eb0c28042934ec7d7b253e842b6e22456917276d53a0c71266303e7"
+		},
+		"tailwind-4-docs": {
+			"source": "lombiq/tailwind-agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/tailwind-4-docs/SKILL.md",
+			"computedHash": "de756f5f03cc20a029983875b00b9dfef9d0ba8567d242c5cbb0262037d0a134"
+		},
+		"tiptap": {
+			"source": "ueberdosis/tiptap",
+			"sourceType": "github",
+			"skillPath": "skills/tiptap/SKILL.md",
+			"computedHash": "d3abb7a7e4cb1eb4064e8dcb0928771d58052c7d92e2ec3725a3a9a3c6cd338b"
+		},
+		"web-design-guidelines": {
+			"source": "vercel-labs/agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/web-design-guidelines/SKILL.md",
+			"computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+		}
+	}
+}

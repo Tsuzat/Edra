@@ -1,0 +1,6 @@
+Status: Not initialized
+Source: https://github.com/tailwindlabs/tailwindcss.com
+Docs-Path: src/docs
+Index-Path: src/app/(docs)/docs/index.tsx
+Snapshot-Date: (none)
+Note: Run skills/tailwind-4-docs/scripts/sync_tailwind_docs.py --accept-docs-license to initialize.
