@@ -43,7 +43,13 @@ export default [
 		},
 		codeBlock: false
 	}),
-	Audio,
+	Audio.configure({
+		inline: true,
+		HTMLAttributes: {
+			width: '100%',
+			height: '100%'
+		}
+	}),
 	CharacterCount,
 	Highlight.configure({
 		multicolor: true

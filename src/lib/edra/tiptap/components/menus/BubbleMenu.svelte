@@ -2,6 +2,20 @@
 	import type { BubbleMenuPluginProps } from '@tiptap/extension-bubble-menu';
 	import { BubbleMenuPlugin } from '@tiptap/extension-bubble-menu';
 	import type { Editor } from '../../Editor.ts';
+	import type { Snippet } from 'svelte';
+	interface Props {
+		editor: Editor;
+		pluginKey?: BubbleMenuPluginProps['pluginKey'];
+		updateDelay?: BubbleMenuPluginProps['updateDelay'];
+		resizeDelay?: BubbleMenuPluginProps['resizeDelay'];
+		options?: BubbleMenuPluginProps['options'];
+		appendTo?: BubbleMenuPluginProps['appendTo'];
+		shouldShow?: BubbleMenuPluginProps['shouldShow'];
+		getReferencedVirtualElement?: BubbleMenuPluginProps['getReferencedVirtualElement'];
+		children: Snippet<[]>;
+		class?: string;
+		[key: string]: any;
+	}
 
 	let {
 		editor,
@@ -12,18 +26,10 @@
 		appendTo = undefined,
 		shouldShow = null,
 		getReferencedVirtualElement = undefined,
-		...attrs
-	}: {
-		editor: Editor;
-		pluginKey?: BubbleMenuPluginProps['pluginKey'];
-		updateDelay?: BubbleMenuPluginProps['updateDelay'];
-		resizeDelay?: BubbleMenuPluginProps['resizeDelay'];
-		options?: BubbleMenuPluginProps['options'];
-		appendTo?: BubbleMenuPluginProps['appendTo'];
-		shouldShow?: BubbleMenuPluginProps['shouldShow'];
-		getReferencedVirtualElement?: BubbleMenuPluginProps['getReferencedVirtualElement'];
-		[key: string]: any;
-	} = $props();
+		children,
+		class: className,
+		rest
+	}: Props = $props();
 
 	let rootEl: HTMLDivElement | undefined = $state();
 
@@ -59,6 +65,6 @@
 	});
 </script>
 
-<div bind:this={rootEl} {...attrs}>
-	<slot />
+<div bind:this={rootEl} class={className} {...rest}>
+	{@render children()}
 </div>

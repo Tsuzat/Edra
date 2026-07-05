@@ -170,48 +170,6 @@ html {
 	p:not(:first-child) {
 		@apply mt-6;
 	}
-	blockquote {
-		@apply mt-6 border-s-2 ps-6 italic;
-	}
-	ul {
-		@apply my-6 ms-6 list-disc;
-	}
-	ul > li {
-		@apply mt-2;
-	}
-	:not(pre) > code {
-		@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
-	}
-	code {
-		font-family: 'Fira Code Variable', monospace;
-	}
-	table {
-		@apply w-full;
-	}
-	tr {
-		@apply m-0 border-t p-0;
-	}
-	tr:nth-child(even) {
-		@apply bg-muted;
-	}
-	th {
-		@apply border px-4 py-2 text-start font-bold;
-	}
-	th[align='center'] {
-		@apply text-center;
-	}
-	th[align='right'] {
-		@apply text-end;
-	}
-	td {
-		@apply border px-4 py-2 text-start;
-	}
-	td[align='center'] {
-		@apply text-center;
-	}
-	td[align='right'] {
-		@apply text-end;
-	}
 	small {
 		@apply text-sm leading-none font-medium;
 	}

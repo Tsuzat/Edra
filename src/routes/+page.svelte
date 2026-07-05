@@ -15,10 +15,10 @@
 	});
 </script>
 
-<div class="border w-5xl mx-auto p-4 rounded-lg min-h-96">
+<div class="border w-5xl mx-auto rounded-lg">
 	<Edra {editor}>
 		<Edra.DragHandle />
-		<Edra.Toolbar class="border-b overflow-x-scroll max-w-full!" />
-		<Edra.Content class="*:outline-none cursor-auto px-6" />
+		<Edra.Toolbar class="border-b p-1 overflow-x-scroll max-w-full!" />
+		<Edra.Content class="*:outline-none bitch-editor cursor-auto h-96 overflow-y-scroll px-8" />
 	</Edra>
 </div>

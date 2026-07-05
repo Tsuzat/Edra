@@ -98,6 +98,8 @@
 		"@tiptap/markdown": "^3.27.1",
 		"@tiptap/pm": "^3.27.1",
 		"@tiptap/starter-kit": "^3.27.1",
-		"katex": "^0.17.0"
+		"@vercel/blob": "^2.5.0",
+		"katex": "^0.17.0",
+		"lowlight": "^3.3.0"
 	}
 }

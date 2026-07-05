@@ -33,7 +33,7 @@ import type { Node } from '@tiptap/pm/model';
 import { ISMAC } from '../utils.js';
 import strings from '../strings.js';
 import { type Editor } from '../tiptap/index.ts';
-import type { Icon } from '@lucide/svelte';
+import { FileCode, type Icon } from '@lucide/svelte';
 
 export interface EdraCommand {
 	name: string;
@@ -290,6 +290,24 @@ export const commands: Record<string, EdraCommand[]> = {
 			},
 			isActive: (editor) => {
 				return editor.isActive('code');
+			}
+		},
+		{
+			icon: FileCode,
+			name: 'codeBlock',
+			tooltip: strings.command.codeBlock,
+			shortCut: `${ISMAC ? '⌘⌥' : 'Ctrl+Shift+'}C`,
+			onClick: (editor) => {
+				editor.chain().focus().toggleCodeBlock({ language: 'text' }).run();
+			},
+			turnInto: (editor, node, pos) => {
+				editor.chain().setNodeSelection(pos).toggleCodeBlock({ language: 'plaintext' }).run();
+			},
+			clickable: (editor) => {
+				return editor.can().toggleCodeBlock({ language: 'text' });
+			},
+			isActive: (editor) => {
+				return editor.isActive('codeBlock');
 			}
 		},
 		{

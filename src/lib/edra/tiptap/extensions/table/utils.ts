@@ -1,4 +1,4 @@
-import { type Editor, findParentNode } from '@tiptap/core';
+import { type Editor, findParentNode, findParentNodeClosestToPos } from '@tiptap/core';
 import type { Node, ResolvedPos } from '@tiptap/pm/model';
 import type { EditorState, Selection, Transaction } from '@tiptap/pm/state';
 import { CellSelection, type Rect, TableMap } from '@tiptap/pm/tables';
@@ -167,25 +167,25 @@ export const getCellsInTable = (selection: Selection) => {
 	return null;
 };
 
-export const findParentNodeClosestToPos = (
-	$pos: ResolvedPos,
-	predicate: (node: Node) => boolean
-) => {
-	for (let i = $pos.depth; i > 0; i -= 1) {
-		const node = $pos.node(i);
+// export const findParentNodeClosestToPos = (
+// 	$pos: ResolvedPos,
+// 	predicate: (node: Node) => boolean
+// ) => {
+// 	for (let i = $pos.depth; i > 0; i -= 1) {
+// 		const node = $pos.node(i);
 
-		if (predicate(node)) {
-			return {
-				pos: i > 0 ? $pos.before(i) : 0,
-				start: $pos.start(i),
-				depth: i,
-				node
-			};
-		}
-	}
+// 		if (predicate(node)) {
+// 			return {
+// 				pos: i > 0 ? $pos.before(i) : 0,
+// 				start: $pos.start(i),
+// 				depth: i,
+// 				node
+// 			};
+// 		}
+// 	}
 
-	return null;
-};
+// 	return null;
+// };
 
 export const findCellClosestToPos = ($pos: ResolvedPos) => {
 	const predicate = (node: Node) =>

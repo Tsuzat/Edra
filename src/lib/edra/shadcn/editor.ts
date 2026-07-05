@@ -9,8 +9,6 @@ import extensions from '../extensions.ts';
 const lowlight = createLowlight(all);
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CodeBlock from './components/CodeBlock.svelte';
-import '../onedark.css';
-import './editor.css';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
 import MediaPlaceholderComp from './components/MediaPlaceHolder.svelte';
 import ImageExtendedComp from './components/ImageExtended.svelte';

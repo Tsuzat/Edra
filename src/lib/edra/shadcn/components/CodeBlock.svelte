@@ -94,7 +94,7 @@
 			{/if}
 		</Button>
 	</div>
-	<pre bind:this={preRef} draggable={false}>
+	<pre bind:this={preRef} draggable={false} spellcheck="false">
 		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />
 	</pre>
 </NodeViewWrapper>

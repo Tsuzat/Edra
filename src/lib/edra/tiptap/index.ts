@@ -19,3 +19,4 @@ export const Tiptap = Object.assign(TiptapRoot, { Content: TiptapContent });
 export * from '@tiptap/core';
 
 export * from './extensions/index.ts';
+export * from './components/menus/index.ts';
