@@ -11,6 +11,16 @@
 	let open = $state(false);
 	const mediaType = $derived(node.attrs.mediaType);
 	let url = $state('');
+	let files = $state<FileList | undefined>();
+
+	function handleFileSubmit(e: SubmitEvent) {
+		e.preventDefault();
+		const file = files?.[0];
+		if (file) {
+			editor.commands.uploadMedia(file);
+			open = false;
+		}
+	}
 
 	const mediaTypeData = $derived.by(() => {
 		switch (mediaType) {
@@ -68,8 +78,8 @@
 					</form>
 				</Tabs.Content>
 				<Tabs.Content value="file">
-					<form class="flex flex-col gap-2">
-						<Input type="file" />
+					<form class="flex flex-col gap-2" onsubmit={handleFileSubmit}>
+						<Input type="file" bind:files />
 						<Button type="submit" class="capitalize">Insert {mediaType}</Button>
 					</form>
 				</Tabs.Content>

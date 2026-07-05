@@ -81,6 +81,7 @@
 		"@tiptap/extension-audio": "^3.27.1",
 		"@tiptap/extension-bubble-menu": "^3.27.1",
 		"@tiptap/extension-code-block-lowlight": "^3.27.1",
+		"@tiptap/extension-drag-handle": "^3.27.1",
 		"@tiptap/extension-highlight": "^3.27.1",
 		"@tiptap/extension-image": "^3.27.1",
 		"@tiptap/extension-list": "^3.27.1",

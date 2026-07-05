@@ -1,4 +1,5 @@
 import ColorHighlighter from './ColorHighlighter.ts';
 export { ColorHighlighter };
 export * from './table/index.ts';
-export * from './Video.ts';
+export * from './image/ImageExtended.ts';
+export * from './video/VideoExtended.ts';

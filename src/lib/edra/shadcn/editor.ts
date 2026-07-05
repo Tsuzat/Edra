@@ -1,4 +1,9 @@
-import { SvelteNodeViewRenderer, useEditor } from '../tiptap/index.ts';
+import {
+	ImageExtended,
+	SvelteNodeViewRenderer,
+	useEditor,
+	VideoExtended
+} from '../tiptap/index.ts';
 import { all, createLowlight } from 'lowlight';
 import extensions from '../extensions.ts';
 const lowlight = createLowlight(all);
@@ -8,6 +13,8 @@ import '../onedark.css';
 import './editor.css';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
 import MediaPlaceholderComp from './components/MediaPlaceHolder.svelte';
+import ImageExtendedComp from './components/ImageExtended.svelte';
+import VideoExtendedComp from './components/VideoExtended.svelte';
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -25,7 +32,11 @@ export const createEditor = (props?: EdraEditorProps) =>
 					return SvelteNodeViewRenderer(CodeBlock);
 				}
 			}),
-			MediaPlaceholder(MediaPlaceholderComp)
+			MediaPlaceholder(MediaPlaceholderComp).configure({
+				onUpload: props?.onFileUpload
+			}),
+			ImageExtended(ImageExtendedComp),
+			VideoExtended(VideoExtendedComp)
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});

@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class={cn('flex items-center flex-wrap h-full w-fit gap-2', className)}>
+<div class={cn('flex items-center h-full w-fit gap-2', className)}>
 	{#each commandsKeys as key (key)}
 		{@const group = commands[key]}
 		{#each group as command, idx (idx)}

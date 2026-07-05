@@ -5,22 +5,25 @@
 	let {
 		as = 'div',
 		class: className,
-		children
-	}: { as?: string; class?: string; children?: Snippet } = $props();
+		children,
+		...props
+	}: { as?: string; class?: string; children?: Snippet; [key: string]: any } = $props();
 
 	let onDragStart = getContext<(event: DragEvent) => void>('onDragStart');
 	let decorationClasses = getContext<string>('decorationClasses');
 
-	let combinedClass = [decorationClasses, className].filter(Boolean).join(' ') || undefined;
+	let combinedClass = $derived(
+		[decorationClasses, className].filter(Boolean).join(' ') || undefined
+	);
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:element
 	this={as}
 	data-node-view-wrapper=""
 	class={combinedClass}
 	style="white-space: normal"
 	ondragstart={onDragStart}
+	{...props}
 >
 	{#if children}
 		{@render children()}

@@ -15,6 +15,22 @@ declare module '@tiptap/core' {
 			insertMediaPlaceholder: (options: {
 				mediaType: 'image' | 'video' | 'audio' | 'iframe';
 			}) => ReturnType;
+
+			/**
+			 * Set the upload handler
+			 */
+			setMediaUploadHandler: (handler: (file: File) => Promise<string>) => ReturnType;
+
+			/**
+			 * Upload a media and insert the result
+			 */
+			uploadMedia: (file: File) => ReturnType;
+		};
+	}
+
+	interface Storage {
+		mediaPlaceholder: {
+			onUpload?: (file: File) => Promise<string>;
 		};
 	}
 }
@@ -27,6 +43,12 @@ export const MediaPlaceholder = (component: any) =>
 			return {
 				HTMLAttributes: {},
 				onUpload: undefined
+			};
+		},
+
+		addStorage() {
+			return {
+				onUpload: this.options.onUpload
 			};
 		},
 
@@ -79,6 +101,49 @@ export const MediaPlaceholder = (component: any) =>
 								mediaType: options.mediaType
 							}
 						});
+					},
+
+				setMediaUploadHandler:
+					(handler) =>
+					({ editor }) => {
+						editor.storage.mediaPlaceholder.onUpload = handler;
+						return true;
+					},
+
+				uploadMedia:
+					(file: File) =>
+					({ editor }) => {
+						const onUpload = editor.storage.mediaPlaceholder.onUpload || this.options.onUpload;
+						if (!onUpload) {
+							throw new Error('onUpload is not defined');
+						}
+
+						// Detect mediaType from current selection
+						let mediaType = 'image';
+						const { selection } = editor.state;
+						if (selection && 'node' in selection) {
+							const selectedNode = (selection as any).node;
+							if (selectedNode.type.name === this.name) {
+								mediaType = selectedNode.attrs.mediaType;
+							}
+						}
+
+						void onUpload(file)
+							.then((src) => {
+								editor.view.focus();
+								if (mediaType === 'audio') {
+									editor.commands.setAudio({ src });
+								} else if (mediaType === 'video') {
+									editor.commands.setVideo({ src });
+								} else {
+									editor.commands.setImage({ src });
+								}
+							})
+							.catch((error) => {
+								console.error('Failed to upload media:', error);
+							});
+
+						return true;
 					}
 			};
 		}

@@ -104,7 +104,7 @@ export const Video = Node.create<VideoOptions>({
 				default: null
 			},
 			width: {
-				default: null
+				default: '100%'
 			},
 			height: {
 				default: null
