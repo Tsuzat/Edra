@@ -34,7 +34,6 @@
 
 <BubbleMenu
 	{editor}
-	pluginKey="link-bubble-menu"
 	shouldShow={(props) => {
 		if (props.editor.isActive('link')) {
 			return true;
@@ -45,12 +44,9 @@
 		}
 	}}
 	options={{
-		shift: true,
-		autoPlacement: {
-			allowedPlacements: ['top', 'top-end', 'top-start']
-		},
-		strategy: 'absolute',
-		scrollTarget: document.querySelector('.bitch-editor') ?? undefined
+		placement: 'bottom',
+		offset: 8,
+		flip: true
 	}}
 	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border p-0!"
 >

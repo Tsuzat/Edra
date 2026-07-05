@@ -21,7 +21,7 @@
 .tiptap .is-empty:not(blockquote.is-empty)::before {
 	float: left;
 	height: 0;
-	color: var(--muted-foreground);
+	color: var(--color-muted-foreground);
 	pointer-events: none;
 	content: attr(data-placeholder);
 }
@@ -75,11 +75,11 @@
 
 .tiptap blockquote {
 	position: relative;
-	padding: 0.5rem 0;
+	padding: 0.25rem 0;
 	padding-left: 0.75rem;
 	margin: 1rem 0rem;
 	font-style: italic;
-	color: var(--blockquote-color);
+	color: var(--color-muted-foreground);
 }
 
 .tiptap blockquote::before {
@@ -87,9 +87,9 @@
 	top: 0;
 	bottom: 0;
 	left: 0;
-	width: 0.4rem;
+	width: 0.2rem;
 	content: ' ';
-	background-color: var(--blockquote-border);
+	background-color: var(--color-border);
 	border-radius: 0.5rem;
 }
 
