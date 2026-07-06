@@ -7,7 +7,7 @@
 		class: className,
 		children,
 		...props
-	}: { as?: string; class?: string; children?: Snippet; [key: string]: any } = $props();
+	}: { as?: string; class?: string; children?: Snippet; [key: string]: unknown } = $props();
 
 	let onDragStart = getContext<(event: DragEvent) => void>('onDragStart');
 	let decorationClasses = getContext<string>('decorationClasses');

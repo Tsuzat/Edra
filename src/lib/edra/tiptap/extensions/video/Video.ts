@@ -22,7 +22,7 @@ export interface VideoOptions {
 	 * @default {}
 	 * @example { class: 'foo' }
 	 */
-	HTMLAttributes: Record<string, any>;
+	HTMLAttributes: Record<string, unknown>;
 
 	/**
 	 * Controls if the Video should be resizable and how the resize is configured.

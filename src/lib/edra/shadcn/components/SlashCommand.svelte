@@ -13,7 +13,6 @@
 	}: {
 		items: FilteredGroup[];
 		command: (item: EdraCommand) => void;
-		[key: string]: any;
 	} = $props();
 
 	let scrollContainer = $state<HTMLElement | null>(null);

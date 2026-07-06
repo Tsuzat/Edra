@@ -1,5 +1,6 @@
-import { mergeAttributes, Node, textblockTypeInputRule } from '@tiptap/core';
+import { mergeAttributes, Node, textblockTypeInputRule, type NodeViewProps } from '@tiptap/core';
 import { SvelteNodeViewRenderer } from '../../index.ts';
+import type { Component } from 'svelte';
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
@@ -9,7 +10,7 @@ declare module '@tiptap/core' {
 	}
 }
 
-export const Mermaid = (component: any) =>
+export const Mermaid = (component: Component<NodeViewProps>) =>
 	Node.create({
 		name: 'mermaid',
 		group: 'block',
@@ -36,7 +37,11 @@ export const Mermaid = (component: any) =>
 				return src.indexOf(':::');
 			},
 
-			tokenize: (src: string, tokens: any, lexer: any) => {
+			tokenize: (
+				src: string,
+				tokens: unknown,
+				lexer: { blockTokens: (text: string) => unknown }
+			) => {
 				// Match :::mermaid\ncontent\n:::
 				const match = /^:::mermaid\n([\s\S]*?)\n:::/.exec(src);
 
@@ -53,7 +58,7 @@ export const Mermaid = (component: any) =>
 			}
 		},
 
-		parseMarkdown: (token: any) => {
+		parseMarkdown: (token: { text: string }) => {
 			return {
 				type: 'mermaid',
 				content: [
@@ -64,7 +69,7 @@ export const Mermaid = (component: any) =>
 				]
 			};
 		},
-		renderMarkdown: (node: any, helpers: any) => {
+		renderMarkdown: (node: unknown, helpers: { renderChildren: (node: unknown) => string }) => {
 			return `:::mermaid\n${helpers.renderChildren(node)}\n:::\n\n`;
 		},
 

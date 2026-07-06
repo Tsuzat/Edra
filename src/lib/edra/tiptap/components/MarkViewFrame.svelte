@@ -1,15 +1,17 @@
 <script lang="ts">
+	import type { Component as SvelteComponent } from 'svelte';
+
 	let {
 		component: Component,
 		extension,
 		...props
 	}: {
-		component: any;
+		component: SvelteComponent;
 		extension?: { name?: string };
-		[key: string]: any;
+		[key: string]: unknown;
 	} = $props();
 
-	let className = `svelte-renderer mark-${extension?.name || 'unknown'}`;
+	let className = $derived(`svelte-renderer mark-${extension?.name || 'unknown'}`);
 </script>
 
 <div class={className} data-mark-view-wrapper="">

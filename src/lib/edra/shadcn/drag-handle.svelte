@@ -40,10 +40,11 @@
 	const pluginKey = 'globalDragHandle';
 	let element = $state(document.createElement('div'));
 
-	const editorElement = document.getElementById('nota-editor');
+	let editorElement = $state<HTMLElement | null>(null);
 	const editor = getEditor();
 
 	onMount(() => {
+		editorElement = editor.view.dom.parentElement;
 		const plugin = DragHandlePlugin({
 			element,
 			pluginKey,

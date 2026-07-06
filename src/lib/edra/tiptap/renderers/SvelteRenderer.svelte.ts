@@ -1,23 +1,23 @@
-import { mount, unmount } from 'svelte';
+import { mount, unmount, type Component } from 'svelte';
 
 export interface SvelteRendererOptions {
-	props?: Record<string, any>;
+	props?: Record<string, unknown>;
 }
 
 export class SvelteRenderer {
 	private container: Element;
 
-	private componentInstance: Record<string, any> | null = null;
+	private componentInstance: Record<string, unknown> | null = null;
 
-	private component: any;
+	private component: Component;
 
-	private store = $state<Record<string, any>>({});
+	private store = $state<Record<string, unknown>>({});
 
 	destroyed = false;
 
 	el: Element | null = null;
 
-	constructor(component: any, { props = {} }: SvelteRendererOptions = {}) {
+	constructor(component: Component, { props = {} }: SvelteRendererOptions = {}) {
 		this.component = component;
 		this.container = document.createElement('div');
 		Object.assign(this.store, props);
@@ -28,11 +28,11 @@ export class SvelteRenderer {
 		return this.el;
 	}
 
-	get props(): Record<string, any> {
+	get props(): Record<string, unknown> {
 		return this.store;
 	}
 
-	get ref(): any {
+	get ref(): Record<string, unknown> | null {
 		return this.componentInstance;
 	}
 
@@ -49,7 +49,7 @@ export class SvelteRenderer {
 		this.el = this.container.firstElementChild as Element | null;
 	}
 
-	updateProps(props: Record<string, any> = {}): void {
+	updateProps(props: Record<string, unknown> = {}): void {
 		if (this.destroyed) {
 			return;
 		}

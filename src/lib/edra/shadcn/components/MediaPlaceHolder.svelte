@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
 	import { AudioLines, Video, Image, CodeXml } from '@lucide/svelte';
 	import { type NodeViewProps } from '@tiptap/core';

@@ -1,5 +1,6 @@
 import type { MarkViewProps, MarkViewRenderer, MarkViewRendererOptions } from '@tiptap/core';
 import { MarkView } from '@tiptap/core';
+import type { Component } from 'svelte';
 
 import MarkViewFrame from '../components/MarkViewFrame.svelte';
 import { SvelteRenderer } from './SvelteRenderer.svelte.js';
@@ -10,11 +11,11 @@ export interface SvelteMarkViewRendererOptions extends MarkViewRendererOptions {
 	attrs?: { [key: string]: string };
 }
 
-class SvelteMarkView extends MarkView<any, SvelteMarkViewRendererOptions> {
+class SvelteMarkView extends MarkView<Component, SvelteMarkViewRendererOptions> {
 	renderer: SvelteRenderer;
 
 	constructor(
-		component: any,
+		component: Component,
 		props: MarkViewProps,
 		options?: Partial<SvelteMarkViewRendererOptions>
 	) {
@@ -47,7 +48,7 @@ class SvelteMarkView extends MarkView<any, SvelteMarkViewRendererOptions> {
 }
 
 export function SvelteMarkViewRenderer(
-	component: any,
+	component: Component,
 	options: Partial<SvelteMarkViewRendererOptions> = {}
 ): MarkViewRenderer {
 	return (props) => {

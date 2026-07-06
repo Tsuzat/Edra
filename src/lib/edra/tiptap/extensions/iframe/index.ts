@@ -1,6 +1,7 @@
-import { Node } from '@tiptap/core';
+import { Node, type NodeViewProps } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { SvelteNodeViewRenderer } from '../../index.ts';
+import type { Component } from 'svelte';
 
 export interface IframeOptions {
 	allowFullscreen: boolean;
@@ -134,7 +135,7 @@ const IFrame = Node.create<IframeOptions>({
 	}
 });
 
-export const IFrameExtended = (content: any) =>
+export const IFrameExtended = (component: Component<NodeViewProps>) =>
 	IFrame.extend({
 		addAttributes() {
 			return {
@@ -160,6 +161,6 @@ export const IFrameExtended = (content: any) =>
 		},
 
 		addNodeView: () => {
-			return SvelteNodeViewRenderer(content);
+			return SvelteNodeViewRenderer(component);
 		}
 	});

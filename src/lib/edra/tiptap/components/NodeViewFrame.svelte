@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { setContext } from 'svelte';
+	import { setContext, type Component as SvelteComponent } from 'svelte';
 
 	let {
 		component: Component,
@@ -7,10 +7,10 @@
 		decorationClasses,
 		...props
 	}: {
-		component: any;
+		component: SvelteComponent;
 		onDragStart: (event: DragEvent) => void;
 		decorationClasses: string;
-		[key: string]: any;
+		[key: string]: unknown;
 	} = $props();
 
 	setContext('onDragStart', onDragStart);

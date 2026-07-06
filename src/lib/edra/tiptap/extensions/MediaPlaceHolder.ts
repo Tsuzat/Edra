@@ -1,8 +1,10 @@
-import { mergeAttributes, Node } from '@tiptap/core';
+import { mergeAttributes, Node, type NodeViewProps } from '@tiptap/core';
 import { SvelteNodeViewRenderer } from '../index.ts';
+import type { Component } from 'svelte';
+import { NodeSelection } from '@tiptap/pm/state';
 
 export interface MediaPlaceholderOptions {
-	HTMLAttributes: Record<string, any>;
+	HTMLAttributes: Record<string, unknown>;
 	onUpload?: (file: File) => Promise<string>;
 }
 
@@ -35,7 +37,7 @@ declare module '@tiptap/core' {
 	}
 }
 
-export const MediaPlaceholder = (component: any) =>
+export const MediaPlaceholder = (component: Component<NodeViewProps>) =>
 	Node.create<MediaPlaceholderOptions>({
 		name: 'mediaPlaceholder',
 
@@ -121,8 +123,8 @@ export const MediaPlaceholder = (component: any) =>
 						// Detect mediaType from current selection
 						let mediaType = 'image';
 						const { selection } = editor.state;
-						if (selection && 'node' in selection) {
-							const selectedNode = (selection as any).node;
+						if (selection instanceof NodeSelection) {
+							const selectedNode = selection.node;
 							if (selectedNode.type.name === this.name) {
 								mediaType = selectedNode.attrs.mediaType;
 							}

@@ -1,1 +1,1 @@
-export interface EdraEditorOptions {}
+export type EdraEditorOptions = Record<string, never>;

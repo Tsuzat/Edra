@@ -16,11 +16,13 @@
 	}
 	const { class: className = '' }: Props = $props();
 
-	mermaid.initialize({
-		startOnLoad: false,
-		theme: mode.current === 'dark' ? 'dark' : 'default',
-		securityLevel: 'loose',
-		fontFamily: 'inherit'
+	$effect(() => {
+		mermaid.initialize({
+			startOnLoad: false,
+			theme: mode.current === 'dark' ? 'dark' : 'default',
+			securityLevel: 'loose',
+			fontFamily: 'inherit'
+		});
 	});
 </script>
 

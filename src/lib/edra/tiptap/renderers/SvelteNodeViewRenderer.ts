@@ -4,6 +4,7 @@ import type {
 	NodeViewRenderer,
 	NodeViewRendererOptions
 } from '@tiptap/core';
+import type { Component } from 'svelte';
 import { NodeView } from '@tiptap/core';
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import type { Decoration, DecorationSource } from '@tiptap/pm/view';
@@ -26,7 +27,7 @@ export interface SvelteNodeViewRendererOptions extends NodeViewRendererOptions {
 		| null;
 }
 
-class SvelteNodeView extends NodeView<any, Editor, SvelteNodeViewRendererOptions> {
+class SvelteNodeView extends NodeView<Component, Editor, SvelteNodeViewRendererOptions> {
 	declare renderer: SvelteRenderer;
 
 	declare decorationClasses: string;
@@ -127,7 +128,7 @@ class SvelteNodeView extends NodeView<any, Editor, SvelteNodeViewRendererOptions
 		decorations: readonly Decoration[],
 		innerDecorations: DecorationSource
 	): boolean {
-		const rerenderComponent = (props?: Record<string, any>) => {
+		const rerenderComponent = (props?: Record<string, unknown>) => {
 			this.decorationClasses = this.getDecorationClasses();
 			this.renderer.updateProps({ decorationClasses: this.decorationClasses, ...props });
 		};
@@ -205,7 +206,7 @@ class SvelteNodeView extends NodeView<any, Editor, SvelteNodeViewRendererOptions
 	getDecorationClasses() {
 		return (
 			this.decorations
-				// @ts-ignore
+				// @ts-expect-error - FlatMap signature attributes might be class strings not typed in core
 				.flatMap((item) => item.type.attrs.class)
 				.join(' ')
 		);
@@ -218,7 +219,7 @@ class SvelteNodeView extends NodeView<any, Editor, SvelteNodeViewRendererOptions
 }
 
 export function SvelteNodeViewRenderer(
-	component: any,
+	component: Component,
 	options?: Partial<SvelteNodeViewRendererOptions>
 ): NodeViewRenderer {
 	return (props) => {

@@ -14,7 +14,7 @@
 		selector: ({ editor }) => ({
 			currentColor: editor.getAttributes('textStyle').color,
 			currentHighlight: editor.getAttributes('highlight').color,
-			isActive(name: string, opts: Record<string, any>) {
+			isActive(name: string, opts: Record<string, unknown>) {
 				return editor.isActive(name, opts) ?? false;
 			}
 		})

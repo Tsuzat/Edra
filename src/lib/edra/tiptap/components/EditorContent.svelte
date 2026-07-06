@@ -27,4 +27,4 @@
 	});
 </script>
 
-<div bind:this={rootEl} class={className} />
+<div bind:this={rootEl} class={className}></div>

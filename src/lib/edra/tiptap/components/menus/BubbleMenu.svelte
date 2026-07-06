@@ -14,7 +14,7 @@
 		getReferencedVirtualElement?: BubbleMenuPluginProps['getReferencedVirtualElement'];
 		children: Snippet<[]>;
 		class?: string;
-		[key: string]: any;
+		[key: string]: unknown;
 	}
 
 	let {
@@ -28,7 +28,7 @@
 		getReferencedVirtualElement = undefined,
 		children,
 		class: className,
-		rest
+		...rest
 	}: Props = $props();
 
 	let rootEl: HTMLDivElement | undefined = $state();
