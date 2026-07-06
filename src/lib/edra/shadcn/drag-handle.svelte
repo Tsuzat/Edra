@@ -49,7 +49,7 @@
 			pluginKey,
 			editor,
 			computePositionConfig: {
-				strategy: 'fixed',
+				strategy: 'absolute',
 				middleware: [
 					autoPlacement({
 						allowedPlacements: ['left', 'left-start']

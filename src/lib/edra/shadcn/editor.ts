@@ -1,5 +1,7 @@
 import {
+	IFrameExtended,
 	ImageExtended,
+	Mermaid,
 	SvelteNodeViewRenderer,
 	useEditor,
 	VideoExtended
@@ -13,6 +15,8 @@ import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
 import MediaPlaceholderComp from './components/MediaPlaceHolder.svelte';
 import ImageExtendedComp from './components/ImageExtended.svelte';
 import VideoExtendedComp from './components/VideoExtended.svelte';
+import IFrameComp from './components/IFrame.svelte';
+import MermaidComp from './components/Mermaid.svelte';
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -34,7 +38,9 @@ export const createEditor = (props?: EdraEditorProps) =>
 				onUpload: props?.onFileUpload
 			}),
 			ImageExtended(ImageExtendedComp),
-			VideoExtended(VideoExtendedComp)
+			VideoExtended(VideoExtendedComp),
+			IFrameExtended(IFrameComp),
+			Mermaid(MermaidComp)
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});

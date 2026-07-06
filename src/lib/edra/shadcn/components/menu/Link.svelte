@@ -22,7 +22,7 @@
 
 	let isEditing = $state(false);
 
-	let linkInput = $state($editorState.link);
+	let linkInput = $derived($editorState.link);
 
 	function handleSubmit(e: Event) {
 		e.preventDefault();

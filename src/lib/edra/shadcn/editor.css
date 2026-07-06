@@ -72,6 +72,12 @@
 .tiptap em {
 	font-weight: 200;
 }
+.tiptap audio {
+	width: 100%;
+	max-width: 64rem;
+	display: block;
+	margin: 1rem 0;
+}
 
 .tiptap blockquote {
 	position: relative;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
-	import { AudioLines, Video, Image } from '@lucide/svelte';
+	import { AudioLines, Video, Image, CodeXml } from '@lucide/svelte';
 	import { type NodeViewProps } from '@tiptap/core';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
@@ -39,6 +39,11 @@
 					icon: Image,
 					text: 'Insert An Image File'
 				};
+			case 'iframe':
+				return {
+					icon: CodeXml,
+					text: 'Insert An IFrame'
+				};
 		}
 	});
 
@@ -49,6 +54,8 @@
 			editor.chain().focus().setVideo({ src }).run();
 		} else if (mediaType === 'image') {
 			editor.chain().focus().setImage({ src }).run();
+		} else if (mediaType === 'iframe') {
+			editor.chain().focus().setIframe({ src }).run();
 		}
 	}
 </script>
@@ -67,7 +74,9 @@
 			<Tabs.Root value="link" class="w-full">
 				<Tabs.List>
 					<Tabs.Trigger value="link">Link</Tabs.Trigger>
-					<Tabs.Trigger value="file">File</Tabs.Trigger>
+					{#if mediaType !== 'iframe'}
+						<Tabs.Trigger value="file">File</Tabs.Trigger>
+					{/if}
 				</Tabs.List>
 				<Tabs.Content value="link">
 					<form class="flex flex-col gap-2">
@@ -77,12 +86,14 @@
 						>
 					</form>
 				</Tabs.Content>
-				<Tabs.Content value="file">
-					<form class="flex flex-col gap-2" onsubmit={handleFileSubmit}>
-						<Input type="file" bind:files />
-						<Button type="submit" class="capitalize">Insert {mediaType}</Button>
-					</form>
-				</Tabs.Content>
+				{#if mediaType !== 'iframe'}
+					<Tabs.Content value="file">
+						<form class="flex flex-col gap-2" onsubmit={handleFileSubmit}>
+							<Input type="file" bind:files />
+							<Button type="submit" class="capitalize">Insert {mediaType}</Button>
+						</form>
+					</Tabs.Content>
+				{/if}
 			</Tabs.Root>
 		</Popover.Content>
 	</Popover.Root>
