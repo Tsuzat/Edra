@@ -2,6 +2,7 @@ import {
 	IFrameExtended,
 	ImageExtended,
 	Mermaid,
+	SlashCommand,
 	SvelteNodeViewRenderer,
 	useEditor,
 	VideoExtended
@@ -17,6 +18,7 @@ import ImageExtendedComp from './components/ImageExtended.svelte';
 import VideoExtendedComp from './components/VideoExtended.svelte';
 import IFrameComp from './components/IFrame.svelte';
 import MermaidComp from './components/Mermaid.svelte';
+import SlashCommandComp from './components/SlashCommand.svelte';
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -40,7 +42,8 @@ export const createEditor = (props?: EdraEditorProps) =>
 			ImageExtended(ImageExtendedComp),
 			VideoExtended(VideoExtendedComp),
 			IFrameExtended(IFrameComp),
-			Mermaid(MermaidComp)
+			Mermaid(MermaidComp),
+			SlashCommand(SlashCommandComp)
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});

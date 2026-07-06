@@ -5,3 +5,4 @@ export * from './image/ImageExtended.ts';
 export * from './video/VideoExtended.ts';
 export * from './iframe/index.js';
 export * from './mermaid/index.js';
+export { default as SlashCommand } from './slash/index.js';

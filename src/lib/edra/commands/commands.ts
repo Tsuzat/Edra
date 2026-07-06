@@ -34,6 +34,7 @@ import { ISMAC } from '../utils.js';
 import strings from '../strings.js';
 import { type Editor } from '../tiptap/index.ts';
 import { FileCode, type Icon } from '@lucide/svelte';
+import Workflow from '@lucide/svelte/icons/workflow';
 
 export interface EdraCommand {
 	name: string;
@@ -540,6 +541,17 @@ export const commands: Record<string, EdraCommand[]> = {
 				editor.chain().focus().insertBlockMath({ latex }).run();
 			},
 			isActive: (editor) => editor.isActive('blockMath')
+		}
+	],
+	diagram: [
+		{
+			icon: Workflow,
+			name: 'mermaid',
+			tooltip: 'Mermaid Diagram',
+			onClick: (editor) => {
+				editor.chain().focus().setMermaid(' ').run();
+			},
+			isActive: (editor) => editor.isActive('mermaid')
 		}
 	]
 };

@@ -32,7 +32,7 @@ const strings = {
 		inlineExpression: 'Inline Expression',
 		blockExpression: 'Block Expression',
 		horizontalRule: 'Horizontal Rule',
-
+		mermaidDiagram: 'Mermaid Diagram',
 		formatGroup: 'Format',
 		insertGroup: 'Insert'
 	},
