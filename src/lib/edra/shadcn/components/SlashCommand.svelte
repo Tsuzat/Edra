@@ -120,8 +120,7 @@
 
 		{#each grp.commands as command, commandIndex (commandIndex)}
 			{@const Icon = command.icon}
-			{@const isActive =
-				selectedGroupIndex === groupIndex && selectedCommandIndex === commandIndex}
+			{@const isActive = selectedGroupIndex === groupIndex && selectedCommandIndex === commandIndex}
 			<button
 				id={`slash-${groupIndex}-${commandIndex}`}
 				class="relative flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden select-none transition-colors
