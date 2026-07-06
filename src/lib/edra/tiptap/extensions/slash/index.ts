@@ -139,15 +139,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 
 						return isValidAfterContent;
 					},
-					command: ({
-						editor,
-						range,
-						props
-					}: {
-						editor: Editor;
-						range: { from: number; to: number };
-						props: EdraCommand;
-					}) => {
+					command: ({ editor, range, props }) => {
 						// Use Suggestion's provided range to cleanly delete the /query text
 						// instead of manual positional math.
 						editor.chain().focus().deleteRange(range).run();

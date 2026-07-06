@@ -19,7 +19,7 @@
 
 <svelte:element
 	this={as}
-	data-node-view-wrapper=""
+	data-node-view-wrapper="hello"
 	class={combinedClass}
 	style="white-space: normal"
 	ondragstart={onDragStart}

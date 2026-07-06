@@ -19,6 +19,6 @@
 	<Edra {editor}>
 		<Edra.DragHandle />
 		<Edra.Toolbar class="border-b p-1 overflow-x-scroll max-w-full!" />
-		<Edra.Content class="*:outline-none cursor-auto h-96 overflow-y-scroll px-8" />
+		<Edra.Content class="*:outline-none cursor-auto h-120 overflow-y-scroll px-8" />
 	</Edra>
 </div>

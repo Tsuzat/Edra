@@ -5,6 +5,7 @@
 	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
 	import { cn } from '$lib/utils.js';
 	import Colors from './tools/Colors.svelte';
+	import Export from './tools/Export.svelte';
 	import Tooltip from './Tooltip.svelte';
 	interface Props {
 		class?: string;
@@ -47,4 +48,5 @@
 		<Separator orientation="vertical" class="h-6!" />
 	{/each}
 	<Colors />
+	<Export />
 </div>

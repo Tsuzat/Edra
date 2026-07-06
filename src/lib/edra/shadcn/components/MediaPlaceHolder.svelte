@@ -63,38 +63,44 @@
 <NodeViewWrapper class="my-2 w-full!">
 	{@const Icon = mediaTypeData?.icon}
 	{@const text = mediaTypeData?.text}
-	<Popover.Root bind:open>
-		<Popover.Trigger
-			class={buttonVariants({ variant: 'secondary', class: 'w-full! h-12 justify-start' })}
-		>
-			<Icon />
-			<span>{text}</span>
-		</Popover.Trigger>
-		<Popover.Content>
-			<Tabs.Root value="link" class="w-full">
-				<Tabs.List>
-					<Tabs.Trigger value="link">Link</Tabs.Trigger>
-					{#if mediaType !== 'iframe'}
-						<Tabs.Trigger value="file">File</Tabs.Trigger>
-					{/if}
-				</Tabs.List>
-				<Tabs.Content value="link">
-					<form class="flex flex-col gap-2">
-						<Input type="url" bind:value={url} />
-						<Button type="submit" class="capitalize" onclick={() => setMediaFn(url)}
-							>Insert {mediaType}</Button
-						>
-					</form>
-				</Tabs.Content>
-				{#if mediaType !== 'iframe'}
-					<Tabs.Content value="file">
-						<form class="flex flex-col gap-2" onsubmit={handleFileSubmit}>
-							<Input type="file" bind:files />
-							<Button type="submit" class="capitalize">Insert {mediaType}</Button>
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div
+		role="button"
+		tabindex={1}
+		class="flex w-full items-center gap-2 rounded-lg border border-dashed bg-muted/30 p-4 transition-colors hover:bg-muted/50 min-h-14"
+		onclick={() => (open = true)}
+	>
+		<Icon class="size-4 text-muted-foreground" />
+		<span class="text-muted-foreground text-sm" contenteditable={false}>{text}</span>
+
+		<Popover.Root bind:open>
+			<Popover.Trigger class="sr-only left-1/2"></Popover.Trigger>
+			<Popover.Content portalProps={{ to: undefined }}>
+				<Tabs.Root value="link" class="w-full">
+					<Tabs.List>
+						<Tabs.Trigger value="link">Link</Tabs.Trigger>
+						{#if mediaType !== 'iframe'}
+							<Tabs.Trigger value="file">File</Tabs.Trigger>
+						{/if}
+					</Tabs.List>
+					<Tabs.Content value="link">
+						<form class="flex flex-col gap-2">
+							<Input type="url" bind:value={url} />
+							<Button type="submit" class="capitalize" onclick={() => setMediaFn(url)}
+								>Insert {mediaType}</Button
+							>
 						</form>
 					</Tabs.Content>
-				{/if}
-			</Tabs.Root>
-		</Popover.Content>
-	</Popover.Root>
+					{#if mediaType !== 'iframe'}
+						<Tabs.Content value="file">
+							<form class="flex flex-col gap-2" onsubmit={handleFileSubmit}>
+								<Input type="file" bind:files />
+								<Button type="submit" class="capitalize">Insert {mediaType}</Button>
+							</form>
+						</Tabs.Content>
+					{/if}
+				</Tabs.Root>
+			</Popover.Content>
+		</Popover.Root>
+	</div>
 </NodeViewWrapper>
