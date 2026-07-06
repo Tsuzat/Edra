@@ -1,13 +1,13 @@
 import type { Editor } from '@tiptap/core';
 import type { Node } from '@tiptap/pm/model';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
-import { browser } from '$app/environment';
+const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 import strings from './strings.js';
 
 /**
  * Check if the current browser is in mac or not
  */
-export const ISMAC = browser
+export const ISMAC = isBrowser
 	? navigator.userAgent.includes('Macintosh') || navigator.userAgent.includes('Mac OS X')
 	: false;
 
