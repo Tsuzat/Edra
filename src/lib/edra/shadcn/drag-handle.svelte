@@ -18,7 +18,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { commands, type EdraCommand } from '../commands/index.js';
 	import { quickcolors } from '../utils.js';
-	import { getEditor, useEditorState } from '../tiptap/index.ts';
+	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
 
 	const alignments = commands.alignment;
 	const turnIntos: Record<string, EdraCommand[]> = Object.entries(commands).reduce(
@@ -42,14 +42,13 @@
 
 	let editorElement = $state<HTMLElement | null>(null);
 	const editor = getEditor();
-	const editorState = useEditorState({
-		editor,
-		selector: ({ editor }) => ({
-			useAI: editor.extensionManager.extensions.some(
-				(e) => e.name === 'ai-highlight' && e.options?.callAI != null
-			)
-		})
-	});
+	const transaction = useEditorTransaction(editor);
+	function useAI() {
+		void transaction.version;
+		return editor.extensionManager.extensions.some(
+			(e) => e.name === 'ai-highlight' && e.options?.callAI != null
+		);
+	}
 
 	onMount(() => {
 		editorElement = editor.view.dom.parentElement;
@@ -207,11 +206,8 @@
 				<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
 					{currentNode?.type.name}
 				</DropdownMenu.GroupHeading>
-				{#if $editorState.useAI}
-					<DropdownMenu.Item
-						onmousedown={(e) => e.preventDefault()}
-						onclick={handleAIHighlight}
-					>
+				{#if useAI()}
+					<DropdownMenu.Item onmousedown={(e) => e.preventDefault()} onclick={handleAIHighlight}>
 						<Sparkles />
 						<span
 							class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"

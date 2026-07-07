@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import { fade, slide } from 'svelte/transition';
+	import {
+		BubbleMenu,
+		getEditor,
+		removeAIHighlight,
+		useEditorTransaction
+	} from '$lib/edra/tiptap/index.js';
+	import { toast } from 'svelte-sonner';
 	import {
 		AIState,
 		CONTINUE_WRITING_PROMPT,
@@ -12,50 +17,27 @@
 		SOLVE_PROBLEM_PROMPT,
 		SUMMARIZE_PROMPT
 	} from '../../../commands/index.js';
+	import { fade, slide } from 'svelte/transition';
 	import {
-		BubbleMenu,
-		Editor,
-		getEditor,
-		removeAIHighlight,
-		useEditorState
-	} from '$lib/edra/tiptap/index.js';
-	import Sparkles from '@lucide/svelte/icons/sparkles';
-	import CheckCheck from '@lucide/svelte/icons/check-check';
-	import ArrowDownWideNarrow from '@lucide/svelte/icons/arrow-down-wide-narrow';
-	import TextWrap from '@lucide/svelte/icons/text-wrap';
-	import Feather from '@lucide/svelte/icons/feather';
-	import RefreshCcwDot from '@lucide/svelte/icons/refresh-ccw-dot';
-	import PenLine from '@lucide/svelte/icons/pen-line';
-	import Brain from '@lucide/svelte/icons/brain';
-	import Sparkle from '@lucide/svelte/icons/sparkle';
+		Sparkle,
+		Check,
+		CornerDownLeft,
+		Copy,
+		RotateCcw,
+		Trash2,
+		Brain,
+		ArrowDownWideNarrow,
+		CheckCheck,
+		Feather,
+		PenLine,
+		RefreshCcwDot,
+		Sparkles,
+		TextWrap
+	} from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Check, Copy, CornerDownLeft, RotateCcw, Trash2 } from '@lucide/svelte';
 
 	let inputTag = $state<HTMLTextAreaElement | null>(null);
 	const editor = getEditor();
-
-	const activeCallAI = $derived(
-		editor.extensionManager.extensions.find((e) => e.name === 'ai-highlight')?.options?.callAI
-	);
-	const editorState = useEditorState({
-		editor,
-		selector: ({ editor }) => ({
-			isAIActive: editor.isActive('ai-highlight')
-		})
-	});
-	let errorText = $state('');
-	let capturedText = $state('');
-
-	function getAIHighlightedText(editor: Editor): string {
-		let text = '';
-		if (!editor.state) return '';
-		editor.state.doc.descendants((node) => {
-			if (node.isText && node.marks.some((mark) => mark.type.name === 'ai-highlight')) {
-				text += node.text || '';
-			}
-		});
-		return text;
-	}
 
 	let inputValue = $state('');
 	let aiState = $state(AIState.Idle);
@@ -70,29 +52,31 @@
 	let lastPrompt = $state('');
 	let updateTimer: ReturnType<typeof setTimeout> | null = null;
 
-	$effect(() => {
-		const updateCapturedText = () => {
-			if ($editorState.isAIActive) {
-				capturedText = getAIHighlightedText(editor);
-			} else {
-				capturedText = '';
-			}
-		};
-		updateCapturedText();
-		editor.on('transaction', updateCapturedText);
-		return () => {
-			editor.off('transaction', updateCapturedText);
-		};
-	});
+	const activeCallAI = $derived(
+		editor.extensionManager.extensions.find((e) => e.name === 'ai-highlight')?.options?.callAI
+	);
+	const transaction = useEditorTransaction(editor);
+
+	function isAIActive() {
+		void transaction.version;
+		return editor.isActive('ai-highlight');
+	}
+
+	function getSelectionText(): string | undefined {
+		void transaction.version;
+		const { from, to } = editor.view.state.selection;
+		const slice = editor.view.state.doc.cut(from, to);
+		if (editor.markdown) return editor.markdown.serialize(slice.toJSON());
+	}
 
 	async function processText(
 		type:
 			'shorter' | 'longer' | 'summarize' | 'grammer' | 'continue' | 'solve' | 'improve' | 'simplify'
 	) {
-		errorText = '';
-		const selectedText = capturedText;
+		const id = Symbol('AI_THINKING_TOAST').toString();
+		const selectedText = getSelectionText();
 		if (!selectedText || selectedText.trim().length === 0) {
-			errorText = 'Can not get the selected content from editor';
+			toast.error('Can not get the selected content from editor', { id });
 			return;
 		}
 		try {
@@ -124,38 +108,34 @@
 					break;
 			}
 			aiState = AIState.Confirmation;
-			generating = true;
-			await tick();
 			await generateAIContent(prompt);
 		} catch (error) {
 			aiState = AIState.Idle;
 			console.error(error);
-			errorText = 'Something went wrong! Check console.';
+			toast.error('Something went wrong! Check console.', { id });
 		}
 	}
 
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = capturedText;
+		const text = getSelectionText();
 		if (!text) return;
-		errorText = '';
 		try {
 			const prompt = `${text}\n\n\n${inputValue}`;
 			inputValue = '';
 			if (inputTag) inputTag.style.height = 'auto';
 			aiState = AIState.Confirmation;
-			generating = true;
-			await tick();
 			await generateAIContent(prompt);
 		} catch (error) {
 			aiState = AIState.Idle;
 			console.error(error);
-			errorText = 'Something went wrong! Check console.';
+			toast.error('Something went wrong! Check console.');
 		}
 	}
 
 	async function generateAIContent(prompt: string) {
+		void transaction.version;
 		generating = true;
 		lastPrompt = prompt;
 		aiResponse = '';
@@ -176,20 +156,20 @@
 				scheduleEditorUpdate();
 			};
 			const onError = (error: Error) => {
-				errorText = 'Something went wrong when calling AI.';
+				toast.error('Something went wrong when calling AI.', {
+					description: error.message
+				});
 				console.error(error);
 				cleanupAIContent();
 				aiState = AIState.Idle;
 				aiResponse = '';
 				generating = false;
 			};
+
 			if (activeCallAI) {
 				await activeCallAI(prompt, onChunk, onError);
-			} else {
-				throw new Error('callAI function is not configured.');
 			}
 			// Final flush to ensure all content is rendered in the editor
-			aiState = AIState.Confirmation;
 			flushEditorUpdate();
 		} finally {
 			generating = false;
@@ -202,11 +182,12 @@
 		updateTimer = setTimeout(() => {
 			flushEditorUpdate();
 			updateTimer = null;
-		}, 300);
+		}, 100);
 	}
 
 	/** Insert or replace the AI content region in the editor with the accumulated response */
 	function flushEditorUpdate() {
+		void transaction.version;
 		if (updateTimer) {
 			clearTimeout(updateTimer);
 			updateTimer = null;
@@ -254,7 +235,7 @@
 				aiContentFrom,
 				aiContentTo,
 				editor.state.schema.marks['ai-highlight'].create({
-					color: '#e8f5e940'
+					color: 'var(--color-muted)'
 				})
 			);
 			editor.view.dispatch(tr);
@@ -270,6 +251,7 @@
 
 	/** Remove AI-generated content from the editor (without adding to undo history) */
 	function cleanupAIContent() {
+		void transaction.version;
 		if (aiContentFrom < aiContentTo) {
 			try {
 				editor
@@ -289,6 +271,7 @@
 
 	/** Replace: delete original selection, keep AI text */
 	function replaceSelection() {
+		void transaction.version;
 		try {
 			const response = aiResponse;
 
@@ -308,7 +291,7 @@
 			aiResponse = '';
 		} catch (error) {
 			console.error(error);
-			errorText = 'Unable to replace. Copy content and paste manually.';
+			toast.error('Unable to replace. Copy content and paste manually.');
 		}
 	}
 
@@ -322,6 +305,7 @@
 	/** Copy AI response to clipboard */
 	function copyToClipboard() {
 		window.navigator.clipboard.writeText(aiResponse);
+		toast.success('Copied to clipboard');
 	}
 
 	/** Retry: delete AI content, re-run with same prompt */
@@ -352,7 +336,6 @@
 		aiState = AIState.Idle;
 		aiResponse = '';
 		lastPrompt = '';
-		errorText = '';
 	}
 
 	const quickActions = [
@@ -416,7 +399,7 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		if ($editorState.isAIActive === false && aiState !== AIState.Confirmation) return;
+		if (!isAIActive() && aiState !== AIState.Confirmation) return;
 
 		if (event.key === 'Escape') {
 			event.preventDefault();
@@ -425,7 +408,8 @@
 		}
 
 		if (aiState === AIState.Idle) {
-			const showQuickActions = capturedText.trim().length && inputValue.trim()?.length === 0;
+			const showQuickActions =
+				getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0;
 			if (showQuickActions) {
 				if (event.key === 'ArrowDown') {
 					event.preventDefault();
@@ -466,7 +450,7 @@
 	{@const Icon = action.icon}
 	<button
 		onclick={action.handler}
-		class="focus:bg-accent p-1.5 focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 w-full transition-colors {activeOptionIndex ===
+		class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 w-full transition-colors {activeOptionIndex ===
 		idx
 			? 'bg-accent text-accent-foreground quick-action-active'
 			: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}"
@@ -474,7 +458,7 @@
 		<Icon />
 		<span class="flex-1 text-start font-medium ml-2">{action.label}</span>
 		{#if activeOptionIndex === idx}
-			<span class="text-xs text-muted-foreground">Enter</span>
+			<span class="bg-muted/75 text-muted-foreground rounded-sm px-1">Enter</span>
 		{/if}
 	</button>
 {/snippet}
@@ -484,16 +468,16 @@
 	pluginKey="edra-bubble-menu"
 	shouldShow={(props) => {
 		if (!props.editor.isEditable || props.editor.isDestroyed) return false;
-		const { view, editor } = props;
-		if (!view || editor.view.dragging) return false;
-
-		if (errorText) return true;
+		if (!props.view || props.editor.view.dragging) return false;
 
 		// Always show during AI confirmation (streaming or action bar)
 		if (aiState === AIState.Confirmation) return true;
 
 		if (props.editor.isActive('ai-highlight')) return true;
 
+		removeAIHighlight(props.editor);
+		aiState = AIState.Idle;
+		aiResponse = '';
 		return false;
 	}}
 	class="bg-popover/75 backdrop-blur-2xl rounded-lg flex max-h-120 max-w-3xl w-full flex-col p-0 transition-[height] duration-500 z-100"
@@ -502,31 +486,17 @@
 		autoPlacement: {
 			allowedPlacements: ['bottom-start', 'top-start']
 		},
-		scrollTarget: editor.view.dom.parentElement ?? window,
+		scrollTarget: editor.view.dom.parentElement ?? undefined,
 		onShow() {
 			activeOptionIndex = 0;
 			inputTag?.focus();
 		},
 		onHide() {
 			inputTag?.blur();
-			if (!generating) {
-				cleanupAIContent();
-				removeAIHighlight(editor);
-				aiState = AIState.Idle;
-				aiResponse = '';
-			}
 		}
 	}}
 >
-	{#if errorText}
-		<div
-			transition:fade
-			class="flex items-center gap-3 border shadow-2xl justify-between p-2.5 rounded-lg bg-popover max-w-md w-full"
-		>
-			<span class="text-destructive text-sm font-medium flex-1 pl-1">{errorText}</span>
-			<Button variant="outline" size="sm" onclick={closeAI}>Close</Button>
-		</div>
-	{:else if aiState === AIState.Idle}
+	{#if aiState === AIState.Idle}
 		<div class="shadow-2xl w-xl border backdrop-blur-2xl rounded-xl flex flex-col overflow-hidden">
 			<!-- Input Area -->
 			<div class="px-3 py-3">
@@ -539,7 +509,7 @@
 					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
 			</div>
 
-			{#if capturedText.trim().length && inputValue.trim()?.length === 0}
+			{#if getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}
@@ -563,9 +533,8 @@
 						AI is writing</span
 					>
 					<div class="flex h-5 items-center space-x-1">
-						{#each Array(3) as idx, i (i)}
+						{#each Array(3) as _unused, i (i)}
 							<div
-								data-id={idx}
 								class="bg-primary h-1 w-1 animate-[bounce-dots_1.4s_ease-in-out_infinite] rounded-full"
 								style:animation-delay="{i * 160}ms"
 							></div>
@@ -580,7 +549,6 @@
 				transition:fade
 				class="flex items-center gap-2 border shadow-2xl justify-between p-2 rounded-lg"
 			>
-				<!-- Left: Replace, Insert, Copy -->
 				<Button size="sm" onclick={replaceSelection}>
 					<Check />
 					Replace

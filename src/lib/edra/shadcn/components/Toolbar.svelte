@@ -2,12 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { commands } from '$lib/edra/commands/index.js';
-	import {
-		addAIHighlight,
-		getEditor,
-		useEditorState,
-		useEditorTransaction
-	} from '$lib/edra/tiptap/index.js';
+	import { addAIHighlight, getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
 	import { cn } from '$lib/utils.js';
 	import { WandSparkles } from '@lucide/svelte';
 	import Colors from './tools/Colors.svelte';
@@ -19,16 +14,16 @@
 	const { class: className }: Props = $props();
 
 	const editor = getEditor();
-	const editorState = useEditorState({
-		editor,
-		selector: ({ editor }) => ({
-			useAI: editor.extensionManager.extensions.some(
-				(e) => e.name === 'ai-highlight' && e.options?.callAI != null
-			)
-		})
-	});
+
 	const transaction = useEditorTransaction(editor);
 	const commandsKeys = Object.keys(commands);
+
+	function useAI() {
+		void transaction.version;
+		return editor.extensionManager.extensions.some(
+			(e) => e.name === 'ai-highlight' && e.options?.callAI != null
+		);
+	}
 
 	function isActive(command: (typeof commands)[string][number]): boolean {
 		void transaction.version;
@@ -41,7 +36,7 @@
 </script>
 
 <div class={cn('flex items-center h-full w-fit gap-2', className)}>
-	{#if $editorState.useAI}
+	{#if useAI()}
 		<Tooltip tooltip="Use AI">
 			<Button
 				onmousedown={(e) => {
