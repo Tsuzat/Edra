@@ -42,6 +42,7 @@
 	<Edra {editor}>
 		<Edra.UseAI />
 		<Edra.Toolbar class="border-b p-1 overflow-x-scroll max-w-full!" />
+		<Edra.BubbleMenu />
 		<Edra.Content class="*:outline-none cursor-auto h-120 overflow-y-scroll px-8" />
 		<Edra.DragHandle />
 	</Edra>

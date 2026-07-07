@@ -149,6 +149,10 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/lib/edra/shadcn/components/menu/BubbleMenu.svelte",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/lib/edra/shadcn/components/menu/Link.svelte",
 					"type": "registry:component"
 				},
@@ -169,11 +173,27 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/lib/edra/shadcn/components/tools/AlignMent.svelte",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/lib/edra/shadcn/components/tools/Colors.svelte",
 					"type": "registry:component"
 				},
 				{
 					"path": "src/lib/edra/shadcn/components/tools/Export.svelte",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/tools/FontSize.svelte",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/tools/Link.svelte",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/lib/edra/shadcn/components/tools/Lists.svelte",
 					"type": "registry:component"
 				},
 				{

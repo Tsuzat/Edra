@@ -299,13 +299,13 @@ export const commands: Record<string, EdraCommand[]> = {
 			tooltip: strings.command.codeBlock,
 			shortCut: `${ISMAC ? '⌘⌥' : 'Ctrl+Shift+'}C`,
 			onClick: (editor) => {
-				editor.chain().focus().toggleCodeBlock({ language: 'text' }).run();
+				editor.chain().focus().toggleCodeBlock({ language: 'plaintext' }).run();
 			},
 			turnInto: (editor, node, pos) => {
 				editor.chain().setNodeSelection(pos).toggleCodeBlock({ language: 'plaintext' }).run();
 			},
 			clickable: (editor) => {
-				return editor.can().toggleCodeBlock({ language: 'text' });
+				return editor.can().toggleCodeBlock({ language: 'plaintext' });
 			},
 			isActive: (editor) => {
 				return editor.isActive('codeBlock');
