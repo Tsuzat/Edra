@@ -145,6 +145,10 @@
 					"type": "registry:lib"
 				},
 				{
+					"path": "src/lib/edra/shadcn/components/menu/AI.svelte",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/lib/edra/shadcn/components/menu/Link.svelte",
 					"type": "registry:component"
 				},
@@ -234,6 +238,10 @@
 				},
 				{
 					"path": "src/lib/edra/tiptap/extensions/MediaPlaceHolder.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/lib/edra/tiptap/extensions/ai/index.ts",
 					"type": "registry:lib"
 				},
 				{

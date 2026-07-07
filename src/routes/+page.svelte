@@ -24,41 +24,6 @@
 		}
 	}
 
-	async function callAI(
-		prompt: string,
-		onChunk: (chunk: string) => void,
-		onError: (error: Error) => void
-	) {
-		try {
-			const response = await fetch('/api/ai/chat', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ prompt })
-			});
-
-			if (!response.ok) {
-				throw new Error(await response.text());
-			}
-
-			const reader = response.body?.getReader();
-			if (!reader) {
-				throw new Error('Response body is not readable');
-			}
-
-			const decoder = new TextDecoder();
-			while (true) {
-				const { done, value } = await reader.read();
-				if (done) break;
-				const chunkText = decoder.decode(value, { stream: true });
-				onChunk(chunkText);
-			}
-		} catch (error) {
-			onError(error instanceof Error ? error : new Error(String(error)));
-		}
-	}
-
 	const onUpdate = () => {
 		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
 	};

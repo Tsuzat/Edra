@@ -532,18 +532,19 @@
 	{:else if aiState === AIState.Confirmation}
 		{#if generating}
 			<!-- AI is writing — content streams directly into editor -->
-			<div transition:fade class="animated-gradient-border rounded-lg p-0.5">
-				<div class="flex bg-popover items-center gap-2 rounded-lg p-0.5">
+			<div transition:fade class="animated-gradient-border rounded p-0.5">
+				<div class="flex bg-popover items-center gap-2 rounded-md p-1">
 					<Sparkle class="size-4!" />
 					<span
-						class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+						class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-semibold text-transparent"
 					>
 						AI is writing</span
 					>
-					<div class="flex h-5 items-center space-x-1">
-						{#each Array(3) as _unused, i (i)}
+					<div class="flex h-5 items-center space-x-0.5">
+						{#each Array(3) as id, i (i)}
 							<div
-								class="bg-primary h-1 w-1 animate-[bounce-dots_1.4s_ease-in-out_infinite] rounded-full"
+								data-ball-number={id}
+								class="dot bg-primary h-1.25 w-1.25 rounded-full"
 								style:animation-delay="{i * 160}ms"
 							></div>
 						{/each}
@@ -597,5 +598,19 @@
 		background: conic-gradient(from var(--angle), #e50909, #c8b207, #e608e6, #6eec07);
 		animation: rotate 3s linear infinite;
 		border-radius: 12px !important;
+	}
+	.dot {
+		animation: bounce-dots 1.4s ease-in-out infinite;
+	}
+	@keyframes bounce-dots {
+		0%,
+		100% {
+			transform: translateY(0);
+			opacity: 0.35;
+		}
+		50% {
+			transform: translateY(-4px);
+			opacity: 1;
+		}
 	}
 </style>

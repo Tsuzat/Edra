@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"registry:build": "npx shadcn-svelte@latest registry build"
+		"registry:build": "bunx shadcn-svelte@latest registry build"
 	},
 	"files": [
 		"dist",
