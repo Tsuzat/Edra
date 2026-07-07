@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 	import {
 		AIState,
@@ -13,6 +14,7 @@
 	} from '../../../commands/index.js';
 	import {
 		BubbleMenu,
+		Editor,
 		getEditor,
 		removeAIHighlight,
 		useEditorState
@@ -29,18 +31,12 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Check, Copy, CornerDownLeft, RotateCcw, Trash2 } from '@lucide/svelte';
 
-	let {
-		callAI
-	}: {
-		callAI: (
-			prompt: string,
-			onChunk: (chunk: string) => void,
-			onError: (error: Error) => void
-		) => Promise<void>;
-	} = $props();
-
 	let inputTag = $state<HTMLTextAreaElement | null>(null);
 	const editor = getEditor();
+
+	const activeCallAI = $derived(
+		editor.extensionManager.extensions.find((e) => e.name === 'ai-highlight')?.options?.callAI
+	);
 	const editorState = useEditorState({
 		editor,
 		selector: ({ editor }) => ({
@@ -48,6 +44,18 @@
 		})
 	});
 	let errorText = $state('');
+	let capturedText = $state('');
+
+	function getAIHighlightedText(editor: Editor): string {
+		let text = '';
+		if (!editor.state) return '';
+		editor.state.doc.descendants((node) => {
+			if (node.isText && node.marks.some((mark) => mark.type.name === 'ai-highlight')) {
+				text += node.text || '';
+			}
+		});
+		return text;
+	}
 
 	let inputValue = $state('');
 	let aiState = $state(AIState.Idle);
@@ -62,24 +70,27 @@
 	let lastPrompt = $state('');
 	let updateTimer: ReturnType<typeof setTimeout> | null = null;
 
-	const getSelectedText = () => {
-		let selectionText = '';
-		if (editor.state) {
-			const { from, to } = editor.state.selection;
-			const slice = editor.state.doc.cut(from, to);
-			if (editor.markdown) {
-				selectionText = editor.markdown.serialize(slice.toJSON());
+	$effect(() => {
+		const updateCapturedText = () => {
+			if ($editorState.isAIActive) {
+				capturedText = getAIHighlightedText(editor);
+			} else {
+				capturedText = '';
 			}
-		}
-		return selectionText;
-	};
+		};
+		updateCapturedText();
+		editor.on('transaction', updateCapturedText);
+		return () => {
+			editor.off('transaction', updateCapturedText);
+		};
+	});
 
 	async function processText(
 		type:
 			'shorter' | 'longer' | 'summarize' | 'grammer' | 'continue' | 'solve' | 'improve' | 'simplify'
 	) {
 		errorText = '';
-		const selectedText = getSelectedText();
+		const selectedText = capturedText;
 		if (!selectedText || selectedText.trim().length === 0) {
 			errorText = 'Can not get the selected content from editor';
 			return;
@@ -113,6 +124,8 @@
 					break;
 			}
 			aiState = AIState.Confirmation;
+			generating = true;
+			await tick();
 			await generateAIContent(prompt);
 		} catch (error) {
 			aiState = AIState.Idle;
@@ -124,7 +137,7 @@
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = getSelectedText();
+		const text = capturedText;
 		if (!text) return;
 		errorText = '';
 		try {
@@ -132,6 +145,8 @@
 			inputValue = '';
 			if (inputTag) inputTag.style.height = 'auto';
 			aiState = AIState.Confirmation;
+			generating = true;
+			await tick();
 			await generateAIContent(prompt);
 		} catch (error) {
 			aiState = AIState.Idle;
@@ -168,8 +183,13 @@
 				aiResponse = '';
 				generating = false;
 			};
-			await callAI(prompt, onChunk, onError);
+			if (activeCallAI) {
+				await activeCallAI(prompt, onChunk, onError);
+			} else {
+				throw new Error('callAI function is not configured.');
+			}
 			// Final flush to ensure all content is rendered in the editor
+			aiState = AIState.Confirmation;
 			flushEditorUpdate();
 		} finally {
 			generating = false;
@@ -182,7 +202,7 @@
 		updateTimer = setTimeout(() => {
 			flushEditorUpdate();
 			updateTimer = null;
-		}, 100);
+		}, 300);
 	}
 
 	/** Insert or replace the AI content region in the editor with the accumulated response */
@@ -405,7 +425,7 @@
 		}
 
 		if (aiState === AIState.Idle) {
-			const showQuickActions = getSelectedText().trim().length && inputValue.trim()?.length === 0;
+			const showQuickActions = capturedText.trim().length && inputValue.trim()?.length === 0;
 			if (showQuickActions) {
 				if (event.key === 'ArrowDown') {
 					event.preventDefault();
@@ -519,7 +539,7 @@
 					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
 			</div>
 
-			{#if getSelectedText().trim().length && inputValue.trim()?.length === 0}
+			{#if capturedText.trim().length && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}

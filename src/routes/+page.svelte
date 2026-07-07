@@ -2,17 +2,6 @@
 	import { createEditor, Edra, type Content } from '$lib/edra/shadcn/index.js';
 	import { onMount } from 'svelte';
 
-	const onUpdate = () => {
-		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
-	};
-	const editor = createEditor({
-		onUpdate
-	});
-
-	onMount(() => {
-		const content = JSON.parse(localStorage.getItem('edra-content') || '[]') as Content;
-		editor?.commands.setContent(content, { contentType: 'json' });
-	});
 	async function callAI(
 		prompt: string,
 		onChunk: (chunk: string) => void,
@@ -47,11 +36,24 @@
 			onError(error instanceof Error ? error : new Error(String(error)));
 		}
 	}
+
+	const onUpdate = () => {
+		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
+	};
+	const editor = createEditor({
+		onUpdate,
+		callAI
+	});
+
+	onMount(() => {
+		const content = JSON.parse(localStorage.getItem('edra-content') || '[]') as Content;
+		editor?.commands.setContent(content, { contentType: 'json' });
+	});
 </script>
 
 <div class="border w-5xl mx-auto rounded-lg">
 	<Edra {editor}>
-		<Edra.UseAI {callAI} />
+		<Edra.UseAI />
 		<Edra.Toolbar class="border-b p-1 overflow-x-scroll max-w-full!" />
 		<Edra.Content class="*:outline-none cursor-auto h-120 overflow-y-scroll px-8" />
 		<Edra.DragHandle />

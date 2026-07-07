@@ -45,7 +45,9 @@
 	const editorState = useEditorState({
 		editor,
 		selector: ({ editor }) => ({
-			useAI: editor.storage['ai-highlight'].useAI
+			useAI: editor.extensionManager.extensions.some(
+				(e) => e.name === 'ai-highlight' && e.options?.callAI != null
+			)
 		})
 	});
 
@@ -206,7 +208,10 @@
 					{currentNode?.type.name}
 				</DropdownMenu.GroupHeading>
 				{#if $editorState.useAI}
-					<DropdownMenu.Item onclick={handleAIHighlight}>
+					<DropdownMenu.Item
+						onmousedown={(e) => e.preventDefault()}
+						onclick={handleAIHighlight}
+					>
 						<Sparkles />
 						<span
 							class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"

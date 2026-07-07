@@ -24,6 +24,11 @@ import SlashCommandComp from './components/SlashCommand.svelte';
 export interface EdraEditorProps {
 	onUpdate?: () => void;
 	onFileUpload?: (file: File) => Promise<string>;
+	callAI?: (
+		prompt: string,
+		onChunk: (chunk: string) => void,
+		onError: (error: Error) => void
+	) => Promise<void>;
 }
 
 export const createEditor = (props?: EdraEditorProps) =>
@@ -45,7 +50,9 @@ export const createEditor = (props?: EdraEditorProps) =>
 			IFrameExtended(IFrameComp),
 			Mermaid(MermaidComp),
 			SlashCommand(SlashCommandComp),
-			AIHighlight
+			AIHighlight.configure({
+				callAI: props?.callAI || null
+			})
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});

@@ -2,6 +2,7 @@ import { type Editor, Mark, markInputRule, markPasteRule, mergeAttributes } from
 
 export interface AIHighlightOptions {
 	HTMLAttributes: Record<string, string>;
+	callAI: ((prompt: string, onChunk: (chunk: string) => void, onError: (error: Error) => void) => Promise<void>) | null;
 }
 
 declare module '@tiptap/core' {
@@ -21,12 +22,6 @@ declare module '@tiptap/core' {
 			unsetAIHighlight: () => ReturnType;
 		};
 	}
-
-	interface Storage {
-		'ai-highlight': {
-			useAI: boolean;
-		};
-	}
 }
 
 export const inputRegex = /(?:^|\s)((?:==)((?:[^~=]+))(?:==))$/;
@@ -37,13 +32,8 @@ export const AIHighlight = Mark.create<AIHighlightOptions>({
 
 	addOptions() {
 		return {
-			HTMLAttributes: {}
-		};
-	},
-
-	addStorage() {
-		return {
-			useAI: false
+			HTMLAttributes: {},
+			callAI: null
 		};
 	},
 

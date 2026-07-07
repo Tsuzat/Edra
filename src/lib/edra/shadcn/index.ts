@@ -4,7 +4,7 @@ import DragHandle from './drag-handle.svelte';
 import Editor from './editor.svelte';
 export { createEditor } from './editor.ts';
 export * from '@tiptap/core';
-import UseAI from './useAI.svelte';
+import UseAI from './components/menu/AI.svelte';
 
 const Edra = Object.assign(Tiptap, {
 	Content: Editor,

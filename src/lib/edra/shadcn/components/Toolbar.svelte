@@ -22,7 +22,9 @@
 	const editorState = useEditorState({
 		editor,
 		selector: ({ editor }) => ({
-			useAI: editor.storage['ai-highlight'].useAI
+			useAI: editor.extensionManager.extensions.some(
+				(e) => e.name === 'ai-highlight' && e.options?.callAI != null
+			)
 		})
 	});
 	const transaction = useEditorTransaction(editor);
@@ -41,7 +43,14 @@
 <div class={cn('flex items-center h-full w-fit gap-2', className)}>
 	{#if $editorState.useAI}
 		<Tooltip tooltip="Use AI">
-			<Button onclick={() => addAIHighlight(editor)} variant="ghost" size="icon">
+			<Button
+				onmousedown={(e) => {
+					e.preventDefault();
+					addAIHighlight(editor);
+				}}
+				variant="ghost"
+				size="icon"
+			>
 				<WandSparkles />
 			</Button>
 		</Tooltip>
