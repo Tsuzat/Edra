@@ -78,6 +78,7 @@
 	"dependencies": {
 		"@fontsource-variable/dm-sans": "^5.2.8",
 		"@fontsource-variable/fira-code": "^5.2.7",
+		"@google/genai": "^2.10.0",
 		"@tiptap/core": "^3.27.2",
 		"@tiptap/extension-audio": "^3.27.2",
 		"@tiptap/extension-bubble-menu": "^3.27.2",

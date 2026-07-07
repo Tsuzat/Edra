@@ -32,10 +32,11 @@
 			crossAxis: true,
 			mainAxis: true
 		},
-		strategy: 'absolute',
+		strategy: 'fixed',
 		autoPlacement: {
 			allowedPlacements: ['bottom', 'top']
-		}
+		},
+		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="bg-popover! z-50 flex h-fit w-fit flex-col gap-1 rounded-lg border"
 >

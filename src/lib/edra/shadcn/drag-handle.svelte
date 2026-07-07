@@ -2,7 +2,7 @@
 	import { autoPlacement } from '@floating-ui/dom';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import { Braces, TextAlignCenter } from '@lucide/svelte';
+	import { Braces, Sparkles, TextAlignCenter } from '@lucide/svelte';
 	import Clipboard from '@lucide/svelte/icons/clipboard';
 	import Duplicate from '@lucide/svelte/icons/copy';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
@@ -18,7 +18,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { commands, type EdraCommand } from '../commands/index.js';
 	import { quickcolors } from '../utils.js';
-	import { getEditor } from '../tiptap/index.ts';
+	import { getEditor, useEditorState } from '../tiptap/index.ts';
 
 	const alignments = commands.alignment;
 	const turnIntos: Record<string, EdraCommand[]> = Object.entries(commands).reduce(
@@ -42,6 +42,12 @@
 
 	let editorElement = $state<HTMLElement | null>(null);
 	const editor = getEditor();
+	const editorState = useEditorState({
+		editor,
+		selector: ({ editor }) => ({
+			useAI: editor.storage['ai-highlight'].useAI
+		})
+	});
 
 	onMount(() => {
 		editorElement = editor.view.dom.parentElement;
@@ -143,6 +149,14 @@
 			.deleteSelection()
 			.run();
 	};
+	function handleAIHighlight() {
+		if (currentNodePos === -1) return;
+		editor
+			.chain()
+			.setNodeSelection(currentNodePos)
+			.setAIHighlight({ color: 'var(--color-muted)' })
+			.run();
+	}
 
 	const insertNode = () => {
 		if (currentNodePos === -1) return;
@@ -191,6 +205,16 @@
 				<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
 					{currentNode?.type.name}
 				</DropdownMenu.GroupHeading>
+				{#if $editorState.useAI}
+					<DropdownMenu.Item onclick={handleAIHighlight}>
+						<Sparkles />
+						<span
+							class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+						>
+							Edit With AI</span
+						>
+					</DropdownMenu.Item>
+				{/if}
 				<DropdownMenu.Sub>
 					<DropdownMenu.SubTrigger openDelay={300}>
 						<Repeat2 />

@@ -34,8 +34,8 @@
 		autoPlacement: {
 			allowedPlacements: ['top', 'bottom']
 		},
-		strategy: 'absolute',
-		scrollTarget: editor.view.dom
+		strategy: 'fixed',
+		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border shadow-lg"
 >

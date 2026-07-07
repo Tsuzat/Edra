@@ -26,14 +26,12 @@
 		return editor.isActive('blockMath');
 	}}
 	options={{
-		shift: {
-			crossAxis: true
-		},
+		shift: true,
 		autoPlacement: {
 			allowedPlacements: ['top', 'bottom']
 		},
 		strategy: 'absolute',
-		scrollTarget: editor.view.dom
+		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="bg-popover h-fit w-fit flex-col items-center gap-1 rounded-lg border shadow-lg"
 >

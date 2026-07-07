@@ -46,7 +46,9 @@
 	options={{
 		placement: 'bottom',
 		offset: 8,
-		flip: true
+		flip: true,
+		strategy: 'fixed',
+		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border p-0!"
 >
