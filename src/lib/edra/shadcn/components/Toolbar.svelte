@@ -2,8 +2,14 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { commands } from '$lib/edra/commands/index.js';
-	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
+	import {
+		addAIHighlight,
+		getEditor,
+		useEditorState,
+		useEditorTransaction
+	} from '$lib/edra/tiptap/index.js';
 	import { cn } from '$lib/utils.js';
+	import { WandSparkles } from '@lucide/svelte';
 	import Colors from './tools/Colors.svelte';
 	import Export from './tools/Export.svelte';
 	import Tooltip from './Tooltip.svelte';
@@ -13,6 +19,12 @@
 	const { class: className }: Props = $props();
 
 	const editor = getEditor();
+	const editorState = useEditorState({
+		editor,
+		selector: ({ editor }) => ({
+			useAI: editor.storage['ai-highlight'].useAI
+		})
+	});
 	const transaction = useEditorTransaction(editor);
 	const commandsKeys = Object.keys(commands);
 
@@ -27,6 +39,13 @@
 </script>
 
 <div class={cn('flex items-center h-full w-fit gap-2', className)}>
+	{#if $editorState.useAI}
+		<Tooltip tooltip="Use AI">
+			<Button onclick={() => addAIHighlight(editor)} variant="ghost" size="icon">
+				<WandSparkles />
+			</Button>
+		</Tooltip>
+	{/if}
 	{#each commandsKeys as key (key)}
 		{@const group = commands[key]}
 		{#each group as command, idx (idx)}

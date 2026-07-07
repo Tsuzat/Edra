@@ -186,7 +186,7 @@
 		<DropdownMenu.Trigger class="sr-only">
 			<span>Drag Handle</span>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content class="w-fit" portalProps={{ to: editorElement ?? undefined }}>
+		<DropdownMenu.Content class="w-fit" portalProps={{ to: element }}>
 			<DropdownMenu.Group>
 				<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
 					{currentNode?.type.name}

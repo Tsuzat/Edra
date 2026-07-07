@@ -1,4 +1,5 @@
 import {
+	AIHighlight,
 	IFrameExtended,
 	ImageExtended,
 	Mermaid,
@@ -43,7 +44,8 @@ export const createEditor = (props?: EdraEditorProps) =>
 			VideoExtended(VideoExtendedComp),
 			IFrameExtended(IFrameComp),
 			Mermaid(MermaidComp),
-			SlashCommand(SlashCommandComp)
+			SlashCommand(SlashCommandComp),
+			AIHighlight
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});
