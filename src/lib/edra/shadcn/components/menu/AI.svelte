@@ -43,9 +43,20 @@
 	const editor = getEditor();
 	const editorState = useEditorState({
 		editor,
-		selector: ({ editor }) => ({
-			isAIActive: editor.isActive('ai-highlight')
-		})
+		selector: ({ editor }) => {
+			let selectionText = '';
+			if (editor.state) {
+				const { from, to } = editor.state.selection;
+				const slice = editor.state.doc.cut(from, to);
+				if (editor.markdown) {
+					selectionText = editor.markdown.serialize(slice.toJSON());
+				}
+			}
+			return {
+				isAIActive: editor.isActive('ai-highlight'),
+				selectionText
+			};
+		}
 	});
 	let errorText = $state('');
 
@@ -62,18 +73,12 @@
 	let lastPrompt = $state('');
 	let updateTimer: ReturnType<typeof setTimeout> | null = null;
 
-	function getSelectionText(): string | undefined {
-		const { from, to } = editor.view.state.selection;
-		const slice = editor.view.state.doc.cut(from, to);
-		if (editor.markdown) return editor.markdown.serialize(slice.toJSON());
-	}
-
 	async function processText(
 		type:
 			'shorter' | 'longer' | 'summarize' | 'grammer' | 'continue' | 'solve' | 'improve' | 'simplify'
 	) {
 		errorText = '';
-		const selectedText = getSelectionText();
+		const selectedText = $editorState.selectionText;
 		if (!selectedText || selectedText.trim().length === 0) {
 			errorText = 'Can not get the selected content from editor';
 			return;
@@ -118,7 +123,7 @@
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = getSelectionText();
+		const text = $editorState.selectionText;
 		if (!text) return;
 		errorText = '';
 		try {
@@ -400,7 +405,7 @@
 
 		if (aiState === AIState.Idle) {
 			const showQuickActions =
-				getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0;
+				$editorState.selectionText?.trim()?.length && inputValue.trim()?.length === 0;
 			if (showQuickActions) {
 				if (event.key === 'ArrowDown') {
 					event.preventDefault();
@@ -514,7 +519,7 @@
 					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
 			</div>
 
-			{#if getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0}
+			{#if $editorState.selectionText?.trim()?.length && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}
