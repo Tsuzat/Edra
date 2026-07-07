@@ -43,20 +43,9 @@
 	const editor = getEditor();
 	const editorState = useEditorState({
 		editor,
-		selector: ({ editor }) => {
-			let selectionText = '';
-			if (editor.state) {
-				const { from, to } = editor.state.selection;
-				const slice = editor.state.doc.cut(from, to);
-				if (editor.markdown) {
-					selectionText = editor.markdown.serialize(slice.toJSON());
-				}
-			}
-			return {
-				isAIActive: editor.isActive('ai-highlight'),
-				selectionText
-			};
-		}
+		selector: ({ editor }) => ({
+			isAIActive: editor.isActive('ai-highlight')
+		})
 	});
 	let errorText = $state('');
 
@@ -73,12 +62,24 @@
 	let lastPrompt = $state('');
 	let updateTimer: ReturnType<typeof setTimeout> | null = null;
 
+	const getSelectedText = () => {
+		let selectionText = '';
+		if (editor.state) {
+			const { from, to } = editor.state.selection;
+			const slice = editor.state.doc.cut(from, to);
+			if (editor.markdown) {
+				selectionText = editor.markdown.serialize(slice.toJSON());
+			}
+		}
+		return selectionText;
+	};
+
 	async function processText(
 		type:
 			'shorter' | 'longer' | 'summarize' | 'grammer' | 'continue' | 'solve' | 'improve' | 'simplify'
 	) {
 		errorText = '';
-		const selectedText = $editorState.selectionText;
+		const selectedText = getSelectedText();
 		if (!selectedText || selectedText.trim().length === 0) {
 			errorText = 'Can not get the selected content from editor';
 			return;
@@ -123,7 +124,7 @@
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = $editorState.selectionText;
+		const text = getSelectedText();
 		if (!text) return;
 		errorText = '';
 		try {
@@ -404,8 +405,7 @@
 		}
 
 		if (aiState === AIState.Idle) {
-			const showQuickActions =
-				$editorState.selectionText?.trim()?.length && inputValue.trim()?.length === 0;
+			const showQuickActions = getSelectedText().trim().length && inputValue.trim()?.length === 0;
 			if (showQuickActions) {
 				if (event.key === 'ArrowDown') {
 					event.preventDefault();
@@ -446,7 +446,7 @@
 	{@const Icon = action.icon}
 	<button
 		onclick={action.handler}
-		class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 w-full transition-colors {activeOptionIndex ===
+		class="focus:bg-accent p-1.5 focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 w-full transition-colors {activeOptionIndex ===
 		idx
 			? 'bg-accent text-accent-foreground quick-action-active'
 			: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}"
@@ -519,7 +519,7 @@
 					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
 			</div>
 
-			{#if $editorState.selectionText?.trim()?.length && inputValue.trim()?.length === 0}
+			{#if getSelectedText().trim().length && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}
