@@ -2,7 +2,13 @@ import { type Editor, Mark, markInputRule, markPasteRule, mergeAttributes } from
 
 export interface AIHighlightOptions {
 	HTMLAttributes: Record<string, string>;
-	callAI: ((prompt: string, onChunk: (chunk: string) => void, onError: (error: Error) => void) => Promise<void>) | null;
+	callAI:
+		| ((
+				prompt: string,
+				onChunk: (chunk: string) => void,
+				onError: (error: Error) => void
+		  ) => Promise<void>)
+		| null;
 }
 
 declare module '@tiptap/core' {
@@ -156,8 +162,21 @@ export const removeAIHighlight = (editor: Editor) => {
 	editor.view.dispatch(tr);
 };
 export const addAIHighlight = (editor: Editor, color?: string) => {
-	editor
-		.chain()
-		.setAIHighlight({ color: color ?? '#c1ecf970' })
-		.run();
+	const { from, to } = editor.state.selection;
+	if (from === to) {
+		const $pos = editor.state.doc.resolve(from);
+		const depth = $pos.depth;
+		const blockFrom = $pos.start(depth);
+		const blockTo = $pos.end(depth);
+		editor
+			.chain()
+			.setTextSelection({ from: blockFrom, to: blockTo })
+			.setAIHighlight({ color: color ?? '#c1ecf970' })
+			.run();
+	} else {
+		editor
+			.chain()
+			.setAIHighlight({ color: color ?? '#c1ecf970' })
+			.run();
+	}
 };

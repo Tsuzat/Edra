@@ -63,11 +63,19 @@
 		return editor.isActive('ai-highlight');
 	}
 
-	function getSelectionText(): string | undefined {
+	function getAIHighlightedText(): string | undefined {
 		void transaction.version;
-		const { from, to } = editor.view.state.selection;
-		const slice = editor.view.state.doc.cut(from, to);
+		let range = { from: -1, to: -1 };
+		editor.state.doc.descendants((node, pos) => {
+			if (node.marks.some((mark) => mark.type.name === 'ai-highlight')) {
+				if (range.from === -1) range.from = pos;
+				range.to = pos + node.nodeSize;
+			}
+		});
+		if (range.from === -1 || range.to === -1) return undefined;
+		const slice = editor.view.state.doc.cut(range.from, range.to);
 		if (editor.markdown) return editor.markdown.serialize(slice.toJSON());
+		return editor.state.doc.textBetween(range.from, range.to);
 	}
 
 	async function processText(
@@ -75,7 +83,7 @@
 			'shorter' | 'longer' | 'summarize' | 'grammer' | 'continue' | 'solve' | 'improve' | 'simplify'
 	) {
 		const id = Symbol('AI_THINKING_TOAST').toString();
-		const selectedText = getSelectionText();
+		const selectedText = getAIHighlightedText();
 		if (!selectedText || selectedText.trim().length === 0) {
 			toast.error('Can not get the selected content from editor', { id });
 			return;
@@ -120,7 +128,7 @@
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = getSelectionText() ?? '';
+		const text = getAIHighlightedText() || '';
 		try {
 			const prompt = `${text}\n\n\n${inputValue}`;
 			inputValue = '';
@@ -408,8 +416,7 @@
 		}
 
 		if (aiState === AIState.Idle) {
-			const showQuickActions =
-				getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0;
+			const showQuickActions = isAIActive() && inputValue.trim()?.length === 0;
 			if (showQuickActions) {
 				if (event.key === 'ArrowDown') {
 					event.preventDefault();
@@ -510,7 +517,7 @@
 				<Button type="submit" size="icon-lg" class="rounded-full"><Send /></Button>
 			</form>
 
-			{#if getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0}
+			{#if isAIActive() && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}
