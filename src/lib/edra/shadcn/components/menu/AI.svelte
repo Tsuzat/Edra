@@ -32,7 +32,8 @@
 		PenLine,
 		RefreshCcwDot,
 		Sparkles,
-		TextWrap
+		TextWrap,
+		Send
 	} from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 
@@ -119,8 +120,7 @@
 	async function handleSubmit(e?: Event) {
 		if (e) e.preventDefault();
 		if (!inputValue || inputValue.trim().length === 0) return;
-		const text = getSelectionText();
-		if (!text) return;
+		const text = getSelectionText() ?? '';
 		try {
 			const prompt = `${text}\n\n\n${inputValue}`;
 			inputValue = '';
@@ -499,7 +499,7 @@
 	{#if aiState === AIState.Idle}
 		<div class="shadow-2xl w-xl border backdrop-blur-2xl rounded-xl flex flex-col overflow-hidden">
 			<!-- Input Area -->
-			<div class="px-3 py-3">
+			<form class="px-3 py-3 flex items-start">
 				<textarea
 					bind:value={inputValue}
 					bind:this={inputTag}
@@ -507,7 +507,8 @@
 					rows={1}
 					placeholder="Ask AI anything..."
 					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
-			</div>
+				<Button type="submit" size="icon-lg" class="rounded-full"><Send /></Button>
+			</form>
 
 			{#if getSelectionText()?.trim()?.length && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
@@ -525,7 +526,7 @@
 		{#if generating}
 			<!-- AI is writing — content streams directly into editor -->
 			<div transition:fade class="animated-gradient-border rounded-lg p-0.5">
-				<div class="flex bg-popover items-center gap-2 rounded-lg p-2">
+				<div class="flex bg-popover items-center gap-2 rounded-lg p-0.5">
 					<Sparkle class="size-4!" />
 					<span
 						class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"

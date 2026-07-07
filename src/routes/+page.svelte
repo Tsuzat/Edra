@@ -16,7 +16,7 @@
 		const words = paragraph.split(' ');
 		try {
 			for (const word of words) {
-				await new Promise((r) => setTimeout(r, 50));
+				await new Promise((r) => setTimeout(r, 100));
 				onChunk(word + ' ');
 			}
 		} catch (error) {
