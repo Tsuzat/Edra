@@ -35,6 +35,7 @@
 			if (element) {
 				element.style.left = `${x}px`;
 				element.style.top = `${y}px`;
+				element.style.visibility = 'visible';
 			}
 		});
 	}
@@ -44,7 +45,7 @@
 	<div
 		bind:this={element}
 		class="edra-dropdown-content dropdown-content {className}"
-		style="left: 0; top: 0; width: max-content; min-width: 8rem;"
+		style="left: 0; top: 0; width: max-content; min-width: 8rem; visibility: hidden;"
 		role="menu"
 	>
 		{@render children()}

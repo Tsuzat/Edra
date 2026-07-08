@@ -480,9 +480,9 @@
 		// Always show during AI confirmation (streaming or action bar)
 		if (aiState === AIState.Confirmation) return true;
 
-		if (props.editor.isActive('ai-highlight')) return true;
+		if (isAIActive()) return true;
 
-		removeAIHighlight(props.editor);
+		removeAIHighlight(editor);
 		aiState = AIState.Idle;
 		aiResponse = '';
 		return false;

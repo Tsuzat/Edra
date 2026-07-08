@@ -381,7 +381,7 @@
 		width: fit-content;
 		max-height: 24rem;
 		overflow-y: scroll;
-		transition: all 300ms ease;
+		transition: opacity 150ms ease, background-color 150ms ease, transform 150ms ease;
 		border-radius: var(--edra-radius-lg);
 	}
 	.color-circle {

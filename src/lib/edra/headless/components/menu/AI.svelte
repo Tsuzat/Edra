@@ -459,9 +459,7 @@
 	{@const Icon = action.icon}
 	<button
 		onclick={action.handler}
-		class="quick-action-item {activeOptionIndex === idx
-			? 'active quick-action-active'
-			: ''}"
+		class="quick-action-item {activeOptionIndex === idx ? 'active quick-action-active' : ''}"
 	>
 		<Icon class="action-icon" />
 		<span class="action-label">{action.label}</span>
@@ -478,12 +476,12 @@
 		if (!props.editor.isEditable || props.editor.isDestroyed) return false;
 		if (!props.view || props.editor.view.dragging) return false;
 
-		// Always show during AI confirmation
+		// Always show during AI confirmation (streaming or action bar)
 		if (aiState === AIState.Confirmation) return true;
 
-		if (props.editor.isActive('ai-highlight')) return true;
+		if (isAIActive()) return true;
 
-		removeAIHighlight(props.editor);
+		removeAIHighlight(editor);
 		aiState = AIState.Idle;
 		aiResponse = '';
 		return false;
@@ -520,17 +518,15 @@
 					oninput={handleInput}
 					rows={1}
 					placeholder="Ask AI anything..."
-					class="input-textarea"
-				></textarea>
-				<button type="submit" class="edra-btn edra-btn-primary edra-btn-icon send-btn"><Send class="action-icon" /></button>
+					class="input-textarea"></textarea>
+				<button type="submit" class="edra-btn edra-btn-primary edra-btn-icon send-btn"
+					><Send class="action-icon" /></button
+				>
 			</form>
 
 			{#if isAIActive() && inputValue.trim()?.length === 0}
 				<!-- Quick Actions List -->
-				<div
-					transition:slide={{ axis: 'y', duration: 250 }}
-					class="actions-list"
-				>
+				<div transition:slide={{ axis: 'y', duration: 250 }} class="actions-list">
 					{#each quickActions as action, idx (action.id)}
 						{@render MenuButton(action, idx)}
 					{/each}
@@ -548,10 +544,7 @@
 			</div>
 		{:else}
 			<!-- Action bar -->
-			<div
-				transition:fade
-				class="confirmation-row"
-			>
+			<div transition:fade class="confirmation-row">
 				<button class="edra-btn edra-btn-primary h-8-btn text-xs-btn" onclick={replaceSelection}>
 					<Check class="action-icon" />
 					Replace
@@ -697,8 +690,13 @@
 		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 	}
 	@keyframes pulse {
-		0%, 100% { opacity: 1; }
-		50% { opacity: .5; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
 	}
 	.txt-ink {
 		color: var(--edra-ink);
