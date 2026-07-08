@@ -105,6 +105,10 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/lib/edra/shadcn/components/Callout.svelte",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/lib/edra/shadcn/components/IFrame.svelte",
 					"type": "registry:component"
 				},
@@ -254,6 +258,10 @@
 				},
 				{
 					"path": "src/lib/edra/tiptap/extensions/ColorHighlighter.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/lib/edra/tiptap/extensions/Callout.ts",
 					"type": "registry:lib"
 				},
 				{

@@ -2,7 +2,7 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { NodeViewContent, NodeViewWrapper, type NodeViewProps } from '$lib/edra/tiptap/index.js';
 
-	const { editor, node, updateAttributes, extension }: NodeViewProps = $props();
+	const { editor, node, updateAttributes, extension, getPos }: NodeViewProps = $props();
 
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import Check from '@lucide/svelte/icons/check';
@@ -10,11 +10,13 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { cn } from '$lib/utils.js';
 	import strings from '../../strings.js';
+	import { Sparkle } from '@lucide/svelte';
+	import Tooltip from './Tooltip.svelte';
 
 	let preRef = $state<HTMLPreElement>();
 	let isCopying = $state(false);
 	const languages: string[] = $derived(extension.options.lowlight.listLanguages().sort());
-	let defaultLanguage = $derived(node.attrs.language ?? strings.extension.code.plainText);
+	let defaultLanguage = $derived<string>(node.attrs.language ?? 'plaintext');
 
 	const changeLanguage = (language: string) => {
 		updateAttributes({ language: language });
@@ -29,27 +31,53 @@
 			isCopying = false;
 		}, 1000);
 	}
+
+	function convertToMermaid() {
+		const code = node.textContent;
+		const pos = getPos();
+		if (typeof pos !== 'number') return;
+		editor
+			.chain()
+			.focus()
+			.deleteRange({ from: pos, to: pos + node.nodeSize })
+			.insertContentAt(pos, {
+				type: 'mermaid',
+				content: [
+					{
+						type: 'text',
+						text: code || ''
+					}
+				]
+			})
+			.run();
+	}
 </script>
 
-<NodeViewWrapper class="bg-muted/20 my-4 rounded-lg group">
-	<div
-		class="flex items-center mx-2 gap-2 justify-between print:justify-start"
-		contenteditable="false"
-	>
+<NodeViewWrapper class="bg-muted/20 my-4 pb-4 rounded-lg">
+	<div class="flex items-center mx-2 gap-2 justify-end print:justify-start" contenteditable="false">
+		{#if defaultLanguage.toLowerCase() === 'mermaid'}
+			<Tooltip tooltip="Convert to Mermaid Diagram">
+				<Button variant="ghost" size="icon-xs" class="print:hidden" onclick={convertToMermaid}>
+					<Sparkle />
+				</Button>
+			</Tooltip>
+		{/if}
 		<Popover.Root>
-			<Popover.Trigger
-				contenteditable="false"
-				disabled={!editor.isEditable}
-				class={buttonVariants({
-					variant: 'ghost',
-					size: 'sm',
-					class: 'capitalize text-muted-foreground'
-				})}
-			>
-				{defaultLanguage}
-			</Popover.Trigger>
+			<Tooltip tooltip="Change Language">
+				<Popover.Trigger
+					contenteditable="false"
+					disabled={!editor.isEditable}
+					class={buttonVariants({
+						variant: 'ghost',
+						size: 'sm',
+						class: 'capitalize text-muted-foreground'
+					})}
+				>
+					{defaultLanguage}
+				</Popover.Trigger>
+			</Tooltip>
 			<Popover.Content
-				class="text-primary! max-h-96 w-48 p-0"
+				class="text-primary! max-h-96 w-42 p-0!"
 				portalProps={{ disabled: true, to: undefined }}
 				onCloseAutoFocus={(e) => {
 					e.preventDefault();
@@ -60,7 +88,7 @@
 					e.stopPropagation();
 				}}
 			>
-				<Command.Root>
+				<Command.Root class="p-0!">
 					<Command.Input placeholder={strings.extension.code.searchLanguagePlaceholder} />
 					<Command.List>
 						<Command.Empty>{strings.extension.code.searchLanguageEmpty}</Command.Empty>
@@ -84,7 +112,7 @@
 		<Button
 			variant="ghost"
 			size="icon-xs"
-			class="text-muted-foreground print:hidden transition-opacity group-hover:opacity-100 opacity-0"
+			class="text-muted-foreground print:hidden"
 			onclick={copyCode}
 		>
 			{#if isCopying}

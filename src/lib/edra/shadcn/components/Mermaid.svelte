@@ -14,6 +14,8 @@
 	import Columns2 from '@lucide/svelte/icons/columns-2';
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
+	import Tooltip from './Tooltip.svelte';
+	import { Download } from '@lucide/svelte';
 
 	const { node, editor, getPos }: NodeViewProps = $props();
 
@@ -170,6 +172,53 @@
 		setTimeout(() => (copied = false), 2000);
 	}
 
+	function downloadImage() {
+		const svgEl = container?.querySelector('svg');
+		if (!svgEl) return;
+
+		const svgString = new XMLSerializer().serializeToString(svgEl);
+		const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+		const DOMURL = window.URL || window.webkitURL || window;
+		const url = DOMURL.createObjectURL(svgBlob);
+
+		const rect = svgEl.getBoundingClientRect();
+		const viewBoxWidth = svgEl.viewBox?.baseVal?.width;
+		const viewBoxHeight = svgEl.viewBox?.baseVal?.height;
+
+		const width = viewBoxWidth && viewBoxWidth > 0 ? viewBoxWidth : (rect.width || 800);
+		const height = viewBoxHeight && viewBoxHeight > 0 ? viewBoxHeight : (rect.height || 600);
+
+		const dpr = window.devicePixelRatio || 1;
+		const image = new Image();
+
+		image.onload = () => {
+			const canvas = document.createElement('canvas');
+			canvas.width = width * dpr;
+			canvas.height = height * dpr;
+			const context = canvas.getContext('2d');
+			if (!context) return;
+
+			context.scale(dpr, dpr);
+
+			// Fill white background
+			context.fillStyle = '#ffffff';
+			context.fillRect(0, 0, width, height);
+
+			context.drawImage(image, 0, 0, width, height);
+
+			const pngUrl = canvas.toDataURL('image/png');
+			const downloadLink = document.createElement('a');
+			downloadLink.href = pngUrl;
+			downloadLink.download = 'mermaid-diagram.png';
+			document.body.appendChild(downloadLink);
+			downloadLink.click();
+			document.body.removeChild(downloadLink);
+			DOMURL.revokeObjectURL(url);
+		};
+
+		image.src = url;
+	}
+
 	const lineCount = $derived((isEditing ? editCode : code)?.split('\n').length ?? 0);
 </script>
 
@@ -304,16 +353,25 @@
 					<div
 						class="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover/preview:opacity-100 transition-opacity"
 					>
-						<Button size="icon-sm" variant="ghost" onclick={copyCode} title="Copy code">
-							{#if copied}
-								<Check class=" text-green-500" />
-							{:else}
-								<Copy />
-							{/if}
-						</Button>
-						<Button size="icon-sm" variant="ghost" onclick={enterEditMode} title="Edit diagram">
-							<Pencil />
-						</Button>
+						<Tooltip tooltip="Download Image">
+							<Button size="icon-sm" variant="ghost" onclick={downloadImage} title="Download Image">
+								<Download class="text-muted-foreground" />
+							</Button>
+						</Tooltip>
+						<Tooltip tooltip="Copy Code">
+							<Button size="icon-sm" variant="ghost" onclick={copyCode} title="Copy code">
+								{#if copied}
+									<Check class=" text-green-500" />
+								{:else}
+									<Copy class="text-muted-foreground" />
+								{/if}
+							</Button>
+						</Tooltip>
+						<Tooltip tooltip="Edit Mode">
+							<Button size="icon-sm" variant="ghost" onclick={enterEditMode} title="Edit diagram">
+								<Pencil class="text-muted-foreground" />
+							</Button>
+						</Tooltip>
 					</div>
 				{/if}
 			{/if}

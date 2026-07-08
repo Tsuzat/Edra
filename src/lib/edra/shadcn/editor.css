@@ -593,3 +593,18 @@
 	background: var(--code-bg);
 	border: 1px solid darkred;
 }
+
+/* Callout Styles */
+
+.tiptap .edra-callout-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.tiptap .edra-callout-content > p {
+	margin: 0;
+}
+
+.tiptap .edra-callout-content > p + p {
+	margin-top: 0.5rem;
+}

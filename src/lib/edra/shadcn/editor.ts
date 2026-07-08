@@ -1,5 +1,6 @@
 import {
 	AIHighlight,
+	Callout,
 	IFrameExtended,
 	ImageExtended,
 	Mermaid,
@@ -20,6 +21,7 @@ import VideoExtendedComp from './components/VideoExtended.svelte';
 import IFrameComp from './components/IFrame.svelte';
 import MermaidComp from './components/Mermaid.svelte';
 import SlashCommandComp from './components/SlashCommand.svelte';
+import CalloutComp from './components/Callout.svelte';
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -50,6 +52,7 @@ export const createEditor = (props?: EdraEditorProps) =>
 			IFrameExtended(IFrameComp),
 			Mermaid(MermaidComp),
 			SlashCommand(SlashCommandComp),
+			Callout(CalloutComp),
 			AIHighlight.configure({
 				callAI: props?.callAI || null
 			})
