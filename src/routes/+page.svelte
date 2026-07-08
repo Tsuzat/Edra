@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+	import ToggleMode from '$lib/components/custom/ToggleMode.svelte';
 	import { createEditor, Edra, type Content } from '$lib/edra/shadcn/index.js';
 	import { onMount } from 'svelte';
 
@@ -37,6 +39,11 @@
 		editor?.commands.setContent(content, { contentType: 'json' });
 	});
 </script>
+
+<header class="flex items-center justify-between">
+	<a href={resolve('/')}>Edra</a>
+	<ToggleMode />
+</header>
 
 <div class="border w-5xl mx-auto rounded-lg">
 	<Edra {editor}>

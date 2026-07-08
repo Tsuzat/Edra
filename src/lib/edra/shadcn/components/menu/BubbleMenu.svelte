@@ -6,6 +6,7 @@
 		addAIHighlight,
 		BubbleMenu,
 		getEditor,
+		isTextSelection,
 		useEditorTransaction
 	} from '$lib/edra/tiptap/index.js';
 	import { cn } from '$lib/utils.js';
@@ -43,11 +44,75 @@
 		void transaction.version;
 		return command.clickable?.(editor) ?? true;
 	}
+	const isTableGripSelected = (node: HTMLElement) => {
+		let container = node;
+		while (container && !['TD', 'TH'].includes(container.tagName)) {
+			container = container.parentElement!;
+		}
+		const gripColumn =
+			container && container.querySelector && container.querySelector('a.grip-column.selected');
+		const gripRow =
+			container && container.querySelector && container.querySelector('a.grip-row.selected');
+		if (gripColumn || gripRow) {
+			return true;
+		}
+		return false;
+	};
 </script>
 
 <BubbleMenu
 	pluginKey="edra-bubble-menu"
 	{editor}
+	shouldShow={(props) => {
+		if (!props.editor.isEditable) return false;
+		if (!props.view || props.editor.view.dragging) {
+			return false;
+		}
+		if (props.editor.isActive('link')) return false;
+		if (props.editor.isActive('codeBlock')) return false;
+		if (props.editor.isActive('image-placeholder')) return false;
+		if (props.editor.isActive('video-placeholder')) return false;
+		if (props.editor.isActive('audio-placeholder')) return false;
+		if (props.editor.isActive('iframe-placeholder')) return false;
+		if (props.editor.isActive('image')) return false;
+		if (props.editor.isActive('video')) return false;
+		if (props.editor.isActive('iframe')) return false;
+		if (props.editor.isActive('audio')) return false;
+		if (props.editor.isActive('blockMath') || props.editor.isActive('inlineMath')) return false;
+		if (props.editor.isActive('ai-highlight')) return false;
+		if (props.editor.isActive('mermaid')) return false;
+		const {
+			state: {
+				doc,
+				selection,
+				selection: { empty, from, to }
+			}
+		} = props.editor;
+		// check if the selection is a table grip
+		const domAtPos = props.view.domAtPos(from || 0).node as HTMLElement;
+		const nodeDOM = props.view.nodeDOM(from || 0) as HTMLElement;
+		const node = nodeDOM || domAtPos;
+
+		if (isTableGripSelected(node)) {
+			return false;
+		}
+		// Sometime check for `empty` is not enough.
+		// Doubleclick an empty paragraph returns a node size of 2.
+		// So we check also for an empty text size.
+		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
+		if (empty || isEmptyTextBlock || !props.editor.isEditable) {
+			return false;
+		}
+		return !props.editor.state.selection.empty;
+	}}
+	options={{
+		shift: true,
+		autoPlacement: {
+			allowedPlacements: ['top', 'top-end', 'top-start']
+		},
+		strategy: 'absolute',
+		scrollTarget: editor.view.dom.parentElement ?? undefined
+	}}
 	class={cn('flex items-center bg-popover border rounded-lg w-fit', className)}
 >
 	{#if useAI()}

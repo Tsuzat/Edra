@@ -185,8 +185,8 @@
 		const viewBoxWidth = svgEl.viewBox?.baseVal?.width;
 		const viewBoxHeight = svgEl.viewBox?.baseVal?.height;
 
-		const width = viewBoxWidth && viewBoxWidth > 0 ? viewBoxWidth : (rect.width || 800);
-		const height = viewBoxHeight && viewBoxHeight > 0 ? viewBoxHeight : (rect.height || 600);
+		const width = viewBoxWidth && viewBoxWidth > 0 ? viewBoxWidth : rect.width || 800;
+		const height = viewBoxHeight && viewBoxHeight > 0 ? viewBoxHeight : rect.height || 600;
 
 		const dpr = window.devicePixelRatio || 1;
 		const image = new Image();
@@ -201,7 +201,6 @@
 			context.scale(dpr, dpr);
 
 			// Fill white background
-			context.fillStyle = '#ffffff';
 			context.fillRect(0, 0, width, height);
 
 			context.drawImage(image, 0, 0, width, height);

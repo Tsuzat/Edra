@@ -53,7 +53,7 @@
 	}
 </script>
 
-<NodeViewWrapper class="bg-muted/20 my-4 pb-4 rounded-lg">
+<NodeViewWrapper class="bg-muted dark:bg-muted/20 my-4 pb-4 rounded-lg">
 	<div class="flex items-center mx-2 gap-2 justify-end print:justify-start" contenteditable="false">
 		{#if defaultLanguage.toLowerCase() === 'mermaid'}
 			<Tooltip tooltip="Convert to Mermaid Diagram">
