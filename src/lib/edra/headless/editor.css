@@ -1,0 +1,724 @@
+@import 'katex/dist/katex.min.css';
+@import '../onedark.css';
+
+:root {
+	/* Vercel Design Language Tokens */
+	--edra-ink: #171717;
+	--edra-body: #4d4d4d;
+	--edra-mute: #888888;
+	--edra-hairline: #ebebeb;
+	--edra-hairline-strong: #a1a1a1;
+	--edra-canvas: #ffffff;
+	--edra-canvas-soft: #fafafa;
+	--edra-canvas-soft-2: #f5f5f5;
+	--edra-link: #0070f3;
+	--edra-link-deep: #0761d1;
+	--edra-link-bg-soft: #d3e5ff;
+
+	--edra-success: #0070f3;
+	--edra-error: #ee0000;
+	--edra-error-soft: #f7d4d6;
+	--edra-warning: #f5a623;
+	--edra-warning-soft: #ffefcf;
+
+	--edra-font-sans:
+		'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+		sans-serif;
+	--edra-font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', Monaco, Consolas, monospace;
+
+	/* Radii scale */
+	--edra-radius-xs: 4px;
+	--edra-radius-sm: 6px;
+	--edra-radius-md: 8px;
+	--edra-radius-lg: 12px;
+	--edra-radius-xl: 16px;
+	--edra-radius-pill: 100px;
+
+	/* Stacked shadows */
+	--edra-shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.05);
+	--edra-shadow-2: 0px 1px 1px #00000005, 0px 2px 2px #0000000a, 0 0 0 1px rgba(0, 0, 0, 0.05);
+	--edra-shadow-3: 0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, 0 0 0 1px rgba(0, 0, 0, 0.05);
+	--edra-shadow-4:
+		0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px rgba(0, 0, 0, 0.05);
+	--edra-shadow-5:
+		0px 1px 1px #00000005, 0px 8px 16px -4px #0000000a, 0px 24px 32px -8px #0000000f,
+		0 0 0 1px rgba(0, 0, 0, 0.05);
+
+	/* Theme overrides */
+	--edra-border: var(--edra-hairline);
+	--edra-bg: var(--edra-canvas-soft);
+	--edra-text: var(--edra-ink);
+}
+
+/* Dark mode mapping using Mode-watcher's .dark class on html/body */
+.dark {
+	--edra-ink: #f5f5f5;
+	--edra-body: #a1a1a1;
+	--edra-mute: #666666;
+	--edra-hairline: #2c2c2c;
+	--edra-hairline-strong: #444444;
+	--edra-canvas: #0a0a0a;
+	--edra-canvas-soft: #121212;
+	--edra-canvas-soft-2: #1a1a1a;
+	--edra-link: #3291ff;
+	--edra-link-deep: #0070f3;
+	--edra-link-bg-soft: #002b5c;
+
+	--edra-success: #3291ff;
+	--edra-error: #ff1a1a;
+	--edra-error-soft: #2c1516;
+	--edra-warning: #f7b955;
+	--edra-warning-soft: #2c210f;
+
+	--edra-shadow-1: 0 0 0 1px rgba(255, 255, 255, 0.08);
+	--edra-shadow-2:
+		0px 1px 1px #00000050, 0px 2px 2px #000000a0, 0 0 0 1px rgba(255, 255, 255, 0.08);
+	--edra-shadow-3:
+		0px 2px 2px #000000a0, 0px 8px 8px -8px #000000a0, 0 0 0 1px rgba(255, 255, 255, 0.08);
+	--edra-shadow-4:
+		0px 2px 2px #000000a0, 0px 8px 16px -4px #000000a0, 0 0 0 1px rgba(255, 255, 255, 0.08);
+	--edra-shadow-5:
+		0px 1px 1px #00000050, 0px 8px 16px -4px #000000a0, 0px 24px 32px -8px #000000f0,
+		0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Base styles for the editor */
+.edra-editor-root {
+	font-family: var(--edra-font-sans);
+	color: var(--edra-ink);
+	background-color: var(--edra-canvas-soft);
+	line-height: 1.6;
+	letter-spacing: -0.011em;
+}
+
+/* Custom styles for native components */
+.edra-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0 1rem;
+	height: 2.25rem;
+	font-family: var(--edra-font-sans);
+	font-size: 0.875rem;
+	font-weight: 500;
+	border-radius: var(--edra-radius-sm);
+	border: 1px solid var(--edra-border);
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	cursor: pointer;
+	user-select: none;
+	transition: all 150ms ease;
+}
+
+.edra-btn:hover:not(:disabled) {
+	background-color: var(--edra-canvas-soft);
+	border-color: var(--edra-hairline-strong);
+}
+
+.edra-btn:active:not(:disabled) {
+	background-color: var(--edra-canvas-soft-2);
+}
+
+.edra-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Button variants */
+.edra-btn-primary {
+	background-color: var(--edra-ink);
+	color: var(--edra-canvas);
+	border-color: var(--edra-ink);
+}
+
+.edra-btn-primary:hover:not(:disabled) {
+	background-color: var(--edra-body);
+	border-color: var(--edra-body);
+}
+
+.edra-btn-ghost {
+	background-color: transparent;
+	border-color: transparent;
+	color: var(--edra-body);
+}
+
+.edra-btn-ghost:hover:not(:disabled) {
+	background-color: var(--edra-canvas-soft-2);
+	color: var(--edra-ink);
+}
+
+.edra-btn-destructive {
+	color: var(--edra-error);
+	border-color: transparent;
+	background-color: transparent;
+}
+
+.edra-btn-destructive:hover:not(:disabled) {
+	background-color: var(--edra-error-soft);
+}
+
+.edra-btn-icon {
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+}
+
+.edra-btn-icon-xs {
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0;
+	border-radius: var(--edra-radius-xs);
+	font-size: 0.75rem;
+}
+
+/* Forms & inputs */
+.edra-input {
+	display: block;
+	width: 100%;
+	height: 2.25rem;
+	padding: 0 0.75rem;
+	font-family: var(--edra-font-sans);
+	font-size: 0.875rem;
+	border-radius: var(--edra-radius-sm);
+	border: 1px solid var(--edra-border);
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	outline: none;
+	transition: border-color 150ms ease;
+}
+
+.edra-input:focus {
+	border-color: var(--edra-hairline-strong);
+}
+
+.edra-input::placeholder {
+	color: var(--edra-mute);
+}
+
+.edra-select {
+	display: block;
+	height: 2rem;
+	padding: 0 1.5rem 0 0.5rem;
+	font-family: var(--edra-font-sans);
+	font-size: 0.8125rem;
+	border-radius: var(--edra-radius-sm);
+	border: 1px solid var(--edra-border);
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	outline: none;
+	cursor: pointer;
+	appearance: none;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.5rem center;
+	background-size: 0.75rem;
+}
+
+.edra-select:hover {
+	border-color: var(--edra-hairline-strong);
+}
+
+.edra-textarea {
+	display: block;
+	width: 100%;
+	min-height: 5rem;
+	padding: 0.5rem 0.75rem;
+	font-family: var(--edra-font-sans);
+	font-size: 0.875rem;
+	border-radius: var(--edra-radius-sm);
+	border: 1px solid var(--edra-border);
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	outline: none;
+	resize: vertical;
+	transition: border-color 150ms ease;
+}
+
+.edra-textarea:focus {
+	border-color: var(--edra-hairline-strong);
+}
+
+/* Layout utilities */
+.edra-separator {
+	background-color: var(--edra-border);
+}
+.edra-separator[role='separator'][aria-orientation='horizontal'] {
+	height: 1px;
+	width: 100%;
+}
+.edra-separator[role='separator'][aria-orientation='vertical'] {
+	width: 1px;
+	height: 1.5rem;
+}
+
+/* Floating panels styling */
+.edra-popover-content,
+.edra-dropdown-content {
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	border: 1px solid var(--edra-border);
+	border-radius: var(--edra-radius-md);
+	box-shadow: var(--edra-shadow-5);
+	padding: 0.25rem;
+	z-index: 50;
+}
+
+/* CSS-only Tooltip */
+[data-tooltip] {
+	position: relative;
+}
+
+[data-tooltip]::after {
+	position: absolute;
+	bottom: 125%;
+	left: 50%;
+	transform: translateX(-50%) scale(0.95);
+	padding: 0.25rem 0.5rem;
+	border: 1px solid var(--edra-border);
+	border-radius: var(--edra-radius-xs);
+	background-color: var(--edra-canvas);
+	color: var(--edra-ink);
+	font-size: 0.75rem;
+	font-weight: 500;
+	white-space: nowrap;
+	content: attr(data-tooltip);
+	opacity: 0;
+	pointer-events: none;
+	transition: all 150ms ease;
+	box-shadow: var(--edra-shadow-2);
+	z-index: 60;
+}
+
+[data-tooltip]:hover::after {
+	opacity: 1;
+	transform: translateX(-50%) scale(1);
+}
+
+/* Tiptap content styling */
+.tiptap {
+	margin-inline: auto;
+	outline: none !important;
+}
+
+.tiptap :first-child {
+	margin-top: 0;
+}
+
+.tiptap :last-child {
+	margin-bottom: 0;
+}
+
+.tiptap > p {
+	margin: 1rem 0;
+}
+
+.tiptap .is-empty:not(blockquote.is-empty)::before {
+	float: left;
+	height: 0;
+	color: var(--edra-mute);
+	pointer-events: none;
+	content: attr(data-placeholder);
+}
+
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	margin-top: 1.5rem;
+	margin-bottom: 0.5rem;
+	font-family: var(--edra-font-sans);
+	font-weight: 600;
+	color: var(--edra-ink);
+	line-height: 1.25;
+	text-wrap: pretty;
+	letter-spacing: -0.025em;
+}
+
+.tiptap h1 {
+	font-size: 2rem;
+	letter-spacing: -0.05em;
+}
+
+.tiptap h2 {
+	font-size: 1.5rem;
+	letter-spacing: -0.04em;
+}
+
+.tiptap h3 {
+	font-size: 1.25rem;
+	letter-spacing: -0.03em;
+}
+
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	font-size: 1rem;
+	letter-spacing: -0.02em;
+}
+
+.tiptap em {
+	font-style: italic;
+}
+
+.tiptap audio {
+	width: 100%;
+	max-width: 64rem;
+	display: block;
+	margin: 1rem 0;
+}
+
+.tiptap blockquote {
+	position: relative;
+	padding: 0.25rem 0;
+	padding-left: 1rem;
+	margin: 1.5rem 0;
+	font-style: italic;
+	color: var(--edra-body);
+}
+
+.tiptap blockquote::before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 2px;
+	content: ' ';
+	background-color: var(--edra-ink);
+}
+
+.tiptap blockquote p {
+	margin: 0;
+}
+
+.tiptap hr {
+	margin: 2rem 0;
+	border: none;
+	border-top: 1px solid var(--edra-border);
+}
+
+.tiptap code {
+	font-family: var(--edra-font-mono);
+	font-size: 0.875rem;
+	background-color: var(--edra-canvas-soft-2);
+	padding: 0.2rem 0.4rem;
+	border-radius: var(--edra-radius-xs);
+}
+
+.tiptap pre {
+	display: flex;
+	height: fit-content;
+	padding: 1rem;
+	margin: 1rem 0;
+	overflow: auto;
+	background-color: var(--edra-canvas-soft-2);
+	border-radius: var(--edra-radius-md);
+	border: 1px solid var(--edra-border);
+}
+
+.tiptap pre code {
+	flex: 1;
+	padding: 0;
+	color: inherit;
+	background-color: transparent;
+	border-radius: 0 !important;
+	font-family: var(--edra-font-mono);
+	font-size: 0.8125rem;
+	line-height: 1.5;
+}
+
+.tiptap ul,
+.tiptap ol {
+	padding-left: 1.5rem;
+	margin: 1rem 0;
+}
+
+.tiptap ul {
+	list-style-type: disc;
+}
+
+.tiptap ol {
+	list-style-type: decimal;
+}
+
+.tiptap ul ul {
+	list-style-type: circle;
+}
+
+.tiptap ul ul ul {
+	list-style-type: square;
+}
+
+.tiptap ul li,
+.tiptap ol li {
+	margin: 0.25rem 0;
+}
+
+.tiptap ul li p,
+.tiptap ol li p {
+	margin: 0;
+}
+
+/* Task lists */
+.tiptap ul[data-type='taskList'] {
+	padding: 0;
+	list-style: none;
+}
+
+.tiptap ul[data-type='taskList'] li {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	margin: 0.5rem 0;
+}
+
+.tiptap ul[data-type='taskList'] li > label {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	height: 1.5rem;
+	margin: 0;
+	user-select: none;
+}
+
+.tiptap ul[data-type='taskList'] li > div {
+	flex: 1;
+	min-width: 0;
+}
+
+.tiptap ul[data-type='taskList'] li > div > p {
+	margin: 0;
+}
+
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+	cursor: pointer;
+}
+
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
+	color: var(--edra-mute);
+	text-decoration: line-through;
+}
+
+/* Custom checkbox */
+.tiptap input[type='checkbox'] {
+	position: relative;
+	display: grid;
+	place-content: center;
+	width: 1rem;
+	height: 1rem;
+	margin: 0.25rem 0 0 0;
+	appearance: none;
+	background-color: var(--edra-canvas);
+	border: 1px solid var(--edra-hairline-strong);
+	border-radius: var(--edra-radius-xs);
+	cursor: pointer;
+	transition: all 150ms ease;
+}
+
+.tiptap input[type='checkbox']:hover {
+	border-color: var(--edra-ink);
+}
+
+.tiptap input[type='checkbox']::before {
+	width: 0.5rem;
+	height: 0.5rem;
+	content: '';
+	background-color: var(--edra-canvas);
+	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+	transform: scale(0);
+	transition: transform 150ms ease;
+}
+
+.tiptap input[type='checkbox']:checked {
+	background-color: var(--edra-ink);
+	border-color: var(--edra-ink);
+}
+
+.tiptap input[type='checkbox']:checked::before {
+	transform: scale(1);
+}
+
+/* Color indicators */
+.color::before {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.25rem;
+	content: ' ';
+	background-color: var(--color);
+	border: 1px solid var(--edra-border);
+	border-radius: var(--edra-radius-xs);
+	vertical-align: middle;
+}
+
+/* KaTeX */
+.katex:hover {
+	background-color: var(--edra-canvas-soft-2);
+}
+
+.katex.result {
+	background-color: var(--edra-link-bg-soft);
+	border-bottom: 1px dashed var(--edra-link);
+}
+
+/* Tables */
+.tiptap .tableWrapper {
+	padding: 1rem 0;
+	margin: 1.5rem 0;
+	overflow-x: auto;
+}
+
+.tiptap table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid var(--edra-border);
+}
+
+.tiptap table td,
+.tiptap table th {
+	position: relative;
+	min-width: 100px;
+	padding: 0.75rem;
+	vertical-align: top;
+	text-align: left;
+	border: 1px solid var(--edra-border);
+}
+
+.tiptap table th {
+	font-weight: 600;
+	background-color: var(--edra-canvas-soft);
+}
+
+.tiptap table td p,
+.tiptap table th p {
+	margin: 0;
+}
+
+.tiptap table td p + p,
+.tiptap table th p + p {
+	margin-top: 0.5rem;
+}
+
+.tiptap table .column-resize-handle {
+	position: absolute;
+	top: 0;
+	right: -2px;
+	bottom: -2px;
+	width: 4px;
+	cursor: col-resize;
+	background-color: var(--edra-link);
+	z-index: 10;
+}
+
+.tiptap table .selectedCell {
+	background-color: var(--edra-canvas-soft-2);
+	outline: 2px solid var(--edra-link);
+	z-index: 1;
+}
+
+.tiptap .tableWrapper .grip-column,
+.tiptap .tableWrapper .grip-row {
+	position: absolute;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--edra-canvas-soft-2);
+	border: 1px solid var(--edra-border);
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity 200ms ease;
+}
+
+.tiptap table .grip-column {
+	top: -0.75rem;
+	left: 0;
+	width: 100%;
+	height: 0.75rem;
+	border-radius: var(--edra-radius-xs) var(--edra-radius-xs) 0 0;
+}
+
+.tiptap table .grip-column.selected,
+.tiptap table .grip-row.selected {
+	background-color: var(--edra-ink);
+	border-color: var(--edra-ink);
+	color: var(--edra-canvas);
+	opacity: 1 !important;
+}
+
+.tiptap table .grip-row {
+	top: 0;
+	left: -0.75rem;
+	width: 0.75rem;
+	height: 100%;
+	border-radius: var(--edra-radius-xs) 0 0 var(--edra-radius-xs);
+}
+
+.tiptap td:hover .grip-column,
+.tiptap th:hover .grip-column,
+.tiptap td:hover .grip-row,
+.tiptap th:hover .grip-row,
+.tiptap .grip-column.show-col-grip,
+.tiptap .grip-row.show-row-grip {
+	opacity: 1;
+}
+
+/* Edge add buttons */
+.tiptap .add-column-btn,
+.tiptap .add-row-btn {
+	position: absolute;
+	z-index: 20;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--edra-body);
+	cursor: pointer;
+	background-color: var(--edra-canvas);
+	border: 1px solid var(--edra-border);
+	box-shadow: var(--edra-shadow-2);
+	opacity: 0;
+	transition: all 150ms ease;
+}
+
+.tiptap .tableWrapper.last-column-hover .add-column-btn,
+.tiptap .tableWrapper.last-row-hover .add-row-btn {
+	opacity: 1;
+}
+
+.tiptap .add-column-btn:hover,
+.tiptap .add-row-btn:hover {
+	background-color: var(--edra-canvas-soft);
+	color: var(--edra-ink);
+}
+
+.tiptap .add-column-btn {
+	top: 0;
+	right: -0.85rem;
+	width: 0.75rem;
+	height: 100%;
+	border-radius: 0 var(--edra-radius-xs) var(--edra-radius-xs) 0;
+}
+
+.tiptap .add-row-btn {
+	bottom: -0.85rem;
+	left: 0;
+	width: 100%;
+	height: 0.75rem;
+	border-radius: 0 0 var(--edra-radius-xs) var(--edra-radius-xs);
+}
+
+/* Callout Styles */
+.tiptap .edra-callout-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.tiptap .edra-callout-content > p {
+	margin: 0;
+}
+
+.tiptap .edra-callout-content > p + p {
+	margin-top: 0.5rem;
+}
