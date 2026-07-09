@@ -17,6 +17,7 @@
 	import Lists from '../tools/Lists.svelte';
 	import FontSize from '../tools/FontSize.svelte';
 	import AlignMent from '../tools/AlignMent.svelte';
+	import { toast } from 'svelte-sonner';
 	interface Props {
 		class?: string;
 	}
@@ -100,10 +101,10 @@
 		// Doubleclick an empty paragraph returns a node size of 2.
 		// So we check also for an empty text size.
 		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
-		if (empty || isEmptyTextBlock || !props.editor.isEditable) {
+		if (empty || isEmptyTextBlock || !editor.isEditable) {
 			return false;
 		}
-		return !props.editor.state.selection.empty;
+		return !editor.state.selection.empty;
 	}}
 	options={{
 		shift: true,

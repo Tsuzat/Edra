@@ -67,6 +67,19 @@
 					{
 						title: 'AI Assistant',
 						url: resolve('/docs/extensions/ai')
+					},
+					{
+						title: 'Slash Command',
+						url: resolve('/docs/extensions/slash-command')
+					}
+				]
+			},
+			{
+				title: 'Customization',
+				items: [
+					{
+						title: 'Customizing Extensions',
+						url: resolve('/docs/customization')
 					}
 				]
 			}
