@@ -66,7 +66,8 @@
 		transition: all 150ms ease;
 		outline: none;
 	}
-	.dropdown-subtrigger:hover, .dropdown-subtrigger:focus {
+	.dropdown-subtrigger:hover,
+	.dropdown-subtrigger:focus {
 		background-color: var(--edra-canvas-soft-2);
 	}
 	:global(.arrow-icon) {

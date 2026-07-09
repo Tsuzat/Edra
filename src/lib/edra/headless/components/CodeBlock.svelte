@@ -58,7 +58,7 @@
 				</button>
 			</Tooltip>
 		{/if}
-		
+
 		<Tooltip tooltip="Change Language">
 			<select
 				disabled={!editor.isEditable}
@@ -73,10 +73,7 @@
 			</select>
 		</Tooltip>
 
-		<button
-			class="edra-btn edra-btn-ghost edra-btn-icon-xs copy-btn"
-			onclick={copyCode}
-		>
+		<button class="edra-btn edra-btn-ghost edra-btn-icon-xs copy-btn" onclick={copyCode}>
 			{#if isCopying}
 				<Check class="success-icon" />
 			{:else}
@@ -115,7 +112,8 @@
 	.copy-btn {
 		color: var(--edra-mute);
 	}
-	:global(.sparkle-icon), :global(.copy-icon) {
+	:global(.sparkle-icon),
+	:global(.copy-icon) {
 		width: 0.875rem;
 		height: 0.875rem;
 	}

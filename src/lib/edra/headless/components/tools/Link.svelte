@@ -28,9 +28,7 @@
 <Popover bind:open>
 	{#snippet trigger()}
 		<Tooltip tooltip="Link">
-			<div
-				class="edra-btn edra-btn-ghost edra-btn-icon {isActive() ? 'active' : ''}"
-			>
+			<div class="edra-btn edra-btn-ghost edra-btn-icon {isActive() ? 'active' : ''}">
 				<Link />
 				<ChevronDown class="chevron-icon" />
 			</div>

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { motion } from "motion-sv";
-	import { cn } from "$lib/utils";
-	import type { SVGAttributes } from "svelte/elements";
+	import { onMount } from 'svelte';
+	import { motion } from 'motion-sv';
+	import { cn } from '$lib/utils';
+	import type { SVGAttributes } from 'svelte/elements';
 
 	interface DotPatternProps extends SVGAttributes<SVGSVGElement> {
 		width?: number;
@@ -57,14 +57,14 @@
 		};
 
 		updateDimensions();
-		window.addEventListener("resize", updateDimensions);
-		return () => window.removeEventListener("resize", updateDimensions);
+		window.addEventListener('resize', updateDimensions);
+		return () => window.removeEventListener('resize', updateDimensions);
 	});
 
 	const dots = $derived(
 		Array.from(
 			{
-				length: Math.ceil(dimensions.width / width) * Math.ceil(dimensions.height / height),
+				length: Math.ceil(dimensions.width / width) * Math.ceil(dimensions.height / height)
 			},
 			(_, i) => {
 				const col = i % Math.ceil(dimensions.width / width);
@@ -73,7 +73,7 @@
 					x: col * width + cx,
 					y: row * height + cy,
 					delay: Math.random() * 5,
-					duration: Math.random() * 3 + 2,
+					duration: Math.random() * 3 + 2
 				};
 			}
 		)
@@ -83,7 +83,7 @@
 <svg
 	bind:this={containerRef}
 	aria-hidden="true"
-	class={cn("pointer-events-none absolute inset-0 h-full w-full text-neutral-400/80", className)}
+	class={cn('pointer-events-none absolute inset-0 h-full w-full text-neutral-400/80', className)}
 	{...props}
 >
 	<defs>
@@ -92,26 +92,26 @@
 			<stop offset="100%" stop-color="currentColor" stop-opacity="0" />
 		</radialGradient>
 	</defs>
-	{#each dots as dot (dot.x + "-" + dot.y)}
+	{#each dots as dot (dot.x + '-' + dot.y)}
 		<motion.circle
 			cx={dot.x}
 			cy={dot.y}
 			r={cr}
-			fill={glow ? `url(#${id}-gradient)` : "currentColor"}
+			fill={glow ? `url(#${id}-gradient)` : 'currentColor'}
 			initial={glow ? { opacity: 0.4, scale: 1 } : {}}
 			animate={glow
 				? {
 						opacity: [0.4, 1, 0.4],
-						scale: [1, 1.5, 1],
+						scale: [1, 1.5, 1]
 					}
 				: {}}
 			transition={glow
 				? {
 						duration: dot.duration,
 						repeat: Infinity,
-						repeatType: "reverse",
+						repeatType: 'reverse',
 						delay: dot.delay,
-						ease: "easeInOut",
+						ease: 'easeInOut'
 					}
 				: {}}
 		/>

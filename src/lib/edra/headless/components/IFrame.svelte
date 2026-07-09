@@ -9,7 +9,8 @@
 
 <MediaExtended bind:mediaRef {...rest}>
 	{@const node = rest.node}
-	<iframe bind:this={mediaRef} class="iframe-custom" {...node.attrs} title="IFrame Container"> </iframe>
+	<iframe bind:this={mediaRef} class="iframe-custom" {...node.attrs} title="IFrame Container">
+	</iframe>
 </MediaExtended>
 
 <style>

@@ -185,12 +185,7 @@
 			>
 				<div class="resize-bar"></div>
 			</div>
-			<div
-				class={cn(
-					'media-toolbar',
-					openedMore && 'opened'
-				)}
-			>
+			<div class={cn('media-toolbar', openedMore && 'opened')}>
 				<button
 					class="edra-btn edra-btn-ghost edra-btn-icon-xs {node.attrs.align === 'left'
 						? 'media-align-active'

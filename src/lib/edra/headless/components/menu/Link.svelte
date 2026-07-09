@@ -94,11 +94,7 @@
 			</button>
 		</Tooltip>
 	{:else}
-		<form
-			transition:slide={{ axis: 'x' }}
-			onsubmit={handleSubmit}
-			class="link-input-form"
-		>
+		<form transition:slide={{ axis: 'x' }} onsubmit={handleSubmit} class="link-input-form">
 			<input
 				class="edra-input link-input-elem"
 				bind:value={linkInput}

@@ -38,8 +38,7 @@
 		bind:value={latex}
 		oninput={updateLatex}
 		placeholder={strings.menu.math.enterExpressionPlaceholder}
-		class="edra-textarea math-textarea"
-	></textarea>
+		class="edra-textarea math-textarea"></textarea>
 </BubbleMenu>
 
 <style>

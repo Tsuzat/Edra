@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Root, Trigger, Content, Label, Item, Shortcut } from '../../primitives/dropdown/index.ts';
+	import {
+		Root,
+		Trigger,
+		Content,
+		Label,
+		Item,
+		Shortcut
+	} from '../../primitives/dropdown/index.ts';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Tooltip from '../Tooltip.svelte';
 	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
@@ -36,16 +43,16 @@
 		</Trigger>
 	</Tooltip>
 
-<style>
-	.trigger-font-btn {
-		font-weight: 500;
-	}
-	:global(.chevron-icon) {
-		color: var(--edra-mute);
-		width: 0.5rem;
-		height: 0.5rem;
-	}
-</style>
+	<style>
+		.trigger-font-btn {
+			font-weight: 500;
+		}
+		:global(.chevron-icon) {
+			color: var(--edra-mute);
+			width: 0.5rem;
+			height: 0.5rem;
+		}
+	</style>
 	<Content>
 		<Label>Font Size</Label>
 		{#each FONT_SIZE as fontSize (fontSize)}

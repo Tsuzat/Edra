@@ -15,9 +15,7 @@
 	}
 </script>
 
-<NodeViewWrapper
-	class="callout-wrapper"
->
+<NodeViewWrapper class="callout-wrapper">
 	<div contenteditable="false" class="emoji-trigger-container">
 		<Popover>
 			{#snippet trigger()}
@@ -25,7 +23,7 @@
 					{emoji}
 				</button>
 			{/snippet}
-			
+
 			<div class="emoji-popover-content">
 				<div class="input-wrapper">
 					<label for="emoji" class="emoji-label">Emoji Icon</label>

@@ -14,15 +14,25 @@
 	let contentEl = $state<HTMLElement | null>(null);
 
 	const context = {
-		get open() { return open; },
+		get open() {
+			return open;
+		},
 		set open(val) {
 			open = val;
 			onOpenChange?.(val);
 		},
-		get triggerEl() { return triggerEl; },
-		set triggerEl(val) { triggerEl = val; },
-		get contentEl() { return contentEl; },
-		set contentEl(val) { contentEl = val; },
+		get triggerEl() {
+			return triggerEl;
+		},
+		set triggerEl(val) {
+			triggerEl = val;
+		},
+		get contentEl() {
+			return contentEl;
+		},
+		set contentEl(val) {
+			contentEl = val;
+		},
 		close() {
 			open = false;
 			onOpenChange?.(false);
@@ -44,10 +54,7 @@
 	function handleOutsideClick(event: MouseEvent) {
 		if (!open) return;
 		const target = event.target as HTMLElement;
-		if (
-			triggerEl && !triggerEl.contains(target) &&
-			contentEl && !contentEl.contains(target)
-		) {
+		if (triggerEl && !triggerEl.contains(target) && contentEl && !contentEl.contains(target)) {
 			open = false;
 			onOpenChange?.(false);
 		}

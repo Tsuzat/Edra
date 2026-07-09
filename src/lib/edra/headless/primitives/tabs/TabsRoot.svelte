@@ -12,7 +12,9 @@
 	let { value = $bindable(''), onValueChange, class: className = '', children }: Props = $props();
 
 	const context = {
-		get value() { return value; },
+		get value() {
+			return value;
+		},
 		setValue(val: string) {
 			value = val;
 			onValueChange?.(val);

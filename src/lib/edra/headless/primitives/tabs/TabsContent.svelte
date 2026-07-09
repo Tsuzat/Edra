@@ -19,11 +19,11 @@
 		{@render children()}
 	</div>
 
-<style>
-	.tabs-content {
-		margin-top: 0.5rem;
-		width: 100%;
-		outline: none;
-	}
-</style>
+	<style>
+		.tabs-content {
+			margin-top: 0.5rem;
+			width: 100%;
+			outline: none;
+		}
+	</style>
 {/if}

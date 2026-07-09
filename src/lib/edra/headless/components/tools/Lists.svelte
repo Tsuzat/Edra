@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Root, Trigger, Content, Label, Item, Shortcut } from '../../primitives/dropdown/index.ts';
+	import {
+		Root,
+		Trigger,
+		Content,
+		Label,
+		Item,
+		Shortcut
+	} from '../../primitives/dropdown/index.ts';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Minus from '@lucide/svelte/icons/minus';
 	import { commands } from '$lib/edra/commands/index.js';

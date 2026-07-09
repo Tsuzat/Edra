@@ -48,10 +48,7 @@
 	function handleOutsideClick(event: MouseEvent) {
 		if (!open) return;
 		const target = event.target as HTMLElement;
-		if (
-			triggerEl && !triggerEl.contains(target) &&
-			popoverEl && !popoverEl.contains(target)
-		) {
+		if (triggerEl && !triggerEl.contains(target) && popoverEl && !popoverEl.contains(target)) {
 			open = false;
 		}
 	}
@@ -60,7 +57,13 @@
 <svelte:document onclick={handleOutsideClick} />
 
 <div class="popover-wrapper">
-	<span bind:this={triggerEl} onclick={(e) => { e.stopPropagation(); open = !open; }}>
+	<span
+		bind:this={triggerEl}
+		onclick={(e) => {
+			e.stopPropagation();
+			open = !open;
+		}}
+	>
 		{@render trigger()}
 	</span>
 

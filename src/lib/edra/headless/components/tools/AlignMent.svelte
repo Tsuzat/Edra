@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Root, Trigger, Content, Label, Item, Shortcut } from '../../primitives/dropdown/index.ts';
+	import {
+		Root,
+		Trigger,
+		Content,
+		Label,
+		Item,
+		Shortcut
+	} from '../../primitives/dropdown/index.ts';
 	import AlignLeft from '@lucide/svelte/icons/align-left';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Tooltip from '../Tooltip.svelte';

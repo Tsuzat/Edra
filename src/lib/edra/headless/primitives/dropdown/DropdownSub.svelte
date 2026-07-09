@@ -13,12 +13,24 @@
 	let contentEl = $state<HTMLElement | null>(null);
 
 	const subContext = {
-		get open() { return open; },
-		set open(val) { open = val; },
-		get triggerEl() { return triggerEl; },
-		set triggerEl(val) { triggerEl = val; },
-		get contentEl() { return contentEl; },
-		set contentEl(val) { contentEl = val; }
+		get open() {
+			return open;
+		},
+		set open(val) {
+			open = val;
+		},
+		get triggerEl() {
+			return triggerEl;
+		},
+		set triggerEl(val) {
+			triggerEl = val;
+		},
+		get contentEl() {
+			return contentEl;
+		},
+		set contentEl(val) {
+			contentEl = val;
+		}
 	};
 
 	setContext('edra-dropdown-sub', subContext);

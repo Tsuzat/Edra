@@ -66,11 +66,7 @@
 		{#snippet trigger()}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
-			<div
-				role="button"
-				tabindex={1}
-				class="placeholder-card"
-			>
+			<div role="button" tabindex={1} class="placeholder-card">
 				<Icon class="icon" />
 				<span class="text-span" contenteditable={false}>{text}</span>
 			</div>
@@ -99,10 +95,7 @@
 						placeholder="Paste URL here..."
 						required
 					/>
-					<button
-						type="submit"
-						class="edra-btn edra-btn-primary h-8-btn"
-						>Insert {mediaType}</button
+					<button type="submit" class="edra-btn edra-btn-primary h-8-btn">Insert {mediaType}</button
 					>
 				</form>
 			</TabsContent>
@@ -110,9 +103,7 @@
 				<TabsContent value="file">
 					<form class="form-container" onsubmit={handleFileSubmit}>
 						<input type="file" bind:files class="edra-input file-input" required />
-						<button
-							type="submit"
-							class="edra-btn edra-btn-primary h-8-btn"
+						<button type="submit" class="edra-btn edra-btn-primary h-8-btn"
 							>Insert {mediaType}</button
 						>
 					</form>

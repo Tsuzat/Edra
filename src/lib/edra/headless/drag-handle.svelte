@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { autoPlacement } from '@floating-ui/dom';
-	import { Root, Trigger, Content, Label, Item, Shortcut, Separator, Sub, SubTrigger, SubContent } from './primitives/dropdown/index.ts';
+	import {
+		Root,
+		Trigger,
+		Content,
+		Label,
+		Item,
+		Shortcut,
+		Separator,
+		Sub,
+		SubTrigger,
+		SubContent
+	} from './primitives/dropdown/index.ts';
 	import { Braces, Sparkles, TextAlignCenter } from '@lucide/svelte';
 	import Clipboard from '@lucide/svelte/icons/clipboard';
 	import Duplicate from '@lucide/svelte/icons/copy';
@@ -42,7 +53,7 @@
 	let editorElement = $state<HTMLElement | null>(null);
 	const editor = getEditor();
 	const transaction = useEditorTransaction(editor);
-	
+
 	function useAI() {
 		void transaction.version;
 		return editor.extensionManager.extensions.some(
@@ -147,7 +158,7 @@
 			.deleteSelection()
 			.run();
 	};
-	
+
 	function handleAIHighlight() {
 		if (currentNodePos === -1) return;
 		editor
@@ -265,10 +276,7 @@
 										.run();
 							}}
 						>
-							<span
-								class="color-circle"
-								style={`background-color: ${`${color.value}50`};`}
-							></span>
+							<span class="color-circle" style={`background-color: ${`${color.value}50`};`}></span>
 							<span class="capitalize-text">{color.label}</span>
 						</Item>
 					{/each}
@@ -322,7 +330,12 @@
 						<span>Copy Content</span>
 					</Item>
 					<Item onclick={() => handleCopyContentAs('markdown')}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" class="drag-icon"
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 20 20"
+							class="drag-icon"
 							><path
 								fill="currentColor"
 								d="M2.491 4.046a.75.75 0 0 1 .83.218L7 8.592l3.678-4.328A.75.75 0 0 1 12 4.75v9.5a.75.75 0 0 1-1.5 0V6.79l-2.929 3.446a.75.75 0 0 1-1.142 0L3.5 6.79v7.46a.75.75 0 0 1-1.5 0v-9.5a.75.75 0 0 1 .491-.704M13.22 11.72a.75.75 0 0 1 1.06 0l.72.72V4.75a.75.75 0 0 1 1.5 0v7.69l.72-.72a.75.75 0 1 1 1.06 1.06l-2 2a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 0-1.06"
@@ -358,7 +371,9 @@
 		opacity: 0.6;
 		transition: opacity 150ms ease;
 	}
-	:global(.trigger-btn):hover, :global(.trigger-btn):focus-visible, :global(.trigger-btn):active {
+	:global(.trigger-btn):hover,
+	:global(.trigger-btn):focus-visible,
+	:global(.trigger-btn):active {
 		opacity: 1;
 	}
 	:global(.menu-content) {
@@ -381,7 +396,10 @@
 		width: fit-content;
 		max-height: 24rem;
 		overflow-y: scroll;
-		transition: opacity 150ms ease, background-color 150ms ease, transform 150ms ease;
+		transition:
+			opacity 150ms ease,
+			background-color 150ms ease,
+			transform 150ms ease;
 		border-radius: var(--edra-radius-lg);
 	}
 	.color-circle {

@@ -1,2 +1,2 @@
-import DotPattern from "./dot-pattern.svelte";
+import DotPattern from './dot-pattern.svelte';
 export { DotPattern };

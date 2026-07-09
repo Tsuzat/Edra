@@ -60,13 +60,13 @@
 		<ChevronDown class="chevron-icon" />
 	</Trigger>
 
-<style>
-	:global(.chevron-icon) {
-		color: var(--edra-mute);
-		width: 0.5rem;
-		height: 0.5rem;
-	}
-</style>
+	<style>
+		:global(.chevron-icon) {
+			color: var(--edra-mute);
+			width: 0.5rem;
+			height: 0.5rem;
+		}
+	</style>
 	<Content>
 		<Label>Export As</Label>
 		<Item onclick={() => handleExport('markdown')}>Markdown</Item>

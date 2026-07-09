@@ -107,11 +107,7 @@
 	}
 </script>
 
-<div
-	bind:this={scrollContainer}
-	class="slash-container"
-	class:hidden-element={!items.length}
->
+<div bind:this={scrollContainer} class="slash-container" class:hidden-element={!items.length}>
 	{#each items as grp, groupIndex (groupIndex)}
 		<div class="group-title">
 			{grp.title}
@@ -176,7 +172,8 @@
 		cursor: default;
 		outline: none;
 	}
-	.command-item:hover, .command-item.active {
+	.command-item:hover,
+	.command-item.active {
 		background-color: var(--edra-canvas-soft-2);
 		color: var(--edra-ink);
 	}

@@ -124,14 +124,16 @@
 		cursor: pointer;
 		outline: none;
 	}
-	.menu-item:hover, .menu-item:focus {
+	.menu-item:hover,
+	.menu-item:focus {
 		background-color: var(--edra-canvas-soft-2);
 		color: var(--edra-ink);
 	}
 	.delete-item {
 		color: var(--edra-error);
 	}
-	.delete-item:hover, .delete-item:focus {
+	.delete-item:hover,
+	.delete-item:focus {
 		background-color: var(--edra-error-soft);
 		color: var(--edra-error);
 	}

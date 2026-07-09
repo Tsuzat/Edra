@@ -47,7 +47,11 @@
 						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetColor().run();
 						} else {
-							editor.chain().focus().setColor(currentColor === color.value ? '' : color.value).run();
+							editor
+								.chain()
+								.focus()
+								.setColor(currentColor === color.value ? '' : color.value)
+								.run();
 						}
 						open = false;
 					}}
@@ -68,7 +72,11 @@
 						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetHighlight().run();
 						} else {
-							editor.chain().focus().toggleHighlight({ color: `${color.value}50` }).run();
+							editor
+								.chain()
+								.focus()
+								.toggleHighlight({ color: `${color.value}50` })
+								.run();
 						}
 						open = false;
 					}}

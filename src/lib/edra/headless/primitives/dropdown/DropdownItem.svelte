@@ -48,7 +48,8 @@
 		transition: all 150ms ease;
 		outline: none;
 	}
-	.dropdown-item:hover, .dropdown-item:focus {
+	.dropdown-item:hover,
+	.dropdown-item:focus {
 		background-color: var(--edra-canvas-soft-2);
 	}
 </style>

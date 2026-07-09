@@ -270,8 +270,7 @@
 							onkeydown={handleEditorKeydown}
 							placeholder="graph TD&#10;  A[Start] --> B[End]"
 							spellcheck={false}
-							class="mermaid-code-editor"
-						></textarea>
+							class="mermaid-code-editor"></textarea>
 						<!-- Keyboard hints -->
 						<div class="keyboard-hints">
 							<span>⌘↵ Apply</span>
