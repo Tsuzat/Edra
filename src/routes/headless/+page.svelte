@@ -41,7 +41,7 @@
 </script>
 
 <header class="demo-header">
-	<a href={resolve('/')} class="demo-title-link">Edra Headless (Vercel Style)</a>
+	<a href={resolve('/')} class="demo-title-link">Edra Headless</a>
 	<ToggleMode />
 </header>
 
