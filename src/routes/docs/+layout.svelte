@@ -5,7 +5,11 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import './layout.css';
 
+	import { initPackageManager } from '$lib/edra/docs/packageManager.svelte.js';
+
 	let { children } = $props();
+
+	initPackageManager();
 </script>
 
 <Sidebar.Provider class="[&_a]:no-underline!">

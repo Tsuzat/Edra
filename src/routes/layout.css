@@ -153,7 +153,7 @@ html {
 		@apply scroll-m-20 text-4xl font-extrabold tracking-tight text-balance lg:text-5xl;
 	}
 	h2 {
-		@apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors;
+		@apply mt-4 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors;
 	}
 	h2:first-child {
 		@apply mt-0;

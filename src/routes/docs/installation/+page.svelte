@@ -2,7 +2,8 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { ArrowRight, ArrowLeft } from '@lucide/svelte';
 	import Code from '$lib/components/custom/docs/Code.svelte';
-	import { usageCode, cliShadcn, cliEdraHeadless, cliEdraShadcn } from './code.ts';
+	import CliCode from '$lib/components/custom/docs/CliCode.svelte';
+	import { usageCode } from './code.ts';
 </script>
 
 <svelte:head>
@@ -13,36 +14,36 @@
 	<h1>Installation</h1>
 	<p class="lead">How to set up Edra and its required dependencies in your Svelte 5 application.</p>
 
-	<hr class="my-6" />
-
-	<h2>Option 1: Initialize using Edra CLI (Recommended)</h2>
+	<h2>Shadcn UI Type</h2>
 	<p>
-		The Edra CLI automatically copies the editor logic into your project folder and installs all necessary peer dependencies (TipTap core, extensions, and math plugins).
-	</p>
-
-	<h3>Headless Flavor</h3>
-	<p>For an unstyled logical core editor that you can build on:</p>
-	<div class="my-4">
-		<Code code={cliEdraHeadless} language="shell" />
-	</div>
-
-	<h3>Shadcn UI Flavor</h3>
-	<p>To initialize with a pre-configured shadcn-svelte toolbar and components layout:</p>
-	<div class="my-4">
-		<Code code={cliEdraShadcn} language="shell" />
-	</div>
-
-	<h2>Option 2: Install via shadcn-svelte CLI</h2>
-	<p>
-		If you are already using <code>shadcn-svelte</code>, you can add the styled Edra editor directly from our remote registry:
+		For a pre-configured editor integrated with shadcn-svelte toolbar and components layout. Use the <code
+			>shadcn-svelte</code
+		> CLI to pull it directly from the remote registry, allowing clean updates over time:
 	</p>
 	<div class="my-4">
-		<Code code={cliShadcn} language="shell" />
+		<CliCode type="registry" />
+	</div>
+	<p>
+		Alternatively, initialize the editor via the Edra CLI (this copies the editor logic into your
+		project):
+	</p>
+	<div class="my-4">
+		<CliCode type="shadcn" />
 	</div>
 
-	<h2>Step 3: Basic Setup</h2>
+	<h2>Headless UI Type</h2>
 	<p>
-		Once initialized or added, import <code>createEditor</code> and the <code>Edra</code> markup wrapper inside your page to render the editor:
+		For an unstyled logical core editor that you can build on. Initialize it via the Edra CLI, which
+		automatically copies the editor logic into your project and installs TipTap core packages:
+	</p>
+	<div class="my-4">
+		<CliCode type="headless" />
+	</div>
+
+	<h2>Basic Setup</h2>
+	<p>
+		Once initialized or added, import <code>createEditor</code> and the <code>Edra</code> markup wrapper
+		inside your page to render the editor:
 	</p>
 	<div class="my-4">
 		<Code code={usageCode} language="svelte" />
