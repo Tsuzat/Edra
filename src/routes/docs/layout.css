@@ -1,0 +1,7 @@
+code:not(.shiki *) {
+	background-color: var(--color-muted);
+	color: var(--color-muted-foreground);
+	font-size: 14px;
+	border-radius: 0.25rem;
+	padding: 0.25rem 0.5rem;
+}

@@ -59,7 +59,7 @@
 <header class="flex items-center justify-between p-4">
 	<div class="flex items-center gap-2">
 		<a class="nodefault flex items-center gap-2" href={resolve('/')}>
-			<img src="/favicon.svg" alt="Edra" class="size-6" />
+			<img src="/favicon.svg" alt="Edra" class="size-8" />
 			<span class="text-xl font-semibold">Edra</span>
 		</a>
 		<span class="w-4"></span>
@@ -106,14 +106,14 @@
 		<ToggleMode />
 	</div>
 </header>
-<div class="absolute mx-auto size-120 left-[calc(50%-15rem)] rounded-full overflow-hidden">
+<div class="absolute mx-auto -z-10! size-120 left-[calc(50%-15rem)] rounded-full overflow-hidden">
 	<DotPattern
 		glow={true}
 		class={cn('mask-[radial-gradient(300px_circle_at_center,white,transparent)]')}
 	/>
 </div>
 
-<div class="my-28 mx-auto flex flex-col gap-6 w-full text-center">
+<div class="my-28 mx-auto z-10! flex flex-col gap-6 w-full text-center">
 	<h1>Rich Editor for Svelte</h1>
 	<span class="text-muted-foreground">Thoughtfully designed. Copy and paste into your apps. </span>
 	<div class="flex items-center justify-center gap-2">
