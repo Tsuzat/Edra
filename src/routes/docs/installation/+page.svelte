@@ -2,9 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { ArrowRight, ArrowLeft } from '@lucide/svelte';
 	import Code from '$lib/components/custom/docs/Code.svelte';
-	import { usageCode } from './code.ts';
-
-	const installCmd = `npm install @tiptap/core @tiptap/pm @tiptap/starter-kit @tiptap/extensions`;
+	import { usageCode, cliShadcn, cliEdraHeadless, cliEdraShadcn } from './code.ts';
 </script>
 
 <svelte:head>
@@ -17,28 +15,35 @@
 
 	<hr class="my-6" />
 
-	<h2>Step 1: Install Peer Dependencies</h2>
+	<h2>Option 1: Initialize using Edra CLI (Recommended)</h2>
 	<p>
-		Edra runs on top of TipTap. You'll need to install the core TipTap libraries and any specific
-		extensions you want to use. Run the following command in your terminal:
+		The Edra CLI automatically copies the editor logic into your project folder and installs all necessary peer dependencies (TipTap core, extensions, and math plugins).
 	</p>
 
+	<h3>Headless Flavor</h3>
+	<p>For an unstyled logical core editor that you can build on:</p>
 	<div class="my-4">
-		<Code code={installCmd} language="shell" />
+		<Code code={cliEdraHeadless} language="shell" />
 	</div>
 
-	<h2>Step 2: Add Edra to Your Project</h2>
+	<h3>Shadcn UI Flavor</h3>
+	<p>To initialize with a pre-configured shadcn-svelte toolbar and components layout:</p>
+	<div class="my-4">
+		<Code code={cliEdraShadcn} language="shell" />
+	</div>
+
+	<h2>Option 2: Install via shadcn-svelte CLI</h2>
 	<p>
-		Edra components are copy-pasteable. Copy the <code>src/lib/edra</code> directory from the
-		repository directly into your project's <code>src/lib/</code> directory.
+		If you are already using <code>shadcn-svelte</code>, you can add the styled Edra editor directly from our remote registry:
 	</p>
+	<div class="my-4">
+		<Code code={cliShadcn} language="shell" />
+	</div>
 
 	<h2>Step 3: Basic Setup</h2>
 	<p>
-		Import <code>createEditor</code> and the <code>Edra</code> markup wrapper in your Svelte page to render
-		a fully styled editor:
+		Once initialized or added, import <code>createEditor</code> and the <code>Edra</code> markup wrapper inside your page to render the editor:
 	</p>
-
 	<div class="my-4">
 		<Code code={usageCode} language="svelte" />
 	</div>

@@ -18,11 +18,21 @@
 
 	<h2>Why Edra?</h2>
 	<p>
-		Building rich text editors is notoriously difficult. Edra bridges the gap by wrapping <strong
-			>TipTap</strong
-		> (a headless, highly-extensible editor framework) with a polished, developer-friendly interface that
-		aligns perfectly with the shadcn-svelte ecosystem.
+		Building rich text editors is notoriously difficult. Edra bridges the gap by wrapping <strong>TipTap</strong> (a headless, highly-extensible editor framework) with a polished, developer-friendly interface that aligns perfectly with the Svelte ecosystem.
 	</p>
+
+	<h2>Flavors & UI Types</h2>
+	<p>
+		Edra provides two variants to match your workflow requirements:
+	</p>
+	<ul class="list-disc pl-6 space-y-2 mt-4">
+		<li>
+			<strong>Shadcn UI Type:</strong> Pre-styled using standard shadcn-svelte components and Tailwind v4. Fully customizable and fits right into your design system.
+		</li>
+		<li>
+			<strong>Headless UI Type:</strong> Provides the core rich text editor logic and extensions without UI templates or predefined styling layout structures.
+		</li>
+	</ul>
 
 	<h2>Key Features</h2>
 	<ul class="list-disc pl-6 space-y-2 mt-4">

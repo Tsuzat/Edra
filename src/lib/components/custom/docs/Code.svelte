@@ -31,8 +31,11 @@
 	}
 </script>
 
-<div bind:this={ref} class="relative rounded-lg p-2 bg-muted shadow-2xl dark:bg-muted/30">
-	<Tooltip class="absolute right-2 top-2" tooltip="Copy Code">
+<div bind:this={ref} class="group relative rounded-lg p-2 bg-muted shadow-2xl dark:bg-muted/30">
+	<Tooltip
+		class="absolute group-hover:opacity-100 opacity-0 transition-opacity right-2 top-2"
+		tooltip="Copy Code"
+	>
 		<Button variant="ghost" size="icon" onclick={copy}>
 			<Copy />
 		</Button>

@@ -15,8 +15,18 @@
 		"test": "npm run test:unit -- --run",
 		"registry:build": "bunx shadcn-svelte@latest registry build"
 	},
+	"bin": {
+		"edra": "./bin/cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Tsuzat/Edra.git"
+	},
+	"license": "MIT",
 	"files": [
 		"dist",
+		"bin/",
+		"src/lib/edra",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
@@ -106,6 +116,8 @@
 		"katex": "^0.17.0",
 		"lowlight": "^3.3.0",
 		"mermaid": "^11.16.0",
-		"motion-sv": "^0.1.13"
+		"motion-sv": "^0.1.13",
+		"fs-extra": "^11.2.0",
+		"package-manager-detector": "^0.2.8"
 	}
 }

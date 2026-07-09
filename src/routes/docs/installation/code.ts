@@ -15,3 +15,9 @@ export const usageCode = `<script lang="ts">
 		<Edra.Content class="min-h-60 px-4 py-2" />
 	</Edra>
 </div>`;
+
+export const cliShadcn = `npx shadcn-svelte@latest add https://edra.tsuzat.com/registry/edra.json`;
+
+export const cliEdraHeadless = `npx edra init headless`;
+
+export const cliEdraShadcn = `npx edra init shadcn`;

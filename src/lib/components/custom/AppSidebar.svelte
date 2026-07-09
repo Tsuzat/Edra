@@ -7,7 +7,6 @@
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 
 	const data = {
-		versions: ['3.0.0', '2.0.0', '1.0.0'],
 		navMain: [
 			{
 				title: 'Getting Started',
@@ -76,14 +75,14 @@
 </script>
 
 <Sidebar.Root {...restProps} bind:ref>
-	<Sidebar.Header>
+	<Sidebar.Header class="mt-2">
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
 				<Sidebar.MenuButton>
 					{#snippet child({ props })}
 						<a href={resolve('/')} {...props}>
 							<img src="/favicon.svg" alt="Edra" class="size-8" />
-							<span class="font-semibold">Edra</span>
+							<span class="font-semibold text-xl">Edra</span>
 						</a>
 					{/snippet}
 				</Sidebar.MenuButton>
@@ -97,7 +96,7 @@
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						{#each group.items as item (item.title)}
-							<Sidebar.MenuItem>
+							<Sidebar.MenuItem class="my-1">
 								{@const isActive = page.url.pathname === item.url}
 								<Sidebar.MenuButton {isActive}>
 									{#snippet child({ props })}
