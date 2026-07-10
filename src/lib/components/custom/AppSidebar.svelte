@@ -3,6 +3,9 @@
 	import type { ComponentProps } from 'svelte';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { getKeyboardShortcut } from '$lib/edra/utils.js';
+	import { Search } from '@lucide/svelte';
+	import { openSearch } from './docs/Search.svelte';
 
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 
@@ -89,15 +92,17 @@
 
 <Sidebar.Root {...restProps} bind:ref>
 	<Sidebar.Header class="mt-2">
+		<a class="flex items-center gap-2" href={resolve('/')}>
+			<img src="/favicon.svg" alt="Edra" class="size-8" />
+			<span class="font-semibold text-xl">Edra</span>
+		</a>
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
-				<Sidebar.MenuButton>
-					{#snippet child({ props })}
-						<a href={resolve('/')} {...props}>
-							<img src="/favicon.svg" alt="Edra" class="size-8" />
-							<span class="font-semibold text-xl">Edra</span>
-						</a>
-					{/snippet}
+				<Sidebar.MenuButton class="border rounded-lg" onclick={openSearch}>
+					<Search />
+					<span>Search Document</span>
+					<span class="bg-muted ml-auto text-sm px-1 rounded">{getKeyboardShortcut('K', true)}</span
+					>
 				</Sidebar.MenuButton>
 			</Sidebar.MenuItem>
 		</Sidebar.Menu>
@@ -109,7 +114,7 @@
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						{#each group.items as item (item.title)}
-							<Sidebar.MenuItem class="my-1">
+							<Sidebar.MenuItem class="my-0.5">
 								{@const isActive = page.url.pathname === item.url}
 								<Sidebar.MenuButton {isActive}>
 									{#snippet child({ props })}

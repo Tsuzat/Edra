@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { ChevronDown, FileText, Monitor, Smartphone, Tablet } from '@lucide/svelte';
+	import { ChevronDown, FileText, Monitor, Search, Smartphone, Tablet } from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
 	import Polar from '$lib/components/custom/icons/Polar.svelte';
@@ -14,6 +14,7 @@
 	import { exampleCode } from './code.ts';
 	import { cn } from '$lib/utils.js';
 	import { DotPattern } from '$lib/components/magic/dot-pattern/index.js';
+	import { openSearch } from '$lib/components/custom/docs/Search.svelte';
 
 	/** Sample mock callAI for testing — streams a generic paragraph word-by-word */
 	async function sampleCallAI(
@@ -95,7 +96,8 @@
 		</DropdownMenu.Root>
 	</div>
 	<div class="flex items-center gap-2">
-		<Button class="text-muted-foreground" variant="outline">
+		<Button onclick={openSearch} class="text-muted-foreground" variant="outline">
+			<Search />
 			<span>Search Document</span>
 			<span class="bg-muted text-sm px-1 rounded">{getKeyboardShortcut('K', true)}</span>
 		</Button>
