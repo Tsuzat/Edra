@@ -21,7 +21,7 @@
 	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
 
 	interface Props {
-		type: 'simple' | 'extended';
+		type?: 'simple' | 'extended';
 	}
 	const { type = 'simple' }: Props = $props();
 

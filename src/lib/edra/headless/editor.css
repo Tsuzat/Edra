@@ -554,13 +554,8 @@
 }
 
 /* KaTeX */
-.katex:hover {
+.tiptap-mathematics-render:hover {
 	background-color: var(--edra-canvas-soft-2);
-}
-
-.katex.result {
-	background-color: var(--edra-link-bg-soft);
-	border-bottom: 1px dashed var(--edra-link);
 }
 
 /* Tables */

@@ -311,13 +311,8 @@
 }
 
 /* Math Equations (KaTeX) */
-.katex:hover {
-	background-color: var(--code-bg);
-}
-
-.katex.result {
-	background-color: var(--highlight-color);
-	border-bottom: 1px dashed var(--highlight-border);
+.tiptap-mathematics-render:hover {
+	background-color: var(--color-muted);
 }
 
 /* Table Styling */
@@ -575,7 +570,7 @@
 }
 
 .tiptap .tiptap-mathematics-render--editable:hover {
-	background: var(--code-bg);
+	background: var(--color-muted);
 }
 
 /* Inline math */
@@ -596,7 +591,7 @@
 .tiptap .tiptap-mathematics-render.inline-math-error,
 .tiptap .tiptap-mathematics-render.block-math-error {
 	color: var(--destructive);
-	background: var(--code-bg);
+	background: var(--color-muted);
 	border: 1px solid darkred;
 }
 
@@ -613,8 +608,4 @@
 
 .tiptap .edra-callout-content > p + p {
 	margin-top: 0.5rem;
-}
-
-.tiptap .katex:hover {
-	background-color: var(--color-muted);
 }
