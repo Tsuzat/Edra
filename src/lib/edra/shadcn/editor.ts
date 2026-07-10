@@ -11,7 +11,6 @@ import {
 } from '../tiptap/index.ts';
 import { all, createLowlight } from 'lowlight';
 import extensions from '../extensions.ts';
-const lowlight = createLowlight(all);
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CodeBlock from './components/CodeBlock.svelte';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
@@ -22,6 +21,10 @@ import IFrameComp from './components/IFrame.svelte';
 import MermaidComp from './components/Mermaid.svelte';
 import SlashCommandComp from './components/SlashCommand.svelte';
 import CalloutComp from './components/Callout.svelte';
+import TableOfContents, { getHierarchicalIndexes } from '@tiptap/extension-table-of-contents';
+import { setTocItems } from './toc.svelte';
+
+const lowlight = createLowlight(all);
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -55,6 +58,13 @@ export const createEditor = (props?: EdraEditorProps) =>
 			Callout(CalloutComp),
 			AIHighlight.configure({
 				callAI: props?.callAI || null
+			}),
+			TableOfContents.configure({
+				getIndex: getHierarchicalIndexes,
+				onUpdate: (indexes) => {
+					setTocItems(indexes);
+				},
+				scrollParent: () => (document.querySelector('.tiptap') as HTMLElement) || window
 			})
 		],
 		onUpdate: props?.onUpdate || (() => {})

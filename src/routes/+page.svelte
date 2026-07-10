@@ -72,8 +72,12 @@
 				</Button>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content>
-				<DropdownMenu.Item>Shadcn</DropdownMenu.Item>
-				<DropdownMenu.Item>Headless</DropdownMenu.Item>
+				<a class="nodefault" href="#shadcn">
+					<DropdownMenu.Item>Shadcn</DropdownMenu.Item>
+				</a>
+				<a class="nodefault" href={resolve('/headless')}>
+					<DropdownMenu.Item>Headless</DropdownMenu.Item>
+				</a>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 		<DropdownMenu.Root>
@@ -88,9 +92,15 @@
 					<DropdownMenu.GroupHeading class="text-xs text-muted-foreground"
 						>Shadcn Based</DropdownMenu.GroupHeading
 					>
-					<DropdownMenu.Item>Simple</DropdownMenu.Item>
-					<DropdownMenu.Item>AI Editor</DropdownMenu.Item>
-					<DropdownMenu.Item>Notion Like</DropdownMenu.Item>
+					<a class="nodefault" href={resolve('/templates/simple')}>
+						<DropdownMenu.Item class="cursor-pointer">Simple</DropdownMenu.Item>
+					</a>
+					<a class="nodefault" href={resolve('/templates/ai')}>
+						<DropdownMenu.Item class="cursor-pointer">AI Editor</DropdownMenu.Item>
+					</a>
+					<a class="nodefault" href={resolve('/templates/notion')}>
+						<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
+					</a>
 				</DropdownMenu.Group>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
@@ -155,7 +165,7 @@
 				</Tabs.Root>
 			</div>
 		</div>
-		<Tabs.Content value="preview">
+		<Tabs.Content id="shadcn" value="preview">
 			<div
 				class={cn(
 					'border rounded-lg transition-all duration-500',
@@ -169,7 +179,6 @@
 					<Edra.Toolbar
 						class="border-b rounded-t-lg max-w-full scrollbar-none bg-muted dark:bg-muted/50 p-1 overflow-x-scroll"
 					/>
-					<Edra.BubbleMenu />
 					<Edra.Content
 						class="*:outline-none text-base cursor-auto h-150 w-full overflow-y-scroll py-4 px-8"
 					/>

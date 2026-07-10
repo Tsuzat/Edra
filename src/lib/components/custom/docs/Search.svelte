@@ -147,6 +147,27 @@
 			keywords: ['type', 'font', 'color', 'style', 'custom', 'theme', 'css', 'design'],
 			icon: Type,
 			group: 'Customization'
+		},
+		{
+			title: 'Simple Editor Template',
+			url: resolve('/templates/simple'),
+			keywords: ['simple', 'focus', 'minimal', 'clean', 'distraction', 'template', 'layout'],
+			icon: BookOpen,
+			group: 'Templates'
+		},
+		{
+			title: 'AI Editor Template',
+			url: resolve('/templates/ai'),
+			keywords: ['ai', 'copilot', 'assistant', 'chat', 'write', 'prompt', 'template'],
+			icon: Sparkles,
+			group: 'Templates'
+		},
+		{
+			title: 'Notion Like Template',
+			url: resolve('/templates/notion'),
+			keywords: ['notion', 'workspace', 'drag', 'toc', 'full', 'width', 'cover', 'template'],
+			icon: Table,
+			group: 'Templates'
 		}
 	];
 
@@ -162,6 +183,10 @@
 		{
 			name: 'Customization',
 			items: searchItems.filter((item) => item.group === 'Customization')
+		},
+		{
+			name: 'Templates',
+			items: searchItems.filter((item) => item.group === 'Templates')
 		}
 	];
 </script>
