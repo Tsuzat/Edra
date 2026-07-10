@@ -608,3 +608,7 @@
 .tiptap .edra-callout-content > p + p {
 	margin-top: 0.5rem;
 }
+
+.tiptap .katex:hover {
+	background-color: var(--color-muted);
+}

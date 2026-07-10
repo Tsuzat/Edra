@@ -20,11 +20,10 @@
 	{editor}
 	pluginKey="table-row-menu"
 	shouldShow={(props) => {
-		if (!props.editor.isEditable) return false;
-		if (!props.state) {
-			return false;
-		}
-		return isRowGripSelected({ editor, view: props.view, state: props.state, from: props.from });
+		const { editor: propsEditor, state, view, from } = props;
+		if (!propsEditor || !propsEditor.isEditable) return false;
+		if (!state) return false;
+		return isRowGripSelected({ editor: propsEditor, view, state, from });
 	}}
 	options={{
 		shift: {

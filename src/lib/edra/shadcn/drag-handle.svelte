@@ -16,9 +16,14 @@
 	import type { Node } from '@tiptap/pm/model';
 	import { NodeSelection } from '@tiptap/pm/state';
 	import { onDestroy, onMount } from 'svelte';
-	import { commands, type EdraCommand } from '../commands/index.js';
-	import { quickcolors } from '../utils.js';
+	import { commands, type EdraCommand } from '../commands/index.ts';
+	import { quickcolors } from '../utils.ts';
 	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
+
+	interface Props {
+		type: 'simple' | 'extended';
+	}
+	const { type = 'simple' }: Props = $props();
 
 	const alignments = commands.alignment;
 	const turnIntos: Record<string, EdraCommand[]> = Object.entries(commands).reduce(
@@ -197,180 +202,185 @@
 	>
 		<GripVertical />
 	</Button>
-	<DropdownMenu.Root bind:open>
-		<DropdownMenu.Trigger class="sr-only">
-			<span>Drag Handle</span>
-		</DropdownMenu.Trigger>
-		<DropdownMenu.Content class="w-fit" portalProps={{ to: element }}>
-			<DropdownMenu.Group>
-				<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
-					{currentNode?.type.name}
-				</DropdownMenu.GroupHeading>
-				{#if useAI()}
-					<DropdownMenu.Item onmousedown={(e) => e.preventDefault()} onclick={handleAIHighlight}>
-						<Sparkles />
-						<span
-							class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+	{#if type === 'extended'}
+		<DropdownMenu.Root bind:open>
+			<DropdownMenu.Trigger class="sr-only">
+				<span>Drag Handle</span>
+			</DropdownMenu.Trigger>
+			<DropdownMenu.Content class="w-fit" portalProps={{ to: element }}>
+				<DropdownMenu.Group>
+					<DropdownMenu.GroupHeading class="text-muted-foreground capitalize">
+						{currentNode?.type.name}
+					</DropdownMenu.GroupHeading>
+					{#if useAI()}
+						<DropdownMenu.Item onmousedown={(e) => e.preventDefault()} onclick={handleAIHighlight}>
+							<Sparkles />
+							<span
+								class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+							>
+								Edit With AI</span
+							>
+						</DropdownMenu.Item>
+					{/if}
+					<DropdownMenu.Sub>
+						<DropdownMenu.SubTrigger openDelay={300}>
+							<Repeat2 />
+							Turn Into
+						</DropdownMenu.SubTrigger>
+						<DropdownMenu.SubContent
+							class="w-fit max-h-96 rounded-lg overflow-y-scroll duration-300"
 						>
-							Edit With AI</span
-						>
-					</DropdownMenu.Item>
-				{/if}
+							{#each Object.entries(turnIntos) as [key, turnIntoCommands] (key)}
+								<DropdownMenu.Group>
+									<DropdownMenu.Label class="capitalize">{key}</DropdownMenu.Label>
+									{#each turnIntoCommands as command (command)}
+										{@const Icon = command.icon}
+										<DropdownMenu.Item
+											onclick={() => {
+												if (currentNode && currentNodePos && editor)
+													command.turnInto?.(editor, currentNode, currentNodePos);
+											}}
+										>
+											<Icon />
+											<span>{command.tooltip}</span>
+											{#if command.shortCut}
+												<DropdownMenu.Shortcut class="bg-background rounded border p-0.5"
+													>{command.shortCut}</DropdownMenu.Shortcut
+												>
+											{/if}
+										</DropdownMenu.Item>
+									{/each}
+									{#if key !== Object.keys(turnIntos).at(-1)}
+										<DropdownMenu.Separator />
+									{/if}
+								</DropdownMenu.Group>
+							{/each}
+						</DropdownMenu.SubContent>
+					</DropdownMenu.Sub>
+				</DropdownMenu.Group>
 				<DropdownMenu.Sub>
 					<DropdownMenu.SubTrigger openDelay={300}>
-						<Repeat2 />
-						Turn Into
+						<Palette />
+						Colors
 					</DropdownMenu.SubTrigger>
-					<DropdownMenu.SubContent class="w-fit max-h-96 rounded-lg overflow-y-scroll duration-300">
-						{#each Object.entries(turnIntos) as [key, turnIntoCommands] (key)}
-							<DropdownMenu.Group>
-								<DropdownMenu.Label class="capitalize">{key}</DropdownMenu.Label>
-								{#each turnIntoCommands as command (command)}
-									{@const Icon = command.icon}
-									<DropdownMenu.Item
-										onclick={() => {
-											if (currentNode && currentNodePos && editor)
-												command.turnInto?.(editor, currentNode, currentNodePos);
-										}}
-									>
-										<Icon />
-										<span>{command.tooltip}</span>
-										{#if command.shortCut}
-											<DropdownMenu.Shortcut class="bg-background rounded border p-0.5"
-												>{command.shortCut}</DropdownMenu.Shortcut
-											>
-										{/if}
-									</DropdownMenu.Item>
-								{/each}
-								{#if key !== Object.keys(turnIntos).at(-1)}
-									<DropdownMenu.Separator />
-								{/if}
-							</DropdownMenu.Group>
+					<DropdownMenu.Content
+						side="right"
+						class="min-w-fit max-h-96 rounded-lg overflow-auto duration-300"
+					>
+						<DropdownMenu.Group>
+							<DropdownMenu.Label>Texts</DropdownMenu.Label>
+							{#each quickcolors as color (color.label)}
+								<DropdownMenu.Item
+									title={color.value}
+									onclick={() => {
+										if (color.value === '' || color.label === 'Default')
+											editor?.chain().setNodeSelection(currentNodePos).unsetColor().run();
+										else
+											editor?.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
+									}}
+								>
+									<span style={`color: ${color.value};`}>A</span>
+									<span class="capitalize">{color.label}</span>
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.Group>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Group class="min-w-fit">
+							<DropdownMenu.Label>Background</DropdownMenu.Label>
+							{#each quickcolors as color (color.label)}
+								<DropdownMenu.Item
+									title={color.value}
+									onclick={() => {
+										if (color.value === '' || color.label === 'Default')
+											editor?.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
+										else
+											editor
+												?.chain()
+												.setNodeSelection(currentNodePos)
+												.setHighlight({ color: `${color.value}50` })
+												.run();
+									}}
+								>
+									<span
+										class="size-4 rounded-full border"
+										style={`background-color: ${`${color.value}50`};`}
+									></span>
+									<span class="capitalize">{color.label}</span>
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.Group>
+					</DropdownMenu.Content>
+				</DropdownMenu.Sub>
+				<DropdownMenu.Sub>
+					<DropdownMenu.SubTrigger openDelay={300}>
+						<TextAlignCenter />
+						AlignMent
+					</DropdownMenu.SubTrigger>
+					<DropdownMenu.SubContent>
+						<DropdownMenu.Label>Alignments</DropdownMenu.Label>
+						{#each alignments as alignment (alignment)}
+							{@const Icon = alignment.icon}
+							<DropdownMenu.Item
+								onclick={() => {
+									if (currentNode && currentNodePos && editor)
+										alignment.turnInto?.(editor, currentNode, currentNodePos);
+								}}
+							>
+								<Icon />
+								{alignment.tooltip}
+								<DropdownMenu.Shortcut class="bg-background rounded border p-0.5">
+									{alignment.shortCut}
+								</DropdownMenu.Shortcut>
+							</DropdownMenu.Item>
 						{/each}
 					</DropdownMenu.SubContent>
 				</DropdownMenu.Sub>
-			</DropdownMenu.Group>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger openDelay={300}>
-					<Palette />
-					Colors
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.Content
-					side="right"
-					class="min-w-fit max-h-96 rounded-lg overflow-auto duration-300"
-				>
-					<DropdownMenu.Group>
-						<DropdownMenu.Label>Texts</DropdownMenu.Label>
-						{#each quickcolors as color (color.label)}
-							<DropdownMenu.Item
-								title={color.value}
-								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
-										editor?.chain().setNodeSelection(currentNodePos).unsetColor().run();
-									else editor?.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
-								}}
-							>
-								<span style={`color: ${color.value};`}>A</span>
-								<span class="capitalize">{color.label}</span>
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
-					<DropdownMenu.Separator />
-					<DropdownMenu.Group class="min-w-fit">
-						<DropdownMenu.Label>Background</DropdownMenu.Label>
-						{#each quickcolors as color (color.label)}
-							<DropdownMenu.Item
-								title={color.value}
-								onclick={() => {
-									if (color.value === '' || color.label === 'Default')
-										editor?.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
-									else
-										editor
-											?.chain()
-											.setNodeSelection(currentNodePos)
-											.setHighlight({ color: `${color.value}50` })
-											.run();
-								}}
-							>
-								<span
-									class="size-4 rounded-full border"
-									style={`background-color: ${`${color.value}50`};`}
-								></span>
-								<span class="capitalize">{color.label}</span>
-							</DropdownMenu.Item>
-						{/each}
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Sub>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger openDelay={300}>
-					<TextAlignCenter />
-					AlignMent
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.SubContent>
-					<DropdownMenu.Label>Alignments</DropdownMenu.Label>
-					{#each alignments as alignment (alignment)}
-						{@const Icon = alignment.icon}
-						<DropdownMenu.Item
-							onclick={() => {
-								if (currentNode && currentNodePos && editor)
-									alignment.turnInto?.(editor, currentNode, currentNodePos);
-							}}
-						>
-							<Icon />
-							{alignment.tooltip}
-							<DropdownMenu.Shortcut class="bg-background rounded border p-0.5">
-								{alignment.shortCut}
-							</DropdownMenu.Shortcut>
-						</DropdownMenu.Item>
-					{/each}
-				</DropdownMenu.SubContent>
-			</DropdownMenu.Sub>
-			<DropdownMenu.Separator />
-			<DropdownMenu.Item onclick={insertNode}>
-				<Plus />
-				Insert Next
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={handleRemoveFormatting}>
-				<RemoveFormatting />
-				Remove Formatting
-			</DropdownMenu.Item>
-			<DropdownMenu.Separator />
-			<DropdownMenu.Item onclick={handleDuplicate}>
-				<Duplicate />
-				Duplicate
-			</DropdownMenu.Item>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger>
-					<Clipboard />
-					Copy to Clipboard
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.Content side="right">
-					<DropdownMenu.Label>Copy as</DropdownMenu.Label>
-					<DropdownMenu.Item onclick={handleCopyToClipboard}>
+				<DropdownMenu.Separator />
+				<DropdownMenu.Item onclick={insertNode}>
+					<Plus />
+					Insert Next
+				</DropdownMenu.Item>
+				<DropdownMenu.Item onclick={handleRemoveFormatting}>
+					<RemoveFormatting />
+					Remove Formatting
+				</DropdownMenu.Item>
+				<DropdownMenu.Separator />
+				<DropdownMenu.Item onclick={handleDuplicate}>
+					<Duplicate />
+					Duplicate
+				</DropdownMenu.Item>
+				<DropdownMenu.Sub>
+					<DropdownMenu.SubTrigger>
 						<Clipboard />
-						Copy Content
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onclick={() => handleCopyContentAs('markdown')}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-							><path
-								fill="currentColor"
-								d="M2.491 4.046a.75.75 0 0 1 .83.218L7 8.592l3.678-4.328A.75.75 0 0 1 12 4.75v9.5a.75.75 0 0 1-1.5 0V6.79l-2.929 3.446a.75.75 0 0 1-1.142 0L3.5 6.79v7.46a.75.75 0 0 1-1.5 0v-9.5a.75.75 0 0 1 .491-.704M13.22 11.72a.75.75 0 0 1 1.06 0l.72.72V4.75a.75.75 0 0 1 1.5 0v7.69l.72-.72a.75.75 0 1 1 1.06 1.06l-2 2a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 0-1.06"
-							/></svg
-						>
-						Copy as Markdown
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onclick={() => handleCopyContentAs('json')}>
-						<Braces />
-						Copy as JSON
-					</DropdownMenu.Item>
-				</DropdownMenu.Content>
-			</DropdownMenu.Sub>
-			<DropdownMenu.Separator />
-			<DropdownMenu.Item onclick={handleDelete}>
-				<Delete class="text-destructive" />
-				Delete
-			</DropdownMenu.Item>
-		</DropdownMenu.Content>
-	</DropdownMenu.Root>
+						Copy to Clipboard
+					</DropdownMenu.SubTrigger>
+					<DropdownMenu.Content side="right">
+						<DropdownMenu.Label>Copy as</DropdownMenu.Label>
+						<DropdownMenu.Item onclick={handleCopyToClipboard}>
+							<Clipboard />
+							Copy Content
+						</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => handleCopyContentAs('markdown')}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+								><path
+									fill="currentColor"
+									d="M2.491 4.046a.75.75 0 0 1 .83.218L7 8.592l3.678-4.328A.75.75 0 0 1 12 4.75v9.5a.75.75 0 0 1-1.5 0V6.79l-2.929 3.446a.75.75 0 0 1-1.142 0L3.5 6.79v7.46a.75.75 0 0 1-1.5 0v-9.5a.75.75 0 0 1 .491-.704M13.22 11.72a.75.75 0 0 1 1.06 0l.72.72V4.75a.75.75 0 0 1 1.5 0v7.69l.72-.72a.75.75 0 1 1 1.06 1.06l-2 2a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 0-1.06"
+								/></svg
+							>
+							Copy as Markdown
+						</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => handleCopyContentAs('json')}>
+							<Braces />
+							Copy as JSON
+						</DropdownMenu.Item>
+					</DropdownMenu.Content>
+				</DropdownMenu.Sub>
+				<DropdownMenu.Separator />
+				<DropdownMenu.Item onclick={handleDelete}>
+					<Delete class="text-destructive" />
+					Delete
+				</DropdownMenu.Item>
+			</DropdownMenu.Content>
+		</DropdownMenu.Root>
+	{/if}
 </div>

@@ -20,9 +20,10 @@
 	{editor}
 	pluginKey="math-bubble-menu"
 	shouldShow={(props) => {
-		if (!props.editor.isEditable) return false;
-		if (!props.state) return false;
-		return editor.isActive('blockMath');
+		const { editor: propsEditor, state } = props;
+		if (!propsEditor || !propsEditor.isEditable) return false;
+		if (!state) return false;
+		return propsEditor.isActive('blockMath');
 	}}
 	options={{
 		shift: true,

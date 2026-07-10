@@ -17,7 +17,9 @@
 	import Lists from '../tools/Lists.svelte';
 	import FontSize from '../tools/FontSize.svelte';
 	import AlignMent from '../tools/AlignMent.svelte';
-	import { toast } from 'svelte-sonner';
+	import type { EditorView } from '@tiptap/pm/view';
+	import type { EditorState } from '@tiptap/pm/state';
+	import type { Editor } from '@tiptap/core';
 	interface Props {
 		class?: string;
 	}
@@ -59,53 +61,62 @@
 		}
 		return false;
 	};
-</script>
+	const shouldShow = (props: {
+		editor: Editor;
+		element: HTMLElement;
+		view: EditorView;
+		state: EditorState;
+		oldState?: EditorState;
+		from: number;
+		to: number;
+	}) => {
+		const { editor: propsEditor, view, state } = props;
 
-<BubbleMenu
-	pluginKey="edra-bubble-menu"
-	{editor}
-	shouldShow={(props) => {
-		if (!props.editor.isEditable) return false;
-		if (!props.view || props.editor.view.dragging) {
-			return false;
-		}
-		if (props.editor.isActive('link')) return false;
-		if (props.editor.isActive('codeBlock')) return false;
-		if (props.editor.isActive('image-placeholder')) return false;
-		if (props.editor.isActive('video-placeholder')) return false;
-		if (props.editor.isActive('audio-placeholder')) return false;
-		if (props.editor.isActive('iframe-placeholder')) return false;
-		if (props.editor.isActive('image')) return false;
-		if (props.editor.isActive('video')) return false;
-		if (props.editor.isActive('iframe')) return false;
-		if (props.editor.isActive('audio')) return false;
-		if (props.editor.isActive('blockMath') || props.editor.isActive('inlineMath')) return false;
-		if (props.editor.isActive('ai-highlight')) return false;
-		if (props.editor.isActive('mermaid')) return false;
-		const {
-			state: {
-				doc,
-				selection,
-				selection: { empty, from, to }
-			}
-		} = props.editor;
+		if (!propsEditor || !propsEditor.isEditable) return false;
+		if (!view || view.dragging) return false;
+
+		const { selection, doc } = state;
+		const { empty, from, to } = selection;
+
+		if (empty) return false;
+
+		// Sometime check for `empty` is not enough.
+		// Doubleclick an empty paragraph returns a node size of 2.
+		// So we check also for an empty text size.
+		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
+		if (isEmptyTextBlock) return false;
+
 		// check if the selection is a table grip
-		const domAtPos = props.view.domAtPos(from || 0).node as HTMLElement;
-		const nodeDOM = props.view.nodeDOM(from || 0) as HTMLElement;
+		const domAtPos = view.domAtPos(from || 0).node as HTMLElement;
+		const nodeDOM = view.nodeDOM(from || 0) as HTMLElement;
 		const node = nodeDOM || domAtPos;
 
 		if (isTableGripSelected(node)) {
 			return false;
 		}
-		// Sometime check for `empty` is not enough.
-		// Doubleclick an empty paragraph returns a node size of 2.
-		// So we check also for an empty text size.
-		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
-		if (empty || isEmptyTextBlock || !editor.isEditable) {
-			return false;
-		}
-		return !editor.state.selection.empty;
-	}}
+
+		if (propsEditor.isActive('link')) return false;
+		if (propsEditor.isActive('codeBlock')) return false;
+		if (propsEditor.isActive('image-placeholder')) return false;
+		if (propsEditor.isActive('video-placeholder')) return false;
+		if (propsEditor.isActive('audio-placeholder')) return false;
+		if (propsEditor.isActive('iframe-placeholder')) return false;
+		if (propsEditor.isActive('image')) return false;
+		if (propsEditor.isActive('video')) return false;
+		if (propsEditor.isActive('iframe')) return false;
+		if (propsEditor.isActive('audio')) return false;
+		if (propsEditor.isActive('blockMath') || propsEditor.isActive('inlineMath')) return false;
+		if (propsEditor.isActive('ai-highlight')) return false;
+		if (propsEditor.isActive('mermaid')) return false;
+
+		return true;
+	};
+</script>
+
+<BubbleMenu
+	pluginKey="edra-bubble-menu"
+	{editor}
+	{shouldShow}
 	options={{
 		shift: true,
 		autoPlacement: {
@@ -126,10 +137,13 @@
 				variant="ghost"
 				size="icon"
 			>
-				<WandSparkles />
+				<span
+					class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+				>
+					<WandSparkles /></span
+				>
 			</Button>
 		</Tooltip>
-		<Separator orientation="vertical" class="h-4!" />
 	{/if}
 	<Separator orientation="vertical" class="h-4!" />
 	{#each commandsKeys as key (key)}

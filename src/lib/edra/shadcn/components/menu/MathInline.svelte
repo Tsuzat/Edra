@@ -23,9 +23,10 @@
 	{editor}
 	pluginKey="math-bubble-menu"
 	shouldShow={(props) => {
-		if (!props.editor.isEditable) return false;
-		if (!props.state) return false;
-		return editor.isActive('inlineMath');
+		const { editor: propsEditor, state } = props;
+		if (!propsEditor || !propsEditor.isEditable) return false;
+		if (!state) return false;
+		return propsEditor.isActive('inlineMath');
 	}}
 	options={{
 		shift: {

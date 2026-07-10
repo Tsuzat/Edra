@@ -62,46 +62,46 @@
 	pluginKey="edra-bubble-menu"
 	{editor}
 	shouldShow={(props) => {
-		if (!props.editor.isEditable) return false;
-		if (!props.view || props.editor.view.dragging) {
-			return false;
-		}
-		if (props.editor.isActive('link')) return false;
-		if (props.editor.isActive('codeBlock')) return false;
-		if (props.editor.isActive('image-placeholder')) return false;
-		if (props.editor.isActive('video-placeholder')) return false;
-		if (props.editor.isActive('audio-placeholder')) return false;
-		if (props.editor.isActive('iframe-placeholder')) return false;
-		if (props.editor.isActive('image')) return false;
-		if (props.editor.isActive('video')) return false;
-		if (props.editor.isActive('iframe')) return false;
-		if (props.editor.isActive('audio')) return false;
-		if (props.editor.isActive('blockMath') || props.editor.isActive('inlineMath')) return false;
-		if (props.editor.isActive('ai-highlight')) return false;
-		if (props.editor.isActive('mermaid')) return false;
-		const {
-			state: {
-				doc,
-				selection,
-				selection: { empty, from, to }
-			}
-		} = props.editor;
+		const { editor: propsEditor, view, state } = props;
+
+		if (!propsEditor || !propsEditor.isEditable) return false;
+		if (!view || view.dragging) return false;
+
+		const { selection, doc } = state;
+		const { empty, from, to } = selection;
+
+		if (empty) return false;
+
+		// Sometime check for `empty` is not enough.
+		// Doubleclick an empty paragraph returns a node size of 2.
+		// So we check also for an empty text size.
+		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
+		if (isEmptyTextBlock) return false;
+
 		// check if the selection is a table grip
-		const domAtPos = props.view.domAtPos(from || 0).node as HTMLElement;
-		const nodeDOM = props.view.nodeDOM(from || 0) as HTMLElement;
+		const domAtPos = view.domAtPos(from || 0).node as HTMLElement;
+		const nodeDOM = view.nodeDOM(from || 0) as HTMLElement;
 		const node = nodeDOM || domAtPos;
 
 		if (isTableGripSelected(node)) {
 			return false;
 		}
-		// Sometime check for `empty` is not enough.
-		// Doubleclick an empty paragraph returns a node size of 2.
-		// So we check also for an empty text size.
-		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
-		if (empty || isEmptyTextBlock || !props.editor.isEditable) {
-			return false;
-		}
-		return !props.editor.state.selection.empty;
+
+		if (propsEditor.isActive('link')) return false;
+		if (propsEditor.isActive('codeBlock')) return false;
+		if (propsEditor.isActive('image-placeholder')) return false;
+		if (propsEditor.isActive('video-placeholder')) return false;
+		if (propsEditor.isActive('audio-placeholder')) return false;
+		if (propsEditor.isActive('iframe-placeholder')) return false;
+		if (propsEditor.isActive('image')) return false;
+		if (propsEditor.isActive('video')) return false;
+		if (propsEditor.isActive('iframe')) return false;
+		if (propsEditor.isActive('audio')) return false;
+		if (propsEditor.isActive('blockMath') || propsEditor.isActive('inlineMath')) return false;
+		if (propsEditor.isActive('ai-highlight')) return false;
+		if (propsEditor.isActive('mermaid')) return false;
+
+		return true;
 	}}
 	options={{
 		shift: true,

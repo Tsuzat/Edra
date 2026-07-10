@@ -473,15 +473,16 @@
 	{editor}
 	pluginKey="edra-bubble-menu"
 	shouldShow={(props) => {
-		if (!props.editor.isEditable || props.editor.isDestroyed) return false;
-		if (!props.view || props.editor.view.dragging) return false;
+		const { editor: propsEditor, view } = props;
+		if (!propsEditor || !propsEditor.isEditable || propsEditor.isDestroyed) return false;
+		if (!view || propsEditor.view.dragging) return false;
 
 		// Always show during AI confirmation (streaming or action bar)
 		if (aiState === AIState.Confirmation) return true;
 
-		if (isAIActive()) return true;
+		if (propsEditor.isActive('ai-highlight')) return true;
 
-		removeAIHighlight(editor);
+		removeAIHighlight(propsEditor);
 		aiState = AIState.Idle;
 		aiResponse = '';
 		return false;

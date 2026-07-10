@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { quickcolors } from '../../../utils.ts';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { cn } from '$lib/utils.js';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import Check from '@lucide/svelte/icons/check';
 	import Tooltip from '../Tooltip.svelte';
 	import { getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
 
@@ -13,83 +14,95 @@
 		editor,
 		selector: ({ editor }) => ({
 			currentColor: editor.getAttributes('textStyle').color,
-			currentHighlight: editor.getAttributes('highlight').color,
-			isActive(name: string, opts: Record<string, unknown>) {
-				return editor.isActive(name, opts) ?? false;
-			}
+			currentHighlight: editor.getAttributes('highlight').color
 		})
 	});
-
-	const currentColor = $editorState.currentColor;
-	const currentHighlight = $editorState.currentHighlight;
 </script>
 
-<Popover.Root bind:open>
+<DropdownMenu.Root bind:open>
 	<Tooltip tooltip="Quick Colors">
-		<Popover.Trigger
+		<DropdownMenu.Trigger
 			class={buttonVariants({
 				variant: 'ghost',
 				size: 'icon',
 				class: cn('gap-0.5')
 			})}
-			style={`color: ${currentColor}; background-color: ${currentHighlight}75;`}
+			style={`color: ${$editorState.currentColor || ''}; background-color: ${$editorState.currentHighlight || ''};`}
 		>
 			<span>A</span>
 			<ChevronDown class="text-muted-foreground size-2!" />
-		</Popover.Trigger>
+		</DropdownMenu.Trigger>
 	</Tooltip>
-	<Popover.Content class="size-fit shadow-lg">
-		<div class="text-muted-foreground my-2 text-xs">Text Colors</div>
-		<div class="grid grid-cols-5 gap-2">
-			{#each quickcolors as color (color)}
-				<Button
-					variant="ghost"
-					class={cn(
-						`size-6 border-0 p-0 font-normal`,
-						editor.isActive('textStyle', { color: color.value }) && 'border-2 font-extrabold',
-						color.value === '' && 'border'
-					)}
-					style={`color: ${color.value}; background-color: ${color.value}50; border-color: ${color.value};`}
+	<DropdownMenu.Content
+		class="min-w-48 max-h-96 rounded-lg overflow-auto duration-300"
+		portalProps={{ to: editor.view.dom.parentElement ?? undefined }}
+	>
+		<DropdownMenu.Group>
+			<DropdownMenu.Label>Text Colors</DropdownMenu.Label>
+			{#each quickcolors as color (color.label)}
+				{@const isActive =
+					color.value === ''
+						? !$editorState.currentColor
+						: $editorState.currentColor === color.value}
+				<DropdownMenu.Item
 					title={color.label}
+					class="flex items-center justify-between cursor-pointer"
 					onclick={() => {
-						if (color.value === '' || color.label === 'Default')
+						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetColor().run();
-						else
-							editor
-								.chain()
-								.focus()
-								.setColor(currentColor === color.value ? '' : color.value)
-								.run();
+						} else {
+							editor.chain().focus().setColor(color.value).run();
+						}
 					}}
 				>
-					A
-				</Button>
+					<div class="flex items-center gap-2">
+						<span
+							class="w-4 text-center font-bold"
+							style={color.value ? `color: ${color.value};` : ''}>A</span
+						>
+						<span class="capitalize">{color.label}</span>
+					</div>
+					{#if isActive}
+						<Check class="size-4 text-muted-foreground" />
+					{/if}
+				</DropdownMenu.Item>
 			{/each}
-		</div>
-		<div class="text-muted-foreground my-2 text-xs">Background Colors</div>
-		<div class="grid grid-cols-5 gap-2">
-			{#each quickcolors as color (color)}
-				<Button
-					variant="ghost"
-					class={cn(
-						`size-6 border-0 p-0 font-normal`,
-						editor.isActive('highlight', { color: color.value }) && 'border-2',
-						color.value === '' && 'border'
-					)}
-					style={`background-color: ${color.value}50; border-color: ${color.value};`}
+		</DropdownMenu.Group>
+		<DropdownMenu.Separator />
+		<DropdownMenu.Group>
+			<DropdownMenu.Label>Background Colors</DropdownMenu.Label>
+			{#each quickcolors as color (color.label)}
+				{@const isActive =
+					color.value === ''
+						? !$editorState.currentHighlight
+						: $editorState.currentHighlight === `${color.value}50`}
+				<DropdownMenu.Item
 					title={color.label}
+					class="flex items-center justify-between cursor-pointer"
 					onclick={() => {
-						if (color.value === '' || color.label === 'Default')
+						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetHighlight().run();
-						else
+						} else {
 							editor
 								.chain()
 								.focus()
-								.toggleHighlight({ color: `${color.value}50` })
+								.setHighlight({ color: `${color.value}50` })
 								.run();
-					}}>A</Button
+						}
+					}}
 				>
+					<div class="flex items-center gap-2">
+						<span
+							class="size-4 rounded-full border"
+							style={`background-color: ${color.value ? `${color.value}50` : 'transparent'};`}
+						></span>
+						<span class="capitalize">{color.label}</span>
+					</div>
+					{#if isActive}
+						<Check class="size-4 text-muted-foreground" />
+					{/if}
+				</DropdownMenu.Item>
 			{/each}
-		</div>
-	</Popover.Content>
-</Popover.Root>
+		</DropdownMenu.Group>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>
