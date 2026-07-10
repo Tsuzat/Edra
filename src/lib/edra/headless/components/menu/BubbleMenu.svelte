@@ -67,26 +67,6 @@
 		if (!propsEditor || !propsEditor.isEditable) return false;
 		if (!view || view.dragging) return false;
 
-		const { selection, doc } = state;
-		const { empty, from, to } = selection;
-
-		if (empty) return false;
-
-		// Sometime check for `empty` is not enough.
-		// Doubleclick an empty paragraph returns a node size of 2.
-		// So we check also for an empty text size.
-		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
-		if (isEmptyTextBlock) return false;
-
-		// check if the selection is a table grip
-		const domAtPos = view.domAtPos(from || 0).node as HTMLElement;
-		const nodeDOM = view.nodeDOM(from || 0) as HTMLElement;
-		const node = nodeDOM || domAtPos;
-
-		if (isTableGripSelected(node)) {
-			return false;
-		}
-
 		if (propsEditor.isActive('link')) return false;
 		if (propsEditor.isActive('codeBlock')) return false;
 		if (propsEditor.isActive('image-placeholder')) return false;
@@ -100,6 +80,26 @@
 		if (propsEditor.isActive('blockMath') || propsEditor.isActive('inlineMath')) return false;
 		if (propsEditor.isActive('ai-highlight')) return false;
 		if (propsEditor.isActive('mermaid')) return false;
+
+		const { selection, doc } = state;
+		const { empty, from, to } = selection;
+
+		if (empty) return false;
+
+		// check if the selection is a table grip
+		const domAtPos = view.domAtPos(from || 0).node as HTMLElement;
+		const nodeDOM = view.nodeDOM(from || 0) as HTMLElement;
+		const node = nodeDOM || domAtPos;
+
+		if (isTableGripSelected(node)) {
+			return false;
+		}
+
+		// Sometime check for `empty` is not enough.
+		// Doubleclick an empty paragraph returns a node size of 2.
+		// So we check also for an empty text size.
+		const isEmptyTextBlock = !doc.textBetween(from, to).length && isTextSelection(selection);
+		if (isEmptyTextBlock) return false;
 
 		return true;
 	}}
