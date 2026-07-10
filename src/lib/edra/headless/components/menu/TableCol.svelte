@@ -25,14 +25,11 @@
 		return isColumnGripSelected({ editor: propsEditor, view, state, from });
 	}}
 	options={{
-		shift: {
-			crossAxis: true,
-			mainAxis: true
-		},
-		strategy: 'fixed',
+		shift: true,
 		autoPlacement: {
-			allowedPlacements: ['bottom', 'top']
+			allowedPlacements: ['top', 'bottom']
 		},
+		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="table-menu"

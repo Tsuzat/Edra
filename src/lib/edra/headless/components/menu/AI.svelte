@@ -489,11 +489,11 @@
 	}}
 	class="ai-bubble-container"
 	options={{
-		strategy: 'fixed',
+		strategy: 'absolute',
 		autoPlacement: {
 			allowedPlacements: ['bottom-start', 'top-start']
 		},
-		scrollTarget: editor.view.dom.parentElement ?? undefined,
+		scrollTarget: editor.view.dom.parentElement ?? window,
 		onShow() {
 			activeOptionIndex = 0;
 			inputTag?.focus();

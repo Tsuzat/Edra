@@ -489,11 +489,11 @@
 	}}
 	class="bg-popover/75 backdrop-blur-2xl rounded-lg flex max-h-120 max-w-3xl w-full flex-col p-0 transition-[height] duration-500 z-100"
 	options={{
-		strategy: 'fixed',
+		strategy: 'absolute',
 		autoPlacement: {
 			allowedPlacements: ['bottom-start', 'top-start']
 		},
-		scrollTarget: editor.view.dom.parentElement ?? undefined,
+		scrollTarget: editor.view.dom.parentElement ?? window,
 		onShow() {
 			activeOptionIndex = 0;
 			inputTag?.focus();

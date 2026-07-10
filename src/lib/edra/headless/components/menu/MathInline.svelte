@@ -27,13 +27,11 @@
 		return propsEditor.isActive('inlineMath');
 	}}
 	options={{
-		shift: {
-			crossAxis: true
-		},
+		shift: true,
 		autoPlacement: {
 			allowedPlacements: ['top', 'bottom']
 		},
-		strategy: 'fixed',
+		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="math-inline-menu"
