@@ -4,8 +4,9 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
-	import { Search } from '@lucide/svelte';
+	import { ArrowLeft, Search } from '@lucide/svelte';
 	import { openSearch } from './docs/Search.svelte';
+	import { Button } from '../ui/button/index.ts';
 
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 
@@ -96,10 +97,10 @@
 
 <Sidebar.Root {...restProps} bind:ref>
 	<Sidebar.Header class="mt-2">
-		<a class="flex items-center gap-2" href={resolve('/')}>
-			<img src="/favicon.svg" alt="Edra" class="size-6" />
-			<span class="font-semibold text-xl">Edra</span>
-		</a>
+		<Button variant="ghost" class="nodefault justify-start" href={resolve('/')}>
+			<ArrowLeft />
+			<span>Edra</span>
+		</Button>
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
 				<Sidebar.MenuButton class="border rounded-lg" onclick={openSearch}>

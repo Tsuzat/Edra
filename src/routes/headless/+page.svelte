@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import ToggleMode from '$lib/components/custom/ToggleMode.svelte';
+	import { Button } from '$lib/components/ui/button/index.ts';
 	import { createEditor, Edra, type Content } from '$lib/edra/headless/index.js';
+	import { ArrowLeft } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 
 	/** Sample mock callAI for testing — streams a generic paragraph word-by-word */
@@ -27,7 +29,7 @@
 	}
 
 	const onUpdate = () => {
-		localStorage.setItem('edra-headless-content', JSON.stringify(editor?.getJSON()));
+		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
 	};
 	const editor = createEditor({
 		onUpdate,
@@ -35,13 +37,16 @@
 	});
 
 	onMount(() => {
-		const content = JSON.parse(localStorage.getItem('edra-headless-content') || '[]') as Content;
+		const content = JSON.parse(localStorage.getItem('edra-content') || '[]') as Content;
 		editor?.commands.setContent(content, { contentType: 'json' });
 	});
 </script>
 
 <header class="demo-header">
-	<a href={resolve('/')} class="demo-title-link">Edra Headless</a>
+	<Button variant="ghost" class="nodefault" href={resolve('/')}>
+		<ArrowLeft />
+		Edra Headless
+	</Button>
 	<ToggleMode />
 </header>
 
@@ -63,11 +68,6 @@
 		padding: 1rem;
 		background-color: var(--edra-canvas);
 		border-bottom: 1px solid var(--edra-border);
-	}
-	.demo-title-link {
-		font-weight: 700;
-		color: var(--edra-ink);
-		text-decoration: none;
 	}
 	.demo-container {
 		border: 1px solid var(--edra-border);
