@@ -37,11 +37,12 @@ const dependencies = [
 	'@tiptap/markdown',
 	'@tiptap/extension-mathematics',
 	'@tiptap/extension-table-of-contents',
+	'@tiptap/extension-audio',
+	'@tiptap/extension-drag-handle',
 	'@floating-ui/dom',
 	'katex',
+	'mermaid',
 	'lowlight',
-	'svelte-tiptap',
-	'tiptap-extension-auto-joiner',
 	'@lucide/svelte'
 ];
 

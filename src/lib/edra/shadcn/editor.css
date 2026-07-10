@@ -1,0 +1,611 @@
+@import 'katex/dist/katex.min.css';
+@import '../onedark.css';
+
+.tiptap {
+	margin-inline: auto;
+}
+
+.tiptap :first-child {
+	margin-top: 0;
+}
+
+.tiptap :last-child {
+	margin-bottom: 0;
+}
+
+.tiptap > p {
+	margin: 1rem 0;
+}
+
+/* For Placeholder */
+.tiptap .is-empty:not(blockquote.is-empty)::before {
+	float: left;
+	height: 0;
+	color: var(--color-muted-foreground);
+	pointer-events: none;
+	content: attr(data-placeholder);
+}
+
+/* Heading Styles */
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	margin-top: 1rem;
+	line-height: 1.2;
+	text-wrap: pretty;
+}
+
+.tiptap h1,
+.tiptap h2 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.tiptap h1 {
+	font-size: 2.25rem;
+	font-weight: 800;
+	line-height: 2.5rem;
+	letter-spacing: -0.015em;
+	scroll-margin: 5rem;
+}
+
+.tiptap h2 {
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.tiptap h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.tiptap em {
+	font-weight: 200;
+}
+.tiptap audio {
+	width: 100%;
+	max-width: 64rem;
+	display: block;
+	margin: 1rem 0;
+}
+
+.tiptap blockquote {
+	position: relative;
+	padding: 0.25rem 0;
+	padding-left: 0.75rem;
+	margin: 1rem 0rem;
+	font-style: italic;
+	color: var(--color-muted-foreground);
+}
+
+.tiptap blockquote::before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 0.2rem;
+	content: ' ';
+	background-color: var(--color-border);
+	border-radius: 0.5rem;
+}
+
+.tiptap blockquote p {
+	margin: 0;
+}
+
+/* Horizontal Rule */
+.tiptap hr {
+	margin: 1.5rem 0;
+	border: none;
+	border-top: 1px solid var(--color-border);
+}
+
+.tiptap code:not(pre code) {
+	font-family: 'Fira Code Variable', monospace;
+	font-size: 0.875em;
+	background-color: var(--color-muted);
+	color: var(--color-primary);
+	border: 1px solid var(--color-border);
+	padding: 0.125rem 0.25rem;
+	border-radius: var(--radius-sm);
+}
+
+.tiptap pre {
+	display: flex;
+	height: fit-content;
+	padding: 0 1rem 1rem 1rem;
+	margin: 0;
+	overflow: auto;
+	background-color: transparent;
+}
+
+.tiptap pre code {
+	flex: 1;
+	padding: 0;
+	color: inherit;
+	background-color: transparent;
+	border-radius: 0 !important;
+}
+
+.tiptap ul,
+.tiptap ol {
+	padding: 0;
+	padding-left: 1.5rem;
+	margin: 0.125rem 0;
+}
+
+.tiptap ul {
+	list-style-type: disc;
+}
+
+.tiptap ol {
+	list-style-type: decimal;
+}
+
+/* Nested list variants — mirrors Notion's rotating bullet style */
+.tiptap ul ul {
+	list-style-type: circle;
+}
+
+.tiptap ul ul ul {
+	list-style-type: square;
+}
+
+.tiptap ol ol {
+	list-style-type: lower-alpha;
+}
+
+.tiptap ol ol ol {
+	list-style-type: lower-roman;
+}
+
+.tiptap ul li,
+.tiptap ol li {
+	margin: 0;
+	padding: 0.1rem 0;
+}
+
+.tiptap ul li::marker,
+.tiptap ol li::marker {
+	color: var(--foreground);
+}
+
+.tiptap ul li p,
+.tiptap ol li p {
+	margin: 0;
+}
+
+/* ── Task List Styling ────────────────────────────────────── */
+
+.tiptap ul[data-type='taskList'] {
+	padding: 0;
+	margin: 0.125rem 0;
+	list-style: none;
+}
+
+.tiptap ul[data-type='taskList'] li {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0.1rem 0;
+}
+
+.tiptap ul[data-type='taskList'] li > label {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	height: 1.5rem; /* align with first line of text */
+	margin: 0;
+	user-select: none;
+}
+
+.tiptap ul[data-type='taskList'] li > div {
+	flex: 1;
+	min-width: 0;
+}
+
+.tiptap ul[data-type='taskList'] li > div > p {
+	margin: 0;
+}
+
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+	cursor: pointer;
+}
+
+/* Nested task lists */
+.tiptap ul[data-type='taskList'] ul[data-type='taskList'] {
+	margin: 0;
+	padding-left: 1.5rem;
+}
+
+/* Checked item — subtle fade + strikethrough */
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
+	color: var(--muted-foreground);
+	text-decoration: line-through;
+	text-decoration-color: var(--muted-foreground);
+}
+
+/* ── Custom Checkbox ──────────────────────────────────────── */
+
+.tiptap input[type='checkbox'] {
+	position: relative;
+	display: grid;
+	place-content: center;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin: 0;
+	margin-top: 0.25rem;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: 1px solid var(--muted-foreground);
+	border-radius: 0.2rem;
+	transition:
+		background-color 150ms ease,
+		border-color 150ms ease;
+}
+
+.tiptap input[type='checkbox']:hover {
+	border-color: var(--foreground);
+	background-color: color-mix(in srgb, var(--muted) 40%, transparent);
+}
+
+.tiptap input[type='checkbox']:active {
+	background-color: var(--muted);
+}
+
+/* Checkmark */
+.tiptap input[type='checkbox']::before {
+	width: 0.65rem;
+	height: 0.65rem;
+	content: '';
+	background-color: var(--color-primary);
+	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+	transform: scale(0);
+	transform-origin: center;
+	transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tiptap input[type='checkbox']:checked {
+	background-color: var(--color-background);
+	border-color: var(--color-border);
+}
+
+.tiptap input[type='checkbox']:checked:hover {
+	background-color: var(--color-muted);
+	border-color: var(--color-border);
+}
+
+.tiptap input[type='checkbox']:checked::before {
+	transform: scale(1);
+}
+
+/* Color Swatches */
+.color {
+	white-space: nowrap;
+}
+
+.color::before {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.1rem;
+	margin-bottom: 0.15rem;
+	vertical-align: middle;
+	content: ' ';
+	background-color: var(--color);
+	border: 1px solid var(--color-border);
+	border-radius: 0.25rem;
+}
+
+/* Math Equations (KaTeX) */
+.tiptap-mathematics-render:hover {
+	background-color: var(--color-muted);
+}
+
+/* Table Styling */
+.tiptap,
+.tiptap {
+	/* New CSS variables for easy theming */
+	--table-border-size: 1px;
+	--table-selected-border-size: 2px;
+	--table-resize-handle-thickness: 2px;
+	--table-hover-transition: 200ms ease-in-out;
+	--table-focus-ring: 2px;
+}
+.tiptap .tableWrapper {
+	padding: 1.25rem 1rem;
+	margin: 0;
+	margin: 0.5rem 0;
+	overflow-x: auto;
+}
+
+.tiptap table {
+	box-sizing: border-box;
+	width: 100%;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	border-collapse: collapse;
+	border: 1px solid var(--color-border);
+	border-radius: 0.25rem;
+}
+
+.tiptap table td,
+.tiptap table th {
+	position: relative;
+	min-width: 100px;
+	padding: 0.5rem;
+	vertical-align: top;
+	text-align: left;
+	border: 1px solid var(--color-border);
+}
+
+.tiptap table td:first-of-type:not(a),
+.tiptap table th:first-of-type:not(a) {
+	margin-top: 0;
+}
+
+.tiptap table td p,
+.tiptap table th p {
+	margin: 0;
+}
+
+.tiptap table td p + p,
+.tiptap table th p + p {
+	margin-top: 0.75rem;
+}
+
+.tiptap table th {
+	font-weight: bold;
+	background-color: var(--color-muted);
+}
+
+.tiptap table .column-resize-handle {
+	position: absolute;
+	top: 0;
+	right: -2px;
+	bottom: -2px;
+	width: 2px;
+	cursor: col-resize;
+	background-color: var(--primary);
+}
+
+.tiptap table .selectedCell {
+	/* Stronger visual, avoids collapse issues */
+	z-index: 1;
+	/* Stronger visual, avoids collapse issues */
+	outline: 1px solid var(--primary);
+	background-color: var(--muted);
+}
+
+.tiptap .tableWrapper .grip-column,
+.tiptap .tableWrapper .grip-row {
+	position: absolute;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	cursor: pointer;
+	background-color: var(--muted);
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+.tiptap table .grip-column {
+	top: -0.8rem;
+	left: 0;
+	width: 100%;
+	height: 0.8rem;
+	margin-left: -1px;
+	border: 0.25px solid var(--color-border);
+	border-radius: 1rem;
+}
+
+.tiptap table .grip-column::before,
+.tiptap table .grip-column.selected::before {
+	width: 0.625rem;
+	content: '';
+	background-color: var(--color-muted-foreground);
+}
+
+.tiptap table .grip-column:hover {
+	background-color: var(--muted);
+}
+
+.tiptap table .grip-column::before {
+	border-bottom: 2px dotted var(--muted);
+}
+
+.tiptap table .grip-column.selected {
+	background-color: var(--muted);
+	border-color: var(--color-border);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.tiptap table .grip-row {
+	top: 0;
+	left: -0.8rem;
+	width: 0.8rem;
+	height: calc(100%);
+	margin-top: -1px;
+	border: 0.5px solid var(--color-border);
+	border-radius: 1rem;
+}
+
+.tiptap table .grip-row::before,
+.tiptap table .grip-row.selected::before {
+	height: 0.625rem;
+	content: '';
+	border-left: 2px dotted var(--color-muted-foreground);
+}
+
+.tiptap table .grip-row:hover {
+	background-color: var(--muted);
+}
+
+.tiptap table .grip-row.selected {
+	background-color: var(--muted);
+	border-color: var(--color-border);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Cell grip — appears on cell hover or when selected */
+/* .tiptap table .grip-cell {
+	position: absolute;
+	right: -0.125rem;
+	translate: 0 calc(50% - 0.25rem);
+	width: 0.5rem;
+	height: 1rem;
+	border-radius: 2px;
+	background-color: var(--color-primary);
+	opacity: 0;
+	transition: all 200ms ease-in-out;
+} */
+
+.tiptap table td:hover .grip-cell,
+.tiptap table th:hover .grip-cell,
+.tiptap table .grip-cell.selected {
+	opacity: 1;
+}
+
+/* Dynamic visibility classes for row/column grips */
+.tiptap .tableWrapper .grip-row.show-row-grip,
+.tiptap .tableWrapper .grip-column.show-col-grip {
+	pointer-events: auto;
+	opacity: 1;
+}
+
+/* Edge add buttons (Notion-like) */
+.tiptap .add-column-btn,
+.tiptap .add-row-btn {
+	position: absolute;
+	z-index: 20;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--foreground);
+	cursor: pointer;
+	background-color: var(--muted);
+	border: 1px solid var(--color-border);
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	opacity: 0;
+	transform: scale(0.95);
+	transition:
+		opacity 200ms ease-in-out,
+		transform 200ms ease-in-out,
+		background-color 200ms ease-in-out;
+}
+
+/* Only show add buttons when flagged by wrapper classes */
+.tiptap .tableWrapper.last-column-hover .add-column-btn,
+.tiptap .tableWrapper.last-row-hover .add-row-btn {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.tiptap .add-column-btn:hover,
+.tiptap .add-row-btn:hover {
+	background-color: var(--muted);
+	opacity: 0.95;
+}
+
+/* Positioning: column button flush right, full height. Row button flush bottom, full width */
+.tiptap .add-column-btn {
+	top: 0;
+	right: -0.85rem;
+	width: 0.75rem;
+	height: 100%;
+}
+
+.tiptap .add-row-btn {
+	bottom: -0.9rem;
+	left: 0;
+	width: 100%;
+	height: 0.75rem;
+}
+
+/* Improve button hit areas via padding for better accessibility */
+.tiptap .add-column-btn {
+	padding: 0.25rem 0.125rem;
+}
+.tiptap .add-row-btn {
+	padding: 0.125rem 0.25rem;
+}
+
+/* Focus states for accessibility */
+.tiptap .add-column-btn:focus-visible,
+.tiptap .add-row-btn:focus-visible {
+	outline: 1px solid var(--primary);
+	outline-offset: 2px;
+}
+
+.tiptap iframe {
+	aspect-ratio: 16 / 9;
+}
+
+/* Mathematics extension styles */
+.tiptap .tiptap-mathematics-render {
+	padding: 0 0.25rem;
+	border-radius: 0.25rem;
+}
+
+/* Editable math block */
+.tiptap .tiptap-mathematics-render--editable {
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.tiptap .tiptap-mathematics-render--editable:hover {
+	background: var(--color-muted);
+}
+
+/* Inline math */
+.tiptap .tiptap-mathematics-render[data-type='inline-math'] {
+	display: inline-block;
+}
+
+/* Block math */
+.tiptap .tiptap-mathematics-render[data-type='block-math'] {
+	display: block;
+	padding: 0.5rem;
+	margin: 1rem 0;
+	font-size: 1.25rem;
+	text-align: center;
+}
+
+/* Error styles */
+.tiptap .tiptap-mathematics-render.inline-math-error,
+.tiptap .tiptap-mathematics-render.block-math-error {
+	color: var(--destructive);
+	background: var(--color-muted);
+	border: 1px solid darkred;
+}
+
+/* Callout Styles */
+
+.tiptap .edra-callout-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.tiptap .edra-callout-content > p {
+	margin: 0;
+}
+
+.tiptap .edra-callout-content > p + p {
+	margin-top: 0.5rem;
+}

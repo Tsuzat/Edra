@@ -1,18 +1,17 @@
 <script lang="ts">
-	import Footer from '$lib/components/custom/Footer.svelte';
-	import Header from '$lib/components/custom/Header.svelte';
-	import '@fontsource-variable/open-sans';
-	import '@fontsource-variable/fira-code';
-	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
-	import { Toaster } from 'svelte-sonner';
+	import './layout.css';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
+	import { TooltipProvider } from '$lib/components/ui/tooltip/index.js';
+	import Search from '$lib/components/custom/docs/Search.svelte';
 
-	let { children } = $props();
+	const { children } = $props();
 </script>
 
 <ModeWatcher />
-<Toaster closeButton richColors />
+<Toaster richColors closeButton />
+<Search />
 
-<Header />
-{@render children()}
-<Footer />
+<TooltipProvider>
+	{@render children()}
+</TooltipProvider>

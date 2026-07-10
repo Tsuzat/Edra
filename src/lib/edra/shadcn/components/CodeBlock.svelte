@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import type { NodeViewProps } from '@tiptap/core';
-	import { NodeViewContent, NodeViewWrapper } from 'svelte-tiptap';
+	import { NodeViewContent, NodeViewWrapper, type NodeViewProps } from '$lib/edra/tiptap/index.js';
 
-	const { editor, node, updateAttributes, extension }: NodeViewProps = $props();
+	const { editor, node, updateAttributes, extension, getPos }: NodeViewProps = $props();
 
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import Check from '@lucide/svelte/icons/check';
@@ -11,18 +10,18 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { cn } from '$lib/utils.js';
 	import strings from '../../strings.js';
+	import { Sparkle } from '@lucide/svelte';
+	import Tooltip from './Tooltip.svelte';
 
 	let preRef = $state<HTMLPreElement>();
-
 	let isCopying = $state(false);
-
 	const languages: string[] = $derived(extension.options.lowlight.listLanguages().sort());
+	let defaultLanguage = $derived<string>(node.attrs.language ?? 'plaintext');
 
-	let defaultLanguage = $derived(node.attrs.language ?? strings.extension.code.plainText);
-
-	$effect(() => {
-		updateAttributes({ language: defaultLanguage });
-	});
+	const changeLanguage = (language: string) => {
+		updateAttributes({ language: language });
+		defaultLanguage = language;
+	};
 
 	function copyCode() {
 		if (!preRef) return;
@@ -32,27 +31,64 @@
 			isCopying = false;
 		}, 1000);
 	}
+
+	function convertToMermaid() {
+		const code = node.textContent;
+		const pos = getPos();
+		if (typeof pos !== 'number') return;
+		editor
+			.chain()
+			.focus()
+			.deleteRange({ from: pos, to: pos + node.nodeSize })
+			.insertContentAt(pos, {
+				type: 'mermaid',
+				content: [
+					{
+						type: 'text',
+						text: code || ''
+					}
+				]
+			})
+			.run();
+	}
 </script>
 
-<NodeViewWrapper class="code-wrapper" draggable={false} spellcheck={false}>
-	<div class="code-wrapper-tile justify-end print:justify-start" contenteditable="false">
+<NodeViewWrapper class="bg-muted dark:bg-muted/20 my-4 pb-4 rounded-lg">
+	<div class="flex items-center mx-2 gap-2 justify-end print:justify-start" contenteditable="false">
+		{#if defaultLanguage.toLowerCase() === 'mermaid'}
+			<Tooltip tooltip="Convert to Mermaid Diagram">
+				<Button variant="ghost" size="icon-xs" class="print:hidden" onclick={convertToMermaid}>
+					<Sparkle />
+				</Button>
+			</Tooltip>
+		{/if}
 		<Popover.Root>
-			<Popover.Trigger
-				contenteditable="false"
-				disabled={!editor.isEditable}
-				class={buttonVariants({
-					variant: 'ghost',
-					class: 'text-muted-foreground h-6! w-fit rounded-sm p-1 capitalize'
-				})}
-			>
-				{defaultLanguage}
-			</Popover.Trigger>
+			<Tooltip tooltip="Change Language">
+				<Popover.Trigger
+					contenteditable="false"
+					disabled={!editor.isEditable}
+					class={buttonVariants({
+						variant: 'ghost',
+						size: 'sm',
+						class: 'capitalize text-muted-foreground'
+					})}
+				>
+					{defaultLanguage}
+				</Popover.Trigger>
+			</Tooltip>
 			<Popover.Content
-				class="text-primary! max-h-96 w-36 p-0"
+				class="text-primary! max-h-96 w-42 p-0!"
 				portalProps={{ disabled: true, to: undefined }}
-				onCloseAutoFocus={(e) => e.preventDefault()}
+				onCloseAutoFocus={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+				}}
+				onEscapeKeydown={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+				}}
 			>
-				<Command.Root>
+				<Command.Root class="p-0!">
 					<Command.Input placeholder={strings.extension.code.searchLanguagePlaceholder} />
 					<Command.List>
 						<Command.Empty>{strings.extension.code.searchLanguageEmpty}</Command.Empty>
@@ -60,10 +96,11 @@
 							{#each languages as language (language)}
 								<Command.Item
 									value={language}
-									onSelect={() => (defaultLanguage = language)}
+									onSelect={() => changeLanguage(language)}
+									onclick={() => changeLanguage(language)}
 									class="text-primary capitalize"
 								>
-									<Check class={cn(language !== defaultLanguage && 'text-transparent')} />
+									<Check class={cn(language !== defaultLanguage && 'invisible')} />
 									{language}
 								</Command.Item>
 							{/each}
@@ -74,17 +111,18 @@
 		</Popover.Root>
 		<Button
 			variant="ghost"
-			class="text-muted-foreground size-6! rounded-sm p-0.5 print:hidden"
+			size="icon-xs"
+			class="text-muted-foreground print:hidden"
 			onclick={copyCode}
 		>
 			{#if isCopying}
-				<Check class="size-4 text-green-500" />
+				<Check class=" text-green-500" />
 			{:else}
-				<Copy class="size-4" />
+				<Copy />
 			{/if}
 		</Button>
 	</div>
-	<pre bind:this={preRef} draggable={false}>
+	<pre bind:this={preRef} draggable={false} spellcheck="false">
 		<NodeViewContent as="code" class={`language-${defaultLanguage}`} {...node.attrs} />
 	</pre>
 </NodeViewWrapper>

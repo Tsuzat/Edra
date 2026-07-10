@@ -9,12 +9,12 @@
 	import CopyIcon from '@lucide/svelte/icons/copy';
 	import EllipsisVertical from '@lucide/svelte/icons/ellipsis-vertical';
 	import Fullscreen from '@lucide/svelte/icons/fullscreen';
-	import Trash from '@lucide/svelte/icons/trash';
+	import Trash from '@lucide/svelte/icons/trash-2';
 	import type { NodeViewProps } from '@tiptap/core';
 	import { onDestroy, onMount, type Snippet } from 'svelte';
-	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { duplicateContent } from '../../utils.js';
 	import strings from '../../strings.js';
+	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
 
 	interface MediaExtendedProps extends NodeViewProps {
 		children: Snippet<[]>;
@@ -194,46 +194,49 @@
 			</div>
 			<div
 				class={cn(
-					'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded border p-1 opacity-0 backdrop-blur-sm transition-opacity',
+					'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded-md border p-1 opacity-0 backdrop-blur-sm transition-opacity',
 					!resizing && 'group-hover:opacity-100',
 					openedMore && 'opacity-100'
 				)}
 			>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'left' && 'bg-muted')}
+					size="icon-xs"
+					class={cn(node.attrs.align === 'left' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'left' })}
 					title={strings.extension.media.alignLeft}
 				>
-					<AlignLeft class="size-4" />
+					<AlignLeft />
 				</Button>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'center' && 'bg-muted')}
+					size="icon-xs"
+					class={cn(node.attrs.align === 'center' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'center' })}
 					title={strings.extension.media.alignCenter}
 				>
-					<AlignCenter class="size-4" />
+					<AlignCenter />
 				</Button>
 				<Button
 					variant="ghost"
-					class={cn('size-6 p-0', node.attrs.align === 'right' && 'bg-muted')}
+					size="icon-xs"
+					class={cn(node.attrs.align === 'right' && 'bg-muted')}
 					onclick={() => updateAttributes({ align: 'right' })}
 					title={strings.extension.media.alignRight}
 				>
-					<AlignRight class="size-4" />
+					<AlignRight />
 				</Button>
 				<DropdownMenu.Root
 					bind:open={openedMore}
 					onOpenChange={(value: boolean) => (openedMore = value)}
 				>
 					<DropdownMenu.Trigger
-						class={buttonVariants({ variant: 'ghost', class: 'size-6 p-0' })}
+						class={buttonVariants({ variant: 'ghost', size: 'icon-xs' })}
 						title={strings.extension.media.moreOptions}
 					>
-						<EllipsisVertical class="size-4" />
+						<EllipsisVertical />
 					</DropdownMenu.Trigger>
-					<DropdownMenu.Content align="start" alignOffset={-90} class="mt-1 overflow-auto text-sm">
+					<DropdownMenu.Content align="start" class="mt-1 overflow-auto text-sm">
 						<DropdownMenu.Item
 							onclick={() => {
 								if (node.attrs.title === null || node.attrs.title.trim() === '')
@@ -242,7 +245,7 @@
 									});
 							}}
 						>
-							<Captions class="mr-1 size-4" />
+							<Captions />
 							{strings.extension.media.caption}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
@@ -250,7 +253,7 @@
 								duplicateContent(editor, node);
 							}}
 						>
-							<CopyIcon class="mr-1 size-4" />
+							<CopyIcon />
 							{strings.extension.media.duplicate}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
@@ -260,7 +263,7 @@
 								});
 							}}
 						>
-							<Fullscreen class="mr-1 size-4" />
+							<Fullscreen />
 							{strings.extension.media.fullscreen}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
@@ -269,7 +272,7 @@
 							}}
 							class="text-destructive"
 						>
-							<Trash class="mr-1 size-4" />
+							<Trash />
 							{strings.extension.media.delete}
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>

@@ -9,15 +9,22 @@
 
 <MediaExtended bind:mediaRef {...rest}>
 	{@const node = rest.node}
+	<!-- svelte-ignore element_invalid_self_closing_tag -->
+	<!-- svelte-ignore a11y_media_has_caption -->
 	<video
+		preload="none"
 		bind:this={mediaRef}
 		src={node.attrs.src}
+		playsinline
 		controls
 		title={node.attrs.title}
-		preload="none"
-		playsinline
-		style="margin: 0; width: 100%;"
-	>
-		<track kind="captions" />
-	</video>
+		class="video-custom"
+	/>
 </MediaExtended>
+
+<style>
+	.video-custom {
+		width: 100%;
+		border-radius: var(--edra-radius-md);
+	}
+</style>

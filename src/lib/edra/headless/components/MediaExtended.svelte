@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { onDestroy, onMount, type Snippet } from 'svelte';
-	import { NodeViewWrapper } from 'svelte-tiptap';
-	import type { NodeViewProps } from '@tiptap/core';
-	import strings from '../../strings.js';
-
-	import AlignCenter from '@lucide/svelte/icons/align-center';
-	import AlignLeft from '@lucide/svelte/icons/align-left';
-	import AlignRight from '@lucide/svelte/icons/align-right';
-	import CopyIcon from '@lucide/svelte/icons/copy';
-	import Fullscreen from '@lucide/svelte/icons/fullscreen';
-	import Trash from '@lucide/svelte/icons/trash';
+	import { Root, Trigger, Content, Item } from '../primitives/dropdown/index.ts';
+	import { cn } from '$lib/utils.js';
+	import AlignCenter from '@lucide/svelte/icons/text-align-center';
+	import AlignLeft from '@lucide/svelte/icons/text-align-start';
+	import AlignRight from '@lucide/svelte/icons/text-align-end';
 	import Captions from '@lucide/svelte/icons/captions';
-
+	import CopyIcon from '@lucide/svelte/icons/copy';
+	import EllipsisVertical from '@lucide/svelte/icons/ellipsis-vertical';
+	import Fullscreen from '@lucide/svelte/icons/fullscreen';
+	import Trash from '@lucide/svelte/icons/trash-2';
+	import type { NodeViewProps } from '@tiptap/core';
+	import { onDestroy, onMount, type Snippet } from 'svelte';
 	import { duplicateContent } from '../../utils.js';
+	import strings from '../../strings.js';
+	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
 
 	interface MediaExtendedProps extends NodeViewProps {
 		children: Snippet<[]>;
@@ -29,7 +30,7 @@
 		mediaRef = $bindable()
 	}: MediaExtendedProps = $props();
 
-	const minWidthPercent = 15;
+	const minWidthPercent = 20;
 	const maxWidthPercent = 100;
 
 	let nodeRef = $state<HTMLElement>();
@@ -38,12 +39,7 @@
 	let resizingInitialWidthPercent = $state(0);
 	let resizingInitialMouseX = $state(0);
 	let resizingPosition = $state<'left' | 'right'>('left');
-
-	let caption: string | null = $state(node.attrs.title);
-	$effect(() => {
-		if (caption?.trim() === '') caption = null;
-		updateAttributes({ title: caption });
-	});
+	let openedMore = $state(false);
 
 	function handleResizingPosition(e: MouseEvent, position: 'left' | 'right') {
 		startResize(e);
@@ -137,22 +133,34 @@
 
 <NodeViewWrapper
 	id="resizable-container-media"
+	class={cn(
+		'media-extended-wrapper',
+		selected && 'selected',
+		node.attrs.align === 'left' && 'align-left',
+		node.attrs.align === 'center' && 'align-center',
+		node.attrs.align === 'right' && 'align-right'
+	)}
 	style={`width: ${node.attrs.width}`}
-	class={`edra-media-container ${selected ? 'selected' : ''} align-${node.attrs.align}`}
 >
-	<div class={`edra-media-group ${resizing ? 'resizing' : ''}`}>
+	<div class="media-group">
 		{@render children()}
-
-		{#if caption !== null}
-			<input bind:value={caption} type="text" class="edra-media-caption" />
+		{#if node.attrs.title !== null && node.attrs.title.trim() !== ''}
+			<input
+				value={node.attrs.title}
+				type="text"
+				class="media-title-input"
+				onchange={(e) => {
+					const target = e.target as HTMLInputElement;
+					updateAttributes({ title: target.value });
+				}}
+			/>
 		{/if}
-
-		{#if editor?.isEditable}
+		{#if editor.isEditable}
 			<div
 				role="button"
 				tabindex="0"
-				aria-label={strings.extension.media.resizeLeft}
-				class="edra-media-resize-handle edra-media-resize-handle-left"
+				aria-label={strings.extension.media.back}
+				class="resize-handle resize-handle-left"
 				onmousedown={(event: MouseEvent) => {
 					handleResizingPosition(event, 'left');
 				}}
@@ -160,14 +168,14 @@
 					handleTouchStart(event, 'left');
 				}}
 			>
-				<div class="edra-media-resize-indicator"></div>
+				<div class="resize-bar"></div>
 			</div>
 
 			<div
 				role="button"
 				tabindex="0"
-				aria-label={strings.extension.media.resizeRight}
-				class="edra-media-resize-handle edra-media-resize-handle-right"
+				aria-label={strings.extension.media.back}
+				class="resize-handle resize-handle-right"
 				onmousedown={(event: MouseEvent) => {
 					handleResizingPosition(event, 'right');
 				}}
@@ -175,70 +183,198 @@
 					handleTouchStart(event, 'right');
 				}}
 			>
-				<div class="edra-media-resize-indicator"></div>
+				<div class="resize-bar"></div>
 			</div>
-
-			<div class="edra-media-toolbar edra-media-toolbar-audio">
+			<div class={cn('media-toolbar', openedMore && 'opened')}>
 				<button
-					class={`edra-toolbar-button ${node.attrs.align === 'left' ? 'active' : ''}`}
+					class="edra-btn edra-btn-ghost edra-btn-icon-xs {node.attrs.align === 'left'
+						? 'media-align-active'
+						: ''}"
 					onclick={() => updateAttributes({ align: 'left' })}
 					title={strings.extension.media.alignLeft}
 				>
-					<AlignLeft />
+					<AlignLeft class="media-icon" />
 				</button>
 				<button
-					class={`edra-toolbar-button ${node.attrs.align === 'center' ? 'active' : ''}`}
+					class="edra-btn edra-btn-ghost edra-btn-icon-xs {node.attrs.align === 'center'
+						? 'media-align-active'
+						: ''}"
 					onclick={() => updateAttributes({ align: 'center' })}
 					title={strings.extension.media.alignCenter}
 				>
-					<AlignCenter />
+					<AlignCenter class="media-icon" />
 				</button>
 				<button
-					class={`edra-toolbar-button ${node.attrs.align === 'right' ? 'active' : ''}`}
+					class="edra-btn edra-btn-ghost edra-btn-icon-xs {node.attrs.align === 'right'
+						? 'media-align-active'
+						: ''}"
 					onclick={() => updateAttributes({ align: 'right' })}
 					title={strings.extension.media.alignRight}
 				>
-					<AlignRight />
+					<AlignRight class="media-icon" />
 				</button>
-				<button
-					class="edra-toolbar-button"
-					onclick={() => {
-						if (caption === null || caption.trim() === '') caption = 'Audio Caption';
-					}}
-					title={strings.extension.media.caption}
-				>
-					<Captions />
-				</button>
-				<button
-					class="edra-toolbar-button"
-					onclick={() => {
-						duplicateContent(editor, node);
-					}}
-					title={strings.extension.media.duplicate}
-				>
-					<CopyIcon />
-				</button>
-				<button
-					class="edra-toolbar-button"
-					onclick={() => {
-						updateAttributes({
-							width: 'fit-content'
-						});
-					}}
-					title={strings.extension.media.fullscreen}
-				>
-					<Fullscreen />
-				</button>
-				<button
-					class="edra-toolbar-button edra-destructive"
-					onclick={() => {
-						deleteNode();
-					}}
-					title={strings.extension.media.delete}
-				>
-					<Trash />
-				</button>
+
+				<Root bind:open={openedMore}>
+					<Trigger
+						class="edra-btn edra-btn-ghost edra-btn-icon-xs"
+						title={strings.extension.media.moreOptions}
+					>
+						<EllipsisVertical class="media-icon" />
+					</Trigger>
+					<Content align="start" class="more-options-menu">
+						<Item
+							onclick={() => {
+								if (node.attrs.title === null || node.attrs.title.trim() === '')
+									updateAttributes({
+										title: strings.extension.media.captionPlaceholder
+									});
+							}}
+						>
+							<Captions class="media-icon" />
+							<span>{strings.extension.media.caption}</span>
+						</Item>
+						<Item
+							onclick={() => {
+								duplicateContent(editor, node);
+							}}
+						>
+							<CopyIcon class="media-icon" />
+							<span>{strings.extension.media.duplicate}</span>
+						</Item>
+						<Item
+							onclick={() => {
+								updateAttributes({
+									width: '100%'
+								});
+							}}
+						>
+							<Fullscreen class="media-icon" />
+							<span>{strings.extension.media.fullscreen}</span>
+						</Item>
+						<Item
+							onclick={() => {
+								deleteNode();
+							}}
+							class="text-(--edra-error) hover:bg-(--edra-error-soft)"
+						>
+							<Trash class="media-icon" />
+							<span>{strings.extension.media.delete}</span>
+						</Item>
+					</Content>
+				</Root>
 			</div>
 		{/if}
 	</div>
 </NodeViewWrapper>
+
+<style>
+	.media-extended-wrapper {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		border-radius: var(--edra-radius-md);
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		border: 1px solid transparent;
+	}
+	.media-extended-wrapper.selected {
+		box-shadow: 0 0 0 1px var(--edra-link);
+	}
+	.media-extended-wrapper.align-left {
+		left: 0;
+		transform: translateX(0);
+	}
+	.media-extended-wrapper.align-center {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.media-extended-wrapper.align-right {
+		left: 100%;
+		transform: translateX(-100%);
+	}
+	.media-group {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		border-radius: var(--edra-radius-md);
+	}
+	.media-title-input {
+		color: var(--edra-body);
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+		width: 100%;
+		background-color: transparent;
+		text-align: center;
+		font-size: 0.875rem;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid transparent;
+	}
+	.media-title-input:focus {
+		border-bottom-color: var(--edra-border);
+	}
+	.resize-handle {
+		position: absolute;
+		display: flex;
+		top: 0;
+		bottom: 0;
+		z-index: 20;
+		width: 1.25rem;
+		cursor: col-resize;
+		align-items: center;
+		padding: 0.5rem;
+	}
+	.resize-handle-left {
+		left: 0;
+		justify-content: flex-start;
+	}
+	.resize-handle-right {
+		right: 0;
+		justify-content: flex-end;
+	}
+	.resize-bar {
+		background-color: var(--edra-canvas-soft-2);
+		z-index: 20;
+		height: 4rem;
+		width: 4px;
+		border-radius: var(--edra-radius-pill);
+		border: 1px solid var(--edra-border);
+		opacity: 0;
+		transition: opacity 150ms ease;
+	}
+	.media-group:hover .resize-bar {
+		opacity: 1;
+	}
+	.media-toolbar {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		border: 1px solid var(--edra-border);
+		padding: 4px;
+		background-color: var(--edra-canvas);
+		top: -0.5rem;
+		left: calc(50% - 3.5rem);
+		z-index: 20;
+		border-radius: var(--edra-radius-md);
+		box-shadow: var(--edra-shadow-3);
+		opacity: 0;
+		transition: opacity 150ms ease;
+	}
+	.media-group:hover .media-toolbar,
+	.media-toolbar.opened {
+		opacity: 1;
+	}
+	.media-align-active {
+		background-color: var(--edra-canvas-soft-2) !important;
+		color: var(--edra-ink) !important;
+	}
+	:global(.media-icon) {
+		width: 0.875rem;
+		height: 0.875rem;
+	}
+	:global(.more-options-menu) {
+		margin-top: 4px !important;
+		font-size: 0.875rem !important;
+	}
+</style>

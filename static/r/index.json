@@ -1,0 +1,52 @@
+[
+	{
+		"name": "edra",
+		"title": "Edra Editor",
+		"type": "registry:component",
+		"description": "A full-featured Tiptap-based rich text editor built with Svelte 5 and shadcn-svelte.",
+		"dependencies": [
+			"@tiptap/core",
+			"@tiptap/extension-audio",
+			"@tiptap/extension-bubble-menu",
+			"@tiptap/extension-code-block-lowlight",
+			"@tiptap/extension-drag-handle",
+			"@tiptap/extension-highlight",
+			"@tiptap/extension-image",
+			"@tiptap/extension-list",
+			"@tiptap/extension-mathematics",
+			"@tiptap/extension-subscript",
+			"@tiptap/extension-superscript",
+			"@tiptap/extension-table",
+			"@tiptap/extension-table-of-contents",
+			"@tiptap/extension-text-align",
+			"@tiptap/extension-text-style",
+			"@tiptap/extension-typography",
+			"@tiptap/extension-unique-id",
+			"@tiptap/extensions",
+			"@tiptap/markdown",
+			"@tiptap/pm",
+			"@tiptap/starter-kit",
+			"@tiptap/suggestion",
+			"katex",
+			"lowlight",
+			"mermaid"
+		],
+		"devDependencies": [
+			"@lucide/svelte",
+			"mode-watcher",
+			"clsx",
+			"tailwind-merge",
+			"tailwind-variants"
+		],
+		"registryDependencies": [
+			"button",
+			"dropdown-menu",
+			"separator",
+			"popover",
+			"tabs",
+			"input",
+			"tooltip"
+		],
+		"relativeUrl": "edra.json"
+	}
+]
