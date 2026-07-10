@@ -21,7 +21,7 @@
 
 <BubbleMenu
 	{editor}
-	pluginKey="math-bubble-menu"
+	pluginKey="math-inline-bubble-menu"
 	shouldShow={(props) => {
 		const { editor: propsEditor, state } = props;
 		if (!propsEditor || !propsEditor.isEditable) return false;

@@ -471,7 +471,7 @@
 
 <BubbleMenu
 	{editor}
-	pluginKey="edra-bubble-menu"
+	pluginKey="ai-bubble-menu"
 	shouldShow={(props) => {
 		const { editor: propsEditor, view } = props;
 		if (!propsEditor || !propsEditor.isEditable || propsEditor.isDestroyed) return false;
