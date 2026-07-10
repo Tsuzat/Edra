@@ -63,8 +63,7 @@ export const createEditor = (props?: EdraEditorProps) =>
 				getIndex: getHierarchicalIndexes,
 				onUpdate: (indexes) => {
 					setTocItems(indexes);
-				},
-				scrollParent: () => (document.querySelector('.tiptap') as HTMLElement) || window
+				}
 			})
 		],
 		onUpdate: props?.onUpdate || (() => {})

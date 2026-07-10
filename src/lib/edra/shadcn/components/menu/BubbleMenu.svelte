@@ -123,7 +123,7 @@
 			allowedPlacements: ['top', 'top-end', 'top-start']
 		},
 		strategy: 'absolute',
-		scrollTarget: editor.view.dom.parentElement ?? undefined
+		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class={cn('flex items-center bg-popover border rounded-lg w-fit', className)}
 >

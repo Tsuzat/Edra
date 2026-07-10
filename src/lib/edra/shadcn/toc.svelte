@@ -9,43 +9,6 @@
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { cn } from '$lib/utils.js';
 	import { type TableOfContentData } from '@tiptap/extension-table-of-contents';
-	import { TextSelection } from '@tiptap/pm/state';
-	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
-	const editor = getEditor();
-	const transaction = useEditorTransaction(editor);
-
-	interface Props {
-		container: HTMLElement;
-	}
-	const { container }: Props = $props();
-
-	const onItemClick = (e: Event, id: string) => {
-		e.preventDefault();
-		void transaction.version;
-
-		const element = editor.view.dom.querySelector(`[data-toc-id="${id}"]`);
-
-		if (!element) {
-			return;
-		}
-		const pos = editor.view.posAtDOM(element, 0);
-
-		// set focus
-		const tr = editor.view.state.tr;
-		tr.setSelection(new TextSelection(tr.doc.resolve(pos)));
-		editor.view.dispatch(tr);
-		editor.view.focus();
-
-		if (container) {
-			const containerRect = container.getBoundingClientRect();
-			const elementRect = element.getBoundingClientRect();
-			const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
-			container.scrollTo({
-				top: relativeTop - 24,
-				behavior: 'smooth'
-			});
-		}
-	};
 </script>
 
 <Tooltip.Provider>
@@ -75,7 +38,6 @@
 				{#each tocItems as item (item.id)}
 					<a
 						href={`#${item.id}`}
-						onclick={(e) => onItemClick(e, item.id)}
 						class={cn(
 							'nodefault text-foreground text-sm text-wrap transition-all duration-500',
 							item.isScrolledOver && 'text-muted-foreground italic'

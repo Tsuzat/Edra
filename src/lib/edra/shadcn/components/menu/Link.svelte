@@ -44,10 +44,11 @@
 		}
 	}}
 	options={{
-		placement: 'bottom',
-		offset: 8,
-		flip: true,
-		strategy: 'fixed',
+		shift: true,
+		autoPlacement: {
+			allowedPlacements: ['top', 'bottom']
+		},
+		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
 	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border p-0!"
