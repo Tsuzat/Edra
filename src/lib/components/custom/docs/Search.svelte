@@ -140,6 +140,13 @@
 			keywords: ['custom', 'config', 'extend', 'options', 'theme', 'settings'],
 			icon: Sliders,
 			group: 'Customization'
+		},
+		{
+			title: 'Typography & Styling',
+			url: resolve('/docs/customization/styling'),
+			keywords: ['type', 'font', 'color', 'style', 'custom', 'theme', 'css', 'design'],
+			icon: Type,
+			group: 'Customization'
 		}
 	];
 

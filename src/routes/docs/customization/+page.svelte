@@ -2,6 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { ArrowLeft } from '@lucide/svelte';
 	import Code from '$lib/components/custom/docs/Code.svelte';
+	import { resolve } from '$app/paths';
 
 	const extensionFile = `// src/lib/edra/extensions.ts
 import StarterKit from '@tiptap/starter-kit';
@@ -47,7 +48,8 @@ export const createEditor = (props) =>
 
 	<h2>1. Modifying Default Extensions</h2>
 	<p>
-		Edra pre-configures standard editing tools globally. To add your own custom TipTap extensions, configure settings, or remove default plugins, edit the following file:
+		Edra pre-configures standard editing tools globally. To add your own custom TipTap extensions,
+		configure settings, or remove default plugins, edit the following file:
 	</p>
 	<p>
 		👉 <strong>File to modify:</strong> <code>src/lib/edra/extensions.ts</code>
@@ -58,7 +60,8 @@ export const createEditor = (props) =>
 
 	<h2>2. Custom Svelte Component Views (Node Views)</h2>
 	<p>
-		For complex elements (like Callout, Codeblock, Iframe, or Mermaid), Edra uses Svelte to render and interact with the node view. You can customize the styling and layout of these components:
+		For complex elements (like Callout, Codeblock, Iframe, or Mermaid), Edra uses Svelte to render
+		and interact with the node view. You can customize the styling and layout of these components:
 	</p>
 
 	<h3>Shadcn UI Flavor</h3>
@@ -82,14 +85,25 @@ export const createEditor = (props) =>
 
 	<h2>3. Customizing the Toolbar</h2>
 	<p>
-		If you are using the Shadcn UI flavor and want to change, rearrange, or remove buttons on the main toolbar, modify:
+		If you are using the Shadcn UI flavor and want to change, rearrange, or remove buttons on the
+		main toolbar, modify:
 	</p>
 	<p>
 		👉 <strong>File to modify:</strong> <code>src/lib/edra/shadcn/components/Toolbar.svelte</code>
 	</p>
 
+	<h2>4. Typography & Styling</h2>
+	<p>
+		Edra inherits typography styles from your global Svelte application but also supports granular,
+		flavor-specific design customizations (CSS classes, custom CSS variables, and stylesheets).
+	</p>
+	<p>
+		👉 <strong>Learn more here:</strong>
+		<a href={resolve('/docs/customization/styling')}>Typography & Styling Docs</a>
+	</p>
+
 	<div class="mt-12 flex">
-		<Button href="/docs/extensions/slash-command" variant="outline" class="gap-2">
+		<Button href={resolve('/docs/extensions/slash-command')} variant="outline" class="gap-2">
 			<ArrowLeft class="size-4" />
 			Back to Slash Command
 		</Button>

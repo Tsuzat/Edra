@@ -83,6 +83,10 @@
 					{
 						title: 'Customizing Extensions',
 						url: resolve('/docs/customization')
+					},
+					{
+						title: 'Typography & Styling',
+						url: resolve('/docs/customization/styling')
 					}
 				]
 			}
@@ -93,7 +97,7 @@
 <Sidebar.Root {...restProps} bind:ref>
 	<Sidebar.Header class="mt-2">
 		<a class="flex items-center gap-2" href={resolve('/')}>
-			<img src="/favicon.svg" alt="Edra" class="size-8" />
+			<img src="/favicon.svg" alt="Edra" class="size-6" />
 			<span class="font-semibold text-xl">Edra</span>
 		</a>
 		<Sidebar.Menu>

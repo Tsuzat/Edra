@@ -46,8 +46,8 @@ StarterKit.configure({
 
 	<h2>Configuration</h2>
 	<p>
-		Edra pre-configures <code>StarterKit</code> to ensure standard layouts align with Tailwind's typography
-		system. Bullet lists and ordered lists are decorated with standard classes automatically.
+		Edra pre-configures <code>StarterKit</code> to ensure standard layouts align with the typography system.
+		Bullet lists and ordered lists are decorated with standard classes automatically.
 	</p>
 
 	<div class="my-4">
