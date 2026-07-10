@@ -398,11 +398,11 @@
 	border: none;
 	border-top: 1px solid var(--edra-border);
 }
-
-.tiptap code {
+.tiptap code:not(pre code) {
 	font-family: var(--edra-font-mono);
-	font-size: 0.875rem;
+	font-size: 0.875em;
 	background-color: var(--edra-canvas-soft-2);
+	border: 1px solid var(--edra-border);
 	padding: 0.2rem 0.4rem;
 	border-radius: var(--edra-radius-xs);
 }

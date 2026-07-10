@@ -169,7 +169,7 @@
 					/>
 					<Edra.BubbleMenu />
 					<Edra.Content
-						class="*:outline-none cursor-auto h-150 w-full overflow-y-scroll py-4 px-8"
+						class="*:outline-none text-base cursor-auto h-150 w-full overflow-y-scroll py-4 px-8"
 					/>
 					<Edra.DragHandle />
 				</Edra>

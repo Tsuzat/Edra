@@ -110,8 +110,14 @@
 	border-top: 1px solid var(--color-border);
 }
 
-.tiptap code {
+.tiptap code:not(pre code) {
 	font-family: 'Fira Code Variable', monospace;
+	font-size: 0.875em;
+	background-color: var(--color-muted);
+	color: var(--color-primary);
+	border: 1px solid var(--color-border);
+	padding: 0.125rem 0.25rem;
+	border-radius: var(--radius-sm);
 }
 
 .tiptap pre {
