@@ -192,7 +192,7 @@ pre.shiki {
 	max-height: 30rem;
 	border-radius: 0;
 	background-color: transparent !important;
-	padding: 0.75rem !important;
+	padding: 0.5rem !important;
 	overflow: auto;
 	border-radius: 0.5rem;
 	font-size: 0.9rem !important;
@@ -215,7 +215,7 @@ pre.shiki code > span::before {
 	counter-increment: line;
 	display: inline-block;
 	width: 1rem;
-	margin-right: 1.5rem;
+	margin-right: 1rem;
 	text-align: left;
 	color: var(--color-muted-foreground);
 }
