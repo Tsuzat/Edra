@@ -97,6 +97,10 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/lib/edra/shadcn/toc.svelte",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/lib/edra/shadcn/editor.css",
 					"type": "registry:file"
 				},
