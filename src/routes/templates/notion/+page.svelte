@@ -110,7 +110,12 @@
 	<!-- Workspace Layout -->
 	<main class="flex-1 grow overflow-y-auto pb-32">
 		<!-- Notion Header Title Input -->
-		<div class={cn("pt-10 pb-4 mx-auto border-b border-border/40 mb-6 transition-all duration-300 px-8 md:px-16", fullWidth ? "max-w-full" : "max-w-3xl")}>
+		<div
+			class={cn(
+				'pt-10 pb-4 mx-auto border-b border-border/40 mb-6 transition-all duration-300 px-8 md:px-16',
+				fullWidth ? 'max-w-full' : 'max-w-3xl'
+			)}
+		>
 			<input
 				type="text"
 				bind:value={pageTitle}
@@ -124,7 +129,10 @@
 			<Edra.ToC />
 			<Edra.BubbleMenu />
 			<Edra.Content
-				class={cn("*:outline-none text-base cursor-auto w-full py-4 px-8 transition-all duration-300 mx-auto", fullWidth ? "max-w-full" : "max-w-3xl")}
+				class={cn(
+					'*:outline-none text-base cursor-auto w-full py-4 px-8 transition-all duration-300 mx-auto',
+					fullWidth ? 'max-w-full' : 'max-w-3xl'
+				)}
 			/>
 			<Edra.DragHandle type="extended" />
 		</Edra>
