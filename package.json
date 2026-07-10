@@ -1,6 +1,6 @@
 {
 	"name": "edra",
-	"version": "0.0.1",
+	"version": "3.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
