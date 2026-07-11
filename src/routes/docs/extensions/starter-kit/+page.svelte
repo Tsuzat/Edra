@@ -69,9 +69,9 @@ StarterKit.configure({
 	</ul>
 
 	<div class="mt-12 flex justify-between">
-		<Button href="/docs/installation" variant="outline" class="gap-2">
+		<Button href="/docs/usages" variant="outline" class="gap-2">
 			<ArrowLeft class="size-4" />
-			Back to Installation
+			Back to Usages
 		</Button>
 		<Button href="/docs/extensions/tables" class="gap-2">
 			Tables Extension

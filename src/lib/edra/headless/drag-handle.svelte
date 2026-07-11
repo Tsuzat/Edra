@@ -25,7 +25,7 @@
 	import { DragHandlePlugin } from '@tiptap/extension-drag-handle';
 	import type { Node } from '@tiptap/pm/model';
 	import { NodeSelection } from '@tiptap/pm/state';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { commands, type EdraCommand } from '../commands/index.js';
 	import { quickcolors } from '../utils.js';
 	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
@@ -50,7 +50,6 @@
 	const pluginKey = 'globalDragHandle';
 	let element = $state(document.createElement('div'));
 
-	let editorElement = $state<HTMLElement | null>(null);
 	const editor = getEditor();
 	const transaction = useEditorTransaction(editor);
 
@@ -62,7 +61,6 @@
 	}
 
 	onMount(() => {
-		editorElement = editor.view.dom.parentElement;
 		const plugin = DragHandlePlugin({
 			element,
 			pluginKey,
@@ -89,30 +87,13 @@
 			onNodeChange
 		});
 		editor?.registerPlugin(plugin.plugin);
-		element.addEventListener('drag', onDragHandleDrag);
-		element.addEventListener('dragstart', onDragHandleDrag);
 		return () => editor?.unregisterPlugin(pluginKey);
-	});
-
-	onDestroy(() => {
-		element.removeEventListener('drag', onDragHandleDrag);
-		element.removeEventListener('dragstart', onDragHandleDrag);
 	});
 
 	const onNodeChange = (data: { editor: Editor; node: Node | null; pos: number }) => {
 		if (data.node) currentNode = data.node;
 		currentNodePos = data.pos;
 	};
-
-	function onDragHandleDrag(e: DragEvent) {
-		if (editorElement === null) return;
-		const scrollY = editorElement.scrollTop;
-		if (e.clientY < 50) {
-			editorElement.scrollTo({ top: scrollY - 30, behavior: 'smooth' });
-		} else if (editorElement.clientHeight - e.clientY < 50) {
-			editorElement.scrollTo({ top: scrollY + 30, behavior: 'smooth' });
-		}
-	}
 
 	const handleRemoveFormatting = () => {
 		const chain = editor?.chain();

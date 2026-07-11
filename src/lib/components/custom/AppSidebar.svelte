@@ -22,6 +22,10 @@
 					{
 						title: 'Installation',
 						url: resolve('/docs/installation')
+					},
+					{
+						title: 'Usages',
+						url: resolve('/docs/usages')
 					}
 				]
 			},

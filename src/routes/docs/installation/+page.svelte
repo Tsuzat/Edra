@@ -54,8 +54,8 @@
 			<ArrowLeft class="size-4" />
 			Back to Intro
 		</Button>
-		<Button href="/docs/extensions/starter-kit" class="gap-2">
-			Starter Kit Extensions
+		<Button href="/docs/usages" class="gap-2">
+			Usages & File Uploads
 			<ArrowRight class="size-4" />
 		</Button>
 	</div>

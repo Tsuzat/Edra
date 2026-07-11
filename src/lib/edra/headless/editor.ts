@@ -25,6 +25,15 @@ import CalloutComp from './components/Callout.svelte';
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
+	/**
+	 * Callback function to handle file uploads when a user drags/drops, pastes,
+	 * or selects a media file (image, video, audio) to insert.
+	 * It should upload the file to your storage (e.g., S3, Vercel Blob, etc.)
+	 * and return a promise resolving to the public URL of the uploaded file.
+	 *
+	 * @param file The file to be uploaded.
+	 * @returns A promise resolving to the uploaded file's URL.
+	 */
 	onFileUpload?: (file: File) => Promise<string>;
 	callAI?: (
 		prompt: string,

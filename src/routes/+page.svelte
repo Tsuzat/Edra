@@ -16,34 +16,11 @@
 	import { DotPattern } from '$lib/components/magic/dot-pattern/index.js';
 	import { openSearch } from '$lib/components/custom/docs/Search.svelte';
 
-	/** Sample mock callAI for testing — streams a generic paragraph word-by-word */
-	async function sampleCallAI(
-		_prompt: string,
-		onChunk: (chunk: string) => void,
-		onError: (error: Error) => void
-	) {
-		const paragraph =
-			'The quick brown fox jumps over the lazy dog. ' +
-			'This is a sample paragraph generated for testing purposes. ' +
-			'It demonstrates how the AI streaming interface works by delivering content word by word. ' +
-			'Each word arrives with a small delay to simulate real-time generation from an AI model.';
-		const words = paragraph.split(' ');
-		try {
-			for (const word of words) {
-				await new Promise((r) => setTimeout(r, 100));
-				onChunk(word + ' ');
-			}
-		} catch (error) {
-			onError(error instanceof Error ? error : new Error(String(error)));
-		}
-	}
-
 	const onUpdate = () => {
 		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
 	};
 	const editor = createEditor({
-		onUpdate,
-		callAI: sampleCallAI
+		onUpdate
 	});
 
 	onMount(() => {
@@ -175,7 +152,6 @@
 				)}
 			>
 				<Edra {editor}>
-					<Edra.UseAI />
 					<Edra.Toolbar
 						class="border-b rounded-t-lg max-w-full scrollbar-none bg-muted dark:bg-muted/50 p-1 overflow-x-scroll"
 					/>
