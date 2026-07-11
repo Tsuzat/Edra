@@ -25,8 +25,12 @@
 		CodeXml,
 		Sparkles,
 		Terminal,
+		Sliders,
 		Globe,
-		SlidersHorizontal
+		SlidersHorizontal,
+		Settings,
+		ListOrdered,
+		Database
 	} from '@lucide/svelte';
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -52,6 +56,20 @@
 			group: 'Getting Started'
 		},
 		{
+			title: 'Configuration & API',
+			url: resolve('/docs/configuration'),
+			keywords: ['config', 'setup', 'api', 'props', 'onFileUpload', 'createEditor', 'init'],
+			icon: Settings,
+			group: 'Getting Started'
+		},
+		{
+			title: 'Data & Serialization',
+			url: resolve('/docs/usages/serialization'),
+			keywords: ['json', 'html', 'markdown', 'extract', 'save', 'load', 'content', 'data'],
+			icon: Database,
+			group: 'Getting Started'
+		},
+		{
 			title: 'Starter Kit Extension',
 			url: resolve('/docs/extensions/starter-kit'),
 			keywords: ['extensions', 'starter', 'kit', 'basic', 'default', 'core'],
@@ -70,6 +88,13 @@
 			url: resolve('/docs/extensions/tasks'),
 			keywords: ['task', 'todo', 'list', 'checkbox', 'done', 'checklist'],
 			icon: ListTodo,
+			group: 'Extensions & Plugins'
+		},
+		{
+			title: 'Table of Contents',
+			url: resolve('/docs/extensions/table-of-contents'),
+			keywords: ['toc', 'outline', 'sidebar', 'headings', 'navigation', 'scroll', 'spy'],
+			icon: ListOrdered,
 			group: 'Extensions & Plugins'
 		},
 		{

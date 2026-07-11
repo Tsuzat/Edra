@@ -1,65 +1,83 @@
-# Svelte library
+<div align="center">
+  <h1>Edra Editor</h1>
+  <p><strong>A full-featured, block-styled rich text editor for Svelte 5</strong></p>
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+<a href="https://edra.tsuzat.com"><strong>Explore the Documentation »</strong></a>
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+  <br />
+  <br />
 
-## Creating a project
+  <!-- Badges -->
+  <img src="https://img.shields.io/badge/Svelte-5.x-ff3e00.svg?logo=svelte&logoColor=white" alt="Svelte 5" />
+  <img src="https://img.shields.io/badge/Tiptap-2.x-black.svg?logo=react&logoColor=white" alt="Tiptap" />
+  <img src="https://img.shields.io/badge/shadcn--svelte-compatible-black.svg" alt="shadcn-svelte" />
+  <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg?logo=typescript&logoColor=white" alt="TypeScript" />
+</div>
 
-If you're seeing this, you've probably already done this step. Congrats!
+## ✨ Introduction
 
-```sh
-# create a new project in the current directory
-npx sv create
+Edra is a modern, extensible rich text editor built on top of [Tiptap](https://tiptap.dev/) specifically for **Svelte 5** environments. It leverages the styling and components of [shadcn-svelte](https://shadcn-svelte.com/) to provide a beautiful, cohesive, and fully accessible writing experience right out of the box.
 
-# create a new project in my-app
-npx sv create my-app
+Whether you need a Notion-like block editor with drag-and-drop mechanics or a lightweight, headless core, Edra gives you full control over your content.
+
+## 🚀 Key Features
+
+- **Built for Svelte 5**: Leverages the power of runes and snippets for high performance and reactive state management.
+- **Two Variants**: Choose between the opinionated, beautiful **Shadcn UI** flavor, or the unstyled **Headless** core to bring your own design system.
+- **Block Mechanics**: Native support for drag-and-drop block handles, just like Notion.
+- **Slash Commands**: Type `/` to instantly pull up a contextual menu to insert headings, media, tables, and more.
+- **Rich Media & Embeds**: Seamlessly upload images, videos, and audio. Paste HTML directly into the editor to embed YouTube, Spotify, and more via our Iframe handler.
+- **Advanced Extensions**: First-class support for Mathematics (KaTeX), Mermaid diagrams, Callouts, and syntax-highlighted Code Blocks.
+- **Table of Contents**: Automatically extract hierarchical headings to render a scroll-spy side navigation.
+- **AI Ready**: Hooks designed specifically for streaming AI completions directly into the editor canvas.
+
+## 📦 Installation
+
+Edra is distributed via the `shadcn-svelte` registry, meaning the source code is installed directly into your project. This gives you absolute control over the styling and dependencies.
+
+```bash
+npx shadcn-svelte@latest add https://edra.tsuzat.com/r/edra.json
 ```
 
-To recreate this project with the same configuration:
+For the unstyled Headless variant, or for more detailed installation options, refer to the [Installation Documentation](https://edra.tsuzat.com/docs/installation).
 
-```sh
-# recreate this project
-bun x sv@0.16.1 create --template library --types ts --add prettier eslint vitest="usages:unit,component" tailwindcss="plugins:none" sveltekit-adapter="adapter:vercel" --install bun .
+## 💻 Quick Start
+
+Once installed, instantiating the editor is incredibly simple:
+
+```svelte
+<script lang="ts">
+	import { createEditor, Edra } from '$lib/edra/shadcn/index.js';
+
+	// Initialize the editor with custom callbacks
+	const editor = createEditor({
+		onUpdate: () => {
+			console.log('Content updated!', editor.getJSON());
+		},
+		onFileUpload: async (file) => {
+			// Edra displays a loading placeholder while this promise resolves
+			const response = await fetch('/api/upload', {
+				method: 'POST',
+				body: file
+			});
+			const data = await response.json();
+			return data.url;
+		}
+	});
+</script>
+
+<!-- The editor naturally fills its container -->
+<div class="max-w-4xl mx-auto p-8 border rounded-lg shadow-sm">
+	<Edra {editor} />
+</div>
 ```
 
-## Developing
+## 📚 Documentation
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The official documentation contains exhaustive guides on configuring the editor, extracting data (JSON/HTML/Markdown), customizing the UI, and connecting to i18n libraries.
 
-```sh
-npm run dev
+👉 **[Read the full documentation here](https://edra.tsuzat.com/docs)**
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## 📄 License
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+Released under the MIT License.

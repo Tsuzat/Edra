@@ -24,8 +24,16 @@
 						url: resolve('/docs/installation')
 					},
 					{
+						title: 'Configuration',
+						url: resolve('/docs/configuration')
+					},
+					{
 						title: 'Usages',
 						url: resolve('/docs/usages')
+					},
+					{
+						title: 'Data & Serialization',
+						url: resolve('/docs/usages/serialization')
 					}
 				]
 			},
@@ -43,6 +51,10 @@
 					{
 						title: 'Task List',
 						url: resolve('/docs/extensions/tasks')
+					},
+					{
+						title: 'Table of Contents',
+						url: resolve('/docs/extensions/table-of-contents')
 					},
 					{
 						title: 'Typography & Colors',
