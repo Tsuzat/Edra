@@ -29,6 +29,13 @@
 	import { commands, type EdraCommand } from '../commands/index.js';
 	import { quickcolors } from '../utils.js';
 	import { getEditor, useEditorTransaction } from '../tiptap/index.ts';
+	import { cn } from '$lib/utils.js';
+
+	interface Props {
+		type?: 'simple' | 'extended';
+		class?: string;
+	}
+	const { type = 'simple', class: className }: Props = $props();
 
 	const alignments = commands.alignment;
 	const turnIntos: Record<string, EdraCommand[]> = Object.entries(commands).reduce(
@@ -179,164 +186,171 @@
 	};
 </script>
 
-<div bind:this={element} class="drag-handle-container" style="visibility: hidden;">
-	<Root bind:open>
-		<Trigger class="edra-btn edra-btn-ghost trigger-btn">
-			<GripVertical class="drag-icon" />
-		</Trigger>
-		<Content class="menu-content">
-			<Label class="label-text">
-				{currentNode?.type.name}
-			</Label>
-			{#if useAI()}
-				<Item onclick={handleAIHighlight}>
-					<Sparkles class="drag-icon" />
-					<span class="text-ink font-bold">Edit With AI</span>
-				</Item>
-			{/if}
-			<Sub>
-				<SubTrigger>
-					<Repeat2 class="drag-icon" />
-					<span>Turn Into</span>
-				</SubTrigger>
-				<SubContent class="sub-menu-scroll">
-					{#each Object.entries(turnIntos) as [key, turnIntoCommands] (key)}
-						<Label class="capitalize-text">{key}</Label>
-						{#each turnIntoCommands as command (command)}
-							{@const Icon = command.icon}
+<div bind:this={element} class={cn('drag-handle-container', className)} style="visibility: hidden;">
+	{#if type === 'extended'}
+		<Root bind:open>
+			<Trigger class="edra-btn edra-btn-ghost trigger-btn">
+				<GripVertical class="drag-icon" />
+			</Trigger>
+			<Content class="menu-content">
+				<Label class="label-text">
+					{currentNode?.type.name}
+				</Label>
+				{#if useAI()}
+					<Item onclick={handleAIHighlight}>
+						<Sparkles class="drag-icon" />
+						<span class="text-ink font-bold">Edit With AI</span>
+					</Item>
+				{/if}
+				<Sub>
+					<SubTrigger>
+						<Repeat2 class="drag-icon" />
+						<span>Turn Into</span>
+					</SubTrigger>
+					<SubContent class="sub-menu-scroll">
+						{#each Object.entries(turnIntos) as [key, turnIntoCommands] (key)}
+							<Label class="capitalize-text">{key}</Label>
+							{#each turnIntoCommands as command (command)}
+								{@const Icon = command.icon}
+								<Item
+									onclick={() => {
+										if (currentNode && currentNodePos && editor)
+											command.turnInto?.(editor, currentNode, currentNodePos);
+									}}
+								>
+									<Icon class="drag-icon" />
+									<span>{command.tooltip}</span>
+									{#if command.shortCut}
+										<Shortcut>{command.shortCut}</Shortcut>
+									{/if}
+								</Item>
+							{/each}
+							{#if key !== Object.keys(turnIntos).at(-1)}
+								<Separator />
+							{/if}
+						{/each}
+					</SubContent>
+				</Sub>
+				<Sub>
+					<SubTrigger>
+						<Palette class="drag-icon" />
+						<span>Colors</span>
+					</SubTrigger>
+					<SubContent class="sub-menu-scroll">
+						<Label>Texts</Label>
+						{#each quickcolors as color (color.label)}
+							<Item
+								onclick={() => {
+									if (color.value === '' || color.label === 'Default')
+										editor?.chain().setNodeSelection(currentNodePos).unsetColor().run();
+									else editor?.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
+								}}
+							>
+								<span style={`color: ${color.value}; font-weight: bold;`}>A</span>
+								<span class="capitalize-text">{color.label}</span>
+							</Item>
+						{/each}
+						<Separator />
+						<Label>Background</Label>
+						{#each quickcolors as color (color.label)}
+							<Item
+								onclick={() => {
+									if (color.value === '' || color.label === 'Default')
+										editor?.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
+									else
+										editor
+											?.chain()
+											.setNodeSelection(currentNodePos)
+											.setHighlight({ color: `${color.value}50` })
+											.run();
+								}}
+							>
+								<span class="color-circle" style={`background-color: ${`${color.value}50`};`}
+								></span>
+								<span class="capitalize-text">{color.label}</span>
+							</Item>
+						{/each}
+					</SubContent>
+				</Sub>
+				<Sub>
+					<SubTrigger>
+						<TextAlignCenter class="drag-icon" />
+						<span>AlignMent</span>
+					</SubTrigger>
+					<SubContent>
+						<Label>Alignments</Label>
+						{#each alignments as alignment (alignment)}
+							{@const Icon = alignment.icon}
 							<Item
 								onclick={() => {
 									if (currentNode && currentNodePos && editor)
-										command.turnInto?.(editor, currentNode, currentNodePos);
+										alignment.turnInto?.(editor, currentNode, currentNodePos);
 								}}
 							>
 								<Icon class="drag-icon" />
-								<span>{command.tooltip}</span>
-								{#if command.shortCut}
-									<Shortcut>{command.shortCut}</Shortcut>
-								{/if}
+								<span>{alignment.tooltip}</span>
+								<Shortcut>{alignment.shortCut}</Shortcut>
 							</Item>
 						{/each}
-						{#if key !== Object.keys(turnIntos).at(-1)}
-							<Separator />
-						{/if}
-					{/each}
-				</SubContent>
-			</Sub>
-			<Sub>
-				<SubTrigger>
-					<Palette class="drag-icon" />
-					<span>Colors</span>
-				</SubTrigger>
-				<SubContent class="sub-menu-scroll">
-					<Label>Texts</Label>
-					{#each quickcolors as color (color.label)}
-						<Item
-							onclick={() => {
-								if (color.value === '' || color.label === 'Default')
-									editor?.chain().setNodeSelection(currentNodePos).unsetColor().run();
-								else editor?.chain().setNodeSelection(currentNodePos).setColor(color.value).run();
-							}}
-						>
-							<span style={`color: ${color.value}; font-weight: bold;`}>A</span>
-							<span class="capitalize-text">{color.label}</span>
-						</Item>
-					{/each}
-					<Separator />
-					<Label>Background</Label>
-					{#each quickcolors as color (color.label)}
-						<Item
-							onclick={() => {
-								if (color.value === '' || color.label === 'Default')
-									editor?.chain().setNodeSelection(currentNodePos).unsetHighlight().run();
-								else
-									editor
-										?.chain()
-										.setNodeSelection(currentNodePos)
-										.setHighlight({ color: `${color.value}50` })
-										.run();
-							}}
-						>
-							<span class="color-circle" style={`background-color: ${`${color.value}50`};`}></span>
-							<span class="capitalize-text">{color.label}</span>
-						</Item>
-					{/each}
-				</SubContent>
-			</Sub>
-			<Sub>
-				<SubTrigger>
-					<TextAlignCenter class="drag-icon" />
-					<span>AlignMent</span>
-				</SubTrigger>
-				<SubContent>
-					<Label>Alignments</Label>
-					{#each alignments as alignment (alignment)}
-						{@const Icon = alignment.icon}
-						<Item
-							onclick={() => {
-								if (currentNode && currentNodePos && editor)
-									alignment.turnInto?.(editor, currentNode, currentNodePos);
-							}}
-						>
-							<Icon class="drag-icon" />
-							<span>{alignment.tooltip}</span>
-							<Shortcut>{alignment.shortCut}</Shortcut>
-						</Item>
-					{/each}
-				</SubContent>
-			</Sub>
-			<Separator />
-			<Item onclick={insertNode}>
-				<Plus class="drag-icon" />
-				<span>Insert Next</span>
-			</Item>
-			<Item onclick={handleRemoveFormatting}>
-				<RemoveFormatting class="drag-icon" />
-				<span>Remove Formatting</span>
-			</Item>
-			<Separator />
-			<Item onclick={handleDuplicate}>
-				<Duplicate class="drag-icon" />
-				<span>Duplicate</span>
-			</Item>
-			<Sub>
-				<SubTrigger>
-					<Clipboard class="drag-icon" />
-					<span>Copy to Clipboard</span>
-				</SubTrigger>
-				<SubContent>
-					<Label>Copy as</Label>
-					<Item onclick={handleCopyToClipboard}>
+					</SubContent>
+				</Sub>
+				<Separator />
+				<Item onclick={insertNode}>
+					<Plus class="drag-icon" />
+					<span>Insert Next</span>
+				</Item>
+				<Item onclick={handleRemoveFormatting}>
+					<RemoveFormatting class="drag-icon" />
+					<span>Remove Formatting</span>
+				</Item>
+				<Separator />
+				<Item onclick={handleDuplicate}>
+					<Duplicate class="drag-icon" />
+					<span>Duplicate</span>
+				</Item>
+				<Sub>
+					<SubTrigger>
 						<Clipboard class="drag-icon" />
-						<span>Copy Content</span>
-					</Item>
-					<Item onclick={() => handleCopyContentAs('markdown')}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 20 20"
-							class="drag-icon"
-							><path
-								fill="currentColor"
-								d="M2.491 4.046a.75.75 0 0 1 .83.218L7 8.592l3.678-4.328A.75.75 0 0 1 12 4.75v9.5a.75.75 0 0 1-1.5 0V6.79l-2.929 3.446a.75.75 0 0 1-1.142 0L3.5 6.79v7.46a.75.75 0 0 1-1.5 0v-9.5a.75.75 0 0 1 .491-.704M13.22 11.72a.75.75 0 0 1 1.06 0l.72.72V4.75a.75.75 0 0 1 1.5 0v7.69l.72-.72a.75.75 0 1 1 1.06 1.06l-2 2a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 0-1.06"
-							/></svg
-						>
-						<span>Copy as Markdown</span>
-					</Item>
-					<Item onclick={() => handleCopyContentAs('json')}>
-						<Braces class="drag-icon" />
-						<span>Copy as JSON</span>
-					</Item>
-				</SubContent>
-			</Sub>
-			<Separator />
-			<Item onclick={handleDelete} class="delete-item">
-				<Delete class="drag-icon" />
-				<span>Delete</span>
-			</Item>
-		</Content>
-	</Root>
+						<span>Copy to Clipboard</span>
+					</SubTrigger>
+					<SubContent>
+						<Label>Copy as</Label>
+						<Item onclick={handleCopyToClipboard}>
+							<Clipboard class="drag-icon" />
+							<span>Copy Content</span>
+						</Item>
+						<Item onclick={() => handleCopyContentAs('markdown')}>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 20 20"
+								class="drag-icon"
+								><path
+									fill="currentColor"
+									d="M2.491 4.046a.75.75 0 0 1 .83.218L7 8.592l3.678-4.328A.75.75 0 0 1 12 4.75v9.5a.75.75 0 0 1-1.5 0V6.79l-2.929 3.446a.75.75 0 0 1-1.142 0L3.5 6.79v7.46a.75.75 0 0 1-1.5 0v-9.5a.75.75 0 0 1 .491-.704M13.22 11.72a.75.75 0 0 1 1.06 0l.72.72V4.75a.75.75 0 0 1 1.5 0v7.69l.72-.72a.75.75 0 1 1 1.06 1.06l-2 2a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 0-1.06"
+								/></svg
+							>
+							<span>Copy as Markdown</span>
+						</Item>
+						<Item onclick={() => handleCopyContentAs('json')}>
+							<Braces class="drag-icon" />
+							<span>Copy as JSON</span>
+						</Item>
+					</SubContent>
+				</Sub>
+				<Separator />
+				<Item onclick={handleDelete} class="delete-item">
+					<Delete class="drag-icon" />
+					<span>Delete</span>
+				</Item>
+			</Content>
+		</Root>
+	{:else}
+		<button class="edra-btn edra-btn-ghost trigger-btn">
+			<GripVertical class="drag-icon" />
+		</button>
+	{/if}
 </div>
 
 <style>
