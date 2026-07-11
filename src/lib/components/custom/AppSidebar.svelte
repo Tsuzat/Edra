@@ -92,6 +92,10 @@
 					{
 						title: 'Typography & Styling',
 						url: resolve('/docs/customization/styling')
+					},
+					{
+						title: 'Localization & Strings',
+						url: resolve('/docs/customization/localization')
 					}
 				]
 			}

@@ -25,7 +25,8 @@
 		CodeXml,
 		Sparkles,
 		Terminal,
-		Sliders
+		Globe,
+		SlidersHorizontal
 	} from '@lucide/svelte';
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -138,7 +139,7 @@
 			title: 'Customizing Extensions',
 			url: resolve('/docs/customization'),
 			keywords: ['custom', 'config', 'extend', 'options', 'theme', 'settings'],
-			icon: Sliders,
+			icon: SlidersHorizontal,
 			group: 'Customization'
 		},
 		{
@@ -146,6 +147,13 @@
 			url: resolve('/docs/customization/styling'),
 			keywords: ['type', 'font', 'color', 'style', 'custom', 'theme', 'css', 'design'],
 			icon: Type,
+			group: 'Customization'
+		},
+		{
+			title: 'Localization & Strings',
+			url: resolve('/docs/customization/localization'),
+			keywords: ['language', 'i18n', 'translation', 'locale', 'multi', 'text', 'strings'],
+			icon: Globe,
 			group: 'Customization'
 		},
 		{
