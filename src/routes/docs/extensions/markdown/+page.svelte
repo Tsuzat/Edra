@@ -7,7 +7,7 @@
 
 // Enabled by default in extensions.ts
 // Allows outputting content as markdown string:
-const markdownOutput = editor.storage.markdown.getMarkdown();
+const markdownOutput = editor.getMarkdown();
 
 // Or setting content using markdown:
 editor.commands.setContent(\`# Title\\nThis is **bold** text.\`, true);`;

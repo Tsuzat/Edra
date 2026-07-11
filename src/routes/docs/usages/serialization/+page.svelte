@@ -17,7 +17,7 @@ editor.commands.setContent(html);`;
 
 	const markdownCode = `// Extract the document as Markdown
 // Ensure the Markdown extension is loaded in your extensions list!
-const markdown = editor.storage.markdown.getMarkdown();
+const markdown = editor.getMarkdown();
 
 // Load the document back from Markdown
 editor.commands.setContent(markdown);`;
