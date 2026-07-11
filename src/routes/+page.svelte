@@ -15,6 +15,7 @@
 	import { cn } from '$lib/utils.js';
 	import { DotPattern } from '$lib/components/magic/dot-pattern/index.js';
 	import { openSearch } from '$lib/components/custom/docs/Search.svelte';
+	import sampleContent from './sample-content.ts';
 
 	const onUpdate = () => {
 		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
@@ -24,7 +25,15 @@
 	});
 
 	onMount(() => {
-		const content = JSON.parse(localStorage.getItem('edra-content') || '[]') as Content;
+		let content = sampleContent as Content;
+		try {
+			const saved = localStorage.getItem('edra-content');
+			if (saved && saved !== '[]') {
+				content = JSON.parse(saved) as Content;
+			}
+		} catch (e) {
+			console.error('Failed to parse local content', e);
+		}
 		editor?.commands.setContent(content, { contentType: 'json' });
 	});
 	let device = $state<'mobile' | 'tablet' | 'desktop'>('desktop');
