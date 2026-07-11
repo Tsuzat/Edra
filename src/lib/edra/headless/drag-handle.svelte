@@ -362,7 +362,6 @@
 	.drag-handle-container {
 		position: relative;
 		z-index: 0 !important;
-		transition: all 300ms ease;
 	}
 	:global(.trigger-btn) {
 		width: 1.75rem !important;

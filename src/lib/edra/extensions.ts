@@ -12,7 +12,7 @@ import { ColorHighlighter, Table, TableCell, TableHeader, TableRow } from './tip
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Markdown } from '@tiptap/markdown';
 import Mathematics from '@tiptap/extension-mathematics';
-import Audio from '@tiptap/extension-audio';
+import { Audio } from './tiptap/index.ts';
 
 /**
  * Contains all the default extensions the editor uses.
@@ -43,13 +43,7 @@ export default [
 		},
 		codeBlock: false
 	}),
-	Audio.configure({
-		inline: true,
-		HTMLAttributes: {
-			width: '100%',
-			height: '100%'
-		}
-	}),
+	Audio,
 	CharacterCount,
 	Highlight.configure({
 		multicolor: true

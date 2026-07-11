@@ -194,7 +194,7 @@
 	};
 </script>
 
-<div bind:this={element} class="z-0! transition-all duration-300" style="visibility: hidden;">
+<div bind:this={element} class="z-0!" style="visibility: hidden;">
 	<Button
 		variant="ghost"
 		class="z-0! size-7! rounded-sm opacity-60 hover:opacity-100 focus-visible:opacity-100 active:opacity-100"
