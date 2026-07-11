@@ -112,7 +112,7 @@
 		>
 		<Button
 			class="nodefault"
-			href="https://buy.polar.sh/polar_cl_PyqVtv10TGDa7oXeYvVEYg14xelE51X15Z5pJ49CKgc"
+			href="https://buy.polar.sh/polar_cl_mbOVdcWxm1H6nNqCTvQtguG3je4GNJSksuYLd2Iuejq"
 		>
 			<Polar />
 			Support Us</Button
