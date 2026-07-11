@@ -13,16 +13,16 @@
 
 	const commands: Record<Props['type'], Record<PackageManager, string>> = {
 		headless: {
-			npm: 'npx edra init headless',
-			pnpm: 'pnpm dlx edra init headless',
-			yarn: 'yarn dlx edra init headless',
-			bun: 'bunx edra init headless'
+			npm: 'npx edra@next init headless',
+			pnpm: 'pnpm dlx edra@next init headless',
+			yarn: 'yarn dlx edra@next init headless',
+			bun: 'bunx edra@next init headless'
 		},
 		shadcn: {
-			npm: 'npx edra init shadcn',
-			pnpm: 'pnpm dlx edra init shadcn',
-			yarn: 'yarn dlx edra init shadcn',
-			bun: 'bunx edra init shadcn'
+			npm: 'npx edra@next init shadcn',
+			pnpm: 'pnpm dlx edra@next init shadcn',
+			yarn: 'yarn dlx edra@next init shadcn',
+			bun: 'bunx edra@next init shadcn'
 		},
 		registry: {
 			npm: 'npx shadcn-svelte@latest add https://edra.tsuzat.com/r/edra.json',
