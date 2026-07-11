@@ -159,6 +159,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						let component: any;
 						let currentClientRect: (() => DOMRect | null) | null = null;
+						let contextElement: Element | null = null;
 
 						const updatePosition = () => {
 							if (!storage.popupElement || !currentClientRect) return;
@@ -167,11 +168,13 @@ export default (menuList: Component<any, any, ''>): Extension =>
 							if (!rect) return;
 
 							const referenceElement = {
-								getBoundingClientRect: () => rect
+								getBoundingClientRect: () => rect,
+								...(contextElement ? { contextElement } : {})
 							};
 
 							computePosition(referenceElement, storage.popupElement, {
 								placement: 'bottom-start' as Placement,
+								strategy: 'fixed',
 								middleware: [
 									offset({ mainAxis: 8, crossAxis: 16 }),
 									flip({ fallbackPlacements: ['top-start', 'bottom-start'] })
@@ -191,6 +194,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 								});
 
 								currentClientRect = props.clientRect ?? null;
+								contextElement = props.editor.view.dom;
 
 								if (storage.popupElement) {
 									storage.popupElement.appendChild(component.element);
@@ -204,7 +208,8 @@ export default (menuList: Component<any, any, ''>): Extension =>
 									if (currentClientRect) {
 										storage.popupCleanup = autoUpdate(
 											{
-												getBoundingClientRect: () => currentClientRect?.() || new DOMRect()
+												getBoundingClientRect: () => currentClientRect?.() || new DOMRect(),
+												...(contextElement ? { contextElement } : {})
 											},
 											storage.popupElement,
 											updatePosition
@@ -216,6 +221,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 							onUpdate(props: SuggestionProps) {
 								component.updateProps(props);
 								currentClientRect = props.clientRect ?? null;
+								contextElement = props.editor.view.dom;
 
 								// Re-show popup if it was hidden (e.g., after Escape)
 								if (storage.popupElement) {
@@ -260,6 +266,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 								}
 
 								currentClientRect = null;
+								contextElement = null;
 								component?.destroy();
 							}
 						};
