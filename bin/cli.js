@@ -37,7 +37,7 @@ const dependencies = [
 	'@tiptap/markdown',
 	'@tiptap/extension-mathematics',
 	'@tiptap/extension-table-of-contents',
-	'@tiptap/extension-audio',
+	'@tiptap/extension-unique-id',
 	'@tiptap/extension-drag-handle',
 	'@floating-ui/dom',
 	'katex',

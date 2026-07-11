@@ -9,8 +9,8 @@
 			"title": "Edra Editor",
 			"description": "A full-featured Tiptap-based rich text editor built with Svelte 5 and shadcn-svelte.",
 			"dependencies": [
+				"@floating-ui/dom",
 				"@tiptap/core",
-				"@tiptap/extension-audio",
 				"@tiptap/extension-bubble-menu",
 				"@tiptap/extension-code-block-lowlight",
 				"@tiptap/extension-drag-handle",
