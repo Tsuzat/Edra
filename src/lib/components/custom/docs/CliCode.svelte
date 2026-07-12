@@ -31,16 +31,16 @@
 			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/r/edra.json'
 		},
 		'template-ai': {
-			npm: 'npx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-ai.json',
-			pnpm: 'pnpm dlx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-ai.json',
-			yarn: 'yarn dlx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-ai.json',
-			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-ai.json'
+			npm: 'npx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-ai.json',
+			pnpm: 'pnpm dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-ai.json',
+			yarn: 'yarn dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-ai.json',
+			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-ai.json'
 		},
 		'template-notion': {
-			npm: 'npx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-notion.json',
-			pnpm: 'pnpm dlx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-notion.json',
-			yarn: 'yarn dlx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-notion.json',
-			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/registry/template-notion.json'
+			npm: 'npx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json',
+			pnpm: 'pnpm dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json',
+			yarn: 'yarn dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json',
+			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json'
 		}
 	};
 
