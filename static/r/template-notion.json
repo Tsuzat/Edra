@@ -5,7 +5,7 @@
 	"type": "registry:component",
 	"description": "A template page for Edra Editor styled like Notion.",
 	"devDependencies": [
-		"@lucide/svelte@^0.577.0"
+		"@lucide/svelte@^1.24.0"
 	],
 	"registryDependencies": [
 		"https://edra.tsuzat.com/r/edra.json"

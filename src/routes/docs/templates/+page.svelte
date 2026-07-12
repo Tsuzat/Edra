@@ -21,6 +21,15 @@
 
 	<hr class="my-6" />
 
+	<div class="callout my-6 rounded-md border-l-4 border-l-blue-500 bg-blue-500/10 p-4">
+		<p class="m-0 font-medium text-blue-700 dark:text-blue-400">Already installed Edra?</p>
+		<p class="m-0 mt-2 text-sm">
+			If you have already installed the core Edra editor, you don't need to use the CLI. You can
+			simply copy the code examples below and paste them into your Svelte pages to get the desired
+			result instantly.
+		</p>
+	</div>
+
 	<h2>AI Editor Template</h2>
 	<p>
 		A clean, focused writing environment with a built-in AI toolbar and word counter, similar to
@@ -31,9 +40,9 @@
 		<CliCode type="template-ai" />
 	</div>
 
-	<p>
-		<a href={resolve('/templates/ai')} target="_blank">View AI Template Demo</a>
-	</p>
+	<Button variant="link" href={resolve('/templates/ai')} target="_blank"
+		>View AI Template Demo</Button
+	>
 
 	<hr class="my-6" />
 
@@ -47,9 +56,9 @@
 		<CliCode type="template-notion" />
 	</div>
 
-	<p>
-		<a href={resolve('/templates/notion')} target="_blank">View Notion Template Demo</a>
-	</p>
+	<Button variant="link" href={resolve('/templates/notion')} target="_blank"
+		>View Notion Template Demo</Button
+	>
 
 	<div class="mt-12 flex justify-between">
 		<Button href={resolve('/docs/configuration')} variant="outline" class="gap-2">
