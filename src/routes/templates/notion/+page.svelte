@@ -134,7 +134,7 @@
 					fullWidth ? 'max-w-full' : 'max-w-3xl'
 				)}
 			/>
-			<Edra.DragHandle type="extended" />
+			<Edra.DragHandle type="extended" class="transition-all! duration-300!" />
 		</Edra>
 	</main>
 </div>
