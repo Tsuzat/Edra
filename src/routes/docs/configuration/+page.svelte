@@ -120,8 +120,8 @@ const editor = createEditor({
 			<ArrowLeft />
 			Installation
 		</Button>
-		<Button href="/docs/templates" class="gap-2">
-			Templates
+		<Button href="/docs/usages" class="gap-2">
+			Usages
 			<ArrowRight />
 		</Button>
 	</div>

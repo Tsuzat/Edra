@@ -28,10 +28,6 @@
 						url: resolve('/docs/configuration')
 					},
 					{
-						title: 'Templates',
-						url: resolve('/docs/templates')
-					},
-					{
 						title: 'Usages',
 						url: resolve('/docs/usages')
 					},

@@ -56,9 +56,9 @@
 	</div>
 
 	<div class="mt-12 flex justify-between">
-		<Button href={resolve('/docs/templates')} variant="outline" class="gap-2">
+		<Button href={resolve('/docs/configuration')} variant="outline" class="gap-2">
 			<ArrowLeft />
-			Templates
+			Configuration
 		</Button>
 		<Button href={resolve('/docs/usages/serialization')} class="gap-2">
 			Data & Serialization
