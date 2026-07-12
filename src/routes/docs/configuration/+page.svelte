@@ -117,12 +117,12 @@ const editor = createEditor({
 
 	<div class="mt-12 flex justify-between">
 		<Button href="/docs/installation" variant="outline" class="gap-2">
-			<ArrowLeft class="size-4" />
+			<ArrowLeft />
 			Installation
 		</Button>
-		<Button href="/docs/usages" class="gap-2">
-			Usages
-			<ArrowRight class="size-4" />
+		<Button href="/docs/templates" class="gap-2">
+			Templates
+			<ArrowRight />
 		</Button>
 	</div>
 </article>

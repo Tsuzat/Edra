@@ -56,13 +56,13 @@
 	</div>
 
 	<div class="mt-12 flex justify-between">
-		<Button href={resolve('/docs/installation')} variant="outline" class="gap-2">
-			<ArrowLeft class="size-4" />
-			Back to Installation
+		<Button href={resolve('/docs/templates')} variant="outline" class="gap-2">
+			<ArrowLeft />
+			Templates
 		</Button>
-		<Button href={resolve('/docs/extensions/starter-kit')} class="gap-2">
-			Starter Kit Extensions
-			<ArrowRight class="size-4" />
+		<Button href={resolve('/docs/usages/serialization')} class="gap-2">
+			Data & Serialization
+			<ArrowRight />
 		</Button>
 	</div>
 </article>
