@@ -59,6 +59,14 @@
 			<span class="text-sm font-semibold">AI Editor</span>
 		</div>
 		<div class="flex items-center gap-4">
+			<Button
+				variant="outline"
+				size="sm"
+				href={resolve('/docs/templates')}
+				class="hidden nodefault md:flex h-8 gap-2"
+			>
+				Installation Docs
+			</Button>
 			<ToggleMode />
 		</div>
 	</header>

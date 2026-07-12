@@ -444,9 +444,7 @@
 			"title": "Edra AI Template",
 			"description": "A template page for Edra Editor with AI capabilities.",
 			"type": "registry:component",
-			"registryDependencies": [
-				"edra"
-			],
+			"registryDependencies": ["edra"],
 			"files": [
 				{
 					"path": "src/routes/templates/ai/+page.svelte",
@@ -460,9 +458,7 @@
 			"title": "Edra Notion Template",
 			"description": "A template page for Edra Editor styled like Notion.",
 			"type": "registry:component",
-			"registryDependencies": [
-				"edra"
-			],
+			"registryDependencies": ["edra"],
 			"files": [
 				{
 					"path": "src/routes/templates/notion/+page.svelte",

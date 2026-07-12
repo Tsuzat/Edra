@@ -76,6 +76,14 @@
 			>
 		</div>
 		<div class="flex items-center gap-2">
+			<Button
+				variant="outline"
+				size="sm"
+				href={resolve('/docs/templates')}
+				class="hidden nodefault md:flex h-8 gap-2 mr-1"
+			>
+				Installation Docs
+			</Button>
 			<!-- Full Width Toggle -->
 			<Button
 				variant="ghost"
