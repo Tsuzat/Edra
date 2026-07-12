@@ -8,7 +8,7 @@
 		"@lucide/svelte@^0.577.0"
 	],
 	"registryDependencies": [
-		"edra"
+		"https://edra.tsuzat.com/r/edra.json"
 	],
 	"files": [
 		{

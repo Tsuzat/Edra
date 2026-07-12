@@ -55,7 +55,7 @@
 		"type": "registry:component",
 		"description": "A template page for Edra Editor with AI capabilities.",
 		"registryDependencies": [
-			"edra"
+			"https://edra.tsuzat.com/r/edra.json"
 		],
 		"relativeUrl": "template-ai.json"
 	},
@@ -65,7 +65,7 @@
 		"type": "registry:component",
 		"description": "A template page for Edra Editor styled like Notion.",
 		"registryDependencies": [
-			"edra"
+			"https://edra.tsuzat.com/r/edra.json"
 		],
 		"relativeUrl": "template-notion.json"
 	}
