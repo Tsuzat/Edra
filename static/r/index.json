@@ -48,5 +48,25 @@
 			"tooltip"
 		],
 		"relativeUrl": "edra.json"
+	},
+	{
+		"name": "template-ai",
+		"title": "Edra AI Template",
+		"type": "registry:component",
+		"description": "A template page for Edra Editor with AI capabilities.",
+		"registryDependencies": [
+			"edra"
+		],
+		"relativeUrl": "template-ai.json"
+	},
+	{
+		"name": "template-notion",
+		"title": "Edra Notion Template",
+		"type": "registry:component",
+		"description": "A template page for Edra Editor styled like Notion.",
+		"registryDependencies": [
+			"edra"
+		],
+		"relativeUrl": "template-notion.json"
 	}
 ]
