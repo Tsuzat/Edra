@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { ChevronDown, FileText, Monitor, Search, Smartphone, Tablet } from '@lucide/svelte';
+	import { ChevronDown, FileText, Monitor, Search, Smartphone, Tablet, Menu } from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
 	import Polar from '$lib/components/custom/icons/Polar.svelte';
@@ -49,57 +49,112 @@
 			<img src="/favicon.svg" alt="Edra" class="size-8" />
 			<span class="text-xl font-semibold">Edra</span>
 		</a>
-		<span class="w-4"></span>
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger>
-				<Button class="text-muted-foreground" variant="ghost">
-					Editor
-					<ChevronDown class="size-2.5!" />
-				</Button>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content>
-				<a class="nodefault" href="#shadcn">
-					<DropdownMenu.Item>Shadcn</DropdownMenu.Item>
-				</a>
-				<a class="nodefault" href={resolve('/headless')}>
-					<DropdownMenu.Item>Headless</DropdownMenu.Item>
-				</a>
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger>
-				<Button class="text-muted-foreground" variant="ghost">
-					Templates
-					<ChevronDown class="size-2.5!" />
-				</Button>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content>
-				<DropdownMenu.Group>
-					<DropdownMenu.GroupHeading class="text-xs text-muted-foreground"
-						>Shadcn Based</DropdownMenu.GroupHeading
-					>
-					<a class="nodefault" href={resolve('/templates/simple')}>
-						<DropdownMenu.Item class="cursor-pointer">Simple</DropdownMenu.Item>
+		<span class="hidden md:inline-block w-4"></span>
+		<div class="hidden md:flex items-center gap-2">
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<Button class="text-muted-foreground" variant="ghost">
+						Editor
+						<ChevronDown class="size-2.5!" />
+					</Button>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<a class="nodefault" href="#shadcn">
+						<DropdownMenu.Item>Shadcn</DropdownMenu.Item>
 					</a>
-					<a class="nodefault" href={resolve('/templates/ai')}>
-						<DropdownMenu.Item class="cursor-pointer">AI Editor</DropdownMenu.Item>
+					<a class="nodefault" href={resolve('/headless')}>
+						<DropdownMenu.Item>Headless</DropdownMenu.Item>
 					</a>
-					<a class="nodefault" href={resolve('/templates/notion')}>
-						<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
-					</a>
-				</DropdownMenu.Group>
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<Button class="text-muted-foreground" variant="ghost">
+						Templates
+						<ChevronDown class="size-2.5!" />
+					</Button>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<DropdownMenu.Group>
+						<DropdownMenu.GroupHeading class="text-xs text-muted-foreground"
+							>Shadcn Based</DropdownMenu.GroupHeading
+						>
+						<a class="nodefault" href={resolve('/templates/simple')}>
+							<DropdownMenu.Item class="cursor-pointer">Simple</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/templates/ai')}>
+							<DropdownMenu.Item class="cursor-pointer">AI Editor</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/templates/notion')}>
+							<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
+						</a>
+					</DropdownMenu.Group>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		</div>
 	</div>
-	<div class="flex items-center gap-2">
-		<Button onclick={openSearch} class="text-muted-foreground" variant="outline">
+	<div class="flex items-center gap-1 md:gap-2">
+		<div class="md:hidden flex items-center">
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<Button class="text-muted-foreground" variant="ghost" size="icon">
+						<Menu class="size-5" />
+					</Button>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<DropdownMenu.Group>
+						<DropdownMenu.GroupHeading class="text-xs text-muted-foreground"
+							>Editor</DropdownMenu.GroupHeading
+						>
+						<a class="nodefault" href="#shadcn">
+							<DropdownMenu.Item>Shadcn</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/headless')}>
+							<DropdownMenu.Item>Headless</DropdownMenu.Item>
+						</a>
+					</DropdownMenu.Group>
+					<DropdownMenu.Separator />
+					<DropdownMenu.Group>
+						<DropdownMenu.GroupHeading class="text-xs text-muted-foreground"
+							>Templates</DropdownMenu.GroupHeading
+						>
+						<a class="nodefault" href={resolve('/templates/simple')}>
+							<DropdownMenu.Item class="cursor-pointer">Simple</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/templates/ai')}>
+							<DropdownMenu.Item class="cursor-pointer">AI Editor</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/templates/notion')}>
+							<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
+						</a>
+					</DropdownMenu.Group>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		</div>
+		<Button onclick={openSearch} class="text-muted-foreground hidden md:flex" variant="outline">
 			<Search />
 			<span>Search Document</span>
 			<span class="bg-muted text-sm px-1 rounded">{getKeyboardShortcut('K', true)}</span>
 		</Button>
-		<Button variant="ghost" class="nodefault" href="https://github.com/Tsuzat/Edra">
+		<Button
+			onclick={openSearch}
+			class="text-muted-foreground flex md:hidden"
+			variant="ghost"
+			size="icon"
+		>
+			<Search />
+		</Button>
+		<Button variant="ghost" class="nodefault hidden md:flex" href="https://github.com/Tsuzat/Edra">
 			<Github />
 			<span class="text-muted-foreground">622</span>
+		</Button>
+		<Button
+			variant="ghost"
+			class="nodefault flex md:hidden"
+			size="icon"
+			href="https://github.com/Tsuzat/Edra"
+		>
+			<Github />
 		</Button>
 		<ToggleMode />
 	</div>
