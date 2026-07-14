@@ -48,27 +48,41 @@ Once installed, instantiating the editor is incredibly simple:
 ```svelte
 <script lang="ts">
 	import { createEditor, Edra } from '$lib/edra/shadcn/index.js';
+	import { updateInDB } from '$lib/db';
 
-	// Initialize the editor with custom callbacks
+	/**
+	 * [OPTIONAL] Use this function so perform something when content is updated.
+	 * May be save the content somewhere. You can define your own logic here.
+	 */
+	const onUpdate = () => {
+		const content = editor?.getJSON();
+		updateInDB(content);
+	};
+
+	/**
+	 * [OPTIONAL] Pass an call AI function which takes a prompt, onChunk and onError callbacks
+	 * This function allows you to implement your own AI provider
+	 */
+	async function callAI(
+		prompt: string,
+		onChunk: (chunk: string) => void,
+		onError: (error: Error) => void
+	) {}
+
 	const editor = createEditor({
-		onUpdate: () => {
-			console.log('Content updated!', editor.getJSON());
-		},
-		onFileUpload: async (file) => {
-			// Edra displays a loading placeholder while this promise resolves
-			const response = await fetch('/api/upload', {
-				method: 'POST',
-				body: file
-			});
-			const data = await response.json();
-			return data.url;
-		}
+		onUpdate,
+		callAI
 	});
 </script>
 
-<!-- The editor naturally fills its container -->
-<div class="max-w-4xl mx-auto p-8 border rounded-lg shadow-sm">
-	<Edra {editor} />
+<div class="border rounded-lg">
+	<Edra {editor}>
+		<Edra.UseAI />
+		<Edra.Toolbar class="border-b scrollbar-none p-1 overflow-x-scroll max-w-full!" />
+		<Edra.BubbleMenu />
+		<Edra.Content class="*:outline-none cursor-auto h-150 overflow-y-scroll py-4 px-8" />
+		<Edra.DragHandle />
+	</Edra>
 </div>
 ```
 
