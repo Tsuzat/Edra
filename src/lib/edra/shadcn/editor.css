@@ -594,6 +594,15 @@
 	border: 1px solid darkred;
 }
 
+/* Atom selection (NodeSelection + SelectAcrossAtoms decorations) */
+.tiptap .ProseMirror-selectednode[data-type='block-math'],
+.tiptap .ProseMirror-selectednode[data-type='inline-math'] {
+	outline: 2px solid var(--primary);
+	outline-offset: 2px;
+	border-radius: 0.25rem;
+	background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
 /* Callout Styles */
 
 .tiptap .edra-callout-content {

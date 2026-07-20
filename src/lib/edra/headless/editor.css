@@ -557,6 +557,23 @@
 	background-color: var(--edra-canvas-soft-2);
 }
 
+/* Atom / media selection highlights (NodeSelection + SelectAcrossAtoms decorations) */
+.tiptap .ProseMirror-selectednode[data-type='block-math'],
+.tiptap .ProseMirror-selectednode[data-type='inline-math'],
+.ProseMirror-selectednode[data-type='block-math'],
+.ProseMirror-selectednode[data-type='inline-math'] {
+	outline: 2px solid var(--edra-link);
+	outline-offset: 2px;
+	border-radius: var(--edra-radius-xs);
+	background-color: color-mix(in srgb, var(--edra-link) 12%, transparent);
+}
+
+.tiptap img.ProseMirror-selectednode,
+.ProseMirror-selectednode img {
+	/* 选中框由 MediaExtended .media-group::after 绘制，避免与 img outline 叠两层 */
+	outline: none;
+}
+
 /* Tables */
 .tiptap .tableWrapper {
 	padding: 1rem 0;

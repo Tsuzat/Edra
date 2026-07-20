@@ -136,7 +136,7 @@
 	id="resizable-container-media"
 	class={cn(
 		'relative my-4! flex flex-col rounded-md border border-transparent',
-		selected && 'ring-1',
+		selected && 'is-media-selected',
 		node.attrs.align === 'left' && 'left-0 translate-x-0',
 		node.attrs.align === 'center' && 'left-1/2 -translate-x-1/2',
 		node.attrs.align === 'right' && 'left-full -translate-x-full'
@@ -281,3 +281,23 @@
 		{/if}
 	</div>
 </NodeViewWrapper>
+
+<style>
+	:global(.is-media-selected > .group),
+	:global(.ProseMirror-selectednode.is-media-selected > .group),
+	:global(.ProseMirror-selectednode > .group) {
+		position: relative;
+		overflow: visible;
+	}
+	:global(.is-media-selected > .group::after),
+	:global(.ProseMirror-selectednode.is-media-selected > .group::after) {
+		content: '';
+		position: absolute;
+		inset: -3px;
+		border: 2px solid var(--primary, #3b82f6);
+		border-radius: 0.5rem;
+		pointer-events: none;
+		z-index: 6;
+		box-sizing: border-box;
+	}
+</style>

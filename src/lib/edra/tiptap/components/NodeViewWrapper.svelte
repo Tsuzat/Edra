@@ -10,10 +10,15 @@
 	}: { as?: string; class?: string; children?: Snippet; [key: string]: unknown } = $props();
 
 	let onDragStart = getContext<(event: DragEvent) => void>('onDragStart');
-	let decorationClasses = getContext<string>('decorationClasses');
+	let decorationClassesCtx = getContext<(() => string) | string | undefined>('decorationClasses');
 
 	let combinedClass = $derived(
-		[decorationClasses, className].filter(Boolean).join(' ') || undefined
+		[
+			typeof decorationClassesCtx === 'function' ? decorationClassesCtx() : decorationClassesCtx,
+			className
+		]
+			.filter(Boolean)
+			.join(' ') || undefined
 	);
 </script>
 

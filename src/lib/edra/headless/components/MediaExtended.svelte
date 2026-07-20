@@ -276,9 +276,7 @@
 		margin-top: 1rem;
 		margin-bottom: 1rem;
 		border: 1px solid transparent;
-	}
-	.media-extended-wrapper.selected {
-		box-shadow: 0 0 0 1px var(--edra-link);
+		overflow: visible;
 	}
 	.media-extended-wrapper.align-left {
 		left: 0;
@@ -297,6 +295,28 @@
 		display: flex;
 		flex-direction: column;
 		border-radius: var(--edra-radius-md);
+		/* 给外侧选中框留出空间，避免被裁切 */
+		overflow: visible;
+	}
+	/* 选中时：图片外侧一圈实线框（NodeSelection / 拖选 decoration / selected prop） */
+	.media-extended-wrapper.selected .media-group::after,
+	:global(.media-extended-wrapper.ProseMirror-selectednode) .media-group::after,
+	:global(.ProseMirror-selectednode.media-extended-wrapper) .media-group::after {
+		content: '';
+		position: absolute;
+		inset: -3px;
+		border: 2px solid var(--edra-link);
+		border-radius: calc(var(--edra-radius-md) + 2px);
+		pointer-events: none;
+		z-index: 6;
+		box-sizing: border-box;
+	}
+	.media-extended-wrapper.selected :global(img),
+	.media-extended-wrapper.selected :global(video),
+	:global(.media-extended-wrapper.ProseMirror-selectednode) :global(img),
+	:global(.media-extended-wrapper.ProseMirror-selectednode) :global(video) {
+		/* 与外框呼应，避免纯白图时看不清边界 */
+		box-shadow: 0 0 0 1px color-mix(in srgb, var(--edra-link) 40%, transparent);
 	}
 	.media-title-input {
 		color: var(--edra-body);
@@ -342,7 +362,9 @@
 		opacity: 0;
 		transition: opacity 150ms ease;
 	}
-	.media-group:hover .resize-bar {
+	.media-group:hover .resize-bar,
+	.media-extended-wrapper.selected .resize-bar,
+	:global(.media-extended-wrapper.ProseMirror-selectednode) .resize-bar {
 		opacity: 1;
 	}
 	.media-toolbar {
@@ -362,6 +384,8 @@
 		transition: opacity 150ms ease;
 	}
 	.media-group:hover .media-toolbar,
+	.media-extended-wrapper.selected .media-toolbar,
+	:global(.media-extended-wrapper.ProseMirror-selectednode) .media-toolbar,
 	.media-toolbar.opened {
 		opacity: 1;
 	}

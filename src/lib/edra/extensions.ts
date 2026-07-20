@@ -8,11 +8,18 @@ import Typography from '@tiptap/extension-typography';
 import Subscript from '@tiptap/extension-subscript';
 import TextAlign from '@tiptap/extension-text-align';
 import SuperScript from '@tiptap/extension-superscript';
-import { ColorHighlighter, Table, TableCell, TableHeader, TableRow } from './tiptap/index.ts';
+import {
+	Audio,
+	ColorHighlighter,
+	SelectAcrossAtoms,
+	Table,
+	TableCell,
+	TableHeader,
+	TableRow
+} from './tiptap/index.ts';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Markdown } from '@tiptap/markdown';
 import Mathematics from '@tiptap/extension-mathematics';
-import { Audio } from './tiptap/index.ts';
 
 /**
  * Contains all the default extensions the editor uses.
@@ -91,5 +98,7 @@ export default [
 				'\\N': '\\mathbb{N}' // add a macro for the natural numbers
 			}
 		}
-	})
+	}),
+	// Drag-select across images/math/media; decorate selected atoms; keep selection on right-click
+	SelectAcrossAtoms
 ] as Extensions;
