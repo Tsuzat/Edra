@@ -66,12 +66,7 @@ export function atomPenetrationDepth(
 	clientY: number,
 	rect: DOMRectReadOnly
 ): number {
-	if (
-		clientX < rect.left ||
-		clientX > rect.right ||
-		clientY < rect.top ||
-		clientY > rect.bottom
-	) {
+	if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
 		return 0;
 	}
 	return Math.min(
@@ -297,10 +292,7 @@ function hitAtomAtCoords(
 
 function pointInRect(clientX: number, clientY: number, rect: DOMRectReadOnly): boolean {
 	return (
-		clientX >= rect.left &&
-		clientX <= rect.right &&
-		clientY >= rect.top &&
-		clientY <= rect.bottom
+		clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom
 	);
 }
 
@@ -387,9 +379,7 @@ function selectAtomOnClick(view: EditorView, event: MouseEvent): boolean {
 	const target = event.target;
 	if (
 		target instanceof Element &&
-		target.closest(
-			'.resize-handle, .media-toolbar, .more-options-menu, input, button, textarea, a'
-		)
+		target.closest('.resize-handle, .media-toolbar, .more-options-menu, input, button, textarea, a')
 	) {
 		return false;
 	}
@@ -672,11 +662,7 @@ export const SelectAcrossAtoms = Extension.create({
 						if (dragging && visit) {
 							const threshold = effectivePenetrationThreshold(visit.dom.getBoundingClientRect());
 							if (!visit.included && visit.maxPenetration >= threshold) {
-								includeAtomInDragSelection(
-									editorView,
-									visit.nodeStart,
-									visit.nodeEnd
-								);
+								includeAtomInDragSelection(editorView, visit.nodeStart, visit.nodeEnd);
 							}
 						}
 						if (
