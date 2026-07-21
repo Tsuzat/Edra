@@ -14,7 +14,8 @@
 	} = $props();
 
 	setContext('onDragStart', onDragStart);
-	setContext('decorationClasses', decorationClasses);
+	// Svelte 5：传 getter 才能让 NodeViewWrapper 跟到 decoration 更新
+	setContext('decorationClasses', () => decorationClasses);
 </script>
 
 <Component {...props} />
