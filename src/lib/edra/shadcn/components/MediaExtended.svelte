@@ -283,21 +283,4 @@
 </NodeViewWrapper>
 
 <style>
-	:global(.is-media-selected > .group),
-	:global(.ProseMirror-selectednode.is-media-selected > .group),
-	:global(.ProseMirror-selectednode > .group) {
-		position: relative;
-		overflow: visible;
-	}
-	:global(.is-media-selected > .group::after),
-	:global(.ProseMirror-selectednode.is-media-selected > .group::after) {
-		content: '';
-		position: absolute;
-		inset: -3px;
-		border: 2px solid var(--primary, #3b82f6);
-		border-radius: 0.5rem;
-		pointer-events: none;
-		z-index: 6;
-		box-sizing: border-box;
-	}
 </style>

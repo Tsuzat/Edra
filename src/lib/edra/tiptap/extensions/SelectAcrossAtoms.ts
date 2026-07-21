@@ -5,12 +5,22 @@ import type { Node as ProseMirrorNode, ResolvedPos } from '@tiptap/pm/model';
 
 const selectAcrossAtomsKey = new PluginKey('selectAcrossAtoms');
 
-/** 边缘掠过穿透深度低于此值视为「轻微误入」，不并入选区 */
+/** Penetration depth below this threshold is treated as a "slight graze" and won't be merged into the selection */
 export const ATOM_SLIGHT_PENETRATION_PX = 12;
+
+/**
+ * Returns the effective penetration threshold for a given atom element,
+ * clamped to the atom's dimensions. This prevents small atoms (whose
+ * smaller dimension is below ~24px) from never reaching the fixed threshold.
+ */
+export function effectivePenetrationThreshold(rect: DOMRectReadOnly): number {
+	const maxPossible = Math.min(rect.width, rect.height) / 2;
+	return Math.min(ATOM_SLIGHT_PENETRATION_PX, maxPossible);
+}
 
 export type AtomVerticalSide = 'above' | 'below';
 
-/** 块级叶子 / atom：拖选时需整块并入 TextSelection */
+/** Block-level leaf / atom: should be merged as a whole block into TextSelection during drag-selection */
 function isAcrossSelectableNode(node: ProseMirrorNode): boolean {
 	if (node.isText) return false;
 	if (node.type.name === 'image') return true;
@@ -22,9 +32,10 @@ function isAcrossSelectableNode(node: ProseMirrorNode): boolean {
 }
 
 /**
- * 构造覆盖 [nodeStart, nodeEnd) 且保留原 anchor 的 TextSelection。
- * 不能直接 TextSelection.between(anchor, nodeEnd)：nodeEnd 常在 doc 间隙，
- * between 会把 head 收回图片/公式之前，导致节点未真正并入选区。
+ * Construct a TextSelection covering [nodeStart, nodeEnd) while preserving the original anchor.
+ * Cannot simply use TextSelection.between(anchor, nodeEnd) because nodeEnd is often in a doc gap,
+ * and `between` would pull the head back before the image/formula, preventing the node from being
+ * truly included in the selection.
  */
 export function selectionCoveringNode(
 	doc: ProseMirrorNode,
@@ -49,7 +60,7 @@ export function selectionCoveringNode(
 	return TextSelection.create(doc, from, to);
 }
 
-/** 鼠标相对元素的穿透深度（距最近边的距离）；在元素外为 0 */
+/** Mouse penetration depth relative to an element (distance to nearest edge); 0 if outside */
 export function atomPenetrationDepth(
 	clientX: number,
 	clientY: number,
@@ -71,7 +82,7 @@ export function atomPenetrationDepth(
 	);
 }
 
-/** 根据选区相对原子节点的位置，判断拖选是从上方还是下方进入 */
+/** Determine whether the drag-selection enters the atom node from above or below, based on selection position */
 export function entrySideFromSelection(
 	sel: Selection,
 	nodeStart: number,
@@ -81,13 +92,13 @@ export function entrySideFromSelection(
 	const to = Math.max(sel.anchor, sel.head);
 	if (to <= nodeStart) return 'above';
 	if (from >= nodeEnd) return 'below';
-	// 已跨越：以 anchor 所在侧为准
+	// Already spanning the node: use the side where the anchor is
 	if (sel.anchor <= nodeStart) return 'above';
 	if (sel.anchor >= nodeEnd) return 'below';
 	return null;
 }
 
-/** 离开时根据指针相对节点矩形的位置判断出口侧 */
+/** Determine the exit side based on the pointer position relative to the node's bounding rect when leaving */
 export function leaveSideFromPoint(clientY: number, rect: DOMRectReadOnly): AtomVerticalSide {
 	const mid = (rect.top + rect.bottom) / 2;
 	return clientY < mid ? 'above' : 'below';
@@ -110,7 +121,7 @@ function clampPosToSide(
 	return found?.from ?? nodeStart;
 }
 
-/** 将原子节点并入当前拖选 TextSelection（保留 anchor） */
+/** Merge an atom node into the current drag TextSelection (preserving the anchor) */
 export function includeAtomInDragSelection(
 	view: EditorView,
 	nodeStart: number,
@@ -135,8 +146,9 @@ export function includeAtomInDragSelection(
 }
 
 /**
- * 从选区中排除原子节点，把选区收回到指定侧（误入后原路离开）。
- * savedAnchor：进入前的 anchor，用于尽量恢复进入前的选区意图。
+ * Exclude an atom node from the selection, pulling the selection back to the specified side
+ * (retracting after accidentally entering). savedAnchor is the anchor before entry, used to
+ * restore the original selection intent as closely as possible.
  */
 export function excludeAtomFromDragSelection(
 	view: EditorView,
@@ -174,7 +186,7 @@ export function excludeAtomFromDragSelection(
 }
 
 /**
- * 离开原子节点时结算：同侧离开 → 排除图片；对侧离开 → 保留并入。
+ * Settle when leaving an atom node: exit on same side → exclude the node; exit on opposite side → keep it included.
  */
 export function resolveAtomLeave(
 	view: EditorView,
@@ -203,14 +215,14 @@ export function resolveAtomLeave(
 			opts.clientY
 		);
 	} else {
-		// 穿到对侧：选区应包含图片
+		// Crossed to opposite side: selection should include the image
 		includeAtomInDragSelection(view, opts.nodeStart, opts.nodeEnd);
 	}
 }
 
 /**
- * 仅当坐标落在原子节点「内部」时命中。
- * 不用 nodeBefore：段落开头紧贴上方图片时会被误判。
+ * Only match when coordinates fall "inside" the atom node.
+ * Avoids using nodeBefore since it can be falsely matched when a paragraph starts right after an image above.
  */
 function findAcrossNodeAtPos($pos: ResolvedPos): { pos: number; node: ProseMirrorNode } | null {
 	for (let d = $pos.depth; d > 0; d--) {
@@ -241,7 +253,7 @@ function atomHitFromPos(
 }
 
 /**
- * 优先用 elementFromPoint 命中 NodeView（拖选时 posAtCoords 常落在图片前后间隙）。
+ * Prefer elementFromPoint to hit NodeView (during drag-selection, posAtCoords often lands in gaps before/after images).
  */
 function hitAtomAtCoords(
 	view: EditorView,
@@ -271,7 +283,7 @@ function hitAtomAtCoords(
 					}
 				}
 			} catch {
-				/* posAtDOM 失败则回退 */
+				/* posAtDOM failed, fall back */
 			}
 		}
 	}
@@ -304,7 +316,7 @@ type AtomVisit = {
 
 type PreservedRange = { anchor: number; head: number };
 
-/** 右键是否落在当前非空选区内（含被 TextSelection 完整覆盖的 atom） */
+/** Check if right-click falls within the current non-empty selection (including atoms fully covered by TextSelection) */
 function shouldPreserveSelectionOnRightClick(view: EditorView, event: MouseEvent): boolean {
 	if (event.button !== 2) return false;
 	const sel = view.state.selection;
@@ -366,8 +378,8 @@ function restorePreservedSelection(view: EditorView, preserved: PreservedRange):
 }
 
 /**
- * 左键点选原子节点：NodeView 上 posAtCoords.inside 常为 -1，
- * PM 默认 selectClickedLeaf 会失败，需用 DOM 命中补 NodeSelection。
+ * Left-click to select an atom node: posAtCoords.inside on NodeView is often -1,
+ * PM's default selectClickedLeaf will fail, so we use DOM hit testing to supplement with NodeSelection.
  */
 function selectAtomOnClick(view: EditorView, event: MouseEvent): boolean {
 	if (event.button !== 0 || !view.editable) return false;
@@ -410,13 +422,13 @@ function selectAtomOnClick(view: EditorView, event: MouseEvent): boolean {
 }
 
 /**
- * 拖选经过图片 / 公式等原子节点时，把整块并入 TextSelection。
+ * When drag-selecting across atom nodes (images, formulas, etc.), merge the entire block into TextSelection.
  *
- * - 左键点击图片等 atom → NodeSelection + 选中高亮
- * - 真正进入（穿透够深）→ 立刻并入选区
- * - 离开时：回到进入侧 → 排除图片；穿到对侧 → 保留包含图片
- * - 边缘轻微掠过 → 不并入
- * - 选区内右键：preventDefault + 恢复快照，保持 TextSelection / atom 高亮
+ * - Left-click on an atom like image → NodeSelection + selection highlight
+ * - Truly entered (sufficient penetration depth) → immediately merge into selection
+ * - On leaving: exit on entry side → exclude the image; exit on opposite side → keep it included
+ * - Slight edge graze → do not merge
+ * - Right-click within selection: preventDefault + restore snapshot, maintaining TextSelection / atom highlight
  */
 export const SelectAcrossAtoms = Extension.create({
 	name: 'selectAcrossAtoms',
@@ -424,10 +436,10 @@ export const SelectAcrossAtoms = Extension.create({
 	addProseMirrorPlugins() {
 		let dragging = false;
 		let visit: AtomVisit | null = null;
-		/** 选区内右键时暂存选区，避免浏览器/PM 收成光标或 NodeSelection */
+		/** Preserve selection on right-click within selection, preventing browser/PM from collapsing it to a cursor or NodeSelection */
 		let preservedOnRightClick: PreservedRange | null = null;
 		let restoreRaf = 0;
-		/** 左键按下时指针位置，用于区分「点选」与「拖选」 */
+		/** Pointer position when left button is pressed, used to distinguish click-select from drag-select */
 		let mouseDownX = 0;
 		let mouseDownY = 0;
 
@@ -467,8 +479,8 @@ export const SelectAcrossAtoms = Extension.create({
 
 			let hit = hitAtomAtCoords(view, clientX, clientY);
 
-			// posAtCoords / DOM 短暂 miss 时：若指针仍在当前 visit 矩形内，继续当作命中
-			// （否则会 leave → 排除，而 PM 下一帧又会把选区收到图片外）
+			// When posAtCoords / DOM briefly misses: if pointer is still within the current visit rect, treat as still hitting
+			// (otherwise it would leave → exclude, and PM would pull the selection outside the image on the next frame)
 			if (!hit && visit && pointInRect(clientX, clientY, visit.dom.getBoundingClientRect())) {
 				hit = {
 					nodeStart: visit.nodeStart,
@@ -491,7 +503,7 @@ export const SelectAcrossAtoms = Extension.create({
 
 					const entrySide = entrySideFromSelection(sel, hit.nodeStart, hit.nodeEnd);
 					if (!entrySide) {
-						// 选区已覆盖该节点：保持即可
+						// Selection already covers this node: just keep it
 						if (sel.from <= hit.nodeStart && sel.to >= hit.nodeEnd) {
 							visit = {
 								nodeStart: hit.nodeStart,
@@ -519,15 +531,16 @@ export const SelectAcrossAtoms = Extension.create({
 					visit.maxPenetration = Math.max(visit.maxPenetration, pen);
 				}
 
-				// 真正进入后立刻并入；之后每帧再并一次，抵消 PM mouseDown.move 的回写
-				if (visit && visit.maxPenetration >= ATOM_SLIGHT_PENETRATION_PX) {
+				// Once truly entered, merge immediately; re-merge each frame to counteract PM mouseDown.move rewriting
+				const threshold = effectivePenetrationThreshold(rect);
+				if (visit && visit.maxPenetration >= threshold) {
 					includeAtomInDragSelection(view, visit.nodeStart, visit.nodeEnd);
 					visit.included = true;
 				}
 				return;
 			}
 
-			// 指针已离开原子
+			// Pointer has left the atom
 			if (visit) {
 				leaveCurrentVisit(view, clientX, clientY);
 			}
@@ -542,8 +555,8 @@ export const SelectAcrossAtoms = Extension.create({
 					},
 					handleDOMEvents: {
 						mousedown(view, event) {
-							// 选区内右键：preventDefault 阻止浏览器收起 ::selection；
-							// return true 阻止 PM 把 atom 收成 NodeSelection
+							// Right-click within selection: preventDefault stops browser from collapsing ::selection;
+							// return true prevents PM from collapsing atom to NodeSelection
 							if (shouldPreserveSelectionOnRightClick(view, event)) {
 								const sel = view.state.selection;
 								preservedOnRightClick = { anchor: sel.anchor, head: sel.head };
@@ -564,17 +577,18 @@ export const SelectAcrossAtoms = Extension.create({
 							if (event.button === 2 && preservedOnRightClick) {
 								restorePreservedSelection(view, preservedOnRightClick);
 								scheduleRestorePreserved(view);
-								// 右键流程结束；系统菜单可能因 preventDefault 不弹出
+								// Right-click flow ended; system context menu may not appear due to preventDefault
 								preservedOnRightClick = null;
 							}
 							if (dragging && visit) {
-								// 在原子上松手：视为停在进入侧意图不明显，保留已并入状态
-								// （未离开则不做同侧排除）
-								if (!visit.included && visit.maxPenetration >= ATOM_SLIGHT_PENETRATION_PX) {
+								// Mouse released on atom: intent is ambiguous, keep the merged state
+								// (don't do same-side exclusion since we never left)
+								const threshold = effectivePenetrationThreshold(visit.dom.getBoundingClientRect());
+								if (!visit.included && visit.maxPenetration >= threshold) {
 									includeAtomInDragSelection(view, visit.nodeStart, visit.nodeEnd);
 								}
 							}
-							// PM 若因微移将 allowDefault=true 跳过 handleClick，这里补点选
+							// If PM skips handleClick due to minor movement (allowDefault=true), supplement with click-select here
 							if (
 								dragging &&
 								event.button === 0 &&
@@ -589,7 +603,7 @@ export const SelectAcrossAtoms = Extension.create({
 							return false;
 						},
 						contextmenu(view, event) {
-							// 部分浏览器仍会触发 contextmenu；恢复选区后允许菜单
+							// Some browsers still fire contextmenu; restore the selection then allow the menu
 							if (!preservedOnRightClick) return false;
 							restorePreservedSelection(view, preservedOnRightClick);
 							scheduleRestorePreserved(view);
@@ -642,7 +656,7 @@ export const SelectAcrossAtoms = Extension.create({
 				view(editorView) {
 					const onMove = (event: MouseEvent) => {
 						if (!dragging || event.buttons !== 1 || !editorView.editable) return;
-						// 在 PM 处理完 mousemove（可能把选区收到 atom 外）之后再并入
+						// Re-merge after PM has processed mousemove (which may have pulled the selection outside the atom)
 						trackAtomUnderPointer(editorView, event.clientX, event.clientY);
 						requestAnimationFrame(() => {
 							if (!dragging || event.buttons !== 1) return;
@@ -656,7 +670,8 @@ export const SelectAcrossAtoms = Extension.create({
 							preservedOnRightClick = null;
 						}
 						if (dragging && visit) {
-							if (!visit.included && visit.maxPenetration >= ATOM_SLIGHT_PENETRATION_PX) {
+							const threshold = effectivePenetrationThreshold(visit.dom.getBoundingClientRect());
+							if (!visit.included && visit.maxPenetration >= threshold) {
 								includeAtomInDragSelection(
 									editorView,
 									visit.nodeStart,

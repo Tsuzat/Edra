@@ -617,3 +617,23 @@
 .tiptap .edra-callout-content > p + p {
 	margin-top: 0.5rem;
 }
+
+.is-media-selected > .group,
+.ProseMirror-selectednode.is-media-selected > .group,
+.ProseMirror-selectednode > .group {
+	position: relative;
+	overflow: visible;
+}
+
+.is-media-selected > .group::after,
+.ProseMirror-selectednode.is-media-selected > .group::after,
+.ProseMirror-selectednode > .group::after {
+	content: '';
+	position: absolute;
+	inset: -3px;
+	border: 2px solid var(--color-primary, #3b82f6);
+	border-radius: 0.5rem;
+	pointer-events: none;
+	z-index: 6;
+	box-sizing: border-box;
+}

@@ -313,6 +313,11 @@
 					"target": "edra/tiptap/extensions/index.ts"
 				},
 				{
+					"path": "src/lib/edra/tiptap/extensions/SelectAcrossAtoms.ts",
+					"type": "registry:component",
+					"target": "edra/tiptap/extensions/SelectAcrossAtoms.ts"
+				},
+				{
 					"path": "src/lib/edra/tiptap/extensions/ColorHighlighter.ts",
 					"type": "registry:component",
 					"target": "edra/tiptap/extensions/ColorHighlighter.ts"
