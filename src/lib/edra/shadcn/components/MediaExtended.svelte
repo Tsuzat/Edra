@@ -194,7 +194,7 @@
 			</div>
 			<div
 				class={cn(
-					'bg-background/50 absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded-md border p-1 opacity-0 backdrop-blur-sm transition-opacity',
+					'bg-background/50 z-50! absolute -top-2 left-[calc(50%-3rem)] flex items-center gap-1 rounded-md border p-1 opacity-0 backdrop-blur-sm transition-opacity',
 					!resizing && 'group-hover:opacity-100',
 					openedMore && 'opacity-100'
 				)}
@@ -281,6 +281,3 @@
 		{/if}
 	</div>
 </NodeViewWrapper>
-
-<style>
-</style>
