@@ -84,6 +84,7 @@
 
 /* Base styles for the editor */
 .edra-editor-root {
+	position: relative;
 	font-family: var(--edra-font-sans);
 	color: var(--edra-ink);
 	background-color: var(--edra-canvas-soft);

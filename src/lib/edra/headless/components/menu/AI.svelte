@@ -611,6 +611,7 @@
 		border-radius: var(--edra-radius-sm);
 	}
 	:global(.ai-bubble-container) {
+		position: absolute;
 		background-color: var(--edra-canvas);
 		max-height: 30rem;
 		max-width: 48rem;
