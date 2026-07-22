@@ -7,10 +7,11 @@ import {
 	SlashCommand,
 	SvelteNodeViewRenderer,
 	useEditor,
-	VideoExtended
+	VideoExtended,
+	type Editor
 } from '../tiptap/index.ts';
 import { all, createLowlight } from 'lowlight';
-import extensions from '../extensions.ts';
+import extensions, { katexOptions } from '../extensions.ts';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CodeBlock from './components/CodeBlock.svelte';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
@@ -23,8 +24,17 @@ import SlashCommandComp from './components/SlashCommand.svelte';
 import CalloutComp from './components/Callout.svelte';
 import TableOfContents, { getHierarchicalIndexes } from '@tiptap/extension-table-of-contents';
 import { setTocItems } from './toc.svelte';
+import Mathematics from '@tiptap/extension-mathematics';
+import type { Node } from '@tiptap/pm/model';
 
 const lowlight = createLowlight(all);
+
+export type MathClickHandler = (
+	node: Node,
+	pos: number,
+	isBlock: boolean,
+	editor: Editor
+) => void;
 
 export interface EdraEditorProps {
 	onUpdate?: () => void;
@@ -43,12 +53,37 @@ export interface EdraEditorProps {
 		onChunk: (chunk: string) => void,
 		onError: (error: Error) => void
 	) => Promise<void>;
+	/**
+	 * Called when the user clicks a math node. Forwards TipTap Mathematics `onClick`
+	 * for both block and inline math, and includes `isBlock` plus the editor instance.
+	 */
+	onMathClick?: MathClickHandler;
 }
 
-export const createEditor = (props?: EdraEditorProps) =>
-	useEditor({
+export const createEditor = (props?: EdraEditorProps) => {
+	let editorRef: Editor | undefined;
+	const onMathClick = props?.onMathClick;
+
+	const editor = useEditor({
 		extensions: [
 			...extensions,
+			Mathematics.configure({
+				katexOptions,
+				blockOptions: onMathClick
+					? {
+							onClick: (node, pos) => {
+								if (editorRef) onMathClick(node, pos, true, editorRef);
+							}
+						}
+					: undefined,
+				inlineOptions: onMathClick
+					? {
+							onClick: (node, pos) => {
+								if (editorRef) onMathClick(node, pos, false, editorRef);
+							}
+						}
+					: undefined
+			}),
 			CodeBlockLowlight.configure({
 				lowlight
 			}).extend({
@@ -77,3 +112,7 @@ export const createEditor = (props?: EdraEditorProps) =>
 		],
 		onUpdate: props?.onUpdate || (() => {})
 	});
+
+	editorRef = editor;
+	return editor;
+};

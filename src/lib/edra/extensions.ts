@@ -19,10 +19,22 @@ import {
 } from './tiptap/index.ts';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Markdown } from '@tiptap/markdown';
-import Mathematics from '@tiptap/extension-mathematics';
+import type { KatexOptions } from 'katex';
+
+/**
+ * Shared KaTeX options for Mathematics (wired in createEditor so onMathClick can be injected).
+ */
+export const katexOptions: KatexOptions = {
+	throwOnError: true, // don't throw an error if the LaTeX code is invalid
+	macros: {
+		'\\R': '\\mathbb{R}', // add a macro for the real numbers
+		'\\N': '\\mathbb{N}' // add a macro for the natural numbers
+	}
+};
 
 /**
  * Contains all the default extensions the editor uses.
+ * Mathematics is configured in createEditor so hosts can pass onMathClick.
  */
 export default [
 	StarterKit.configure({
@@ -89,16 +101,6 @@ export default [
 	TableRow,
 	TableCell,
 	Markdown,
-	Mathematics.configure({
-		// Options for the KaTeX renderer. See here: https://katex.org/docs/options.html
-		katexOptions: {
-			throwOnError: true, // don't throw an error if the LaTeX code is invalid
-			macros: {
-				'\\R': '\\mathbb{R}', // add a macro for the real numbers
-				'\\N': '\\mathbb{N}' // add a macro for the natural numbers
-			}
-		}
-	}),
 	// Drag-select across images/math/media; decorate selected atoms; keep selection on right-click
 	SelectAcrossAtoms
 ] as Extensions;

@@ -15,6 +15,15 @@ Mathematics.configure({
 	}
 })`;
 
+	const onMathClickCode = `import { createEditor } from '$lib/edra/headless';
+
+const editor = createEditor({
+	onMathClick: (node, pos, isBlock, editor) => {
+		// Open your own math UI (e.g. MathLive) instead of the default prompt
+		console.log(node.attrs.latex, { pos, isBlock });
+	}
+});`;
+
 	const exampleEquation = `$$f(x) = \\int_{-\\infty}^{\\infty} \\hat{f}(\\xi) e^{2 \\pi i x \\xi} d\\xi$$`;
 </script>
 
@@ -35,11 +44,25 @@ Mathematics.configure({
 		The math extension uses <code>@tiptap/extension-mathematics</code> as a wrapper around the super
 		fast <code>katex</code> renderer. Edra pre-configures standard options and macros (such as
 		<code>\R</code>
-		and <code>\N</code>) globally in <code>extensions.ts</code>:
+		and <code>\N</code>) via shared <code>katexOptions</code> in <code>extensions.ts</code>, and
+		wires Mathematics inside <code>createEditor</code> so hosts can pass <code>onMathClick</code>:
 	</p>
 
 	<div class="my-4">
 		<Code code={configCode} language="typescript" />
+	</div>
+
+	<h2>Custom math click handler</h2>
+	<p>
+		Pass <code>onMathClick</code> to <code>createEditor</code> to handle clicks on math nodes
+		(for example, open a custom equation editor). The callback receives the ProseMirror
+		<code>node</code>, document <code>pos</code>, whether it is block math (<code>isBlock</code>),
+		and the <code>editor</code> instance. This forwards TipTap Mathematics'
+		<code>onClick</code> for both block and inline math.
+	</p>
+
+	<div class="my-4">
+		<Code code={onMathClickCode} language="typescript" />
 	</div>
 
 	<h2>How to use in Editor</h2>
