@@ -496,7 +496,7 @@
 		scrollTarget: editor.view.dom.parentElement ?? window,
 		onShow() {
 			activeOptionIndex = 0;
-			inputTag?.focus();
+			inputTag?.focus({ preventScroll: true });
 		},
 		onHide() {
 			inputTag?.blur();

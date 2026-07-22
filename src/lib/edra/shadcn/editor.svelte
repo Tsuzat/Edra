@@ -10,9 +10,10 @@
 		TableRowMenu
 	} from './components/menu/index.js';
 	import { mode } from 'mode-watcher';
+	import { cn } from '$lib/utils.js';
 
 	interface Props {
-		class: string;
+		class?: string;
 	}
 	const { class: className = '' }: Props = $props();
 
@@ -29,4 +30,4 @@
 <MathInline />
 <TableColMenu />
 <TableRowMenu />
-<TiptapContent class={className} />
+<TiptapContent class={cn('relative', className)} />
