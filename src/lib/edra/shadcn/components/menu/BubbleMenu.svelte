@@ -125,7 +125,7 @@
 		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
-	class={cn('flex items-center bg-popover border rounded-lg w-fit', className)}
+	class={cn('flex w-fit items-center rounded-lg border bg-popover', className)}
 >
 	{#if useAI()}
 		<Tooltip tooltip="Use AI">

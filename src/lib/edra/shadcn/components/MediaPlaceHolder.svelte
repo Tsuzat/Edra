@@ -67,11 +67,11 @@
 	<div
 		role="button"
 		tabindex={1}
-		class="flex w-full items-center gap-2 rounded-lg border border-dashed bg-muted/30 p-4 transition-colors hover:bg-muted/50 min-h-14"
+		class="flex min-h-14 w-full items-center gap-2 rounded-lg border border-dashed bg-muted/30 p-4 transition-colors hover:bg-muted/50"
 		onclick={() => (open = true)}
 	>
 		<Icon class="size-4 text-muted-foreground" />
-		<span class="text-muted-foreground text-sm" contenteditable={false}>{text}</span>
+		<span class="text-sm text-muted-foreground" contenteditable={false}>{text}</span>
 
 		<Popover.Root bind:open>
 			<Popover.Trigger class="sr-only left-1/2"></Popover.Trigger>

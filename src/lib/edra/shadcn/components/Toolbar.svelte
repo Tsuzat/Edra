@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class={cn('flex items-center h-full w-fit gap-2', className)}>
+<div class={cn('flex h-full w-fit items-center gap-2', className)}>
 	{#if useAI()}
 		<Tooltip tooltip="Use AI">
 			<Button

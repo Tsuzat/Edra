@@ -39,7 +39,7 @@ editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).ru
 		The table extension supports intuitive keyboard navigation and a set of command chains to
 		programmatically alter table layout:
 	</p>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<code>insertTable(&#123; rows, cols, withHeaderRow &#125;)</code>: Inserts a new table at the
 			current cursor position.

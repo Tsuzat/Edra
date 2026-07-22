@@ -39,7 +39,7 @@ editor.chain().focus().toggleTaskList().run();`;
 
 	<h2>Keyboard Shortcuts</h2>
 	<p>Users can interact with task lists using these standard keys:</p>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li><code>Enter</code>: Creates a new checklist item at the current level.</li>
 		<li><code>Tab</code>: Indents the active item, nesting it under the item above.</li>
 		<li><code>Shift + Tab</code>: Outdents the active item to bring it to a higher level.</li>

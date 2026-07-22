@@ -62,16 +62,16 @@
 	<title>{pageTitle || 'Untitled'} | Edra Workspace</title>
 </svelte:head>
 
-<div class="min-h-screen bg-background text-foreground flex flex-col">
+<div class="flex min-h-screen flex-col bg-background text-foreground">
 	<!-- Workspace Sticky Header -->
 	<header
-		class="flex h-14 items-center justify-between px-6 border-b backdrop-blur bg-background/80 sticky top-0 z-50"
+		class="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background/80 px-6 backdrop-blur"
 	>
 		<div class="flex items-center gap-3">
 			<Button variant="ghost" size="icon" href={resolve('/')} class="nodefault">
 				<ArrowLeft class="size-4" />
 			</Button>
-			<span class="text-sm font-semibold truncate max-w-40 md:max-w-64"
+			<span class="max-w-40 truncate text-sm font-semibold md:max-w-64"
 				>{pageTitle || 'Untitled'}</span
 			>
 		</div>
@@ -81,7 +81,7 @@
 				variant="ghost"
 				size="sm"
 				onclick={() => (fullWidth = !fullWidth)}
-				class="text-xs gap-1.5 h-8"
+				class="h-8 gap-1.5 text-xs"
 			>
 				<Columns2 class="size-3.5" />
 				<span>{fullWidth ? 'Standard Width' : 'Full Width'}</span>
@@ -93,7 +93,7 @@
 	<!-- Notion Style Cover Area -->
 	<div
 		class={cn(
-			'h-48 w-full bg-linear-to-r relative group transition-all! duration-500!',
+			'group relative h-48 w-full bg-linear-to-r transition-all! duration-500!',
 			covers[activeCoverIndex]
 		)}
 	>
@@ -101,7 +101,7 @@
 			variant="outline"
 			size="sm"
 			onclick={changeCover}
-			class="absolute right-6 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity bg-background/90 hover:bg-background border shadow-xs text-xs h-8"
+			class="absolute right-6 bottom-4 h-8 border bg-background/90 text-xs opacity-0 shadow-xs transition-opacity group-hover:opacity-100 hover:bg-background"
 		>
 			Change cover
 		</Button>
@@ -112,14 +112,14 @@
 		<!-- Notion Header Title Input -->
 		<div
 			class={cn(
-				'pt-10 pb-4 mx-auto border-b border-border/40 mb-6 transition-all duration-300 px-8 md:px-16',
+				'mx-auto mb-6 border-b border-border/40 px-8 pt-10 pb-4 transition-all duration-300 md:px-16',
 				fullWidth ? 'max-w-full' : 'max-w-3xl'
 			)}
 		>
 			<input
 				type="text"
 				bind:value={pageTitle}
-				class="text-4xl font-bold tracking-tight outline-hidden border-hidden bg-transparent w-full placeholder:opacity-20 focus:ring-0"
+				class="w-full border-hidden bg-transparent text-4xl font-bold tracking-tight outline-hidden placeholder:opacity-20 focus:ring-0"
 				placeholder="Untitled Workspace"
 			/>
 		</div>
@@ -130,7 +130,7 @@
 			<Edra.BubbleMenu />
 			<Edra.Content
 				class={cn(
-					'*:outline-none text-base cursor-auto w-full py-4 px-8 transition-all duration-300 mx-auto',
+					'mx-auto w-full cursor-auto px-8 py-4 text-base transition-all duration-300 *:outline-none',
 					fullWidth ? 'max-w-full' : 'max-w-3xl'
 				)}
 			/>

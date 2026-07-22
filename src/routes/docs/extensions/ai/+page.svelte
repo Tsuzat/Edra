@@ -40,7 +40,7 @@
 	</div>
 
 	<h2>Autocompletion Triggers</h2>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Space Activation:</strong> Pressing the <code>Space</code> bar on any empty line inserts
 			a placeholder and triggers the AI generator immediately.

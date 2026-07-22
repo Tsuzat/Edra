@@ -53,8 +53,8 @@
 	}
 </script>
 
-<NodeViewWrapper class="bg-muted dark:bg-muted/20 my-4 pb-4 rounded-lg">
-	<div class="flex items-center mx-2 gap-2 justify-end print:justify-start" contenteditable="false">
+<NodeViewWrapper class="my-4 rounded-lg bg-muted pb-4 dark:bg-muted/20">
+	<div class="mx-2 flex items-center justify-end gap-2 print:justify-start" contenteditable="false">
 		{#if defaultLanguage.toLowerCase() === 'mermaid'}
 			<Tooltip tooltip="Convert to Mermaid Diagram">
 				<Button variant="ghost" size="icon-xs" class="print:hidden" onclick={convertToMermaid}>
@@ -70,14 +70,14 @@
 					class={buttonVariants({
 						variant: 'ghost',
 						size: 'sm',
-						class: 'capitalize text-muted-foreground'
+						class: 'text-muted-foreground capitalize'
 					})}
 				>
 					{defaultLanguage}
 				</Popover.Trigger>
 			</Tooltip>
 			<Popover.Content
-				class="text-primary! max-h-96 w-42 p-0!"
+				class="max-h-96 w-42 p-0! text-primary!"
 				portalProps={{ disabled: true, to: undefined }}
 				onCloseAutoFocus={(e) => {
 					e.preventDefault();

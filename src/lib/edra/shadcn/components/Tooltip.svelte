@@ -19,7 +19,7 @@
 		<Tooltip.Content>
 			<span>{tooltip}</span>
 			{#if shortCut}
-				<span class="bg-background text-primary rounded p-0.5">{shortCut}</span>
+				<span class="rounded bg-background p-0.5 text-primary">{shortCut}</span>
 			{/if}
 		</Tooltip.Content>
 	</Tooltip.Root>

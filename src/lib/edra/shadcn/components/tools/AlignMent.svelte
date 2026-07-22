@@ -36,7 +36,7 @@
 		>
 			{@const Icon = AlignmentIcon()}
 			<Icon />
-			<ChevronDown class="text-muted-foreground size-2!" />
+			<ChevronDown class="size-2! text-muted-foreground" />
 		</DropdownMenu.Trigger>
 	</Tooltip>
 	<DropdownMenu.Content

@@ -49,8 +49,8 @@
 			<img src="/favicon.svg" alt="Edra" class="size-8" />
 			<span class="text-xl font-semibold">Edra</span>
 		</a>
-		<span class="hidden md:inline-block w-4"></span>
-		<div class="hidden md:flex items-center gap-2">
+		<span class="hidden w-4 md:inline-block"></span>
+		<div class="hidden items-center gap-2 md:flex">
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					<Button class="text-muted-foreground" variant="ghost">
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 	<div class="flex items-center gap-1 md:gap-2">
-		<div class="md:hidden flex items-center">
+		<div class="flex items-center md:hidden">
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					<Button class="text-muted-foreground" variant="ghost" size="icon">
@@ -131,14 +131,14 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		</div>
-		<Button onclick={openSearch} class="text-muted-foreground hidden md:flex" variant="outline">
+		<Button onclick={openSearch} class="hidden text-muted-foreground md:flex" variant="outline">
 			<Search />
 			<span>Search Document</span>
-			<span class="bg-muted text-sm px-1 rounded">{getKeyboardShortcut('K', true)}</span>
+			<span class="rounded bg-muted px-1 text-sm">{getKeyboardShortcut('K', true)}</span>
 		</Button>
 		<Button
 			onclick={openSearch}
-			class="text-muted-foreground flex md:hidden"
+			class="flex text-muted-foreground md:hidden"
 			variant="ghost"
 			size="icon"
 		>
@@ -159,14 +159,14 @@
 		<ToggleMode />
 	</div>
 </header>
-<div class="absolute mx-auto -z-10! size-120 left-[calc(50%-15rem)] rounded-full overflow-hidden">
+<div class="absolute left-[calc(50%-15rem)] -z-10! mx-auto size-120 overflow-hidden rounded-full">
 	<DotPattern
 		glow={true}
 		class={cn('mask-[radial-gradient(300px_circle_at_center,white,transparent)]')}
 	/>
 </div>
 
-<div class="my-28 mx-auto z-10! flex flex-col gap-6 w-full text-center">
+<div class="z-10! mx-auto my-28 flex w-full flex-col gap-6 text-center">
 	<h1>Rich Editor for Svelte</h1>
 	<span class="text-muted-foreground">Thoughtfully designed. Copy and paste into your apps. </span>
 	<div class="flex items-center justify-center gap-2">
@@ -183,7 +183,7 @@
 		>
 	</div>
 </div>
-<div class="flex items-center justify-center w-[95%] mx-auto">
+<div class="mx-auto flex w-[95%] items-center justify-center">
 	<Tabs.Root value="preview" class="w-full">
 		<div class="flex items-center justify-between">
 			<Tabs.List class="flex items-center justify-center">
@@ -209,7 +209,7 @@
 		<Tabs.Content id="shadcn" value="preview">
 			<div
 				class={cn(
-					'border rounded-lg transition-all duration-500',
+					'rounded-lg border transition-all duration-500',
 					device === 'desktop' && 'max-w-full',
 					device === 'tablet' && 'max-w-xl',
 					device === 'mobile' && 'max-w-sm'
@@ -217,10 +217,10 @@
 			>
 				<Edra {editor}>
 					<Edra.Toolbar
-						class="border-b rounded-t-lg max-w-full scrollbar-none bg-muted dark:bg-muted/50 p-1 overflow-x-scroll"
+						class="max-w-full scrollbar-none overflow-x-scroll rounded-t-lg border-b bg-muted p-1 dark:bg-muted/50"
 					/>
 					<Edra.Content
-						class="*:outline-none text-base cursor-auto h-150 w-full overflow-y-scroll py-4 px-8"
+						class="h-150 w-full cursor-auto overflow-y-scroll px-8 py-4 text-base *:outline-none"
 					/>
 					<Edra.DragHandle />
 				</Edra>

@@ -36,7 +36,7 @@
 		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
-	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border shadow-lg"
+	class="flex h-fit w-fit items-center gap-1 rounded-lg border bg-popover shadow-lg"
 >
 	<Input
 		bind:value={latex}

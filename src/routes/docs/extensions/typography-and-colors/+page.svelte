@@ -56,7 +56,7 @@ editor.chain().focus().setTextAlign('center').run();`;
 	</div>
 
 	<h2>Included Extensions</h2>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Text Align:</strong> Allows aligning paragraphs and headings to <code>left</code>,
 			<code>center</code>, <code>right</code>, or <code>justify</code>.

@@ -51,7 +51,7 @@
 		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
-	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border p-0!"
+	class="flex h-fit w-fit items-center gap-1 rounded-lg border bg-popover p-0!"
 >
 	{#if !isEditing}
 		<Tooltip tooltip={strings.menu.link.open}>
