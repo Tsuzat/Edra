@@ -1,5 +1,5 @@
 <script>
-	import { greet } from './greet';
+	import { greet } from './greet.js';
 
 	let { host = 'SvelteKit', guest = 'Vitest' } = $props();
 </script>

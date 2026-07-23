@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import ToggleMode from '$lib/components/custom/ToggleMode.svelte';
-	import { Button } from '$lib/components/ui/button/index.ts';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { createEditor, Edra, type Content } from '$lib/edra/headless/index.js';
 	import { ArrowLeft } from '@lucide/svelte';
 	import { onMount } from 'svelte';

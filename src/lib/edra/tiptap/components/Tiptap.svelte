@@ -5,9 +5,11 @@
 
 	let { editor, children }: { editor: Editor | undefined; children?: Snippet } = $props();
 
-	if (editor) {
-		setEditor(editor);
-	}
+	$effect(() => {
+		if (editor) {
+			setEditor(editor);
+		}
+	});
 </script>
 
 {#if editor && children}

@@ -274,7 +274,7 @@
 			"target": "edra/tiptap/components/NodeViewContent.svelte"
 		},
 		{
-			"content": "<script lang=\"ts\">\n\timport { setContext, type Component as SvelteComponent } from 'svelte';\n\n\tlet {\n\t\tcomponent: Component,\n\t\tonDragStart,\n\t\tdecorationClasses,\n\t\t...props\n\t}: {\n\t\tcomponent: SvelteComponent;\n\t\tonDragStart: (event: DragEvent) => void;\n\t\tdecorationClasses: string;\n\t\t[key: string]: unknown;\n\t} = $props();\n\n\tsetContext('onDragStart', onDragStart);\n\t// Svelte 5：传 getter 才能让 NodeViewWrapper 跟到 decoration 更新\n\tsetContext('decorationClasses', () => decorationClasses);\n</script>\n\n<Component {...props} />\n",
+			"content": "<script lang=\"ts\">\n\timport { setContext, type Component as SvelteComponent } from 'svelte';\n\n\tlet {\n\t\tcomponent: Component,\n\t\tonDragStart,\n\t\tdecorationClasses,\n\t\t...props\n\t}: {\n\t\tcomponent: SvelteComponent;\n\t\tonDragStart: (event: DragEvent) => void;\n\t\tdecorationClasses: string;\n\t\t[key: string]: unknown;\n\t} = $props();\n\n\tsetContext('onDragStart', onDragStart);\n\tsetContext('decorationClasses', () => decorationClasses);\n</script>\n\n<Component {...props} />\n",
 			"type": "registry:component",
 			"target": "edra/tiptap/components/NodeViewFrame.svelte"
 		},

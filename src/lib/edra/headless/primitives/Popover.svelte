@@ -57,7 +57,8 @@
 <svelte:document onclick={handleOutsideClick} />
 
 <div class="popover-wrapper">
-	<span
+	<button
+		type="button"
 		bind:this={triggerEl}
 		onclick={(e) => {
 			e.stopPropagation();
@@ -65,7 +66,7 @@
 		}}
 	>
 		{@render trigger()}
-	</span>
+	</button>
 
 	{#if open}
 		<div
