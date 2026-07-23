@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import { NodeViewContent, NodeViewWrapper, type NodeViewProps } from '$lib/edra/tiptap/index.js';
+	import { NodeViewContent, NodeViewWrapper, type NodeViewProps } from '../../tiptap/index.js';
 
 	const { editor, node, updateAttributes, extension, getPos }: NodeViewProps = $props();
 

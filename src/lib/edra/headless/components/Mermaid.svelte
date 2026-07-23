@@ -12,7 +12,7 @@
 	import Code from '@lucide/svelte/icons/code';
 	import Columns2 from '@lucide/svelte/icons/columns-2';
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
-	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
+	import { NodeViewWrapper } from '../../tiptap/index.js';
 	import Tooltip from './Tooltip.svelte';
 	import { Download } from '@lucide/svelte';
 

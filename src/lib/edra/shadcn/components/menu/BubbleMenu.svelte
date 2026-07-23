@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { commands } from '$lib/edra/commands/index.js';
+	import { commands } from '../../../commands/index.js';
 	import {
 		addAIHighlight,
 		BubbleMenu,
 		getEditor,
 		isTextSelection,
 		useEditorTransaction
-	} from '$lib/edra/tiptap/index.js';
+	} from '../../../tiptap/index.js';
 	import { cn } from '$lib/utils.js';
 	import { WandSparkles } from '@lucide/svelte';
 	import Colors from '../tools/Colors.svelte';

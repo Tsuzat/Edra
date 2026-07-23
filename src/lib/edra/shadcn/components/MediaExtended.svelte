@@ -14,7 +14,7 @@
 	import { onDestroy, onMount, type Snippet } from 'svelte';
 	import { duplicateContent } from '../../utils.js';
 	import strings from '../../strings.js';
-	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
+	import { NodeViewWrapper } from '../../tiptap/index.js';
 
 	interface MediaExtendedProps extends NodeViewProps {
 		children: Snippet<[]>;

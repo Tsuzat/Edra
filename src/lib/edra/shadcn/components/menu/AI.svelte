@@ -4,7 +4,7 @@
 		getEditor,
 		removeAIHighlight,
 		useEditorTransaction
-	} from '$lib/edra/tiptap/index.js';
+	} from '../../../tiptap/index.js';
 	import { toast } from 'svelte-sonner';
 	import {
 		AIState,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BubbleMenu, getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { BubbleMenu, getEditor, useEditorState } from '../../../tiptap/index.js';
 	import strings from '../../../strings.js';
 
 	const editor = getEditor();

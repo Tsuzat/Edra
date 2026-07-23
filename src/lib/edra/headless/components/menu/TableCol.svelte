@@ -10,7 +10,7 @@
 		moveColumnLeft,
 		moveColumnRight
 	} from '../../../tiptap/extensions/table/index.js';
-	import { BubbleMenu, getEditor } from '$lib/edra/tiptap/index.js';
+	import { BubbleMenu, getEditor } from '../../../tiptap/index.js';
 	import strings from '../../../strings.js';
 	const editor = getEditor();
 </script>
