@@ -48,11 +48,7 @@ export const Mermaid = (component: Component<NodeViewProps>) =>
 				return src.indexOf(':::');
 			},
 
-			tokenize: (
-				src: string,
-				_tokens: MarkdownToken[],
-				lexer: MarkdownLexerConfiguration
-			) => {
+			tokenize: (src: string, _tokens: MarkdownToken[], lexer: MarkdownLexerConfiguration) => {
 				// Match :::mermaid\ncontent\n:::
 				const match = /^:::mermaid\n([\s\S]*?)\n:::/.exec(src);
 
@@ -80,11 +76,7 @@ export const Mermaid = (component: Component<NodeViewProps>) =>
 				]
 			};
 		},
-		renderMarkdown: (
-			node: JSONContent,
-			helpers: MarkdownRendererHelpers,
-			_ctx: RenderContext
-		) => {
+		renderMarkdown: (node: JSONContent, helpers: MarkdownRendererHelpers, _ctx: RenderContext) => {
 			return `:::mermaid\n${helpers.renderChildren(node)}\n:::\n\n`;
 		},
 
