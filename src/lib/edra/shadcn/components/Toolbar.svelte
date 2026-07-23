@@ -7,6 +7,7 @@
 	import { WandSparkles } from '@lucide/svelte';
 	import Colors from './tools/Colors.svelte';
 	import Export from './tools/Export.svelte';
+	import FontSize from './tools/FontSize.svelte';
 	import Tooltip from './Tooltip.svelte';
 	interface Props {
 		class?: string;
@@ -70,6 +71,7 @@
 		{/each}
 		<Separator orientation="vertical" class="h-6!" />
 	{/each}
+	<FontSize />
 	<Colors />
 	<Export />
 </div>

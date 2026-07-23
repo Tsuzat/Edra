@@ -5,6 +5,7 @@
 	import { WandSparkles } from '@lucide/svelte';
 	import Colors from './tools/Colors.svelte';
 	import Export from './tools/Export.svelte';
+	import FontSize from './tools/FontSize.svelte';
 	import Tooltip from './Tooltip.svelte';
 	interface Props {
 		class?: string;
@@ -65,6 +66,7 @@
 		{/each}
 		<div class="edra-separator" role="separator" aria-orientation="vertical"></div>
 	{/each}
+	<FontSize />
 	<Colors />
 	<Export />
 </div>

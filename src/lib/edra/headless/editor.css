@@ -475,16 +475,17 @@
 }
 
 .tiptap ul[data-type='taskList'] li > label {
-	display: flex;
+	/* First inline item beside the text; size from --edra-task-font-size (largest in line) */
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	/* Same font metrics as the text line so the square sits on the first-line center */
 	font-size: var(--edra-task-font-size, 1em);
 	line-height: inherit;
 	height: 1lh;
 	margin: 0;
 	user-select: none;
+	vertical-align: top;
 }
 
 .tiptap ul[data-type='taskList'] li > div {
@@ -494,7 +495,7 @@
 
 .tiptap ul[data-type='taskList'] li > div > p {
 	margin: 0;
-	font-size: var(--edra-task-font-size, inherit);
+	/* Do not set font-size here — inline text may mix multiple sizes */
 	line-height: inherit;
 }
 
