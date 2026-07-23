@@ -58,6 +58,41 @@ export const findColors = (doc: Node) => {
 };
 
 /**
+ * Mirror the first textStyle fontSize inside each taskItem onto the <li>
+ * as --edra-task-font-size, so the checkbox can scale with the line's text.
+ */
+export const findTaskListFontSizes = (doc: Node) => {
+	const decorations: Decoration[] = [];
+
+	doc.descendants((node, pos) => {
+		if (node.type.name !== 'taskItem') return;
+
+		let fontSize: string | null = null;
+		node.descendants((child) => {
+			if (fontSize) return false;
+			if (!child.isText) return;
+			const mark = child.marks.find(
+				(m) => m.type.name === 'textStyle' && typeof m.attrs.fontSize === 'string' && m.attrs.fontSize
+			);
+			if (mark?.attrs.fontSize) {
+				fontSize = mark.attrs.fontSize as string;
+				return false;
+			}
+		});
+
+		if (!fontSize) return;
+
+		decorations.push(
+			Decoration.node(pos, pos + node.nodeSize, {
+				style: `--edra-task-font-size: ${fontSize}`
+			})
+		);
+	});
+
+	return DecorationSet.create(doc, decorations);
+};
+
+/**
  * Dupilcate content at the current selection
  * @param editor Editor instance
  * @param node Node to be duplicated

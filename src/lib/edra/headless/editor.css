@@ -478,7 +478,9 @@
 	display: flex;
 	align-items: center;
 	flex-shrink: 0;
-	height: 1.5rem;
+	/* Match first line box; scales with --edra-task-font-size from TaskListFontSize */
+	font-size: var(--edra-task-font-size, 1em);
+	height: 1.6em;
 	margin: 0;
 	user-select: none;
 }
@@ -498,17 +500,24 @@
 
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
 	color: var(--edra-mute);
+}
+
+/* Decoration use the element's own font metrics — keep them on the text node,
+   synced with --edra-task-font-size so line-through stays centered. */
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p {
+	font-size: var(--edra-task-font-size, inherit);
 	text-decoration: line-through;
 }
 
-/* Custom checkbox */
+/* Custom checkbox — size in em so it follows label / task font size */
 .tiptap input[type='checkbox'] {
 	position: relative;
 	display: grid;
 	place-content: center;
-	width: 1rem;
-	height: 1rem;
-	margin: 0.25rem 0 0 0;
+	font-size: inherit;
+	width: 1em;
+	height: 1em;
+	margin: 0;
 	appearance: none;
 	background-color: var(--edra-canvas);
 	border: 1px solid var(--edra-hairline-strong);
@@ -522,8 +531,8 @@
 }
 
 .tiptap input[type='checkbox']::before {
-	width: 0.5rem;
-	height: 0.5rem;
+	width: 0.5em;
+	height: 0.5em;
 	content: '';
 	background-color: var(--edra-canvas);
 	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);

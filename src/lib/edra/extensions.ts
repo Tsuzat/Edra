@@ -15,7 +15,8 @@ import {
 	Table,
 	TableCell,
 	TableHeader,
-	TableRow
+	TableRow,
+	TaskListFontSize
 } from './tiptap/index.ts';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Markdown } from '@tiptap/markdown';
@@ -83,6 +84,7 @@ export default [
 	TaskItem.configure({
 		nested: true
 	}),
+	TaskListFontSize,
 	// SearchAndReplace,
 	Table,
 	TableHeader,
