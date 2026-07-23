@@ -48,6 +48,12 @@
 		e.stopPropagation();
 		subCtx.open = !subCtx.open;
 	}}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			subCtx.open = !subCtx.open;
+		}
+	}}
 >
 	{@render children()}
 	<ChevronRight class="arrow-icon" />

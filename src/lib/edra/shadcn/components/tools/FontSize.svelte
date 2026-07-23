@@ -3,7 +3,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Tooltip from '../Tooltip.svelte';
-	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
+	import { getEditor, useEditorTransaction } from '../../../tiptap/index.js';
 
 	const editor = getEditor();
 	const transaction = useEditorTransaction(editor);

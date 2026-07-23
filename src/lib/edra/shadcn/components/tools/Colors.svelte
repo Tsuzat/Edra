@@ -6,7 +6,7 @@
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Check from '@lucide/svelte/icons/check';
 	import Tooltip from '../Tooltip.svelte';
-	import { getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { getEditor, useEditorState } from '../../../tiptap/index.js';
 
 	let open = $state(false);
 	const editor = getEditor();

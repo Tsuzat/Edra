@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { motion } from 'motion-sv';
-	import { cn } from '$lib/utils';
+	import { cn } from '$lib/utils.js';
 	import type { SVGAttributes } from 'svelte/elements';
 
 	interface DotPatternProps extends SVGAttributes<SVGSVGElement> {

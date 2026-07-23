@@ -9,8 +9,8 @@
 	} from '../../primitives/dropdown/index.ts';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Minus from '@lucide/svelte/icons/minus';
-	import { commands } from '$lib/edra/commands/index.js';
-	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
+	import { commands } from '../../../commands/index.js';
+	import { getEditor, useEditorTransaction } from '../../../tiptap/index.js';
 	import Tooltip from '../Tooltip.svelte';
 
 	const lists = commands['lists'];

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
+	import { NodeViewWrapper } from '../../tiptap/index.js';
 	import { AudioLines, Video, Image, CodeXml } from '@lucide/svelte';
 	import { type NodeViewProps } from '@tiptap/core';
 	import Popover from '../primitives/Popover.svelte';
