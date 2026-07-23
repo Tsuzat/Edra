@@ -203,10 +203,12 @@
 .tiptap ul[data-type='taskList'] li > label {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-shrink: 0;
-	/* Match first line box; scales with --edra-task-font-size from TaskListFontSize */
+	/* Same font metrics as the text line so the square sits on the first-line center */
 	font-size: var(--edra-task-font-size, 1em);
-	height: 1.5em;
+	line-height: inherit;
+	height: 1lh;
 	margin: 0;
 	user-select: none;
 }
@@ -218,10 +220,13 @@
 
 .tiptap ul[data-type='taskList'] li > div > p {
 	margin: 0;
+	font-size: var(--edra-task-font-size, inherit);
+	line-height: inherit;
 }
 
 .tiptap ul[data-type='taskList'] input[type='checkbox'] {
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 /* Nested task lists */
@@ -235,10 +240,7 @@
 	color: var(--muted-foreground);
 }
 
-/* Decorations use the element's own font metrics — keep them on the text node,
-   synced with --edra-task-font-size so line-through stays centered. */
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p {
-	font-size: var(--edra-task-font-size, inherit);
 	text-decoration: line-through;
 	text-decoration-color: var(--muted-foreground);
 }
