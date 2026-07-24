@@ -1,5 +1,6 @@
 import ColorHighlighter from './ColorHighlighter.ts';
 export { ColorHighlighter };
+export { TaskListFontSize } from './TaskListFontSize.ts';
 export * from './table/index.ts';
 export * from './image/ImageExtended.ts';
 export * from './video/VideoExtended.ts';

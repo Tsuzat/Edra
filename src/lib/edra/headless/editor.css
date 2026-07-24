@@ -475,12 +475,17 @@
 }
 
 .tiptap ul[data-type='taskList'] li > label {
-	display: flex;
+	/* First inline item beside the text; size from --edra-task-font-size (largest in line) */
+	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	flex-shrink: 0;
-	height: 1.5rem;
+	font-size: var(--edra-task-font-size, 1em);
+	line-height: inherit;
+	height: 1lh;
 	margin: 0;
 	user-select: none;
+	vertical-align: top;
 }
 
 .tiptap ul[data-type='taskList'] li > div {
@@ -490,25 +495,51 @@
 
 .tiptap ul[data-type='taskList'] li > div > p {
 	margin: 0;
+	/* Do not set font-size here — inline text may mix multiple sizes */
+	line-height: inherit;
 }
 
 .tiptap ul[data-type='taskList'] input[type='checkbox'] {
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
 	color: var(--edra-mute);
-	text-decoration: line-through;
 }
 
-/* Custom checkbox */
+/*
+ * Do NOT use text-decoration: browsers re-position line-through per inline
+ * font-size, so mixed sizes become staggered segments.
+ * Paint a mid-line on the text itself (inline + box-decoration-break) so the
+ * stroke only covers glyphs, not the full row width. font-size on <p> makes
+ * the fragment height follow the largest size; unmarked runs are pinned.
+ */
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p {
+	display: inline;
+	font-size: var(--edra-task-font-size, 1em);
+	text-decoration: none;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-size: 100% 1px;
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p .edra-task-base-font {
+	font-size: var(--edra-font-size-normal, 1rem);
+}
+
+/* Custom checkbox — size in em so it follows label / task font size */
 .tiptap input[type='checkbox'] {
 	position: relative;
 	display: grid;
 	place-content: center;
-	width: 1rem;
-	height: 1rem;
-	margin: 0.25rem 0 0 0;
+	font-size: inherit;
+	width: 1em;
+	height: 1em;
+	margin: 0;
 	appearance: none;
 	background-color: var(--edra-canvas);
 	border: 1px solid var(--edra-hairline-strong);
@@ -522,8 +553,8 @@
 }
 
 .tiptap input[type='checkbox']::before {
-	width: 0.5rem;
-	height: 0.5rem;
+	width: 0.5em;
+	height: 0.5em;
 	content: '';
 	background-color: var(--edra-canvas);
 	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);

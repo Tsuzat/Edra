@@ -201,12 +201,17 @@
 }
 
 .tiptap ul[data-type='taskList'] li > label {
-	display: flex;
+	/* First inline item beside the text; size from --edra-task-font-size (largest in line) */
+	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	flex-shrink: 0;
-	height: 1.5rem; /* align with first line of text */
+	font-size: var(--edra-task-font-size, 1em);
+	line-height: inherit;
+	height: 1lh;
 	margin: 0;
 	user-select: none;
+	vertical-align: top;
 }
 
 .tiptap ul[data-type='taskList'] li > div {
@@ -216,10 +221,13 @@
 
 .tiptap ul[data-type='taskList'] li > div > p {
 	margin: 0;
+	/* Do not set font-size here — inline text may mix multiple sizes */
+	line-height: inherit;
 }
 
 .tiptap ul[data-type='taskList'] input[type='checkbox'] {
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 /* Nested task lists */
@@ -228,11 +236,32 @@
 	padding-left: 1.5rem;
 }
 
-/* Checked item — subtle fade + strikethrough */
+/* Checked item — subtle fade + one continuous strike (line-box center) */
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
 	color: var(--muted-foreground);
-	text-decoration: line-through;
-	text-decoration-color: var(--muted-foreground);
+}
+
+/*
+ * Do NOT use text-decoration: browsers re-position line-through per inline
+ * font-size, so mixed sizes become staggered segments.
+ * Paint a mid-line on the text itself (inline + box-decoration-break) so the
+ * stroke only covers glyphs, not the full row width. font-size on <p> makes
+ * the fragment height follow the largest size; unmarked runs are pinned.
+ */
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p {
+	display: inline;
+	font-size: var(--edra-task-font-size, 1em);
+	text-decoration: none;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-size: 100% 1px;
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p .edra-task-base-font {
+	font-size: var(--edra-font-size-normal, 1rem);
 }
 
 /* ── Custom Checkbox ──────────────────────────────────────── */
@@ -241,16 +270,16 @@
 	position: relative;
 	display: grid;
 	place-content: center;
-	width: 1.125rem;
-	height: 1.125rem;
+	font-size: inherit;
+	width: 1em;
+	height: 1em;
 	margin: 0;
-	margin-top: 0.25rem;
 	-webkit-appearance: none;
 	appearance: none;
 	cursor: pointer;
 	background-color: transparent;
 	border: 1px solid var(--muted-foreground);
-	border-radius: 0.2rem;
+	border-radius: 0.2em;
 	transition:
 		background-color 150ms ease,
 		border-color 150ms ease;
@@ -267,8 +296,8 @@
 
 /* Checkmark */
 .tiptap input[type='checkbox']::before {
-	width: 0.65rem;
-	height: 0.65rem;
+	width: 0.65em;
+	height: 0.65em;
 	content: '';
 	background-color: var(--color-primary);
 	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
