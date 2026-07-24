@@ -236,14 +236,32 @@
 	padding-left: 1.5rem;
 }
 
-/* Checked item — subtle fade + strikethrough */
+/* Checked item — subtle fade + one continuous strike (line-box center) */
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
 	color: var(--muted-foreground);
 }
 
+/*
+ * Do NOT use text-decoration: browsers re-position line-through per inline
+ * font-size, so mixed sizes become staggered segments.
+ * Paint a mid-line on the text itself (inline + box-decoration-break) so the
+ * stroke only covers glyphs, not the full row width. font-size on <p> makes
+ * the fragment height follow the largest size; unmarked runs are pinned.
+ */
 .tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p {
-	text-decoration: line-through;
-	text-decoration-color: var(--muted-foreground);
+	display: inline;
+	font-size: var(--edra-task-font-size, 1em);
+	text-decoration: none;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-size: 100% 1px;
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div > p .edra-task-base-font {
+	font-size: var(--edra-font-size-normal, 1rem);
 }
 
 /* ── Custom Checkbox ──────────────────────────────────────── */

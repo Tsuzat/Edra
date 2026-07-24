@@ -23,8 +23,11 @@ const fontSizeToPx = (value: string): number | null => {
 
 /**
  * Mirror the largest textStyle fontSize inside each taskItem onto the <li>
- * as --edra-task-font-size, so the checkbox (first inline item) scales with
- * the line even when inline text mixes multiple font sizes.
+ * as --edra-task-font-size, so the checkbox (and checked strikethrough) scale
+ * with the line even when inline text mixes multiple font sizes.
+ *
+ * When checked, also pin unmarked text runs to the editor default size so that
+ * setting font-size on <p> for strikethrough metrics does not enlarge them.
  */
 const findTaskListFontSizes = (doc: Node) => {
 	const decorations: Decoration[] = [];
@@ -35,8 +38,10 @@ const findTaskListFontSizes = (doc: Node) => {
 		let largest: string | null = null;
 		let largestPx = -1;
 		let hasExplicit = false;
+		const isChecked = node.attrs.checked === true;
+		const unmarkedRanges: { from: number; to: number }[] = [];
 
-		node.descendants((child) => {
+		node.descendants((child, offset) => {
 			// Nested task lists have their own items; don't borrow their sizes.
 			if (child.type.name === 'taskList' || child.type.name === 'taskItem') return false;
 			if (!child.isText || !child.text) return;
@@ -45,6 +50,7 @@ const findTaskListFontSizes = (doc: Node) => {
 				(m) => m.type.name === 'textStyle' && typeof m.attrs.fontSize === 'string' && m.attrs.fontSize
 			);
 			const sizeStr = mark?.attrs.fontSize as string | undefined;
+			const from = pos + 1 + offset;
 
 			if (sizeStr) {
 				hasExplicit = true;
@@ -62,6 +68,7 @@ const findTaskListFontSizes = (doc: Node) => {
 				largestPx = defaultPx;
 				largest = '1rem';
 			}
+			unmarkedRanges.push({ from, to: from + child.nodeSize });
 		});
 
 		if (!hasExplicit || !largest) return;
@@ -71,13 +78,24 @@ const findTaskListFontSizes = (doc: Node) => {
 				style: `--edra-task-font-size: ${largest}`
 			})
 		);
+
+		if (isChecked) {
+			for (const { from, to } of unmarkedRanges) {
+				decorations.push(
+					Decoration.inline(from, to, {
+						class: 'edra-task-base-font'
+					})
+				);
+			}
+		}
 	});
 
 	return DecorationSet.create(doc, decorations);
 };
 
 /**
- * Keeps task-list checkbox size/alignment in sync with the largest textStyle fontSize.
+ * Keeps task-list checkbox size/alignment (and checked strikethrough metrics)
+ * in sync with the largest textStyle fontSize.
  */
 export const TaskListFontSize = Extension.create({
 	name: 'taskListFontSize',
