@@ -11,11 +11,13 @@ export interface SvelteMarkViewRendererOptions extends MarkViewRendererOptions {
 	attrs?: { [key: string]: string };
 }
 
-class SvelteMarkView extends MarkView<Component, SvelteMarkViewRendererOptions> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+class SvelteMarkView extends MarkView<Component<any>, SvelteMarkViewRendererOptions> {
 	renderer: SvelteRenderer;
 
 	constructor(
-		component: Component,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		component: Component<any>,
 		props: MarkViewProps,
 		options?: Partial<SvelteMarkViewRendererOptions>
 	) {
@@ -48,7 +50,8 @@ class SvelteMarkView extends MarkView<Component, SvelteMarkViewRendererOptions> 
 }
 
 export function SvelteMarkViewRenderer(
-	component: Component,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	component: Component<any>,
 	options: Partial<SvelteMarkViewRendererOptions> = {}
 ): MarkViewRenderer {
 	return (props) => {

@@ -16,7 +16,7 @@
 	<AppSidebar variant="sidebar" />
 	<Sidebar.Inset>
 		<header
-			class="flex h-14 z-10! bg-background/80 backdrop-blur-xl sticky top-0 shrink-0 items-center justify-between gap-2 px-4"
+			class="sticky top-0 z-10! flex h-14 shrink-0 items-center justify-between gap-2 bg-background/80 px-4 backdrop-blur-xl"
 		>
 			<div class="flex items-center gap-2">
 				<Sidebar.Trigger class="-ml-1" />
@@ -27,7 +27,7 @@
 				<ToggleMode />
 			</div>
 		</header>
-		<main class="flex-1 overflow-y-auto p-6 md:p-10 max-w-4xl mx-auto w-full">
+		<main class="mx-auto w-full max-w-4xl flex-1 overflow-y-auto p-6 md:p-10">
 			{@render children()}
 		</main>
 	</Sidebar.Inset>

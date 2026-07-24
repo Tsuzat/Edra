@@ -211,7 +211,7 @@
 							Turn Into
 						</DropdownMenu.SubTrigger>
 						<DropdownMenu.SubContent
-							class="w-fit max-h-96 rounded-lg overflow-y-scroll duration-300"
+							class="max-h-96 w-fit overflow-y-scroll rounded-lg duration-300"
 						>
 							{#each Object.entries(turnIntos) as [key, turnIntoCommands] (key)}
 								<DropdownMenu.Group>
@@ -227,7 +227,7 @@
 											<Icon />
 											<span>{command.tooltip}</span>
 											{#if command.shortCut}
-												<DropdownMenu.Shortcut class="bg-background rounded border p-0.5"
+												<DropdownMenu.Shortcut class="rounded border bg-background p-0.5"
 													>{command.shortCut}</DropdownMenu.Shortcut
 												>
 											{/if}
@@ -248,7 +248,7 @@
 					</DropdownMenu.SubTrigger>
 					<DropdownMenu.Content
 						side="right"
-						class="min-w-fit max-h-96 rounded-lg overflow-auto duration-300"
+						class="max-h-96 min-w-fit overflow-auto rounded-lg duration-300"
 					>
 						<DropdownMenu.Group>
 							<DropdownMenu.Label>Texts</DropdownMenu.Label>
@@ -311,7 +311,7 @@
 							>
 								<Icon />
 								{alignment.tooltip}
-								<DropdownMenu.Shortcut class="bg-background rounded border p-0.5">
+								<DropdownMenu.Shortcut class="rounded border bg-background p-0.5">
 									{alignment.shortCut}
 								</DropdownMenu.Shortcut>
 							</DropdownMenu.Item>

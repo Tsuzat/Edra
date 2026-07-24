@@ -1,6 +1,6 @@
 <script lang="ts">
 	import strings from '../../../strings.js';
-	import { BubbleMenu, getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { BubbleMenu, getEditor, useEditorState } from '../../../tiptap/index.js';
 	import CornerDownLeft from '@lucide/svelte/icons/corner-down-left';
 
 	const editor = getEditor();

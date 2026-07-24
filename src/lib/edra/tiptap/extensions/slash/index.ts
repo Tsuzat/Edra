@@ -1,7 +1,7 @@
 import Minus from '@lucide/svelte/icons/minus';
 import Quote from '@lucide/svelte/icons/quote';
 import SquareCode from '@lucide/svelte/icons/square-code';
-import { commands, type EdraCommand } from '$lib/edra/commands/index.js';
+import { commands, type EdraCommand } from '../../../commands/index.js';
 import { autoUpdate, computePosition, flip, offset, type Placement } from '@floating-ui/dom';
 import { Extension } from '@tiptap/core';
 import type { Editor } from '../../../tiptap/index.js';
@@ -190,7 +190,7 @@ export default (menuList: Component<any, any, ''>): Extension =>
 						return {
 							onStart: (props: SuggestionProps) => {
 								component = new SvelteRenderer(menuList, {
-									props
+									props: { ...props }
 								});
 
 								currentClientRect = props.clientRect ?? null;

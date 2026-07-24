@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Root, Trigger, Content, Label, Item } from '../../primitives/dropdown/index.ts';
-	import { getEditor } from '$lib/edra/tiptap/index.js';
+	import { getEditor } from '../../../tiptap/index.js';
 	import { ChevronDown, Download } from '@lucide/svelte';
 	const editor = getEditor();
 	const handleExport = (as: 'markdown' | 'html' | 'json') => {

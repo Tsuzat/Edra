@@ -219,7 +219,8 @@ class SvelteNodeView extends NodeView<Component, Editor, SvelteNodeViewRendererO
 }
 
 export function SvelteNodeViewRenderer(
-	component: Component,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	component: Component<any>,
 	options?: Partial<SvelteNodeViewRendererOptions>
 ): NodeViewRenderer {
 	return (props) => {

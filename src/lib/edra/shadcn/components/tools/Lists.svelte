@@ -4,8 +4,8 @@
 	import { cn } from '$lib/utils.js';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Minus from '@lucide/svelte/icons/minus';
-	import { commands } from '$lib/edra/commands/index.js';
-	import { getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
+	import { commands } from '../../../commands/index.js';
+	import { getEditor, useEditorTransaction } from '../../../tiptap/index.js';
 	import Tooltip from '../Tooltip.svelte';
 
 	const lists = commands['lists'];
@@ -35,7 +35,7 @@
 			})}
 		>
 			<Icon />
-			<ChevronDown class="text-muted-foreground size-2!" />
+			<ChevronDown class="size-2! text-muted-foreground" />
 		</DropdownMenu.Trigger>
 	</Tooltip>
 	<DropdownMenu.Content

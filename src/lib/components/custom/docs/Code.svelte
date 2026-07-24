@@ -33,10 +33,10 @@
 
 <div
 	bind:this={ref}
-	class="group relative rounded-lg p-1 bg-muted shadow border-[0.5px] dark:bg-muted/30"
+	class="group relative rounded-lg border-[0.5px] bg-muted p-1 shadow dark:bg-muted/30"
 >
 	<Tooltip
-		class="absolute group-hover:opacity-100 opacity-0 transition-opacity right-1 top-2.5"
+		class="absolute top-2.5 right-1 opacity-0 transition-opacity group-hover:opacity-100"
 		tooltip="Copy Code"
 	>
 		<Button variant="ghost" size="icon-sm" onclick={copy}>

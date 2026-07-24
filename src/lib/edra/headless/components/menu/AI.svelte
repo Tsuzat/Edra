@@ -4,7 +4,7 @@
 		getEditor,
 		removeAIHighlight,
 		useEditorTransaction
-	} from '$lib/edra/tiptap/index.js';
+	} from '../../../tiptap/index.js';
 	import {
 		AIState,
 		CONTINUE_WRITING_PROMPT,
@@ -147,21 +147,25 @@
 		}
 	}
 
-	async function generateAIContent(prompt: string) {
+	async function generateAIContent(prompt: string, isRetry = false) {
 		void transaction.version;
 		generating = true;
 		lastPrompt = prompt;
 		aiResponse = '';
 
-		// Save current selection positions
-		const { from, to } = editor.state.selection;
-		originalFrom = from;
+		if (!isRetry) {
+			// Save current selection positions
+			const { from, to } = editor.state.selection;
+			originalFrom = from;
 
-		// Calculate insertion position: right after the top-level block containing the selection end
-		const to_ = editor.state.doc.resolve(to);
-		const depth = Math.min(to_.depth, 1) || 1;
-		aiContentFrom = to_.after(depth);
-		aiContentTo = aiContentFrom;
+			// Calculate insertion position: right after the top-level block containing the selection end
+			const to_ = editor.state.doc.resolve(to);
+			const depth = Math.min(to_.depth, 1) || 1;
+			aiContentFrom = to_.after(depth);
+			aiContentTo = aiContentFrom;
+		} else {
+			aiContentTo = aiContentFrom;
+		}
 
 		try {
 			const onChunk = (chunk: string) => {
@@ -324,7 +328,7 @@
 		cleanupAIContent();
 		aiResponse = '';
 		if (lastPrompt) {
-			generateAIContent(lastPrompt);
+			generateAIContent(lastPrompt, true);
 		}
 	}
 
@@ -496,7 +500,7 @@
 		scrollTarget: editor.view.dom.parentElement ?? window,
 		onShow() {
 			activeOptionIndex = 0;
-			inputTag?.focus();
+			inputTag?.focus({ preventScroll: true });
 		},
 		onHide() {
 			inputTag?.blur();
@@ -611,6 +615,7 @@
 		border-radius: var(--edra-radius-sm);
 	}
 	:global(.ai-bubble-container) {
+		position: absolute;
 		background-color: var(--edra-canvas);
 		max-height: 30rem;
 		max-width: 48rem;

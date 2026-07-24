@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EdraCommand } from '$lib/edra/commands/index.js';
+	import type { EdraCommand } from '../../commands/index.js';
 
 	interface FilteredGroup {
 		name: string;
@@ -109,7 +109,7 @@
 
 <div
 	bind:this={scrollContainer}
-	class="bg-popover text-popover-foreground max-h-72 w-56 overflow-y-auto rounded-lg border border-border p-1 shadow-md"
+	class="max-h-72 w-56 overflow-y-auto rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-md"
 	class:hidden={!items.length}
 >
 	{#each items as grp, groupIndex (groupIndex)}
@@ -122,11 +122,11 @@
 			{@const isActive = selectedGroupIndex === groupIndex && selectedCommandIndex === commandIndex}
 			<button
 				id={`slash-${groupIndex}-${commandIndex}`}
-				class="relative flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden select-none transition-colors
+				class="relative flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden transition-colors select-none
 					{isActive
 					? 'bg-accent text-accent-foreground'
 					: 'text-popover-foreground hover:bg-accent hover:text-accent-foreground'}
-					[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+					[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
 				onpointerenter={() => {
 					selectedGroupIndex = groupIndex;
 					selectedCommandIndex = commandIndex;

@@ -2,7 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import strings from '../../../strings.js';
-	import { BubbleMenu, getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { BubbleMenu, getEditor, useEditorState } from '../../../tiptap/index.js';
 	import CornerDownLeft from '@lucide/svelte/icons/corner-down-left';
 
 	const editor = getEditor();
@@ -36,7 +36,7 @@
 		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
-	class="bg-popover flex h-fit w-fit items-center gap-1 rounded-lg border shadow-lg"
+	class="flex h-fit w-fit items-center gap-1 rounded-lg border bg-popover shadow-lg"
 >
 	<Input
 		bind:value={latex}

@@ -67,7 +67,7 @@ const editor = createEditor({
 
 	<h2>How to use in Editor</h2>
 	<p>To write math equations, wrap your LaTeX string in dollar signs:</p>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Inline Math:</strong> Wrap with single dollar signs (e.g.
 			<code>$a^2 + b^2 = c^2$</code>). When you type the closing dollar sign, it compiles

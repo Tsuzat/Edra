@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EdraCommand } from '$lib/edra/commands/index.js';
+	import type { EdraCommand } from '../../commands/index.js';
 
 	interface FilteredGroup {
 		name: string;

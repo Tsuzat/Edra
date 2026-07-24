@@ -53,7 +53,7 @@ const GROUPS = [
 	<p>
 		Typing <code>/</code> opens a floating popover positioned next to the cursor with two groups:
 	</p>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li><strong>Format:</strong> Heading 1-4 elements, Blockquotes, lists, and Code blocks.</li>
 		<li>
 			<strong>Insert:</strong> Tables, inline/block LaTeX formulas, horizontal lines, image/video templates,
@@ -73,7 +73,7 @@ const GROUPS = [
 	</div>
 
 	<h2>Keyboard Navigation</h2>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li><code>ArrowUp / ArrowDown</code>: Scroll through the group commands list.</li>
 		<li><code>Enter</code>: Select and run the active action.</li>
 		<li><code>Escape</code>: Close the popup list.</li>

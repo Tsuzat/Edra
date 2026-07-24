@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
-	import { BubbleMenu, getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { BubbleMenu, getEditor, useEditorState } from '../../../tiptap/index.js';
 	import strings from '../../../strings.js';
 
 	const editor = getEditor();
@@ -34,7 +34,7 @@
 		strategy: 'absolute',
 		scrollTarget: editor.view.dom.parentElement ?? window
 	}}
-	class="bg-popover h-fit w-fit flex-col items-center gap-1 rounded-lg border shadow-lg"
+	class="h-fit w-fit flex-col items-center gap-1 rounded-lg border bg-popover shadow-lg"
 >
 	<Textarea
 		bind:value={latex}

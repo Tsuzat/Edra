@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { commands } from '$lib/edra/commands/index.js';
-	import { addAIHighlight, getEditor, useEditorTransaction } from '$lib/edra/tiptap/index.js';
+	import { commands } from '../../commands/index.js';
+	import { addAIHighlight, getEditor, useEditorTransaction } from '../../tiptap/index.js';
 	import { cn } from '$lib/utils.js';
 	import { WandSparkles } from '@lucide/svelte';
 	import Colors from './tools/Colors.svelte';
@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class={cn('flex items-center h-full w-fit gap-2', className)}>
+<div class={cn('flex h-full w-fit items-center gap-2', className)}>
 	{#if useAI()}
 		<Tooltip tooltip="Use AI">
 			<Button

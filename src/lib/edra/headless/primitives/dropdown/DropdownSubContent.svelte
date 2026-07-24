@@ -55,6 +55,7 @@
 		class="edra-dropdown-content dropdown-subcontent {className}"
 		style="left: 0; top: 0; width: max-content; min-width: 8rem; visibility: hidden;"
 		role="menu"
+		tabindex="-1"
 		onmouseleave={handleMouseLeave}
 	>
 		{@render children()}

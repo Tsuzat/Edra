@@ -5,6 +5,6 @@
 </script>
 
 <Button variant="ghost" size="icon" onclick={toggleMode}>
-	<Sun class="dark:hidden block" />
+	<Sun class="block dark:hidden" />
 	<MoonStar class="hidden dark:block" />
 </Button>

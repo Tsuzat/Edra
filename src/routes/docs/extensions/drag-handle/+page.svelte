@@ -35,7 +35,7 @@
 	</div>
 
 	<h2>Key Actions in Hover Dropdown</h2>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Block Movement:</strong> Press, hold, and drag the handle icon to physically reposition
 			paragraphs, list items, or blocks anywhere else in the document.

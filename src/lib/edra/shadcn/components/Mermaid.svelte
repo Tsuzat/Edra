@@ -13,7 +13,7 @@
 	import Code from '@lucide/svelte/icons/code';
 	import Columns2 from '@lucide/svelte/icons/columns-2';
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
-	import { NodeViewWrapper } from '$lib/edra/tiptap/index.js';
+	import { NodeViewWrapper } from '../../tiptap/index.js';
 	import Tooltip from './Tooltip.svelte';
 	import { Download } from '@lucide/svelte';
 
@@ -222,20 +222,20 @@
 </script>
 
 <NodeViewWrapper
-	class="my-4! w-full flex flex-col items-center group relative rounded-lg overflow-hidden transition-all duration-200"
+	class="group relative my-4! flex w-full flex-col items-center overflow-hidden rounded-lg transition-all duration-200"
 	contenteditable={false}
 >
 	{#if isEditing}
 		<!-- Editing Mode -->
-		<div class="w-full flex flex-col border rounded-lg overflow-hidden bg-background h-112">
+		<div class="flex h-112 w-full flex-col overflow-hidden rounded-lg border bg-background">
 			<!-- Toolbar -->
-			<div class="border-b bg-muted/30 px-3 py-1.5 flex items-center justify-between">
+			<div class="flex items-center justify-between border-b bg-muted/30 px-3 py-1.5">
 				<div class="flex items-center gap-2">
 					<Workflow class="size-3.5 text-primary" />
-					<span class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+					<span class="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
 						>Mermaid</span
 					>
-					<span class="text-muted-foreground/50 text-[10px]">{lineCount} lines</span>
+					<span class="text-[10px] text-muted-foreground/50">{lineCount} lines</span>
 				</div>
 				<div class="flex items-center gap-1">
 					<Tabs.Root bind:value={mode}>
@@ -259,7 +259,7 @@
 						{/if}
 					</Button>
 
-					<div class="bg-border mx-1 h-4 w-px"></div>
+					<div class="mx-1 h-4 w-px bg-border"></div>
 
 					<Button size="sm" variant="ghost" onclick={handleCancel}>Cancel</Button>
 					<Button size="sm" onclick={handleSave}>Apply</Button>
@@ -267,9 +267,9 @@
 			</div>
 
 			<!-- Editor Content -->
-			<div class="flex flex-1 min-h-0 overflow-hidden">
+			<div class="flex min-h-0 flex-1 overflow-hidden">
 				{#if mode === 'both' || mode === 'code'}
-					<div class={cn('flex-1 min-h-0 relative', mode === 'both' ? 'border-r' : '')}>
+					<div class={cn('relative min-h-0 flex-1', mode === 'both' ? 'border-r' : '')}>
 						<textarea
 							bind:value={editCode}
 							onkeydown={handleEditorKeydown}
@@ -279,7 +279,7 @@
 						></textarea>
 						<!-- Keyboard hints -->
 						<div
-							class="absolute bottom-2 right-2 flex items-center gap-2 text-[9px] text-muted-foreground/50"
+							class="absolute right-2 bottom-2 flex items-center gap-2 text-[9px] text-muted-foreground/50"
 						>
 							<span>⌘↵ Apply</span>
 							<span>Esc Cancel</span>
@@ -288,16 +288,16 @@
 				{/if}
 				{#if mode === 'both' || mode === 'preview'}
 					<div
-						class="flex-1 min-h-0 overflow-auto bg-background flex items-center justify-center p-6 relative"
+						class="relative flex min-h-0 flex-1 items-center justify-center overflow-auto bg-background p-6"
 					>
 						{#if error}
-							<div class="flex flex-col items-center gap-2 text-center max-w-xs">
-								<div class="bg-destructive/10 flex size-8 items-center justify-center rounded-lg">
-									<TriangleAlert class="text-destructive size-4" />
+							<div class="flex max-w-xs flex-col items-center gap-2 text-center">
+								<div class="flex size-8 items-center justify-center rounded-lg bg-destructive/10">
+									<TriangleAlert class="size-4 text-destructive" />
 								</div>
-								<p class="text-destructive text-xs font-medium">Syntax Error</p>
+								<p class="text-xs font-medium text-destructive">Syntax Error</p>
 								<p
-									class="text-muted-foreground font-mono text-[10px] leading-relaxed max-h-24 overflow-auto"
+									class="max-h-24 overflow-auto font-mono text-[10px] leading-relaxed text-muted-foreground"
 								>
 									{error}
 								</p>
@@ -307,13 +307,13 @@
 								<div
 									class="size-5 animate-spin rounded-full border-2 border-muted-foreground/20 border-t-primary"
 								></div>
-								<span class="text-muted-foreground text-[10px]">Rendering...</span>
+								<span class="text-[10px] text-muted-foreground">Rendering...</span>
 							</div>
 						{/if}
 						<div
 							bind:this={previewContainer}
 							class={cn(
-								'mermaid-preview flex items-center justify-center [&_svg]:max-w-full [&_svg]:h-auto',
+								'mermaid-preview flex items-center justify-center [&_svg]:h-auto [&_svg]:max-w-full',
 								error ? 'hidden' : ''
 							)}
 						></div>
@@ -323,34 +323,34 @@
 		</div>
 	{:else}
 		<!-- Preview Mode -->
-		<div class="relative w-full group/preview">
+		<div class="group/preview relative w-full">
 			{#if !code || code.trim() === ''}
 				<button
-					class="flex w-full items-center gap-2 rounded-lg border border-dashed bg-muted/30 p-4 transition-colors hover:bg-muted/50 min-h-14"
+					class="flex min-h-14 w-full items-center gap-2 rounded-lg border border-dashed bg-muted/30 p-4 transition-colors hover:bg-muted/50"
 					onclick={enterEditMode}
 				>
 					<Workflow class="size-4 text-muted-foreground" />
-					<span class="text-muted-foreground text-sm" contenteditable={false}
+					<span class="text-sm text-muted-foreground" contenteditable={false}
 						>Click to add a Mermaid diagram</span
 					>
 				</button>
 			{:else}
-				<div class="border rounded-lg overflow-hidden">
+				<div class="overflow-hidden rounded-lg border">
 					<div
 						bind:this={container}
-						class="mermaid-container overflow-x-auto p-6 w-full flex justify-center min-h-24 items-center [&_svg]:max-w-full [&_svg]:h-auto [&_svg]:mx-auto"
+						class="mermaid-container flex min-h-24 w-full items-center justify-center overflow-x-auto p-6 [&_svg]:mx-auto [&_svg]:h-auto [&_svg]:max-w-full"
 					></div>
 					{#if error}
-						<div class="border-t bg-destructive/5 px-4 py-2 flex items-center gap-2">
-							<TriangleAlert class="text-destructive size-3.5 shrink-0" />
-							<p class="text-destructive text-xs truncate">{error}</p>
+						<div class="flex items-center gap-2 border-t bg-destructive/5 px-4 py-2">
+							<TriangleAlert class="size-3.5 shrink-0 text-destructive" />
+							<p class="truncate text-xs text-destructive">{error}</p>
 						</div>
 					{/if}
 				</div>
 				<!-- Hover actions -->
 				{#if editor.isEditable}
 					<div
-						class="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover/preview:opacity-100 transition-opacity"
+						class="absolute top-2 right-2 flex items-center gap-1 opacity-0 transition-opacity group-hover/preview:opacity-100"
 					>
 						<Tooltip tooltip="Download Image">
 							<Button size="icon-sm" variant="ghost" onclick={downloadImage} title="Download Image">

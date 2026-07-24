@@ -24,7 +24,7 @@
 
 	<h2>Flavors & UI Types</h2>
 	<p>Edra provides two variants to match your workflow requirements:</p>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Shadcn UI Type:</strong> Pre-styled using standard shadcn-svelte components and Tailwind
 			v4. Fully customizable and fits right into your design system.
@@ -36,7 +36,7 @@
 	</ul>
 
 	<h2>Key Features</h2>
-	<ul class="list-disc pl-6 space-y-2 mt-4">
+	<ul class="mt-4 list-disc space-y-2 pl-6">
 		<li>
 			<strong>Extensible by Default:</strong> Easily add, customize, or swap TipTap extensions to meet
 			your editor requirements.

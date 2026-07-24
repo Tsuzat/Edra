@@ -189,7 +189,7 @@
 <div bind:this={element} class={cn('drag-handle-container', className)} style="visibility: hidden;">
 	{#if type === 'extended'}
 		<Root bind:open>
-			<Trigger class="edra-btn edra-btn-ghost trigger-btn">
+			<Trigger class="trigger-btn">
 				<GripVertical class="drag-icon" />
 			</Trigger>
 			<Content class="menu-content">
@@ -347,7 +347,7 @@
 			</Content>
 		</Root>
 	{:else}
-		<button class="edra-btn edra-btn-ghost trigger-btn">
+		<button class="trigger-btn">
 			<GripVertical class="drag-icon" />
 		</button>
 	{/if}
@@ -359,16 +359,29 @@
 		z-index: 0 !important;
 	}
 	:global(.trigger-btn) {
-		width: 1.75rem !important;
-		height: 1.75rem !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		padding: 0 !important;
+		background-color: transparent !important;
+		border: none !important;
+		cursor: pointer !important;
+		width: 1.5rem !important;
+		height: 1.5rem !important;
 		border-radius: var(--edra-radius-sm);
+		color: var(--edra-mute);
 		opacity: 0.6;
-		transition: opacity 150ms ease;
+		transition:
+			opacity 150ms ease,
+			color 150ms ease,
+			background-color 150ms ease;
 	}
 	:global(.trigger-btn):hover,
 	:global(.trigger-btn):focus-visible,
 	:global(.trigger-btn):active {
 		opacity: 1;
+		color: var(--edra-ink);
+		background-color: var(--edra-canvas-soft-2) !important;
 	}
 	:global(.menu-content) {
 		width: fit-content;

@@ -6,7 +6,7 @@
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Check from '@lucide/svelte/icons/check';
 	import Tooltip from '../Tooltip.svelte';
-	import { getEditor, useEditorState } from '$lib/edra/tiptap/index.js';
+	import { getEditor, useEditorState } from '../../../tiptap/index.js';
 
 	let open = $state(false);
 	const editor = getEditor();
@@ -30,11 +30,11 @@
 			style={`color: ${$editorState.currentColor || ''}; background-color: ${$editorState.currentHighlight || ''};`}
 		>
 			<span>A</span>
-			<ChevronDown class="text-muted-foreground size-2!" />
+			<ChevronDown class="size-2! text-muted-foreground" />
 		</DropdownMenu.Trigger>
 	</Tooltip>
 	<DropdownMenu.Content
-		class="min-w-48 max-h-96 rounded-lg overflow-auto duration-300"
+		class="max-h-96 min-w-48 overflow-auto rounded-lg duration-300"
 		portalProps={{ to: editor.view.dom.parentElement ?? undefined }}
 	>
 		<DropdownMenu.Group>
@@ -46,7 +46,7 @@
 						: $editorState.currentColor === color.value}
 				<DropdownMenu.Item
 					title={color.label}
-					class="flex items-center justify-between cursor-pointer"
+					class="flex cursor-pointer items-center justify-between"
 					onclick={() => {
 						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetColor().run();
@@ -78,7 +78,7 @@
 						: $editorState.currentHighlight === `${color.value}50`}
 				<DropdownMenu.Item
 					title={color.label}
-					class="flex items-center justify-between cursor-pointer"
+					class="flex cursor-pointer items-center justify-between"
 					onclick={() => {
 						if (color.value === '' || color.label === 'Default') {
 							editor.chain().focus().unsetHighlight().run();

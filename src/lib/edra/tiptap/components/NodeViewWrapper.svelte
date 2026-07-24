@@ -9,7 +9,7 @@
 		...props
 	}: { as?: string; class?: string; children?: Snippet; [key: string]: unknown } = $props();
 
-	let onDragStart = getContext<(event: DragEvent) => void>('onDragStart');
+	let onDragStartCtx = getContext<() => (event: DragEvent) => void>('onDragStart');
 	let decorationClassesCtx = getContext<(() => string) | string | undefined>('decorationClasses');
 
 	let combinedClass = $derived(
@@ -27,7 +27,7 @@
 	data-node-view-wrapper="hello"
 	class={combinedClass}
 	style="white-space: normal"
-	ondragstart={onDragStart}
+	ondragstart={onDragStartCtx()}
 	{...props}
 >
 	{#if children}

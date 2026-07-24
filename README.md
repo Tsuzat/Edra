@@ -75,12 +75,12 @@ Once installed, instantiating the editor is incredibly simple:
 	});
 </script>
 
-<div class="border rounded-lg">
+<div class="rounded-lg border">
 	<Edra {editor}>
 		<Edra.UseAI />
-		<Edra.Toolbar class="border-b scrollbar-none p-1 overflow-x-scroll max-w-full!" />
+		<Edra.Toolbar class="max-w-full! scrollbar-none overflow-x-scroll border-b p-1" />
 		<Edra.BubbleMenu />
-		<Edra.Content class="*:outline-none cursor-auto h-150 overflow-y-scroll py-4 px-8" />
+		<Edra.Content class="h-150 cursor-auto overflow-y-scroll px-8 py-4 *:outline-none" />
 		<Edra.DragHandle />
 	</Edra>
 </div>

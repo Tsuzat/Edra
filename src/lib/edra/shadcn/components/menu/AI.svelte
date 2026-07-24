@@ -4,7 +4,7 @@
 		getEditor,
 		removeAIHighlight,
 		useEditorTransaction
-	} from '$lib/edra/tiptap/index.js';
+	} from '../../../tiptap/index.js';
 	import { toast } from 'svelte-sonner';
 	import {
 		AIState,
@@ -142,21 +142,25 @@
 		}
 	}
 
-	async function generateAIContent(prompt: string) {
+	async function generateAIContent(prompt: string, isRetry = false) {
 		void transaction.version;
 		generating = true;
 		lastPrompt = prompt;
 		aiResponse = '';
 
-		// Save current selection positions
-		const { from, to } = editor.state.selection;
-		originalFrom = from;
+		if (!isRetry) {
+			// Save current selection positions
+			const { from, to } = editor.state.selection;
+			originalFrom = from;
 
-		// Calculate insertion position: right after the top-level block containing the selection end
-		const to_ = editor.state.doc.resolve(to);
-		const depth = Math.min(to_.depth, 1) || 1;
-		aiContentFrom = to_.after(depth);
-		aiContentTo = aiContentFrom;
+			// Calculate insertion position: right after the top-level block containing the selection end
+			const to_ = editor.state.doc.resolve(to);
+			const depth = Math.min(to_.depth, 1) || 1;
+			aiContentFrom = to_.after(depth);
+			aiContentTo = aiContentFrom;
+		} else {
+			aiContentTo = aiContentFrom;
+		}
 
 		try {
 			const onChunk = (chunk: string) => {
@@ -321,7 +325,7 @@
 		cleanupAIContent();
 		aiResponse = '';
 		if (lastPrompt) {
-			generateAIContent(lastPrompt);
+			generateAIContent(lastPrompt, true);
 		}
 	}
 
@@ -457,15 +461,15 @@
 	{@const Icon = action.icon}
 	<button
 		onclick={action.handler}
-		class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 w-full transition-colors {activeOptionIndex ===
+		class="group/dropdown-menu-item relative flex w-full cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden transition-colors select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:pl-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[variant=destructive]:*:[svg]:text-destructive {activeOptionIndex ===
 		idx
-			? 'bg-accent text-accent-foreground quick-action-active'
+			? 'quick-action-active bg-accent text-accent-foreground'
 			: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}"
 	>
 		<Icon />
-		<span class="flex-1 text-start font-medium ml-2">{action.label}</span>
+		<span class="ml-2 flex-1 text-start font-medium">{action.label}</span>
 		{#if activeOptionIndex === idx}
-			<span class="bg-muted/75 text-muted-foreground rounded-sm px-1">Enter</span>
+			<span class="rounded-sm bg-muted/75 px-1 text-muted-foreground">Enter</span>
 		{/if}
 	</button>
 {/snippet}
@@ -487,7 +491,7 @@
 		aiResponse = '';
 		return false;
 	}}
-	class="bg-popover/75 backdrop-blur-2xl rounded-lg flex max-h-120 max-w-3xl w-full flex-col p-0 transition-[height] duration-500 z-100"
+	class="absolute z-100 flex max-h-120 max-w-3xl flex-col rounded-lg bg-popover/75 p-0 backdrop-blur-2xl transition-[height] duration-500"
 	options={{
 		strategy: 'absolute',
 		autoPlacement: {
@@ -496,7 +500,7 @@
 		scrollTarget: editor.view.dom.parentElement ?? window,
 		onShow() {
 			activeOptionIndex = 0;
-			inputTag?.focus();
+			inputTag?.focus({ preventScroll: true });
 		},
 		onHide() {
 			inputTag?.blur();
@@ -504,16 +508,16 @@
 	}}
 >
 	{#if aiState === AIState.Idle}
-		<div class="shadow-2xl w-xl border backdrop-blur-2xl rounded-xl flex flex-col overflow-hidden">
+		<div class="flex w-xl flex-col overflow-hidden rounded-xl border shadow-2xl backdrop-blur-2xl">
 			<!-- Input Area -->
-			<form class="px-3 py-3 flex items-start">
+			<form class="flex items-start px-3 py-3">
 				<textarea
 					bind:value={inputValue}
 					bind:this={inputTag}
 					oninput={handleInput}
 					rows={1}
 					placeholder="Ask AI anything..."
-					class="w-full border-0 outline-hidden resize-none h-auto max-h-40"></textarea>
+					class="h-auto max-h-40 w-full resize-none border-0 outline-hidden"></textarea>
 				<Button type="submit" size="icon-lg" class="rounded-full"><Send /></Button>
 			</form>
 
@@ -521,7 +525,7 @@
 				<!-- Quick Actions List -->
 				<div
 					transition:slide={{ axis: 'y', duration: 250 }}
-					class="flex flex-col p-1.5 max-h-72 overflow-y-auto"
+					class="flex max-h-72 flex-col overflow-y-auto p-1.5"
 				>
 					{#each quickActions as action, idx (action.id)}
 						{@render MenuButton(action, idx)}
@@ -533,7 +537,7 @@
 		{#if generating}
 			<!-- AI is writing — content streams directly into editor -->
 			<div transition:fade class="animated-gradient-border rounded p-0.5">
-				<div class="flex bg-popover items-center gap-2 rounded-md p-1">
+				<div class="flex items-center gap-2 rounded-md bg-popover p-1">
 					<Sparkle class="size-4!" />
 					<span
 						class="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text font-semibold text-transparent"
@@ -544,7 +548,7 @@
 						{#each Array(3) as id, i (i)}
 							<div
 								data-ball-number={id}
-								class="dot bg-primary h-1.25 w-1.25 rounded-full"
+								class="dot h-1.25 w-1.25 rounded-full bg-primary"
 								style:animation-delay="{i * 160}ms"
 							></div>
 						{/each}
@@ -556,7 +560,7 @@
 			<!-- Action bar — AI has finished streaming into editor -->
 			<div
 				transition:fade
-				class="flex items-center gap-2 border shadow-2xl justify-between p-2 rounded-lg"
+				class="flex items-center justify-between gap-2 rounded-lg border p-2 shadow-2xl"
 			>
 				<Button size="sm" onclick={replaceSelection}>
 					<Check />

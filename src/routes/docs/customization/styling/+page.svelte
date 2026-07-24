@@ -141,128 +141,128 @@ a {
 	</p>
 
 	<div class="my-6 overflow-x-auto rounded-lg border text-foreground">
-		<table class="min-w-full divide-y divide-border m-0!">
+		<table class="m-0! min-w-full divide-y divide-border">
 			<thead class="bg-muted/50">
 				<tr class="border-b border-border">
 					<th
-						class="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider border-0!"
+						class="border-0! px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase"
 						>Token</th
 					>
 					<th
-						class="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider border-0!"
+						class="border-0! px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase"
 						>Description</th
 					>
 					<th
-						class="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider border-0!"
+						class="border-0! px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase"
 						>Default Light Value</th
 					>
 					<th
-						class="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider border-0!"
+						class="border-0! px-4 py-3 text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase"
 						>Default Dark Value</th
 					>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-border">
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-ink</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-ink</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Primary text color</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#171717</code></td
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Primary text color</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#171717</code></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#f5f5f5</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#f5f5f5</code></td
 					>
 				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-body</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-body</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!"
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground"
 						>Secondary/body text color</td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#4d4d4d</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#4d4d4d</code></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#a1a1a1</code></td
-					>
-				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-mute</code></td
-					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Subtle/muted text</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#888888</code></td
-					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#666666</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#a1a1a1</code></td
 					>
 				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-canvas</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-mute</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Editor background</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#ffffff</code></td
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Subtle/muted text</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#888888</code></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#0a0a0a</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#666666</code></td
 					>
 				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-canvas-soft</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-canvas</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!"
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Editor background</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#ffffff</code></td
+					>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#0a0a0a</code></td
+					>
+				</tr>
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-canvas-soft</code></td
+					>
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground"
 						>Floating panels background</td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#fafafa</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#fafafa</code></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">#121212</code></td
-					>
-				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-border</code></td
-					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Border/separator color</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">var(--edra-hairline)</code></td
-					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">var(--edra-hairline)</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">#121212</code></td
 					>
 				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-font-sans</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-border</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Main font family</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">Geist, Inter, sans-serif</code
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Border/separator color</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">var(--edra-hairline)</code></td
+					>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">var(--edra-hairline)</code></td
+					>
+				</tr>
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-font-sans</code></td
+					>
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Main font family</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">Geist, Inter, sans-serif</code
 						></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">Geist, Inter, sans-serif</code
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">Geist, Inter, sans-serif</code
 						></td
 					>
 				</tr>
-				<tr class="hover:bg-muted/30 transition-colors">
-					<td class="px-4 py-3 text-sm font-mono font-medium border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">--edra-font-mono</code></td
+				<tr class="transition-colors hover:bg-muted/30">
+					<td class="border-0! px-4 py-3 font-mono text-sm font-medium"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">--edra-font-mono</code></td
 					>
-					<td class="px-4 py-3 text-sm text-muted-foreground border-0!">Code/mono font family</td>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">Geist Mono, monospace</code></td
+					<td class="border-0! px-4 py-3 text-sm text-muted-foreground">Code/mono font family</td>
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">Geist Mono, monospace</code></td
 					>
-					<td class="px-4 py-3 text-sm font-mono text-muted-foreground border-0!"
-						><code class="bg-muted px-1.5 py-0.5 rounded text-xs">Geist Mono, monospace</code></td
+					<td class="border-0! px-4 py-3 font-mono text-sm text-muted-foreground"
+						><code class="rounded bg-muted px-1.5 py-0.5 text-xs">Geist Mono, monospace</code></td
 					>
 				</tr>
 			</tbody>

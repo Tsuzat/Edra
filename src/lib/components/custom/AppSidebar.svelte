@@ -123,10 +123,10 @@
 		</Button>
 		<Sidebar.Menu>
 			<Sidebar.MenuItem>
-				<Sidebar.MenuButton class="border rounded-lg" onclick={openSearch}>
+				<Sidebar.MenuButton class="rounded-lg border" onclick={openSearch}>
 					<Search />
 					<span>Search Document</span>
-					<span class="bg-muted ml-auto text-sm px-1 rounded">{getKeyboardShortcut('K', true)}</span
+					<span class="ml-auto rounded bg-muted px-1 text-sm">{getKeyboardShortcut('K', true)}</span
 					>
 				</Sidebar.MenuButton>
 			</Sidebar.MenuItem>
