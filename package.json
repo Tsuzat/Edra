@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"registry:build": "bunx shadcn-svelte@latest registry build"
+		"registry:build": "bunx shadcn-svelte@latest registry build && node scripts/pin-registry-deps.mjs"
 	},
 	"bin": {
 		"edra": "./bin/cli.js"
