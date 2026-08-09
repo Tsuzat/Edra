@@ -5,7 +5,16 @@
 	import { onMount } from 'svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { ChevronDown, FileText, Monitor, Search, Smartphone, Tablet, Menu } from '@lucide/svelte';
+	import {
+		ChevronDown,
+		FileText,
+		Monitor,
+		Search,
+		Smartphone,
+		Tablet,
+		Menu,
+		Phone
+	} from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
@@ -174,13 +183,12 @@
 			<FileText />
 			View Docs</Button
 		>
-		<Button
-			class="nodefault w-36"
-			variant="secondary"
-			href="https://www.buymeacoffee.com/tsuzat"
-			aria-label="Buy me a coffee"
-		>
+		<Button href="https://www.buymeacoffee.com/tsuzat" aria-label="Buy me a coffee">
 			☕ Buy me a coffee
+		</Button>
+		<Button href="https://cal.com/tsuzat/qc">
+			<Phone />
+			Quick Connect
 		</Button>
 	</div>
 </div>
