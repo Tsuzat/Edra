@@ -10,7 +10,8 @@ import {
 	VideoExtended
 } from '../tiptap/index.ts';
 import { all, createLowlight } from 'lowlight';
-import extensions from '../extensions.ts';
+import { getDefaultExtensions } from '../extensions.ts';
+import type { Extensions } from '@tiptap/core';
 const lowlight = createLowlight(all);
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CodeBlock from './components/CodeBlock.svelte';
@@ -24,7 +25,9 @@ import SlashCommandComp from './components/SlashCommand.svelte';
 import CalloutComp from './components/Callout.svelte';
 
 export interface EdraEditorProps {
+	extensions?: Extensions;
 	onUpdate?: () => void;
+	collaborative?: boolean;
 	/**
 	 * Callback function to handle file uploads when a user drags/drops, pastes,
 	 * or selects a media file (image, video, audio) to insert.
@@ -45,7 +48,8 @@ export interface EdraEditorProps {
 export const createEditor = (props?: EdraEditorProps) =>
 	useEditor({
 		extensions: [
-			...extensions,
+			...getDefaultExtensions({ undoRedo: !props?.collaborative }),
+			...(props?.extensions || []),
 			CodeBlockLowlight.configure({
 				lowlight
 			}).extend({

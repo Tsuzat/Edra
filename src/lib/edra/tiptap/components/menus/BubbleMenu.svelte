@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { BubbleMenuPluginProps } from '@tiptap/extension-bubble-menu';
 	import { BubbleMenuPlugin } from '@tiptap/extension-bubble-menu';
 	import type { Editor } from '../../Editor.ts';
@@ -33,34 +34,49 @@
 
 	let rootEl: HTMLDivElement | undefined = $state();
 
+	let registered = false;
+
 	$effect(() => {
 		if (!rootEl || !editor) {
 			return;
 		}
 
+		// Guard against Hot re-runs driven by reactive reads (e.g. transaction version)
+		if (registered) {
+			return;
+		}
+		registered = true;
+
 		const el = rootEl;
 
-		el.style.visibility = 'hidden';
-		el.style.position = 'absolute';
+		untrack(() => {
+			el.style.visibility = 'hidden';
+			el.style.position = 'absolute';
 
-		el.remove();
+			el.remove();
 
-		editor.registerPlugin(
-			BubbleMenuPlugin({
-				editor,
-				element: el,
-				options,
-				pluginKey,
-				resizeDelay,
-				appendTo,
-				shouldShow,
-				getReferencedVirtualElement,
-				updateDelay
-			})
-		);
+			editor.registerPlugin(
+				BubbleMenuPlugin({
+					editor,
+					element: el,
+					options,
+					pluginKey,
+					resizeDelay,
+					appendTo,
+					shouldShow,
+					getReferencedVirtualElement,
+					updateDelay
+				})
+			);
+		});
 
 		return () => {
-			editor.unregisterPlugin(pluginKey);
+			registered = false;
+			try {
+				editor.unregisterPlugin(pluginKey);
+			} catch {
+				// editor may already be destroyed during navigation
+			}
 		};
 	});
 </script>

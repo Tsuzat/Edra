@@ -10,7 +10,7 @@ import {
 	VideoExtended
 } from '../tiptap/index.ts';
 import { all, createLowlight } from 'lowlight';
-import extensions from '../extensions.ts';
+import { getDefaultExtensions } from '../extensions.ts';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CodeBlock from './components/CodeBlock.svelte';
 import { MediaPlaceholder } from '../tiptap/extensions/MediaPlaceHolder.ts';
@@ -23,11 +23,18 @@ import SlashCommandComp from './components/SlashCommand.svelte';
 import CalloutComp from './components/Callout.svelte';
 import TableOfContents, { getHierarchicalIndexes } from '@tiptap/extension-table-of-contents';
 import { setTocItems } from './toc.svelte';
+import type { Extensions } from '@tiptap/core';
 
 const lowlight = createLowlight(all);
 
 export interface EdraEditorProps {
+	extensions?: Extensions;
 	onUpdate?: () => void;
+	/**
+	 * When true, disables StarterKit history (undo/redo) for use with
+	 * Yjs Collaboration. Required because Collaboration handles its own history.
+	 */
+	collaborative?: boolean;
 	/**
 	 * Callback function to handle file uploads when a user drags/drops, pastes,
 	 * or selects a media file (image, video, audio) to insert.
@@ -48,7 +55,8 @@ export interface EdraEditorProps {
 export const createEditor = (props?: EdraEditorProps) =>
 	useEditor({
 		extensions: [
-			...extensions,
+			...getDefaultExtensions({ undoRedo: !props?.collaborative }),
+			...(props?.extensions || []),
 			CodeBlockLowlight.configure({
 				lowlight
 			}).extend({

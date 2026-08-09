@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Editor } from '../Editor.ts';
 
 	let { editor, class: className }: { editor: Editor | null; class: string } = $props();
@@ -14,16 +15,23 @@
 			return;
 		}
 
+		// Already mounted — avoid re-appending / re-creating on every transaction
+		if (rootEl.contains(editor.view.dom)) {
+			return;
+		}
+
 		const element = rootEl;
 
-		// eslint-disable-next-line svelte/no-dom-manipulating
-		rootEl.append(...editor.view.dom.parentNode.childNodes);
+		untrack(() => {
+			const parent = editor.view.dom.parentNode!;
+			rootEl!.append(...parent.childNodes);
 
-		editor.setOptions({
-			element
+			editor.setOptions({
+				element
+			});
+
+			editor.createNodeViews();
 		});
-
-		editor.createNodeViews();
 	});
 </script>
 

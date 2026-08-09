@@ -14,7 +14,8 @@
 		Tablet,
 		Menu,
 		Phone,
-		Coffee
+		Coffee,
+		Play
 	} from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
@@ -98,6 +99,9 @@
 						<a class="nodefault" href={resolve('/templates/notion')}>
 							<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
 						</a>
+						<a class="nodefault" href={resolve('/realtime')}>
+							<DropdownMenu.Item>Realtime</DropdownMenu.Item>
+						</a>
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
@@ -136,6 +140,9 @@
 						</a>
 						<a class="nodefault" href={resolve('/templates/notion')}>
 							<DropdownMenu.Item class="cursor-pointer">Notion Like</DropdownMenu.Item>
+						</a>
+						<a class="nodefault" href={resolve('/realtime')}>
+							<DropdownMenu.Item>Realtime</DropdownMenu.Item>
 						</a>
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
@@ -197,6 +204,14 @@
 			Quick Connect
 		</Button>
 	</div>
+	<Button class="nodefault mx-auto w-fit" variant="outline" href={resolve('/realtime')}>
+		<Play />
+		<span
+			class="bg-linear-to-r from-[oklch(0.5_0.22_264)] via-[oklch(0.56_0.2_294)] to-[oklch(0.62_0.19_322)] bg-clip-text font-bold text-transparent dark:from-[oklch(0.68_0.18_264)] dark:via-[oklch(0.72_0.16_294)] dark:to-[oklch(0.76_0.14_322)]"
+		>
+			Try Realtime Collaboration</span
+		>
+	</Button>
 </div>
 <div class="mx-auto flex w-[95%] items-center justify-center">
 	<Tabs.Root value="preview" class="w-full">

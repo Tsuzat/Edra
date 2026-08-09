@@ -1,0 +1,26 @@
+/* Give a remote user a caret */
+.tiptap .collaboration-carets__caret {
+	border-left: 1px solid var(--color-border);
+	border-right: 1px solid var(--color-border);
+	margin-left: -1px;
+	margin-right: -1px;
+	pointer-events: none;
+	position: relative;
+	word-break: normal;
+}
+
+/* Render the username above the caret */
+.tiptap .collaboration-carets__label {
+	border-radius: 3px 3px 3px 0;
+	color: whitesmoke;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 600;
+	left: -1px;
+	line-height: normal;
+	padding: 0.1rem 0.3rem;
+	position: absolute;
+	top: -1.4em;
+	user-select: none;
+	white-space: nowrap;
+}
