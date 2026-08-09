@@ -8,7 +8,6 @@
 	import { ChevronDown, FileText, Monitor, Search, Smartphone, Tablet, Menu } from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
-	import Polar from '$lib/components/custom/icons/Polar.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import Code from '$lib/components/custom/docs/Code.svelte';
 	import { exampleCode } from './code.ts';
@@ -16,6 +15,7 @@
 	import { DotPattern } from '$lib/components/magic/dot-pattern/index.js';
 	import { openSearch } from '$lib/components/custom/docs/Search.svelte';
 	import sampleContent from './sample-content.ts';
+	import { getGithubStars } from './data.remote.ts';
 
 	const onUpdate = () => {
 		localStorage.setItem('edra-content', JSON.stringify(editor?.getJSON()));
@@ -146,7 +146,7 @@
 		</Button>
 		<Button variant="ghost" class="nodefault hidden md:flex" href="https://github.com/Tsuzat/Edra">
 			<Github />
-			<span class="text-muted-foreground">622</span>
+			<span class="text-muted-foreground">{await getGithubStars()}</span>
 		</Button>
 		<Button
 			variant="ghost"
@@ -175,12 +175,13 @@
 			View Docs</Button
 		>
 		<Button
-			class="nodefault"
-			href="https://buy.polar.sh/polar_cl_mbOVdcWxm1H6nNqCTvQtguG3je4GNJSksuYLd2Iuejq"
+			class="nodefault w-36"
+			variant="secondary"
+			href="https://www.buymeacoffee.com/tsuzat"
+			aria-label="Buy me a coffee"
 		>
-			<Polar />
-			Support Us</Button
-		>
+			☕ Buy me a coffee
+		</Button>
 	</div>
 </div>
 <div class="mx-auto flex w-[95%] items-center justify-center">

@@ -1,7 +1,7 @@
 import { query } from '$app/server';
 
 export const getGithubStars = query(async () => {
-	let stars = 0;
+	let stars: number;
 	try {
 		const res = await fetch('https://api.github.com/repos/Tsuzat/Edra');
 		const data = await res.json();
@@ -9,5 +9,5 @@ export const getGithubStars = query(async () => {
 	} catch {
 		stars = 0;
 	}
-	return stars >= 1000 ? `${stars}` : `${(stars / 1000).toFixed(1)}K`;
+	return stars < 1000 ? `${stars}` : `${(stars / 1000).toFixed(1)}K`;
 });
