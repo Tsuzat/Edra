@@ -13,7 +13,8 @@
 		Smartphone,
 		Tablet,
 		Menu,
-		Phone
+		Phone,
+		Coffee
 	} from '@lucide/svelte';
 	import Github from '$lib/components/custom/icons/Github.svelte';
 	import { getKeyboardShortcut } from '$lib/edra/utils.js';
@@ -183,10 +184,15 @@
 			<FileText />
 			View Docs</Button
 		>
-		<Button href="https://www.buymeacoffee.com/tsuzat" aria-label="Buy me a coffee">
-			☕ Buy me a coffee
+		<Button
+			class="nodefault"
+			href="https://www.buymeacoffee.com/tsuzat"
+			aria-label="Buy me a coffee"
+		>
+			<Coffee />
+			Buy me a coffee
 		</Button>
-		<Button href="https://cal.com/tsuzat/qc">
+		<Button class="nodefault" href="https://cal.com/tsuzat/qc">
 			<Phone />
 			Quick Connect
 		</Button>
