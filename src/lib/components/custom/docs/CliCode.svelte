@@ -56,10 +56,10 @@
 			bun: 'bun add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret'
 		},
 		'shadcn-deps': {
-			npm: 'npx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
-			pnpm: 'pnpm dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
-			yarn: 'yarn dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
-			bun: 'bunx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea'
+			npm: 'npx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea sonner',
+			pnpm: 'pnpm dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea sonner',
+			yarn: 'yarn dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea sonner',
+			bun: 'bunx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea sonner'
 		}
 	};
 

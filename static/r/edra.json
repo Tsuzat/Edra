@@ -47,7 +47,8 @@
 		"tabs",
 		"input",
 		"tooltip",
-		"textarea"
+		"textarea",
+		"sonner"
 	],
 	"files": [
 		{
