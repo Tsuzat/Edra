@@ -49,6 +49,23 @@
 		<CliCode type="shadcn" />
 	</div>
 
+	<div class="callout my-6 rounded-md border-l-4 border-l-yellow-500 bg-yellow-500/10 p-4">
+		<p class="m-0 font-medium text-yellow-700 dark:text-yellow-400">
+			Required shadcn-svelte Components
+		</p>
+		<p class="m-0 mt-2 text-sm">
+			Edra depends on the following <code>shadcn-svelte</code> components. The registry install handles
+			these automatically, but if you used the CLI or need to install them manually:
+		</p>
+		<div class="my-2">
+			<CliCode type="shadcn-deps" />
+		</div>
+		<p class="m-0 mt-2 text-sm">
+			Edra also requires <code>mode-watcher</code> and <code>svelte-sonner</code> for theme detection
+			and toast notifications (AI features).
+		</p>
+	</div>
+
 	<hr class="my-6" />
 
 	<h2>2. Headless UI Variant</h2>

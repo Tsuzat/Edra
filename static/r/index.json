@@ -40,6 +40,7 @@
 		],
 		"registryDependencies": [
 			"button",
+			"command",
 			"dropdown-menu",
 			"separator",
 			"popover",

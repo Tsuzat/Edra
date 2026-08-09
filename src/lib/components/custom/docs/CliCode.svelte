@@ -4,7 +4,14 @@
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
 	interface Props {
-		type: 'headless' | 'shadcn' | 'registry' | 'template-ai' | 'template-notion' | 'collaboration';
+		type:
+			| 'headless'
+			| 'shadcn'
+			| 'registry'
+			| 'template-ai'
+			| 'template-notion'
+			| 'collaboration'
+			| 'shadcn-deps';
 	}
 
 	const { type }: Props = $props();
@@ -47,6 +54,12 @@
 			pnpm: 'pnpm add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret',
 			yarn: 'yarn add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret',
 			bun: 'bun add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret'
+		},
+		'shadcn-deps': {
+			npm: 'npx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
+			pnpm: 'pnpm dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
+			yarn: 'yarn dlx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea',
+			bun: 'bunx shadcn-svelte@latest add button command dropdown-menu separator popover tabs input tooltip textarea'
 		}
 	};
 
