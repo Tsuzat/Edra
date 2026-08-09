@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"registry:build": "bunx shadcn-svelte@latest registry build"
+		"registry:build": "bunx shadcn-svelte@latest registry build && node scripts/pin-registry-deps.mjs"
 	},
 	"bin": {
 		"edra": "./bin/cli.js"
@@ -89,6 +89,7 @@
 		"svelte"
 	],
 	"dependencies": {
+		"@floating-ui/dom": "^1.8.0",
 		"@fontsource-variable/dm-sans": "^5.3.0",
 		"@fontsource-variable/fira-code": "^5.3.0",
 		"@hocuspocus/provider": "^4.5.0",
