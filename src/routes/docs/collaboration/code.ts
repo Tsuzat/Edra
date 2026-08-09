@@ -59,10 +59,12 @@ export const clientBasicCode = `<script lang="ts">
 
 {#if editor}
   <Edra {editor}>
-    <Edra.Content />
-    <Edra.BubbleMenu />
-    <Edra.ToC />
-  </Edra>
+		<Edra.UseAI />
+		<Edra.ToC />
+		<Edra.BubbleMenu />
+		<Edra.Content	/>
+		<Edra.DragHandle />
+	</Edra>
 {/if}`;
 
 export const userUpdateCode = `// Update local user (name / color) at runtime

@@ -45,7 +45,8 @@
 			"popover",
 			"tabs",
 			"input",
-			"tooltip"
+			"tooltip",
+			"textarea"
 		],
 		"relativeUrl": "edra.json"
 	}
