@@ -25,12 +25,12 @@
 		CodeXml,
 		Sparkles,
 		Terminal,
-		Sliders,
 		Globe,
 		SlidersHorizontal,
 		Settings,
 		ListOrdered,
-		Database
+		Database,
+		Users
 	} from '@lucide/svelte';
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -158,6 +158,25 @@
 			url: resolve('/docs/extensions/slash-command'),
 			keywords: ['slash', 'command', 'trigger', 'menu', '/', 'quick'],
 			icon: Terminal,
+			group: 'Extensions & Plugins'
+		},
+		{
+			title: 'Realtime Collaboration',
+			url: resolve('/docs/collaboration'),
+			keywords: [
+				'collab',
+				'realtime',
+				'live',
+				'hocuspocus',
+				'yjs',
+				'websocket',
+				'provider',
+				'caret',
+				'awareness',
+				'multi',
+				'sync'
+			],
+			icon: Users,
 			group: 'Extensions & Plugins'
 		},
 		{

@@ -84,8 +84,8 @@ const GROUPS = [
 			<ArrowLeft class="size-4" />
 			Back to AI Assistant
 		</Button>
-		<Button href="/docs/customization" class="gap-2">
-			Customizing Extensions
+		<Button href="/docs/collaboration" class="gap-2">
+			Realtime Collaboration
 			<ArrowRight class="size-4" />
 		</Button>
 	</div>

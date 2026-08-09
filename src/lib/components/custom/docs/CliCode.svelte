@@ -4,7 +4,7 @@
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
 	interface Props {
-		type: 'headless' | 'shadcn' | 'registry' | 'template-ai' | 'template-notion';
+		type: 'headless' | 'shadcn' | 'registry' | 'template-ai' | 'template-notion' | 'collaboration';
 	}
 
 	const { type }: Props = $props();
@@ -41,6 +41,12 @@
 			pnpm: 'pnpm dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json',
 			yarn: 'yarn dlx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json',
 			bun: 'bunx shadcn-svelte@latest add https://edra.tsuzat.com/r/template-notion.json'
+		},
+		collaboration: {
+			npm: 'npm install @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret',
+			pnpm: 'pnpm add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret',
+			yarn: 'yarn add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret',
+			bun: 'bun add @hocuspocus/provider @hocuspocus/server yjs @tiptap/extension-collaboration @tiptap/extension-collaboration-caret'
 		}
 	};
 

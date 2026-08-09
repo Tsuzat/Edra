@@ -91,6 +91,10 @@
 					{
 						title: 'Slash Command',
 						url: resolve('/docs/extensions/slash-command')
+					},
+					{
+						title: 'Realtime Collaboration',
+						url: resolve('/docs/collaboration')
 					}
 				]
 			},
