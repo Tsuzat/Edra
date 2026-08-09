@@ -1,119 +1,272 @@
-<script lang="ts">
-	import { onMount } from 'svelte';
-	import { motion } from 'motion-sv';
-	import { cn } from '$lib/utils.js';
-	import type { SVGAttributes } from 'svelte/elements';
+<script module lang="ts">
+	const TWO_PI = Math.PI * 2;
 
-	interface DotPatternProps extends SVGAttributes<SVGSVGElement> {
-		width?: number;
-		height?: number;
-		x?: number;
-		/**
-		 * The y-offset of the entire pattern
-		 */
-		y?: number;
-		/**
-		 * The x-offset of individual dots
-		 */
-		cx?: number;
-		/**
-		 * The y-offset of individual dots
-		 */
-		cy?: number;
-		/**
-		 * The radius of each dot
-		 */
-		cr?: number;
-		class?: string;
-		/**
-		 * Whether dots should have a glowing animation effect
-		 */
-		glow?: boolean;
-	}
-
-	let {
-		width = 16,
-		height = 16,
-		x = 0,
-		y = 0,
-		cx = 1,
-		cy = 1,
-		cr = 1,
-		class: className,
-		glow = false,
-		...props
-	}: DotPatternProps = $props();
-
-	const id = $props.id();
-	let containerRef: SVGSVGElement | null = $state(null);
-	let dimensions = $state({ width: 0, height: 0 });
-
-	onMount(() => {
-		const updateDimensions = () => {
-			if (containerRef) {
-				const rect = containerRef.getBoundingClientRect();
-				dimensions = { width: rect.width, height: rect.height };
-			}
-		};
-
-		updateDimensions();
-		window.addEventListener('resize', updateDimensions);
-		return () => window.removeEventListener('resize', updateDimensions);
-	});
-
-	const dots = $derived(
-		Array.from(
-			{
-				length: Math.ceil(dimensions.width / width) * Math.ceil(dimensions.height / height)
-			},
-			(_, i) => {
-				const col = i % Math.ceil(dimensions.width / width);
-				const row = Math.floor(i / Math.ceil(dimensions.width / width));
-				return {
-					x: col * width + cx,
-					y: row * height + cy,
-					delay: Math.random() * 5,
-					duration: Math.random() * 3 + 2
-				};
-			}
-		)
-	);
+	type Dot = {
+		ax: number;
+		ay: number;
+		sx: number;
+		sy: number;
+		vx: number;
+		vy: number;
+		x: number;
+		y: number;
+	};
 </script>
 
-<svg
-	bind:this={containerRef}
-	aria-hidden="true"
-	class={cn('pointer-events-none absolute inset-0 h-full w-full text-neutral-400/80', className)}
-	{...props}
->
-	<defs>
-		<radialGradient id={`${id}-gradient`}>
-			<stop offset="0%" stop-color="currentColor" stop-opacity="1" />
-			<stop offset="100%" stop-color="currentColor" stop-opacity="0" />
-		</radialGradient>
-	</defs>
-	{#each dots as dot (dot.x + '-' + dot.y)}
-		<motion.circle
-			cx={dot.x}
-			cy={dot.y}
-			r={cr}
-			fill={glow ? `url(#${id}-gradient)` : 'currentColor'}
-			initial={glow ? { opacity: 0.4, scale: 1 } : {}}
-			animate={glow
-				? {
-						opacity: [0.4, 1, 0.4],
-						scale: [1, 1.5, 1]
+<script lang="ts">
+	type Props = {
+		dotRadius?: number;
+		dotSpacing?: number;
+		cursorRadius?: number;
+		cursorForce?: number;
+		bulgeOnly?: boolean;
+		bulgeStrength?: number;
+		glowRadius?: number;
+		sparkle?: boolean;
+		waveAmplitude?: number;
+		gradientFrom?: string;
+		gradientTo?: string;
+		glowColor?: string;
+		class?: string;
+	};
+
+	let {
+		dotRadius = 1.5,
+		dotSpacing = 14,
+		cursorRadius = 500,
+		cursorForce = 0.1,
+		bulgeOnly = true,
+		bulgeStrength = 67,
+		glowRadius = 160,
+		sparkle = false,
+		waveAmplitude = 0,
+		gradientFrom = 'rgba(255, 62, 0, 0.35)',
+		gradientTo = 'rgba(255, 176, 137, 0.25)',
+		glowColor = '#14110E',
+		class: className = ''
+	}: Props = $props();
+
+	let root: HTMLDivElement;
+	let canvas: HTMLCanvasElement;
+	let glowEl: SVGCircleElement;
+	const glowId = `dot-field-glow-${Math.random().toString(36).slice(2, 9)}`;
+
+	let dots: Dot[] = [];
+	const mouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
+	let size = { w: 0, h: 0, offsetX: 0, offsetY: 0 };
+	let glowOpacity = 0;
+	let engagement = 0;
+	let rebuild: (() => void) | null = null;
+
+	$effect(() => {
+		const currentCanvas = canvas;
+		const currentRoot = root;
+		const currentGlow = glowEl;
+		if (!currentCanvas || !currentRoot) return;
+
+		const ctx = currentCanvas.getContext('2d', { alpha: true });
+		if (!ctx) return;
+		const context = ctx;
+
+		const dpr = Math.min(window.devicePixelRatio || 1, 2);
+		let resizeTimer: ReturnType<typeof setTimeout>;
+		let raf = 0;
+		let frameCount = 0;
+
+		function buildDots(w: number, h: number) {
+			const step = dotRadius + dotSpacing;
+			const cols = Math.floor(w / step);
+			const rows = Math.floor(h / step);
+			const padX = (w % step) / 2;
+			const padY = (h % step) / 2;
+			const nextDots: Dot[] = new Array(rows * cols);
+			let idx = 0;
+
+			for (let row = 0; row < rows; row++) {
+				for (let col = 0; col < cols; col++) {
+					const ax = padX + col * step + step / 2;
+					const ay = padY + row * step + step / 2;
+					nextDots[idx++] = { ax, ay, sx: ax, sy: ay, vx: 0, vy: 0, x: ax, y: ay };
+				}
+			}
+
+			dots = nextDots;
+		}
+
+		function doResize() {
+			const rect = currentRoot.getBoundingClientRect();
+			const w = rect.width;
+			const h = rect.height;
+
+			currentCanvas.width = w * dpr;
+			currentCanvas.height = h * dpr;
+			currentCanvas.style.width = `${w}px`;
+			currentCanvas.style.height = `${h}px`;
+			context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+			size = {
+				w,
+				h,
+				offsetX: rect.left + window.scrollX,
+				offsetY: rect.top + window.scrollY
+			};
+
+			buildDots(w, h);
+		}
+
+		function resize() {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(doResize, 100);
+		}
+
+		function onMouseMove(e: MouseEvent) {
+			mouse.x = e.pageX - size.offsetX;
+			mouse.y = e.pageY - size.offsetY;
+		}
+
+		function updateMouseSpeed() {
+			const dx = mouse.prevX - mouse.x;
+			const dy = mouse.prevY - mouse.y;
+			const dist = Math.sqrt(dx * dx + dy * dy);
+			mouse.speed += (dist - mouse.speed) * 0.5;
+			if (mouse.speed < 0.001) mouse.speed = 0;
+			mouse.prevX = mouse.x;
+			mouse.prevY = mouse.y;
+		}
+
+		const speedInterval = setInterval(updateMouseSpeed, 20);
+
+		function tick() {
+			frameCount++;
+			const len = dots.length;
+			const { w, h } = size;
+			const t = frameCount * 0.02;
+
+			const targetEngagement = Math.min(mouse.speed / 5, 1);
+			engagement += (targetEngagement - engagement) * 0.06;
+			if (engagement < 0.001) engagement = 0;
+
+			glowOpacity += (engagement - glowOpacity) * 0.08;
+			if (currentGlow) {
+				currentGlow.setAttribute('cx', String(mouse.x));
+				currentGlow.setAttribute('cy', String(mouse.y));
+				currentGlow.style.opacity = String(glowOpacity);
+			}
+
+			context.clearRect(0, 0, w, h);
+			const grad = context.createLinearGradient(0, 0, w, h);
+			grad.addColorStop(0, gradientFrom);
+			grad.addColorStop(1, gradientTo);
+			context.fillStyle = grad;
+
+			const crSq = cursorRadius * cursorRadius;
+			const rad = dotRadius / 2;
+
+			context.beginPath();
+
+			for (let i = 0; i < len; i++) {
+				const d = dots[i];
+				const dx = mouse.x - d.ax;
+				const dy = mouse.y - d.ay;
+				const distSq = dx * dx + dy * dy;
+
+				if (distSq < crSq && engagement > 0.01) {
+					const dist = Math.sqrt(distSq);
+					const angle = Math.atan2(dy, dx);
+					if (bulgeOnly) {
+						const falloff = 1 - dist / cursorRadius;
+						const push = falloff * falloff * bulgeStrength * engagement;
+						d.sx += (d.ax - Math.cos(angle) * push - d.sx) * 0.15;
+						d.sy += (d.ay - Math.sin(angle) * push - d.sy) * 0.15;
+					} else {
+						const safeDist = Math.max(dist, 0.001);
+						const move = (500 / safeDist) * (mouse.speed * cursorForce);
+						d.vx += Math.cos(angle) * -move;
+						d.vy += Math.sin(angle) * -move;
 					}
-				: {}}
-			transition={glow
-				? {
-						duration: dot.duration,
-						repeat: Infinity,
-						repeatType: 'reverse',
-						delay: dot.delay,
-						ease: 'easeInOut'
+				} else if (bulgeOnly) {
+					d.sx += (d.ax - d.sx) * 0.1;
+					d.sy += (d.ay - d.sy) * 0.1;
+				}
+
+				if (!bulgeOnly) {
+					d.vx *= 0.9;
+					d.vy *= 0.9;
+					d.x = d.ax + d.vx;
+					d.y = d.ay + d.vy;
+					d.sx += (d.x - d.sx) * 0.1;
+					d.sy += (d.y - d.sy) * 0.1;
+				}
+
+				let drawX = d.sx;
+				let drawY = d.sy;
+				if (waveAmplitude > 0) {
+					drawY += Math.sin(d.ax * 0.03 + t) * waveAmplitude;
+					drawX += Math.cos(d.ay * 0.03 + t * 0.7) * waveAmplitude * 0.5;
+				}
+
+				if (sparkle) {
+					const hash = ((i * 2654435761) ^ (frameCount >> 3)) >>> 0;
+					if (hash % 100 < 3) {
+						context.moveTo(drawX + rad * 1.8, drawY);
+						context.arc(drawX, drawY, rad * 1.8, 0, TWO_PI);
+					} else {
+						context.moveTo(drawX + rad, drawY);
+						context.arc(drawX, drawY, rad, 0, TWO_PI);
 					}
-				: {}}
+				} else {
+					context.moveTo(drawX + rad, drawY);
+					context.arc(drawX, drawY, rad, 0, TWO_PI);
+				}
+			}
+
+			context.fill();
+			raf = requestAnimationFrame(tick);
+		}
+
+		doResize();
+		window.addEventListener('resize', resize);
+		window.addEventListener('mousemove', onMouseMove, { passive: true });
+		raf = requestAnimationFrame(tick);
+
+		rebuild = () => {
+			const { w, h } = size;
+			if (w > 0 && h > 0) buildDots(w, h);
+		};
+
+		return () => {
+			cancelAnimationFrame(raf);
+			clearInterval(speedInterval);
+			clearTimeout(resizeTimer);
+			window.removeEventListener('resize', resize);
+			window.removeEventListener('mousemove', onMouseMove);
+		};
+	});
+
+	$effect(() => {
+		void dotRadius;
+		void dotSpacing;
+		rebuild?.();
+	});
+</script>
+
+<div bind:this={root} class="relative h-full w-full {className}">
+	<canvas bind:this={canvas} class="absolute inset-0 h-full w-full"></canvas>
+	<svg class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
+		<defs>
+			<radialGradient id={glowId}>
+				<stop offset="0%" stop-color={glowColor} />
+				<stop offset="100%" stop-color="transparent" />
+			</radialGradient>
+		</defs>
+		<circle
+			bind:this={glowEl}
+			cx="-9999"
+			cy="-9999"
+			r={glowRadius}
+			fill="url(#{glowId})"
+			style:opacity="0"
+			style:will-change="opacity"
 		/>
-	{/each}
-</svg>
+	</svg>
+</div>

@@ -176,10 +176,12 @@
 		<ToggleMode />
 	</div>
 </header>
-<div class="absolute left-[calc(50%-15rem)] -z-10! mx-auto size-120 overflow-hidden rounded-full">
+<div class="absolute -z-10! mx-auto h-120 w-full overflow-hidden">
 	<DotPattern
-		glow={true}
-		class={cn('mask-[radial-gradient(300px_circle_at_center,white,transparent)]')}
+		class="mask-[radial-gradient(500px_circle_at_50%_25%,white,transparent)]"
+		gradientFrom="#919191"
+		gradientTo="#929292"
+		glowColor="#606060"
 	/>
 </div>
 
