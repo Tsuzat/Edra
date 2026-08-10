@@ -3,10 +3,21 @@
 	import { ArrowRight, ArrowLeft } from '@lucide/svelte';
 	import Code from '$lib/components/custom/docs/Code.svelte';
 
-	const propsInterface = `export interface EdraEditorProps {
+	const propsInterface = `import type { Extensions } from '@tiptap/core';
+
+export interface EdraEditorProps {
+	/** Custom extensions to add or override default Edra extensions */
+	extensions?: Extensions;
+
 	/** Callback invoked whenever the editor content or state changes */
 	onUpdate?: () => void;
 	
+	/**
+	 * When true, disables StarterKit history (undo/redo) for use with
+	 * Yjs Collaboration. Required because Collaboration handles its own history.
+	 */
+	collaborative?: boolean;
+
 	/**
 	 * Callback function to handle file uploads when a user drags/drops, pastes,
 	 * or selects a media file (image, video, audio) to insert.
@@ -73,6 +84,19 @@ const editor = createEditor({
 	<hr class="my-6" />
 
 	<h2>Editor Props Breakdown</h2>
+
+	<h3><code>extensions</code></h3>
+	<p>
+		An optional array of TipTap extensions. You can use this to add new functionality to the editor
+		or override the default extensions provided by Edra.
+	</p>
+
+	<h3><code>collaborative</code></h3>
+	<p>
+		When set to <code>true</code>, this disables the default StarterKit history (undo/redo)
+		extension. This is required when using Yjs for collaboration because collaborative editing
+		handles its own history.
+	</p>
 
 	<h3><code>onUpdate</code></h3>
 	<p>
