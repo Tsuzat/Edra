@@ -27,7 +27,7 @@
 			"@tiptap/pm",
 			"@tiptap/starter-kit",
 			"@tiptap/suggestion",
-			"katex",
+			"katex@^0.17.0",
 			"lowlight",
 			"mermaid"
 		],
